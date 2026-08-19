@@ -144,7 +144,7 @@ public class SoulFireball extends AbstractHurtingProjectile {
         if (!this.level().isClientSide) {
             Entity entity = result.getEntity();
             Entity owner = this.getOwner();
-            entity.hurt(this.damageSources().explosion(owner, this), 10);
+            entity.hurt(this.damageSources().explosion(owner, this), 15);
             if (owner instanceof LivingEntity) {
                 this.doEnchantDamageEffects((LivingEntity)owner, entity);
             }

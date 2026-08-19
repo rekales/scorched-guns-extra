@@ -65,7 +65,7 @@ public class WreckerGreenEntity extends GunnerEntity implements GeoEntity, Inter
                 .add(Attributes.MOVEMENT_SPEED, 0.22F)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D)
                 .add(Attributes.ARMOR, 0.0D)
-                .add(Attributes.MAX_HEALTH, 20.0D);
+                .add(Attributes.MAX_HEALTH, 30.0D);
     }
 
     @Override

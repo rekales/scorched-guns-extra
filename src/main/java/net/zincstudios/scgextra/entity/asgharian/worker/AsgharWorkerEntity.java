@@ -84,7 +84,7 @@ public class AsgharWorkerEntity extends Monster implements GeoEntity, Stunnable,
                 .add(Attributes.MOVEMENT_SPEED, 0.23F)
                 .add(Attributes.ATTACK_DAMAGE, 7.0D)
                 .add(Attributes.ARMOR, 7.0D)
-                .add(Attributes.MAX_HEALTH, 200.0D);
+                .add(Attributes.MAX_HEALTH, 150.0D);
     }
 
     @Override

@@ -81,7 +81,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
                 .accuracyModifier(1.5F)
                 .spawnOffset(new Vec3(0, 0.3, 0))
         );
-        this.goalSelector.addGoal(4, new CogGigantesSummonCarriersGoal(this).cooldown(600));
+        this.goalSelector.addGoal(4, new CogGigantesSummonCarriersGoal(this).cooldown(400));
         this.goalSelector.addGoal(7, new CogGigantesRandomMoveGoal(this, 100));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
 
@@ -99,7 +99,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
                 .add(Attributes.FLYING_SPEED, 2F)
                 .add(Attributes.ARMOR, 4.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.MAX_HEALTH, 400.0D);
+                .add(Attributes.MAX_HEALTH, 250.0D);
     }
 
     @Override

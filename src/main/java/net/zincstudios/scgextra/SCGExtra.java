@@ -16,7 +16,6 @@ import net.zincstudios.scgextra.entity.wreckers.wrecker_green.WreckerGreenEntity
 
 import com.mojang.logging.LogUtils;
 
-import net.zincstudios.scgextra.worldgen.structure.ModPieces;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -64,7 +63,6 @@ public class SCGExtra
         ModBlockEntities.register(modEventBus);
         ModStructures.register(modEventBus);
         ModStructureProcessors.register(modEventBus);
-        ModPieces.register(modEventBus);
 
         SCGEAttributes.register(modEventBus);
 

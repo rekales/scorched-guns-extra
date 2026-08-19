@@ -151,4 +151,8 @@ public class AsgharFlamerEntity extends GunnerEntity implements GeoEntity, GoalS
     protected void playStepSound(BlockPos pos, BlockState block) {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
     }
+    @Override
+    public boolean fireImmune() {
+        return true;
+    }
 }

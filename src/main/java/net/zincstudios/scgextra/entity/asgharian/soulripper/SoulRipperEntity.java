@@ -225,10 +225,10 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 15.0D)
+                .add(Attributes.ATTACK_DAMAGE, 20.0D)
                 .add(Attributes.ARMOR, 7.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1)
-                .add(Attributes.MAX_HEALTH, 400.0D);
+                .add(Attributes.MAX_HEALTH, 250.0D);
     }
 
     public boolean isMovingForward() {

@@ -1,7 +1,6 @@
 package net.zincstudios.scgextra.worldgen.structure;
 
 import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.worldgen.structure.structures.AsgharSoulForgeStructure;
 import net.zincstudios.scgextra.worldgen.structure.structures.CampingSiteStructure;
 import net.zincstudios.scgextra.worldgen.structure.structures.DestroyedMinesStructure;
 import net.zincstudios.scgextra.worldgen.structure.structures.MineTrenchStructure;
@@ -38,12 +37,6 @@ public class ModStructures {
         STRUCTURE_TYPES.register(
             "camping_site_structure",
             () -> () -> CampingSiteStructure.CODEC
-        );
-
-    public static final RegistryObject<StructureType<AsgharSoulForgeStructure>> ASGHAR_SOUL_FORGE_STRUCTURE =
-        STRUCTURE_TYPES.register(
-            "asghar_soul_forge_structure",
-            () -> () -> AsgharSoulForgeStructure.CODEC
         );
 
     public static void register(IEventBus modEventBus) {

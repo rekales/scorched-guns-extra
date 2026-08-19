@@ -103,7 +103,7 @@ public class CogDevastatorEntity extends Monster implements GeoEntity, Gunner, B
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.ARMOR, 4.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8)
-                .add(Attributes.MAX_HEALTH, 400.0D);
+                .add(Attributes.MAX_HEALTH, 250.0D);
     }
 
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {

@@ -77,7 +77,7 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 600.0D)
+                .add(Attributes.MAX_HEALTH, 400.0D)
                 .add(Attributes.ARMOR, 6.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
@@ -95,7 +95,7 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new StunnedWithVisualGoal<>(this).smoking(true));
         this.goalSelector.addGoal(2, new WreckerDozerChargeGoal(this, 200, 20.0F));
-        this.goalSelector.addGoal(3, new WreckerDozerSummonGoal(this, 300, 3));
+        this.goalSelector.addGoal(3, new WreckerDozerSummonGoal(this, 400, 3));
         this.goalSelector.addGoal(4, new ApproachTargetGoal(this, 5.0, 3.5, 1.0) {
             @Override
             public boolean canUse() {
