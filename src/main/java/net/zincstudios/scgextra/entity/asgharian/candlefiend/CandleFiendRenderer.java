@@ -8,19 +8,18 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class CandleFiendRenderer <T extends CandleFiendEntity> extends GeoEntityRenderer<T> {
+public class CandleFiendRenderer <T extends CandleFiendEntity> extends BaseEntityRenderer<T> {
 
-    public CandleFiendRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/candle_fiend")));
+    public CandleFiendRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+        super(context, model);
         this.addRenderLayer(new AutoGlowingGeoLayer<>(this){
             @Override
             public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
@@ -42,19 +41,5 @@ public class CandleFiendRenderer <T extends CandleFiendEntity> extends GeoEntity
                 );
             }
         });
-        this.shadowRadius = 0;  // no way to get the entity type on construction
-    }
-
-    @Override
-    public void render(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
-        super.render(entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
-        if (this.shadowRadius == 0) {
-            this.shadowRadius = entity.getBbWidth()/2;
-        }
-    }
-
-    @Override
-    protected float getDeathMaxRotation(T animatable) {
-        return 0;
     }
 }

@@ -19,7 +19,7 @@ import net.zincstudios.scgextra.entity.asgharian.flamer.AsgharFlamerEntity;
 import net.zincstudios.scgextra.entity.asgharian.soulripper.SoulRipperEntity;
 import net.zincstudios.scgextra.entity.asgharian.surgeon.AsgharSurgeonEntity;
 import net.zincstudios.scgextra.entity.asgharian.worker.AsgharWorkerEntity;
-import net.zincstudios.scgextra.entity.asgharian.worker.AsgharWorkerRenderer;
+import net.zincstudios.scgextra.entity.asgharian.worker.AsgharWorkerModel;
 import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
@@ -89,11 +89,7 @@ public class AsgharianEntities {
         BoundingBoxManager.registerHeadshotBox(AsgharianEntities.ASGHAR_WORKER.get(), new BasicHeadshotBox<>(14.0, 17, 17.0));
         BoundingBoxManager.registerHeadshotBox(AsgharianEntities.ASGHAR_FLAMER.get(), new RotatedHeadshotBox<>(8.0, 13, 17.0, 3, false, true));
         BoundingBoxManager.registerHeadshotBox(AsgharianEntities.CANDLE_FIEND.get(), new RotatedHeadshotBox<>(9.0, 39.0, 10, false, true));
-//        BoundingBoxManager.registerHeadshotBox(AsgharianEntities.SOUL_RIPPER.get(), new BasicHeadshotBox<>(9.0, 6.0));
-
         WeakPointBoxManager.registerWeakPointBox(AsgharianEntities.ASGHAR_FLAMER.get(), new WeakPointBox<>(new RotatedHeadshotBox<>(11.0, 16.0, 12.0, -8, false, true)));
-//        WeakPointBoxManager.registerWeakPointBox(AsgharianEntities.SOUL_RIPPER.get(), new WeakPointBox<>(new BasicHeadshotBox<>(9.0, 48.0)));
-
     }
 
     @OnlyIn(value = Dist.CLIENT)
@@ -102,10 +98,12 @@ public class AsgharianEntities {
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/failed_one"))).noDeathTilt().shadowRadius(0.5f));
         EntityRenderers.register(AsgharianEntities.ASGHAR_SURGEON.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/asghar_surgeon"))).noDeathTilt());
-        EntityRenderers.register(AsgharianEntities.ASGHAR_WORKER.get(), AsgharWorkerRenderer::new);
+        EntityRenderers.register(AsgharianEntities.ASGHAR_WORKER.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
+                new AsgharWorkerModel<>(SCGExtra.asResource("asgharian/asghar_worker"))).noDeathTilt());
         EntityRenderers.register(AsgharianEntities.ASGHAR_FLAMER.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/asghar_flamer")), 10).noDeathTilt());
-        EntityRenderers.register(AsgharianEntities.CANDLE_FIEND.get(), CandleFiendRenderer::new);
+        EntityRenderers.register(AsgharianEntities.CANDLE_FIEND.get(), (ctx) -> new CandleFiendRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/candle_fiend"))).noDeathTilt());
         EntityRenderers.register(AsgharianEntities.SOUL_RIPPER.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("asgharian/soul_ripper"))).noDeathTilt());
     }
