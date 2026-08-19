@@ -6,15 +6,17 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
-import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunGeoLayer;
-import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class ScrapGuardRenderer<T extends ScrapGuardEntity> extends GunnerRenderer<T> {
-    public ScrapGuardRenderer(EntityRendererProvider.Context contex) {
-        super(contex, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/scrap_guard")), true);
+public class ScrapGuardRenderer<T extends ScrapGuardEntity> extends BaseEntityRenderer<T> {
+
+    public ScrapGuardRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+        super(context, model);
+
+        // TODO: replace with pre-built held gun renderer
         addRenderLayer(new GunGeoLayer<>(this) {
             @Override
             protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, T animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
@@ -29,5 +31,4 @@ public class ScrapGuardRenderer<T extends ScrapGuardEntity> extends GunnerRender
             }
         });
     }
-    
 }

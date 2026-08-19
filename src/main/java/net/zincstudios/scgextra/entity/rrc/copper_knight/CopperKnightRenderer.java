@@ -6,16 +6,17 @@ import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
-import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunGeoLayer;
-import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.model.GeoModel;
 
-public class CopperKnightRenderer<T extends CopperKnightEntity> extends GunnerRenderer<T> {
-    public CopperKnightRenderer(EntityRendererProvider.Context context){  
-        super(context, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/copper_knight")), true);
+public class CopperKnightRenderer<T extends CopperKnightEntity> extends BaseEntityRenderer<T> {
 
+    public CopperKnightRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+        super(context, model);
+
+        // TODO: replace with pre-built held gun renderer
         addRenderLayer(new GunGeoLayer<>(this) {
             @Override
             protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, T animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {

@@ -15,13 +15,13 @@ import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.OffsetRotatedHeadshotBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
-import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
+import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.rrc.arc_psycho.ArcPsychoEntity;
-import net.zincstudios.scgextra.entity.rrc.arc_psycho.ArcPsychoEntityRenderer;
+import net.zincstudios.scgextra.entity.rrc.arc_psycho.ArcPsychoRenderer;
 import net.zincstudios.scgextra.entity.rrc.copper_knight.CopperKnightEntity;
 import net.zincstudios.scgextra.entity.rrc.copper_knight.CopperKnightRenderer;
 import net.zincstudios.scgextra.entity.rrc.drone.DroneEntity;
-import net.zincstudios.scgextra.entity.rrc.drone.DroneEntityRenderer;
+import net.zincstudios.scgextra.entity.rrc.drone.DroneRenderer;
 import net.zincstudios.scgextra.entity.rrc.flaminghead.FlamingHeadEntity;
 import net.zincstudios.scgextra.entity.rrc.flaminghead.FlamingHeadRenderer;
 import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
@@ -117,16 +117,23 @@ public class RRCEntities {
     }
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(RRCEntities.DRONE.get(), DroneEntityRenderer::new);
-        EntityRenderers.register(RRCEntities.TALLMAN.get(), (ctx) -> new GunnerRenderer<>(ctx,
+        EntityRenderers.register(RRCEntities.DRONE.get(), (ctx) -> new DroneRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/drone"))).noDeathTilt());
+        EntityRenderers.register(RRCEntities.TALLMAN.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/tallman"))).noDeathTilt());
-        EntityRenderers.register(RRCEntities.SCOUT.get(), (ctx) -> new ScoutRenderer<>(ctx).noDeathTilt());
-        EntityRenderers.register(RRCEntities.OPPRESSOR.get(), (ctx) -> new GunnerRenderer<>(ctx,
+        EntityRenderers.register(RRCEntities.SCOUT.get(), (ctx) -> new ScoutRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/scout"))).noDeathTilt());
+        EntityRenderers.register(RRCEntities.OPPRESSOR.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/oppressor"))).noDeathTilt());
-        EntityRenderers.register(RRCEntities.SPRING_JUNKIE.get(), SpringJunkieRenderer::new);
-        EntityRenderers.register(RRCEntities.FLAMING_HEAD.get(), FlamingHeadRenderer::new);
-        EntityRenderers.register(RRCEntities.SCRAP_GUARD.get(), (ctx) -> new ScrapGuardRenderer<>(ctx).noDeathTilt());
-        EntityRenderers.register(RRCEntities.ARC_PSYCHO.get(), ArcPsychoEntityRenderer::new);
-        EntityRenderers.register(RRCEntities.COPPER_KNIGHT.get(), (ctx) -> new CopperKnightRenderer<>(ctx).noDeathTilt());
+        EntityRenderers.register(RRCEntities.SPRING_JUNKIE.get(), (ctx) -> new SpringJunkieRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/spring_junkie"))));
+        EntityRenderers.register(RRCEntities.FLAMING_HEAD.get(), (ctx) -> new FlamingHeadRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/flaming_head"))));
+        EntityRenderers.register(RRCEntities.SCRAP_GUARD.get(), (ctx) -> new ScrapGuardRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/scrap_guard"))).noDeathTilt());
+        EntityRenderers.register(RRCEntities.ARC_PSYCHO.get(), (ctx) -> new ArcPsychoRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/arc_psycho"))).noDeathTilt());
+        EntityRenderers.register(RRCEntities.COPPER_KNIGHT.get(), (ctx) -> new CopperKnightRenderer<>(ctx,
+                new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/copper_knight"))).noDeathTilt());
     }
 }

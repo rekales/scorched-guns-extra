@@ -8,40 +8,35 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
-import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
-public class SpringJunkieRenderer extends GeoEntityRenderer<SpringJunkieEntity>{
-    public SpringJunkieRenderer(Context context) {
-        super(context, new SpringJunkieModel());
-        this.shadowRadius = 1F;
+public class SpringJunkieRenderer<T extends SpringJunkieEntity> extends BaseEntityRenderer<T> {
+
+    public SpringJunkieRenderer(Context context, GeoModel<T> model) {
+        super(context, model);
         this.addRenderLayer(new AutoGlowingGeoLayer<>(this){
             @Override
-            public void render(PoseStack poseStack, SpringJunkieEntity animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+            public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
                 RenderType emissiveRenderType = getRenderType(animatable);
                 getRenderer().reRender(
-                    bakedModel,
-                    poseStack,
-                    bufferSource,
-                    animatable,
-                    emissiveRenderType,
-                    bufferSource.getBuffer(emissiveRenderType),
-                    partialTick,
-                    LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY,
-                    1,
-                    1,
-                    1,
-                    1
+                        bakedModel,
+                        poseStack,
+                        bufferSource,
+                        animatable,
+                        emissiveRenderType,
+                        bufferSource.getBuffer(emissiveRenderType),
+                        partialTick,
+                        LightTexture.FULL_BRIGHT,
+                        OverlayTexture.NO_OVERLAY,
+                        1,
+                        1,
+                        1,
+                        1
                 );
             }
         });
-    }
-    @Override
-    public ResourceLocation getTextureLocation(SpringJunkieEntity pEntity) {
-        return SCGExtra.asResource("textures/entity/rrc/spring_junkie.png");
     }
 }

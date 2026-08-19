@@ -17,6 +17,7 @@ import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+@Deprecated
 @ParametersAreNonnullByDefault
 public class GunnerRenderer <T extends GunnerEntity & GeoEntity> extends GeoEntityRenderer<T> {
 

@@ -9,47 +9,46 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.phys.Vec3;
-import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import org.joml.Matrix4f;
 import org.joml.Vector3d;
 import org.joml.Vector4f;
 
 import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.cache.object.GeoBone;
-import software.bernie.geckolib.model.DefaultedEntityGeoModel;
-import software.bernie.geckolib.renderer.GeoEntityRenderer;
+import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Optional;
 
 @ParametersAreNonnullByDefault
-public class FlamingHeadRenderer<T extends FlamingHeadEntity> extends GeoEntityRenderer<T> {
+public class FlamingHeadRenderer<T extends FlamingHeadEntity> extends BaseEntityRenderer<T> {
 
     private static final String[] FLAMETHROWER_BONE_NAMES = {"nw_flame", "sw_flame", "ne_flame", "se_flame"};
 
     private final GeoBone[] flamethrowerBones = {null, null, null, null};
 
-    public FlamingHeadRenderer(EntityRendererProvider.Context context) {
-        super(context, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/flaming_head")));
+    public FlamingHeadRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
+        super(context, model);
         this.addRenderLayer(new AutoGlowingGeoLayer<>(this){
             @Override
             public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
                 RenderType emissiveRenderType = getRenderType(animatable);
                 getRenderer().reRender(
-                    bakedModel,
-                    poseStack,
-                    bufferSource,
-                    animatable,
-                    emissiveRenderType,
-                    bufferSource.getBuffer(emissiveRenderType),
-                    partialTick,
-                    LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY,
-                    1,
-                    1,
-                    1,
-                    1
+                        bakedModel,
+                        poseStack,
+                        bufferSource,
+                        animatable,
+                        emissiveRenderType,
+                        bufferSource.getBuffer(emissiveRenderType),
+                        partialTick,
+                        LightTexture.FULL_BRIGHT,
+                        OverlayTexture.NO_OVERLAY,
+                        1,
+                        1,
+                        1,
+                        1
                 );
             }
         });
@@ -85,11 +84,5 @@ public class FlamingHeadRenderer<T extends FlamingHeadEntity> extends GeoEntityR
         }
         entity.setFlamethrowerPos(flamethrowerPos);
         entity.setFlamethrowerDir(flamethrowerDir);
-    }
-
-
-    @Override
-    protected float getDeathMaxRotation(T animatable) {
-        return 0;
     }
 }
