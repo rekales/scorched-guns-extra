@@ -51,6 +51,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+@SuppressWarnings("deprecation")
 public class EndDwellerEntity extends Monster implements GeoEntity, FlyingAnimal{
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<String> WALK_ANIM = SynchedEntityData.defineId(EndDwellerEntity.class, EntityDataSerializers.STRING);

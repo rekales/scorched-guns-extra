@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
+@SuppressWarnings("unused")
 public class NetEntityModel extends EntityModel<NetEntity>{
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(SCGExtra.asResource("net_entity"), "main");
 	private final ModelPart bone;

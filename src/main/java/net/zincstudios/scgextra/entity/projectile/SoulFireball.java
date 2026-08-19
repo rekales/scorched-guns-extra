@@ -22,8 +22,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class SoulFireball extends AbstractHurtingProjectile {
 
-    private static final float SET_FIRE_RADIUS = 4;
-
     private float explosionPower = 2.5f;
 
     public SoulFireball(EntityType<SoulFireball> entityType, Level level) {

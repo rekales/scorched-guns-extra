@@ -3,7 +3,6 @@ package net.zincstudios.scgextra.entity.common.brain;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -15,7 +14,6 @@ import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import net.zincstudios.scgextra.entity.common.gun.TriggerStateSampler;
 
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class ShootTarget extends Behavior<LivingEntity> {

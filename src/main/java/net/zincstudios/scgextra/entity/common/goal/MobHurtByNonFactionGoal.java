@@ -18,7 +18,6 @@ import java.util.List;
 public class MobHurtByNonFactionGoal extends TargetGoal {
 
     private static final TargetingConditions HURT_BY_TARGETING = TargetingConditions.forCombat().ignoreLineOfSight().ignoreInvisibilityTesting();
-    private static final int ALERT_RANGE_Y = 10;
     private boolean alertSameType;
     /**
      * Store the previous revengeTimer value
@@ -84,7 +83,7 @@ public class MobHurtByNonFactionGoal extends TargetGoal {
         double d0 = this.getFollowDistance();
         AABB aabb = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate(d0, 10.0D, d0);
         List<? extends Mob> list = this.mob.level().getEntitiesOfClass(this.mob.getClass(), aabb, EntitySelector.NO_SPECTATORS);
-        Iterator iterator = list.iterator();
+        Iterator<? extends Mob> iterator = list.iterator();
 
         while(true) {
             Mob mob;

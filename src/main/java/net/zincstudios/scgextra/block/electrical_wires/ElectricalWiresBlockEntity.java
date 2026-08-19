@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -18,7 +17,6 @@ import net.minecraftforge.energy.IEnergyStorage;
 import net.zincstudios.scgextra.block.ModBlockEntities;
 
 public class ElectricalWiresBlockEntity extends BlockEntity{
-    private final ContainerData data;
     private final EnergyStorage energyStorage = new EnergyStorage(2000) {
         @Override
         public int receiveEnergy(int maxReceive, boolean simulate) {
@@ -50,25 +48,6 @@ public class ElectricalWiresBlockEntity extends BlockEntity{
     private final LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
     public ElectricalWiresBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntities.ELECTRICAL_WIRES.get(), pos, blockState);
-        this.data = new ContainerData() {
-            @Override
-            public int get(int index) {
-                return switch (index) {
-                    case 0 -> energyStorage.getEnergyStored();
-                    case 1 -> energyStorage.getMaxEnergyStored();
-                    default -> 0;
-                };
-            }
-
-            @Override
-            public void set(int index, int value) {
-            }
-
-            @Override
-            public int getCount() {
-                return 2;
-            }
-        };
     }
     @Override
     protected void saveAdditional(CompoundTag tag) {

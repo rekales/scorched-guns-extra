@@ -21,9 +21,7 @@ public class EndStoneCrabMeleeAttackGoal extends Goal {
     private double pathedTargetZ;
     private int ticksUntilNextPathRecalculation;
     private int ticksUntilNextAttack;
-    private final int attackInterval = 20;
     private long lastCanUseCheck;
-    private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
     private int failedPathFindingPenalty = 0;
     private boolean canPenalize = false;
 

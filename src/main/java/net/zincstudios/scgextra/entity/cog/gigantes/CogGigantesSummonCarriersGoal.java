@@ -16,6 +16,7 @@ import top.ribs.scguns.init.ModEntities;
 
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class CogGigantesSummonCarriersGoal extends AbilityGoal<CogGigantesEntity> {
 
     public CogGigantesSummonCarriersGoal(CogGigantesEntity mob) {

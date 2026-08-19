@@ -4,7 +4,6 @@ import com.mrcrayfish.framework.api.network.MessageContext;
 import com.mrcrayfish.framework.api.network.message.PlayMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.zincstudios.scgextra.item.HoldAttack;
 import net.zincstudios.scgextra.item.HoldAttackHandler;
 
 public final class HoldAttackMessage extends PlayMessage<HoldAttackMessage> {

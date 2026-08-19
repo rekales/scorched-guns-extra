@@ -6,7 +6,6 @@ import com.mrcrayfish.framework.api.network.LevelLocation;
 import com.mrcrayfish.framework.api.network.MessageDirection;
 import com.mrcrayfish.framework.network.message.IMessage;
 import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.item.HoldAttackHandler;
 
 import java.util.function.Supplier;
 

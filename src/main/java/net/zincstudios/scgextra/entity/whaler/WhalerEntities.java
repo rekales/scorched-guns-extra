@@ -34,6 +34,7 @@ import top.ribs.scguns.common.headshot.BasicHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+@SuppressWarnings("deprecation")
 public class WhalerEntities {
 
     public static final RegistryObject<EntityType<FishFolkEntity>> FISH_FOLK = ENTITY_TYPES

@@ -2,7 +2,6 @@ package net.zincstudios.scgextra.entity.cog.vulture;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -14,7 +13,6 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
 import net.zincstudios.scgextra.entity.common.brain.*;
 import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
-import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 
 public class CogVultureAi {
 

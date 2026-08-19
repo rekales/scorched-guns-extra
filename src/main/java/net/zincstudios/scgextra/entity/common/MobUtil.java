@@ -44,6 +44,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.function.Supplier;
 
+@SuppressWarnings("deprecation")
 public class MobUtil {
 
     // Common Constants

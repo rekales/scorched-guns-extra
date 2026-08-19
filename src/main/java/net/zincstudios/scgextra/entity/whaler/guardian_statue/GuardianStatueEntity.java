@@ -41,9 +41,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -296,7 +294,6 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         ){
             return;
         }
-        Map<BlockState, BlockPos> blocks = new HashMap<>();
         //ocean monuments sometimes spawn under ice, so when the guardian statue spawns and falls, it might land on ice instead, so remove self if it's on ice
         if(this.onGround() && !this.isInWater()){
             BlockPos temp = this.getOnPos();

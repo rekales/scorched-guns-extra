@@ -30,6 +30,7 @@ import net.zincstudios.scgextra.block.ModBlockEntities;
 import top.ribs.scguns.init.ModEffects;
 import net.minecraft.world.level.block.Rotation;
 
+@SuppressWarnings("deprecation")
 public class ElectricalWiresBlock extends BaseEntityBlock{
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     protected static final int AABB_OFFSET = 1;

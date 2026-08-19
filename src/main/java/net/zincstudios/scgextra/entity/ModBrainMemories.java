@@ -1,7 +1,6 @@
 package net.zincstudios.scgextra.entity;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;

@@ -22,6 +22,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import top.ribs.scguns.init.ModEffects;
 
+@SuppressWarnings("deprecation")
 public class BarbedWireBlock extends Block{
     Random random = new Random();
     private String tag = "HurtByBarbedWiresInt";
