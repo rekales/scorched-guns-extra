@@ -1,6 +1,5 @@
 package net.zincstudios.scgextra.entity.rrc.flaminghead;
 
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.zincstudios.scgextra.sounds.RRCSounds;
@@ -8,13 +7,6 @@ import net.zincstudios.scgextra.sounds.RRCSounds;
 import java.util.EnumSet;
 
 public class FireSpinAttackGoal extends Goal{
-
-    protected static final SoundEvent[] SPIN_SOUNDS = {
-            RRCSounds.RRC_FLAMING_HEAD_SPIN_1.get(),
-            RRCSounds.RRC_FLAMING_HEAD_SPIN_2.get(),
-            RRCSounds.RRC_FLAMING_HEAD_SPIN_3.get()
-    }; 
-
     protected final FlamingHeadEntity mob;
     private final int cooldownDuration;
     private final int chargeDuration;
@@ -77,7 +69,7 @@ public class FireSpinAttackGoal extends Goal{
         if (this.duration < this.chargeDuration) return;
 
         if (this.duration == this.chargeDuration) {
-            this.mob.playSound(SPIN_SOUNDS[this.mob.getRandom().nextInt(SPIN_SOUNDS.length)], this.mob.getSoundVolume(), 1F);
+            this.mob.playSound(RRCSounds.RRC_FLAMING_HEAD_SPIN.get(), this.mob.getSoundVolume(), 1F);
         } else if (this.duration%5 == 0) {
             this.mob.burnNearby(range);
         }

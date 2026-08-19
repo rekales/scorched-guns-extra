@@ -92,27 +92,13 @@ public class ArcPsychoEntity extends Monster implements GeoEntity{
         MobUtil.tickDeath(this, 12);
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_ARC_PSYCHO_HURT_1.get(),
-            RRCSounds.RRC_ARC_PSYCHO_HURT_2.get(),
-            RRCSounds.RRC_ARC_PSYCHO_HURT_3.get()
-        );
+        return RRCSounds.RRC_ARC_PSYCHO_HURT.get();
     };
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_ARC_PSYCHO_IDLE_1.get(),
-            RRCSounds.RRC_ARC_PSYCHO_IDLE_2.get(),
-            RRCSounds.RRC_ARC_PSYCHO_IDLE_3.get()
-        );
+        return RRCSounds.RRC_ARC_PSYCHO_IDLE.get();
     };
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_ARC_PSYCHO_DEAD_1.get(), 
-            RRCSounds.RRC_ARC_PSYCHO_DEAD_2.get()
-        );
+        return RRCSounds.RRC_ARC_PSYCHO_DEAD.get();
     };
     protected float getSoundVolume() {
         return 0.8F;

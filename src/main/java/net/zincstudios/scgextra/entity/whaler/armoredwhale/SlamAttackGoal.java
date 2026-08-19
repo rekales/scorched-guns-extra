@@ -65,7 +65,7 @@ public class SlamAttackGoal extends Goal{
             this.entity.level().playSound(
                 this.entity, 
                 this.entity.blockPosition(), 
-                this.entity.getRandom().nextBoolean() ? WhalerSounds.WHALE_SLAM_1.get() : WhalerSounds.WHALE_SLAM_2.get(), 
+                WhalerSounds.WHALE_SLAM.get(), 
                 SoundSource.MASTER, 
                 2.0F, 
                 1.0F

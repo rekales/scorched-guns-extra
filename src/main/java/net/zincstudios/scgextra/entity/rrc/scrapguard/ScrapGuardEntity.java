@@ -20,7 +20,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.RRCSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -114,29 +113,16 @@ public class ScrapGuardEntity extends GunnerEntity implements GeoEntity {
         return geoCache;
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_OPPRESSOR_HURT_1.get(),
-            RRCSounds.RRC_OPPRESSOR_HURT_2.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_HURT.get();
     };
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_OPPRESSOR_IDLE_1.get(),
-            RRCSounds.RRC_OPPRESSOR_IDLE_2.get(),
-            RRCSounds.RRC_OPPRESSOR_IDLE_3.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_IDLE.get();
     };
     protected SoundEvent getStepSound() {
         return SoundEvents.IRON_GOLEM_STEP;
     };
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_OPPRESSOR_DEATH_1.get(),
-            RRCSounds.RRC_OPPRESSOR_DEATH_2.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_DEATH.get();
     };
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         this.playSound(this.getStepSound(), this.getSoundVolume(), 1.0F);

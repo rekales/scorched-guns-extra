@@ -92,35 +92,16 @@ public class ScoutEntity extends GunnerEntity implements GeoEntity{
         MobUtil.tickDeath(this, 20);
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_SCOUT_HURT_1.get(),
-            RRCSounds.RRC_SCOUT_HURT_2.get(),
-            RRCSounds.RRC_SCOUT_HURT_3.get(),
-            RRCSounds.RRC_SCOUT_HURT_4.get(),
-            RRCSounds.RRC_SCOUT_HURT_5.get()
-        );
+        return RRCSounds.RRC_SCOUT_HURT.get();
     };
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_SCOUT_IDLE_1.get(),
-            RRCSounds.RRC_SCOUT_IDLE_2.get()
-        );
+        return RRCSounds.RRC_SCOUT_IDLE.get();
     };
     protected SoundEvent getStepSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_SCOUT_WALK_1.get(),
-            RRCSounds.RRC_SCOUT_WALK_2.get()
-        );
+        return RRCSounds.RRC_SCOUT_WALK.get();
     };
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_SCOUT_DEATH_1.get(),
-            RRCSounds.RRC_SCOUT_DEATH_2.get()
-        );
+        return RRCSounds.RRC_SCOUT_DEATH.get();
     };
     protected float getSoundVolume() {
         return 2F;

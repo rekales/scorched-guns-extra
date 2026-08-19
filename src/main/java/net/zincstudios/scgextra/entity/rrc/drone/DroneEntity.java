@@ -247,11 +247,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
     }
 
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_DRONE_DEATH_1.get(), 
-            RRCSounds.RRC_DRONE_DEATH_2.get()
-        );
+        return RRCSounds.RRC_DRONE_DEATH.get();
     }
 
     protected SoundEvent getAmbientSound() {
@@ -259,17 +255,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_DRONE_HURT_1.get(),
-            RRCSounds.RRC_DRONE_HURT_2.get(),
-            RRCSounds.RRC_DRONE_HURT_3.get(),
-            RRCSounds.RRC_DRONE_HURT_4.get(),
-            RRCSounds.RRC_DRONE_HURT_5.get(),
-            RRCSounds.RRC_DRONE_HURT_6.get(),
-            RRCSounds.RRC_DRONE_HURT_7.get(),
-            RRCSounds.RRC_DRONE_HURT_8.get()
-        );
+        return RRCSounds.RRC_DRONE_HURT.get();
     }
 
     protected SoundEvent getStepSound() {

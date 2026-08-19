@@ -22,7 +22,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.RRCSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -99,26 +98,16 @@ public class SpringJunkieEntity extends Monster implements GeoEntity{
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true, entity -> Faction.isEnemies(this, entity) || entity.getMobType().equals(MobType.UNDEAD)));
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return RRCSounds.RRC_SPRING_JUNKIE_DEATH_1.get();
+        return RRCSounds.RRC_SPRING_JUNKIE_DEATH.get();
     };
     protected SoundEvent getStepSound() {
         if(this.getAttacking()){
             if(this.random.nextFloat() < 0.4F){
-                return MobUtil.getSound(
-                    this.random,
-                    RRCSounds.RRC_SPRING_JUNKIE_RUN_1.get(), 
-                    RRCSounds.RRC_SPRING_JUNKIE_RUN_2.get()
-                );
+                return RRCSounds.RRC_SPRING_JUNKIE_RUN.get();
             }
         }
         if(this.random.nextFloat() < 0.4F){
-            return MobUtil.getSound(
-                    this.random,
-                    RRCSounds.RRC_SPRING_JUNKIE_WALK_1.get(),
-                    RRCSounds.RRC_SPRING_JUNKIE_WALK_2.get(),
-                    RRCSounds.RRC_SPRING_JUNKIE_WALK_3.get(),
-                    RRCSounds.RRC_SPRING_JUNKIE_WALK_4.get()
-                );
+            return RRCSounds.RRC_SPRING_JUNKIE_WALK.get();
         }else{
             return SoundEvents.IRON_GOLEM_STEP;
         }

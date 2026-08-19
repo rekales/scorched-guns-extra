@@ -38,7 +38,7 @@ public class SplashWaterGoal extends Goal{
         this.mob.level().playSound(
             this.mob, 
             this.mob.blockPosition(), 
-            this.mob.getRandom().nextBoolean() ? WhalerSounds.WHALE_SPLASH_1.get() : WhalerSounds.WHALE_SPLASH_2.get(), 
+            WhalerSounds.WHALE_SPLASH.get(), 
             SoundSource.MASTER, 
             2.0F, 
             1.0F

@@ -114,43 +114,23 @@ public class TallmanEntity extends GunnerEntity implements GeoEntity {
         return geoCache;
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_TALLMAN_HURT_1.get(),
-            RRCSounds.RRC_TALLMAN_HURT_2.get(),
-            RRCSounds.RRC_TALLMAN_HURT_3.get(),
-            RRCSounds.RRC_TALLMAN_HURT_4.get(),
-            RRCSounds.RRC_TALLMAN_HURT_5.get(),
-            RRCSounds.RRC_TALLMAN_HURT_6.get()
-        );
+        return RRCSounds.RRC_TALLMAN_HURT.get();
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_TALLMAN_IDLE_1.get(),
-            RRCSounds.RRC_TALLMAN_IDLE_2.get()
-        );
+        return RRCSounds.RRC_TALLMAN_IDLE.get();
     }
 
     protected SoundEvent getStepSound() {
         if(this.random.nextFloat() < 0.4F){
-            return MobUtil.getSound(
-                this.random,
-                RRCSounds.RRC_TALLMAN_WALK_1.get(),
-                RRCSounds.RRC_TALLMAN_WALK_2.get()
-            );
+            return RRCSounds.RRC_TALLMAN_WALK.get();
         }else{
             return SoundEvents.IRON_GOLEM_STEP;
         }
     }
 
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_TALLMAN_DEATH_1.get(),
-            RRCSounds.RRC_TALLMAN_DEATH_2.get()
-        );
+        return RRCSounds.RRC_TALLMAN_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {

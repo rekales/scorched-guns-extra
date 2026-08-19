@@ -112,20 +112,10 @@ public class CopperKnightEntity extends GunnerEntity implements GeoEntity{
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_COPPER_KNIGHT_HURT_1.get(),
-            RRCSounds.RRC_COPPER_KNIGHT_HURT_2.get(),
-            RRCSounds.RRC_COPPER_KNIGHT_HURT_3.get()
-        );
+        return RRCSounds.RRC_COPPER_KNIGHT_HURT.get();
     };
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_COPPER_KNIGHT_IDLE_1.get(),
-            RRCSounds.RRC_COPPER_KNIGHT_IDLE_2.get(),
-            RRCSounds.RRC_COPPER_KNIGHT_IDLE_3.get() 
-        );
+        return RRCSounds.RRC_COPPER_KNIGHT_IDLE.get();
     };
     protected SoundEvent getStepSound() {
         return SoundEvents.IRON_GOLEM_STEP;

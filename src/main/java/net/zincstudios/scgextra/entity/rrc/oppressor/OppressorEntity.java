@@ -202,29 +202,16 @@ public class OppressorEntity extends GunnerEntity implements GeoEntity {
         return geoCache;
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_OPPRESSOR_HURT_1.get(), 
-            RRCSounds.RRC_OPPRESSOR_HURT_2.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_HURT.get();
     };
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_OPPRESSOR_IDLE_1.get(),
-            RRCSounds.RRC_OPPRESSOR_IDLE_2.get(),
-            RRCSounds.RRC_OPPRESSOR_IDLE_3.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_IDLE.get();
     };
     protected SoundEvent getStepSound() {
         return SoundEvents.IRON_GOLEM_STEP;
     };
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_OPPRESSOR_DEATH_1.get(),
-            RRCSounds.RRC_OPPRESSOR_DEATH_2.get()
-        );
+        return RRCSounds.RRC_OPPRESSOR_DEATH.get();
     };
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {
         this.playSound(this.getStepSound(), this.getSoundVolume(), 1.0F);

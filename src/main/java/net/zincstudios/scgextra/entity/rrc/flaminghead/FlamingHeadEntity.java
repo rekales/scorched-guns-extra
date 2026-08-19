@@ -3,7 +3,6 @@ package net.zincstudios.scgextra.entity.rrc.flaminghead;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -12,7 +11,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -25,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
@@ -417,18 +414,11 @@ public class FlamingHeadEntity extends Monster implements GeoEntity, Stunnable, 
         MobUtil.tickDeath(this, 20);
     }
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return RRCSounds.RRC_FLAMING_HEAD_DEAD_1.get();
+        return RRCSounds.RRC_FLAMING_HEAD_DEAD.get();
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-            this.random, 
-            RRCSounds.RRC_FLAMING_HEAD_IDLE_1.get(),
-            RRCSounds.RRC_FLAMING_HEAD_IDLE_2.get(),
-            RRCSounds.RRC_FLAMING_HEAD_IDLE_3.get(),
-            RRCSounds.RRC_FLAMING_HEAD_IDLE_4.get(),
-            RRCSounds.RRC_FLAMING_HEAD_IDLE_5.get()
-        );
+        return RRCSounds.RRC_FLAMING_HEAD_IDLE.get();
     }
 
     protected SoundEvent getStepSound() {
@@ -436,11 +426,7 @@ public class FlamingHeadEntity extends Monster implements GeoEntity, Stunnable, 
     }
 
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(
-            this.random,
-            RRCSounds.RRC_FLAMING_HEAD_DEAD_1.get(),
-            RRCSounds.RRC_FLAMING_HEAD_DEAD_2.get()
-        );
+        return RRCSounds.RRC_FLAMING_HEAD_DEAD.get();
     }
 
     protected float getSoundVolume() {

@@ -8,7 +8,6 @@ import org.joml.Vector3f;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,11 +28,6 @@ public class AttackAndExplodeGoal extends Goal{
     private int fuseTimer = -1;
     private boolean exploding = false;
     private int agroAnimTimer = 0;
-    private SoundEvent[] deathSounds = {
-        RRCSounds.RRC_SPRING_JUNKIE_DEATH_1.get(),
-        RRCSounds.RRC_SPRING_JUNKIE_DEATH_2.get(),
-        RRCSounds.RRC_SPRING_JUNKIE_DEATH_3.get()
-    };
 
     public AttackAndExplodeGoal(SpringJunkieEntity mob, float speed, double distance){
         parent = mob;
@@ -158,7 +152,7 @@ public class AttackAndExplodeGoal extends Goal{
             if(this.fuseTimer==60){
                 this.parent.triggerAnim("anim1", "aggroed_long");
                 this.parent.playSound(
-                    this.parent.getRandom().nextBoolean() ? RRCSounds.RRC_SPRING_JUNKIE_LAUGH_1.get() : RRCSounds.RRC_SPRING_JUNKIE_LAUGH_2.get(), 
+                    RRCSounds.RRC_SPRING_JUNKIE_LAUGH.get(), 
                     this.parent.getSoundVolume(), 
                     this.parent.getVoicePitch()
                 );
@@ -167,7 +161,7 @@ public class AttackAndExplodeGoal extends Goal{
         }else if(this.fuseTimer==0){
             this.parent.triggerAnim("behaviour", "death");
             this.parent.playSound(
-                    deathSounds[this.parent.getRandom().nextInt(deathSounds.length)],
+                    RRCSounds.RRC_SPRING_JUNKIE_DEATH.get(),
                     this.parent.getSoundVolume(), 
                     this.parent.getVoicePitch()
                 );

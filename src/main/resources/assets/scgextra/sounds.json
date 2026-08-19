@@ -1,29 +1,17 @@
 {
-  "armored_whale_slam_1": {
+  "armored_whale_slam": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.armored_whale_slam",
     "sounds": [
-      "scgextra:armored_whale_slam_1"
-    ]
-  },
-  "armored_whale_slam_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.armored_whale_slam",
-    "sounds": [
+      "scgextra:armored_whale_slam_1",
       "scgextra:armored_whale_slam_2"
     ]
   },
-  "armored_whale_splash_1": {
+  "armored_whale_splash": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.armored_whale_splash",
     "sounds": [
-      "scgextra:armored_whale_splash_1"
-    ]
-  },
-  "armored_whale_splash_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.armored_whale_splash",
-    "sounds": [
+      "scgextra:armored_whale_splash_1",
       "scgextra:armored_whale_splash_2"
     ]
   },
@@ -34,73 +22,25 @@
       "scgextra:guardian_statue_charge"
     ]
   },
-  "drone.death1": {
+  "drone.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.drone.death",
     "sounds": [
-      "scgextra:rrc/drone/death1"
-    ]
-  },
-  "drone.death2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.death",
-    "sounds": [
+      "scgextra:rrc/drone/death1",
       "scgextra:rrc/drone/death2"
     ]
   },
-  "drone.hurt1": {
+  "drone.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.drone.hurt",
     "sounds": [
-      "scgextra:rrc/drone/hurt1"
-    ]
-  },
-  "drone.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt2"
-    ]
-  },
-  "drone.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt3"
-    ]
-  },
-  "drone.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt4"
-    ]
-  },
-  "drone.hurt5": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt5"
-    ]
-  },
-  "drone.hurt6": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt6"
-    ]
-  },
-  "drone.hurt7": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
-      "scgextra:rrc/drone/hurt7"
-    ]
-  },
-  "drone.hurt8": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.drone.hurt",
-    "sounds": [
+      "scgextra:rrc/drone/hurt1",
+      "scgextra:rrc/drone/hurt2",
+      "scgextra:rrc/drone/hurt3",
+      "scgextra:rrc/drone/hurt4",
+      "scgextra:rrc/drone/hurt5",
+      "scgextra:rrc/drone/hurt6",
+      "scgextra:rrc/drone/hurt7",
       "scgextra:rrc/drone/hurt8"
     ]
   },
@@ -118,52 +58,28 @@
       "scgextra:rrc/drone/walk"
     ]
   },
-  "spring_junkie.death1": {
+  "spring_junkie.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.spring_junkie.death",
     "sounds": [
-      "scgextra:rrc/spring_junkie/death1"
-    ]
-  },
-  "spring_junkie.death2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.death",
-    "sounds": [
-      "scgextra:rrc/spring_junkie/death2"
-    ]
-  },
-  "spring_junkie.death3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.death",
-    "sounds": [
+      "scgextra:rrc/spring_junkie/death1",
+      "scgextra:rrc/spring_junkie/death2",
       "scgextra:rrc/spring_junkie/death3"
     ]
   },
-  "spring_junkie.laugh1": {
+  "spring_junkie.laugh": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.spring_junkie.laugh",
     "sounds": [
-      "scgextra:rrc/spring_junkie/laugh1"
-    ]
-  },
-  "spring_junkie.laugh2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.laugh",
-    "sounds": [
+      "scgextra:rrc/spring_junkie/laugh1",
       "scgextra:rrc/spring_junkie/laugh2"
     ]
   },
-  "spring_junkie.run1": {
+  "spring_junkie.run": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.spring_junkie.run",
     "sounds": [
-      "scgextra:rrc/spring_junkie/run1"
-    ]
-  },
-  "spring_junkie.run2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.run",
-    "sounds": [
+      "scgextra:rrc/spring_junkie/run1",
       "scgextra:rrc/spring_junkie/run2"
     ]
   },
@@ -174,192 +90,84 @@
       "scgextra:rrc/spring_junkie/scream"
     ]
   },
-  "spring_junkie.walk1": {
+  "spring_junkie.walk": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.spring_junkie.walk",
     "sounds": [
-      "scgextra:rrc/spring_junkie/walk1"
-    ]
-  },
-  "spring_junkie.walk2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.walk",
-    "sounds": [
-      "scgextra:rrc/spring_junkie/walk2"
-    ]
-  },
-  "spring_junkie.walk3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.walk",
-    "sounds": [
-      "scgextra:rrc/spring_junkie/walk3"
-    ]
-  },
-  "spring_junkie.walk4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.spring_junkie.walk",
-    "sounds": [
+      "scgextra:rrc/spring_junkie/walk1",
+      "scgextra:rrc/spring_junkie/walk2",
+      "scgextra:rrc/spring_junkie/walk3",
       "scgextra:rrc/spring_junkie/walk4"
     ]
   },
-  "scout.death1": {
+  "scout.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.scout.death",
     "sounds": [
-      "scgextra:rrc/scout/death1"
-    ]
-  },
-  "scout.death2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.death",
-    "sounds": [
+      "scgextra:rrc/scout/death1",
       "scgextra:rrc/scout/death2"
     ]
   },
-  "scout.hurt1": {
+  "scout.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.scout.hurt",
     "sounds": [
-      "scgextra:rrc/scout/hurt1"
-    ]
-  },
-  "scout.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.hurt",
-    "sounds": [
-      "scgextra:rrc/scout/hurt2"
-    ]
-  },
-  "scout.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.hurt",
-    "sounds": [
-      "scgextra:rrc/scout/hurt3"
-    ]
-  },
-  "scout.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.hurt",
-    "sounds": [
-      "scgextra:rrc/scout/hurt4"
-    ]
-  },
-  "scout.hurt5": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.hurt",
-    "sounds": [
+      "scgextra:rrc/scout/hurt1",
+      "scgextra:rrc/scout/hurt2",
+      "scgextra:rrc/scout/hurt3",
+      "scgextra:rrc/scout/hurt4",
       "scgextra:rrc/scout/hurt5"
     ]
   },
-  "scout.idle1": {
+  "scout.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.scout.idle",
     "sounds": [
-      "scgextra:rrc/scout/idle1"
-    ]
-  },
-  "scout.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.idle",
-    "sounds": [
+      "scgextra:rrc/scout/idle1",
       "scgextra:rrc/scout/idle2"
     ]
   },
-  "scout.walk1": {
+  "scout.walk": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.scout.walk",
     "sounds": [
-      "scgextra:rrc/scout/walk1"
-    ]
-  },
-  "scout.walk2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.scout.walk",
-    "sounds": [
+      "scgextra:rrc/scout/walk1",
       "scgextra:rrc/scout/walk2"
     ]
   },
-  "tallman.death1": {
+  "tallman.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.tallman.death",
     "sounds": [
-      "scgextra:rrc/tallman/death1"
-    ]
-  },
-  "tallman.death2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.death",
-    "sounds": [
+      "scgextra:rrc/tallman/death1",
       "scgextra:rrc/tallman/death2"
     ]
   },
-  "tallman.hurt1": {
+  "tallman.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.tallman.hurt",
     "sounds": [
-      "scgextra:rrc/tallman/hurt1"
-    ]
-  },
-  "tallman.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.hurt",
-    "sounds": [
-      "scgextra:rrc/tallman/hurt2"
-    ]
-  },
-  "tallman.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.hurt",
-    "sounds": [
-      "scgextra:rrc/tallman/hurt3"
-    ]
-  },
-  "tallman.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.hurt",
-    "sounds": [
-      "scgextra:rrc/tallman/hurt4"
-    ]
-  },
-  "tallman.hurt5": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.hurt",
-    "sounds": [
-      "scgextra:rrc/tallman/hurt5"
-    ]
-  },
-  "tallman.hurt6": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.hurt",
-    "sounds": [
+      "scgextra:rrc/tallman/hurt1",
+      "scgextra:rrc/tallman/hurt2",
+      "scgextra:rrc/tallman/hurt3",
+      "scgextra:rrc/tallman/hurt4",
+      "scgextra:rrc/tallman/hurt5",
       "scgextra:rrc/tallman/hurt6"
     ]
   },
-  "tallman.idle1": {
+  "tallman.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.tallman.idle",
     "sounds": [
-      "scgextra:rrc/tallman/idle1"
-    ]
-  },
-  "tallman.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.idle",
-    "sounds": [
+      "scgextra:rrc/tallman/idle1",
       "scgextra:rrc/tallman/idle2"
     ]
   },
-  "tallman.walk1": {
+  "tallman.walk": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.tallman.walk",
     "sounds": [
-      "scgextra:rrc/tallman/walk1"
-    ]
-  },
-  "tallman.walk2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.tallman.walk",
-    "sounds": [
+      "scgextra:rrc/tallman/walk1",
       "scgextra:rrc/tallman/walk2"
     ]
   },
@@ -370,53 +178,29 @@
       "scgextra:rrc/oppressor/alert"
     ]
   },
-  "oppressor.death_1": {
+  "oppressor.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.oppressor.death",
     "sounds": [
-      "scgextra:rrc/oppressor/death_1"
-    ]
-  },
-  "oppressor.death_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.oppressor.death",
-    "sounds": [
+      "scgextra:rrc/oppressor/death_1",
       "scgextra:rrc/oppressor/death_2"
     ]
   },
-  "oppressor.hurt_1": {
+  "oppressor.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.oppressor.hurt",
     "sounds": [
-      "scgextra:rrc/oppressor/hurt_1"
-    ]
-  },
-  "oppressor.hurt_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.oppressor.hurt",
-    "sounds": [
+      "scgextra:rrc/oppressor/hurt_1",
       "scgextra:rrc/oppressor/hurt_2"
     ]
   },
-  "oppressor.idle_1": {
+  "oppressor.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.oppressor.idle",
     "sounds": [
-      "scgextra:rrc/oppressor/hurt_1"
-    ]
-  },
-  "oppressor.idle_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.oppressor.idle",
-    "sounds": [
-      "scgextra:rrc/oppressor/hurt_2"
-    ]
-  },
-  "oppressor.idle_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.oppressor.idle",
-    "sounds": [
-      "scgextra:rrc/oppressor/hurt_3"
+      "scgextra:rrc/oppressor/idle_1",
+      "scgextra:rrc/oppressor/idle_2",
+      "scgextra:rrc/oppressor/idle_3"
     ]
   },
   "scrapguard.punch": {
@@ -433,188 +217,87 @@
       "scgextra:rrc/copper_knight/dead"
     ]
   },
-  "knight.hurt_1": {
+  "knight.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.knight.hurt",
     "sounds": [
-      "scgextra:rrc/copper_knight/hurt_1"
-    ]
-  },
-  "knight.hurt_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.knight.hurt",
-    "sounds": [
-      "scgextra:rrc/copper_knight/hurt_2"
-    ]
-  },
-  "knight.hurt_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.knight.hurt",
-    "sounds": [
+      "scgextra:rrc/copper_knight/hurt_1",
+      "scgextra:rrc/copper_knight/hurt_2",
       "scgextra:rrc/copper_knight/hurt_3"
     ]
   },
-  "knight.idle_1": {
+  "knight.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.knight.idle",
     "sounds": [
-      "scgextra:rrc/copper_knight/idle_1"
-    ]
-  },
-  "knight.idle_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.knight.idle",
-    "sounds": [
-      "scgextra:rrc/copper_knight/idle_2"
-    ]
-  },
-  "knight.idle_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.knight.idle",
-    "sounds": [
+      "scgextra:rrc/copper_knight/idle_1",
+      "scgextra:rrc/copper_knight/idle_2",
       "scgextra:rrc/copper_knight/idle_3"
     ]
   },
-  "flaming_head.idle_1": {
+  "flaming_head.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.flaming_head.idle",
     "sounds": [
-      "scgextra:rrc/flaming_head/idle_1"
-    ]
-  },
-  "flaming_head.idle_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.idle",
-    "sounds": [
-      "scgextra:rrc/flaming_head/idle_2"
-    ]
-  },
-  "flaming_head.idle_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.idle",
-    "sounds": [
-      "scgextra:rrc/flaming_head/idle_3"
-    ]
-  },
-  "flaming_head.idle_4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.idle",
-    "sounds": [
-      "scgextra:rrc/flaming_head/idle_4"
-    ]
-  },
-  "flaming_head.idle_5": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.idle",
-    "sounds": [
+      "scgextra:rrc/flaming_head/idle_1",
+      "scgextra:rrc/flaming_head/idle_2",
+      "scgextra:rrc/flaming_head/idle_3",
+      "scgextra:rrc/flaming_head/idle_4",
       "scgextra:rrc/flaming_head/idle_5"
     ]
   },
-  "flaming_head.dead_1": {
+  "flaming_head.dead": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.flaming_head.death",
     "sounds": [
-      "scgextra:rrc/flaming_head/dead_1"
-    ]
-  },
-  "flaming_head.dead_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.death",
-    "sounds": [
+      "scgextra:rrc/flaming_head/dead_1",
       "scgextra:rrc/flaming_head/dead_2"
     ]
   },
-  "flaming_head.spin_1": {
+  "flaming_head.spin": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.flaming_head.spin",
     "sounds": [
-      "scgextra:rrc/flaming_head/spin_1"
-    ]
-  },
-  "flaming_head.spin_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.spin",
-    "sounds": [
-      "scgextra:rrc/flaming_head/spin_2"
-    ]
-  },
-  "flaming_head.spin_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.spin",
-    "sounds": [
+      "scgextra:rrc/flaming_head/spin_1",
+      "scgextra:rrc/flaming_head/spin_2",
       "scgextra:rrc/flaming_head/spin_3"
     ]
   },
-  "flaming_head.stun_1": {
+  "flaming_head.stun": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.flaming_head.stun",
     "sounds": [
-      "scgextra:rrc/flaming_head/stun_1"
-    ]
-  },
-  "flaming_head.stun_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.flaming_head.stun",
-    "sounds": [
+      "scgextra:rrc/flaming_head/stun_1",
       "scgextra:rrc/flaming_head/stun_2"
     ]
   },
-  "arc_psycho.dead_1": {
+  "arc_psycho.dead": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.arc_psycho.death",
     "sounds": [
-      "scgextra:rrc/arc_psycho/dead_1"
-    ]
-  },
-  "arc_psycho.dead_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.arc_psycho.death",
-    "sounds": [
+      "scgextra:rrc/arc_psycho/dead_1",
       "scgextra:rrc/arc_psycho/dead_2"
     ]
   },
-  "arc_psycho.hurt_1": {
+  "arc_psycho.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.arc_psycho.hurt",
     "sounds": [
-      "scgextra:rrc/arc_psycho/hurt_1"
-    ]
-  },
-  "arc_psycho.hurt_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.arc_psycho.hurt",
-    "sounds": [
-      "scgextra:rrc/arc_psycho/hurt_2"
-    ]
-  },
-  "arc_psycho.hurt_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.arc_psycho.hurt",
-    "sounds": [
+      "scgextra:rrc/arc_psycho/hurt_1",
+      "scgextra:rrc/arc_psycho/hurt_2",
       "scgextra:rrc/arc_psycho/hurt_3"
     ]
   },
-  "arc_psycho.idle_1": {
+  "arc_psycho.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.arc_psycho.idle",
     "sounds": [
-      "scgextra:rrc/arc_psycho/idle_1"
-    ]
-  },
-  "arc_psycho.idle_2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.arc_psycho.idle",
-    "sounds": [
-      "scgextra:rrc/arc_psycho/idle_2"
-    ]
-  },
-  "arc_psycho.idle_3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.arc_psycho.idle",
-    "sounds": [
+      "scgextra:rrc/arc_psycho/idle_1",
+      "scgextra:rrc/arc_psycho/idle_2",
       "scgextra:rrc/arc_psycho/idle_3"
     ]
   },
+
   "fac_bluecoat.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.fac_bluecoat.death",
