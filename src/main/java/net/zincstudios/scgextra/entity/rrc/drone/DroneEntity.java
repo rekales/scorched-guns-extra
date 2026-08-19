@@ -5,6 +5,8 @@ import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
 import org.jetbrains.annotations.Nullable;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.Stunnable;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
@@ -50,7 +53,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
 
     private static final EntityDataAccessor<Float> INACCURACY = SynchedEntityData.defineId(DroneEntity.class, EntityDataSerializers.FLOAT);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    private final DronePart[] subEntities;
+    private final PartEntity<?>[] subEntities;
 
     // Server-side only for stunnable handling
     private int headshotCounter = 0;
@@ -59,12 +62,24 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
 
     public DroneEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        DronePart pipe = new DronePart(this, "pipe", 0.5F, 2F);
-        DronePart back = new DronePart(this, "back", 2F, 2F);
-        DronePart body = new DronePart(this, "body", 2.5F, 2F);
-        DronePart leg1 = new DronePart(this, "leg1", 0.5F, 1.3F);
-        DronePart leg2 = new DronePart(this, "leg2", 0.5F, 1.3F);
-        this.subEntities = new DronePart[]{pipe, back, body, leg1, leg2};
+        this.subEntities = new PartEntity[] {
+                //back
+                //TODO: HOW DO I MAKE A THIN ONE?  DON'T WANNA MAKE A SEPARATE PART ENTITY CLASS FOR THIS, NOT SURE HOW TO DO IT IN THE RotatedSegmentPartEntity
+                //body
+                new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 30/16f, 0/16f), 32/16f, 32/16f),
+                //arm1-joint-1
+                new RotatedSegmentPartEntity<>(this, new Vec3(24/16f, 29/16f, 4/16f), 8/16f, 26/16f),
+                //arm1-joint-2
+                new RotatedSegmentPartEntity<>(this, new Vec3(25/16f, 17.5/16f, 24.5/16f), 14/16f, 16/16f),
+                //arm2
+                new RotatedSegmentPartEntity<>(this, new Vec3(-10.5/16f, 20.75/16f, 6/16f), 18/16f, 27/16f),
+                //leg1
+                new RotatedSegmentPartEntity<>(this, new Vec3(-5/16f, 0/16f, 4/16f), 9/16f, 23/16f),
+                //leg2
+                new RotatedSegmentPartEntity<>(this, new Vec3(14/16f, 0/16f, 4/16f), 9/16f, 23/16f),
+                //pipe
+                new RotatedWeakPointPartEntity<>(this, new Vec3(-15/16f, 47/16f, -6/16f), 5/16f, 24/16f)
+        };
     }
 
     @Override
@@ -113,7 +128,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
         return true;
     }
 
-    public DronePart[] getSubEntities() {
+    public PartEntity<?>[] getSubEntities() {
         return this.subEntities;
     }
 
@@ -179,7 +194,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
     @Override
     public void tick() {
         super.tick();
-        updateSubentities();
+        tickSubEntities();
     }
 
     @Override
@@ -190,45 +205,9 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
         return super.hurt(pSource, pAmount);
     }
 
-    public void updateSubentities(){
-        for (DronePart part : this.subEntities) {
-            part.xo = part.getX();
-            part.yo = part.getY();
-            part.zo = part.getZ();
-            part.xOld = part.getX();
-            part.yOld = part.getY();
-            part.zOld = part.getZ();
-        }
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        float[] offsets = new float[] { -0.5f, -0.5F, 0.0F, 0.0F, 0.0F };
-        float[] lateralOffsets = new float[] { -1F, 0F, 0.0F, -0.5F, 0.5F };
-        double yawRad = Math.toRadians(this.getYRot());
-        for (int i = 0; i < this.subEntities.length; i++) {
-            DronePart part = this.subEntities[i];
-            float fDistance = offsets[i];
-            float lateral = lateralOffsets[i];
-
-            double offsetX = -Math.sin(yawRad) * fDistance + Math.cos(yawRad) * lateral;
-            double offsetZ =  Math.cos(yawRad) * fDistance + Math.sin(yawRad) * lateral;
-            //pipe
-            if(i==0){
-                part.setPosRaw(x + offsetX, y+2.8, z + offsetZ);
-            }
-            //back
-            else if(i == 1){
-                part.setPosRaw(x + offsetX, y+1.7, z + offsetZ);
-            }
-            //body
-            else if(i == 2){
-                part.setPosRaw(x + offsetX, y+1.7, z + offsetZ);
-            }
-            else{
-                part.setPosRaw(x + offsetX, y, z + offsetZ);
-            }
-            part.setOldPosAndRot();
-            part.refreshDimensions();
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
         }
     }
     @Override
