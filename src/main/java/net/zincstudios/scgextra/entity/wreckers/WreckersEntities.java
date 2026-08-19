@@ -18,7 +18,6 @@ import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
-import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_blue.WreckerBlueEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_dozer.WreckerDozerEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_dozer.WreckerDozerRenderer;
@@ -115,18 +114,30 @@ public class WreckersEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(WRECKER_RED.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_red"))).noDeathTilt());
-        EntityRenderers.register(WRECKER_BLUE.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_blue"))).noDeathTilt());
-        EntityRenderers.register(WRECKER_GREEN.get(), (ctx) -> new WreckerGreenRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_green"))).noDeathTilt());
-        EntityRenderers.register(WRECKER_JUMBO.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_jumbo"))).noDeathTilt());
-        EntityRenderers.register(WRECKER_TURRET_GUNNER.get(), (ctx) -> new WreckerTurretGunnerRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_turret_gunner"))).noDeathTilt());
-        EntityRenderers.register(WRECKER_DOZER.get(), (ctx) -> new WreckerDozerRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_dozer"))).noDeathTilt());
+        EntityRenderers.register(WRECKER_RED.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_red")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_BLUE.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_blue")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_GREEN.get(), (ctx) ->
+                new WreckerGreenRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_green")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_JUMBO.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_jumbo")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_TURRET_GUNNER.get(), (ctx) ->
+                new WreckerTurretGunnerRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_turret_gunner")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_DOZER.get(), (ctx) ->
+                new WreckerDozerRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_dozer")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
 
         EntityRenderers.register(WRECKER_HELICUBE.get(), WreckerHelicubeRenderer::new);
     }

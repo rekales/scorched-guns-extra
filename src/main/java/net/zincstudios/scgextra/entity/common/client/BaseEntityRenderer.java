@@ -1,6 +1,5 @@
 package net.zincstudios.scgextra.entity.common.client;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
@@ -9,13 +8,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
-import software.bernie.geckolib.renderer.layer.GeoRenderLayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -33,28 +33,11 @@ public class BaseEntityRenderer <T extends LivingEntity & GeoEntity> extends Geo
 
     public BaseEntityRenderer(EntityRendererProvider.Context context, GeoModel<T> model) {
         super(context, model);
-        this.shadowRadius = 0;  // no way to get the entity type on construction
-        this.addRenderLayer(new AutoGlowingGeoLayer<>(this){
-            @Override
-            public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-                RenderType emissiveRenderType = getRenderType(animatable);
-		        getRenderer().reRender(
-                    bakedModel,
-                    poseStack,
-                    bufferSource,
-                    animatable,
-                    emissiveRenderType,
-					bufferSource.getBuffer(emissiveRenderType),
-                    partialTick,
-                    LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY,
-                    1,
-                    1,
-                    1,
-                    1
-                );
-            }
-        });
+        this.shadowRadius = 0;  // no way to get the entity type on construction other than passing, maybe I should
+    }
+
+    public BaseEntityRenderer(EntityRendererProvider.Context context, ResourceLocation modelLoc) {
+        this(context, new DefaultedEntityGeoModel<>(modelLoc));
     }
 
     @Override
@@ -86,6 +69,20 @@ public class BaseEntityRenderer <T extends LivingEntity & GeoEntity> extends Geo
     public BaseEntityRenderer<T> shadowRadius(float shadowRadius) {
         this.hasCustomShadowRadius = true;
         this.shadowRadius = shadowRadius;
+        return this;
+    }
+
+    public BaseEntityRenderer<T> hasGlowLayer() {
+        this.addRenderLayer(new AutoGlowingGeoLayer<>(this) {
+            // TODO: check difference with the super method
+            @Override
+            public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
+                RenderType emissiveRenderType = getRenderType(animatable);
+                getRenderer().reRender(bakedModel, poseStack, bufferSource, animatable, emissiveRenderType, bufferSource.getBuffer(emissiveRenderType),
+                        partialTick, LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1
+                );
+            }
+        });
         return this;
     }
 }

@@ -1,20 +1,11 @@
 package net.zincstudios.scgextra.entity.common.client;
 
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.entity.Mob;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.cache.object.BakedGeoModel;
 import software.bernie.geckolib.model.GeoModel;
-import software.bernie.geckolib.renderer.layer.AutoGlowingGeoLayer;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
 
 // intended to be non-extendable, extend base and add the layers there instead
 @ParametersAreNonnullByDefault
@@ -28,26 +19,5 @@ public final class GunHoldingMobRenderer<T extends Mob & GeoEntity> extends Base
         super(renderManager, model);
         this.addRenderLayer(new HeldGunGeoLayer<>(this, gunTilt));
         this.addRenderLayer(new HeldGunFlashGeoLayer<>(this, gunTilt));
-        this.addRenderLayer(new AutoGlowingGeoLayer<>(this){
-            @Override
-            public void render(PoseStack poseStack, T animatable, BakedGeoModel bakedModel, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, float partialTick, int packedLight, int packedOverlay) {
-                RenderType emissiveRenderType = getRenderType(animatable);
-		        getRenderer().reRender(
-                    bakedModel,
-                    poseStack,
-                    bufferSource,
-                    animatable,
-                    emissiveRenderType,
-					bufferSource.getBuffer(emissiveRenderType),
-                    partialTick,
-                    LightTexture.FULL_BRIGHT,
-                    OverlayTexture.NO_OVERLAY,
-                    1,
-                    1,
-                    1,
-                    1
-                );
-            }
-        });
     }
 }
