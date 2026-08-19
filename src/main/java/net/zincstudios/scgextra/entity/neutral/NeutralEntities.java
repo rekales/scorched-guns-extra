@@ -410,6 +410,21 @@ public class NeutralEntities {
             (entityType, level, spawnType, pos, random) -> true,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
+        //my dumbass forgot these
+        event.register(
+            NeutralEntities.INFLICTED_BOAR.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.WORLD_SURFACE,
+            EndScorpionEntity::checkMonsterSpawnRules,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+        event.register(
+            NeutralEntities.INFLICTED_WOLF.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.WORLD_SURFACE,
+            EndScorpionEntity::checkMonsterSpawnRules,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
     }
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
