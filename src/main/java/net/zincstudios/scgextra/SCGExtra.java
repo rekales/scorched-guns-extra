@@ -11,12 +11,34 @@ import net.zincstudios.scgextra.debug.DevTestCommands;
 import net.zincstudios.scgextra.effects.ModEffects;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModEntities;
+import net.zincstudios.scgextra.entity.asgharian.flamer.AsgharFlamerEntity;
+import net.zincstudios.scgextra.entity.asgharian.surgeon.AsgharSurgeonEntity;
+import net.zincstudios.scgextra.entity.cog.bombardier.CogBombardierEntity;
+import net.zincstudios.scgextra.entity.cog.venator.CogVenatorEntity;
 import net.zincstudios.scgextra.entity.common.client.GunFlashHandler;
+import net.zincstudios.scgextra.entity.fac.bluecoat.FacBluecoatEntity;
+import net.zincstudios.scgextra.entity.fac.commissar.FacCommissarEntity;
+import net.zincstudios.scgextra.entity.fac.shovel_knight.FacShovelKnightEntity;
+import net.zincstudios.scgextra.entity.fac.trench_goblin.FacTrenchGoblinEntity;
+import net.zincstudios.scgextra.entity.fac.trench_sniper.FacTrenchSniperEntity;
+import net.zincstudios.scgextra.entity.fac.trencher.FacTrencherEntity;
+import net.zincstudios.scgextra.entity.rrc.arc_psycho.ArcPsychoEntity;
+import net.zincstudios.scgextra.entity.rrc.copper_knight.CopperKnightEntity;
+import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
+import net.zincstudios.scgextra.entity.rrc.scout.ScoutEntity;
+import net.zincstudios.scgextra.entity.rrc.tallman.TallmanEntity;
+import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
+import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_green.WreckerGreenEntity;
+import net.zincstudios.scgextra.entity.wreckers.wrecker_jumbo.WreckerJumboEntity;
+import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTurretGunnerEntity;
 
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraftforge.event.entity.living.MobSpawnEvent;
@@ -112,6 +134,31 @@ public class SCGExtra
             }
             if(event.getExplosion().getDirectSourceEntity() instanceof WreckerGreenEntity){
                 event.getAffectedEntities().removeIf(entity -> entity instanceof ItemEntity);
+            }
+        }
+        @SubscribeEvent
+        public static void onEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
+            Mob mob = event.getEntity();
+            if(mob.getSpawnType() != MobSpawnType.STRUCTURE)return;
+            if(
+                mob instanceof FacTrenchSniperEntity ||
+                mob instanceof FacTrenchGoblinEntity ||
+                mob instanceof FacBluecoatEntity ||
+                mob instanceof FacCommissarEntity ||
+
+                mob instanceof TallmanEntity ||
+                mob instanceof OppressorEntity ||
+
+                mob instanceof CogVenatorEntity ||
+                mob instanceof CogBombardierEntity ||
+
+                mob instanceof WreckerTurretGunnerEntity ||
+                mob instanceof WreckerJumboEntity ||
+
+                mob instanceof AsgharFlamerEntity ||
+                mob instanceof AsgharSurgeonEntity
+            ){
+                mob.setPersistenceRequired();
             }
         }
     }
