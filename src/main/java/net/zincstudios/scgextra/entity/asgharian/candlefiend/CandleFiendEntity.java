@@ -31,7 +31,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.zincstudios.scgextra.sounds.AsgharianSounds;
@@ -338,22 +337,11 @@ public class CandleFiendEntity extends Monster implements GeoEntity, Leaping {
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.CANDLE_FIEND_IDLE_1.get(),
-                AsgharianSounds.CANDLE_FIEND_IDLE_2.get(),
-                AsgharianSounds.CANDLE_FIEND_IDLE_3.get()
-        );
+        return AsgharianSounds.CANDLE_FIEND_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.CANDLE_FIEND_HURT_1.get(),
-                AsgharianSounds.CANDLE_FIEND_HURT_2.get(),
-                AsgharianSounds.CANDLE_FIEND_HURT_3.get(),
-                AsgharianSounds.CANDLE_FIEND_HURT_4.get()
-        );
+        return AsgharianSounds.CANDLE_FIEND_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {

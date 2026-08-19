@@ -1,6 +1,5 @@
 package net.zincstudios.scgextra.entity.asgharian.soulripper;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;

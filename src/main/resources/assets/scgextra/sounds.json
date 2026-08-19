@@ -297,7 +297,6 @@
       "scgextra:rrc/arc_psycho/idle_3"
     ]
   },
-
   "fac_bluecoat.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.fac_bluecoat.death",
@@ -617,199 +616,87 @@
       "scgextra:fac/fac_walker/walk"
     ]
   },
-  "wreckers.idle1":{
-    "category":"hostile",
+
+
+  "wreckers.idle": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wreckers.idle",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_01"
-    ]
-  },
-  "wreckers.idle2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.idle",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_02"
-    ]
-  },
-  "wreckers.idle3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.idle",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_03"
-    ]
-  },
-  "wreckers.idle4":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.idle",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_01",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_02",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_03",
       "scgextra:wreckers/wreckers/wreckerswreckers_gang_idle_04"
     ]
   },
-  "wreckers.hurt1":{
-    "category":"hostile",
+  "wreckers.hurt": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wreckers.hurt",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_hurt_01"
-    ]
-  },
-  "wreckers.hurt2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.hurt",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_hurt_02"
-    ]
-  },
-  "wreckers.hurt3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.hurt",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_hurt_01",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_hurt_02",
       "scgextra:wreckers/wreckers/wreckerswreckers_gang_hurt_03"
     ]
   },
-  "wreckers.attack1":{
-    "category":"hostile",
+  "wreckers.attack": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wreckers.attack",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_attack_01"
-    ]
-  },
-  "wreckers.attack2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.attack",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_attack_02"
-    ]
-  },
-  "wreckers.attack3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.attack",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_attack_01",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_attack_02",
       "scgextra:wreckers/wreckers/wreckerswreckers_gang_attack_03"
     ]
   },
-  "wreckers.death1":{
-    "category":"hostile",
+  "wreckers.death": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wreckers.death",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_01"
-    ]
-  },
-  "wreckers.death2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.death",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_02"
-    ]
-  },
-  "wreckers.death3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.death",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_03"
-    ]
-  },
-  "wreckers.death4":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.death",
-    "sounds":[
-      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_04"
-    ]
-  },
-  "wreckers.death5":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wreckers.death",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_01",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_02",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_03",
+      "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_04",
       "scgextra:wreckers/wreckers/wreckerswreckers_gang_dead_05"
     ]
   },
-  "wrecker_blue.idle1":{
-    "category":"hostile",
+  "wrecker_blue.idle": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_blue.idle",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_idle_01"
-    ]
-  },
-  "wrecker_blue.idle2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.idle",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_idle_02"
-    ]
-  },
-  "wrecker_blue.idle3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.idle",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_idle_01",
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_idle_02",
       "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_idle_03"
     ]
   },
-  "wrecker_blue.hurt1":{
-    "category":"hostile",
+  "wrecker_blue.hurt": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_blue.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_hurt_01"
-    ]
-  },
-  "wrecker_blue.hurt2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_hurt_02"
-    ]
-  },
-  "wrecker_blue.hurt3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.hurt",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_hurt_01",
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_hurt_02",
       "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_hurt_03"
     ]
   },
-  "wrecker_blue.attack1":{
-    "category":"hostile",
+  "wrecker_blue.attack": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_blue.attack",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_01"
-    ]
-  },
-  "wrecker_blue.attack2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.attack",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_02"
-    ]
-  },
-  "wrecker_blue.attack3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.attack",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_03"
-    ]
-  },
-  "wrecker_blue.attack4":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.attack",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_01",
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_02",
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_03",
       "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_attack_04"
     ]
   },
-  "wrecker_blue.death1":{
-    "category":"hostile",
+  "wrecker_blue.death": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_blue.death",
-    "sounds":[
-      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_dead_01"
-    ]
-  },
-  "wrecker_blue.death2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_blue.death",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_dead_01",
       "scgextra:wreckers/wrecker_blue/wrecker_bluewreckers_blue_dead_02"
     ]
   },
-  "wrecker_jumbo.idle":{
-    "category":"hostile",
+  "wrecker_jumbo.idle": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_jumbo.idle",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_01",
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_02",
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_03",
@@ -820,10 +707,10 @@
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_08"
     ]
   },
-  "wrecker_jumbo.hurt":{
-    "category":"hostile",
+  "wrecker_jumbo.hurt": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_jumbo.hurt",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/jumbo/wrecker_jumbo_hurt_01",
       "scgextra:wreckers/jumbo/wrecker_jumbo_hurt_02",
       "scgextra:wreckers/jumbo/wrecker_jumbo_hurt_03",
@@ -831,418 +718,326 @@
       "scgextra:wreckers/jumbo/wrecker_jumbo_hurt_05"
     ]
   },
-  "wrecker_jumbo.attack":{
-    "category":"hostile",
+  "wrecker_jumbo.attack": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_jumbo.attack",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/jumbo/wrecker_jumbo_attack_01",
       "scgextra:wreckers/jumbo/wrecker_jumbo_attack_02",
       "scgextra:wreckers/jumbo/wrecker_jumbo_attack_03"
     ]
   },
-  "wrecker_jumbo.death":{
-    "category":"hostile",
+  "wrecker_jumbo.death": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_jumbo.death",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/jumbo/wrecker_jumbo_death_01",
       "scgextra:wreckers/jumbo/wrecker_jumbo_death_02"
     ]
   },
-  "wrecker_jumbo.line":{
-    "category":"hostile",
+  "wrecker_jumbo.line": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_jumbo.line",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_01",
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_02",
       "scgextra:wreckers/jumbo/wrecker_jumbo_idle_03"
     ]
   },
-  "wrecking_tool.use":{
-    "category":"player",
+  "wrecking_tool.use": {
+    "category": "player",
     "subtitle": "scgextra.subtitle.wrecking_tool.use",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/tools/jackhammer_construction_02"
     ]
   },
-  "wrecker_helicube.idle":{
-    "category":"hostile",
+  "wrecker_helicube.idle": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_helicube.idle",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/helicube/helicubewrecker_helicube_idle"
     ]
   },
-  "wrecker_helicube.hurt1":{
-    "category":"hostile",
+  "wrecker_helicube.hurt": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_helicube.hurt",
-    "sounds":[
-      "scgextra:wreckers/helicube/helicubewrecker_helicube_hurt_01"
-    ]
-  },
-  "wrecker_helicube.hurt2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_helicube.hurt",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/helicube/helicubewrecker_helicube_hurt_01",
       "scgextra:wreckers/helicube/helicubewrecker_helicube_hurt_02"
     ]
   },
-  "wrecker_dozer.idle1":{
-    "category":"hostile",
+  "wrecker_dozer.idle": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_dozer.idle",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_01"
-    ]
-  },
-  "wrecker_dozer.idle2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.idle",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_02"
-    ]
-  },
-  "wrecker_dozer.idle3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.idle",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_03"
-    ]
-  },
-  "wrecker_dozer.idle4":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.idle",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_01",
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_02",
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_03",
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_idle_04"
     ]
   },
-  "wrecker_dozer.hurt1":{
-    "category":"hostile",
+  "wrecker_dozer.hurt": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_dozer.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_01"
-    ]
-  },
-  "wrecker_dozer.hurt2":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_02"
-    ]
-  },
-  "wrecker_dozer.hurt3":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_03"
-    ]
-  },
-  "wrecker_dozer.hurt4":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.hurt",
-    "sounds":[
-      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_04"
-    ]
-  },
-  "wrecker_dozer.hurt5":{
-    "category":"hostile",
-    "subtitle": "scgextra.subtitle.wrecker_dozer.hurt",
-    "sounds":[
+    "sounds": [
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_01",
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_02",
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_03",
+      "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_04",
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_hurt_05"
     ]
   },
-  "wrecker_dozer.charge":{
-    "category":"hostile",
+  "wrecker_dozer.charge": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_dozer.charge",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_charge"
     ]
   },
-  "wrecker_dozer.move":{
-    "category":"hostile",
+  "wrecker_dozer.move": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_dozer.move",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_move"
     ]
   },
-  "wrecker_dozer.stun_death":{
-    "category":"hostile",
+  "wrecker_dozer.stun_death": {
+    "category": "hostile",
     "subtitle": "scgextra.subtitle.wrecker_dozer.stun_death",
-    "sounds":[
+    "sounds": [
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_stun_death"
     ]
   },
-  "asghar_surgeon.attack1": {
+  "asghar_surgeon.attack": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_surgeon.attack",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/attack1"]
-  },
-  "asghar_surgeon.attack2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.attack",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/attack2"]
+    "sounds": [
+      "scgextra:asgharian/asghar_surgeon/attack1",
+      "scgextra:asgharian/asghar_surgeon/attack2"
+    ]
   },
   "asghar_surgeon.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_surgeon.death",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/death"]
+    "sounds": [
+      "scgextra:asgharian/asghar_surgeon/death"
+    ]
   },
-  "asghar_surgeon.hurt1": {
+  "asghar_surgeon.hurt": {
     "category": "hostile",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/hurt1"]
+    "sounds": [
+      "scgextra:asgharian/asghar_surgeon/hurt1",
+      "scgextra:asgharian/asghar_surgeon/hurt2",
+      "scgextra:asgharian/asghar_surgeon/hurt3",
+      "scgextra:asgharian/asghar_surgeon/hurt4"
+    ]
   },
-  "asghar_surgeon.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.hurt",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/hurt2"]
-  },
-  "asghar_surgeon.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.hurt",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/hurt3"]
-  },
-  "asghar_surgeon.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.hurt",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/hurt4"]
-  },
-  "asghar_surgeon.idle1": {
+  "asghar_surgeon.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_surgeon.idle",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/idle1"]
+    "sounds": [
+      "scgextra:asgharian/asghar_surgeon/idle1",
+      "scgextra:asgharian/asghar_surgeon/idle2",
+      "scgextra:asgharian/asghar_surgeon/idle3"
+    ]
   },
-  "asghar_surgeon.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.idle",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/idle2"]
-  },
-  "asghar_surgeon.idle3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_surgeon.idle",
-    "sounds": ["scgextra:asgharian/asghar_surgeon/idle3"]
-  },
-  "asghar_flamer.attack1": {
+  "asghar_flamer.attack": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_flamer.attack",
-    "sounds": ["scgextra:asgharian/asghar_flamer/attack1"]
-  },
-  "asghar_flamer.attack2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_flamer.attack",
-    "sounds": ["scgextra:asgharian/asghar_flamer/attack2"]
+    "sounds": [
+      "scgextra:asgharian/asghar_flamer/attack1",
+      "scgextra:asgharian/asghar_flamer/attack2"
+    ]
   },
   "asghar_flamer.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_flamer.death",
-    "sounds": ["scgextra:asgharian/asghar_flamer/death"]
+    "sounds": [
+      "scgextra:asgharian/asghar_flamer/death"
+    ]
   },
-  "asghar_flamer.hurt1": {
+  "asghar_flamer.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_flamer.hurt",
-    "sounds": ["scgextra:asgharian/asghar_flamer/hurt1"]
+    "sounds": [
+      "scgextra:asgharian/asghar_flamer/hurt1",
+      "scgextra:asgharian/asghar_flamer/hurt2"
+    ]
   },
-  "asghar_flamer.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_flamer.hurt",
-    "sounds": ["scgextra:asgharian/asghar_flamer/hurt2"]
-  },
-  "asghar_flamer.idle1": {
+  "asghar_flamer.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_flamer.idle",
-    "sounds": ["scgextra:asgharian/asghar_flamer/idle1"]
-  },
-  "asghar_flamer.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_flamer.idle",
-    "sounds": ["scgextra:asgharian/asghar_flamer/idle2"]
-  },
-  "asghar_flamer.idle3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_flamer.idle",
-    "sounds": ["scgextra:asgharian/asghar_flamer/idle3"]
+    "sounds": [
+      "scgextra:asgharian/asghar_flamer/idle1",
+      "scgextra:asgharian/asghar_flamer/idle2",
+      "scgextra:asgharian/asghar_flamer/idle3"
+    ]
   },
   "asghar_worker.claw": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_worker.claw",
-    "sounds": ["scgextra:asgharian/asghar_worker/claw"]
+    "sounds": [
+      "scgextra:asgharian/asghar_worker/claw"
+    ]
   },
   "asghar_worker.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_worker.death",
-    "sounds": ["scgextra:asgharian/asghar_worker/death"]
+    "sounds": [
+      "scgextra:asgharian/asghar_worker/death"
+    ]
   },
-  "asghar_worker.hurt1": {
+  "asghar_worker.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_worker.hurt",
-    "sounds": ["scgextra:asgharian/asghar_worker/hurt1"]
-  },
-  "asghar_worker.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_worker.hurt",
-    "sounds": ["scgextra:asgharian/asghar_worker/hurt2"]
-  },
-  "asghar_worker.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.asghar_worker.hurt",
-    "sounds": ["scgextra:asgharian/asghar_worker/hurt3"]
+    "sounds": [
+      "scgextra:asgharian/asghar_worker/hurt1",
+      "scgextra:asgharian/asghar_worker/hurt2",
+      "scgextra:asgharian/asghar_worker/hurt3"
+    ]
   },
   "asghar_worker.saw": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_worker.saw",
-    "sounds": ["scgextra:asgharian/asghar_worker/saw"]
+    "sounds": [
+      "scgextra:asgharian/asghar_worker/saw"
+    ]
   },
   "asghar_worker.walk": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_worker.walk",
-    "sounds": ["scgextra:asgharian/asghar_worker/walk"]
+    "sounds": [
+      "scgextra:asgharian/asghar_worker/walk"
+    ]
   },
   "candle_fiend.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.death",
-    "sounds": ["scgextra:asgharian/candle_fiend/death"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/death"
+    ]
   },
-  "candle_fiend.hurt1": {
+  "candle_fiend.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.hurt",
-    "sounds": ["scgextra:asgharian/candle_fiend/hurt1"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/hurt1",
+      "scgextra:asgharian/candle_fiend/hurt2",
+      "scgextra:asgharian/candle_fiend/hurt3",
+      "scgextra:asgharian/candle_fiend/hurt4"
+    ]
   },
-  "candle_fiend.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.candle_fiend.hurt",
-    "sounds": ["scgextra:asgharian/candle_fiend/hurt2"]
-  },
-  "candle_fiend.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.candle_fiend.hurt",
-    "sounds": ["scgextra:asgharian/candle_fiend/hurt3"]
-  },
-  "candle_fiend.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.candle_fiend.hurt",
-    "sounds": ["scgextra:asgharian/candle_fiend/hurt4"]
-  },
-  "candle_fiend.idle1": {
+  "candle_fiend.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.idle",
-    "sounds": ["scgextra:asgharian/candle_fiend/idle1"]
-  },
-  "candle_fiend.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.candle_fiend.idle",
-    "sounds": ["scgextra:asgharian/candle_fiend/idle2"]
-  },
-  "candle_fiend.idle3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.candle_fiend.idle",
-    "sounds": ["scgextra:asgharian/candle_fiend/idle3"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/idle1",
+      "scgextra:asgharian/candle_fiend/idle2",
+      "scgextra:asgharian/candle_fiend/idle3"
+    ]
   },
   "candle_fiend.revive": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.revive",
-    "sounds": ["scgextra:asgharian/candle_fiend/revive"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/revive"
+    ]
   },
   "candle_fiend.run": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.run",
-    "sounds": ["scgextra:asgharian/candle_fiend/run"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/run"
+    ]
   },
   "candle_fiend.scream": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.scream",
-    "sounds": ["scgextra:asgharian/candle_fiend/scream"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/scream"
+    ]
   },
   "candle_fiend.slash": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.slash",
-    "sounds": ["scgextra:asgharian/candle_fiend/slash"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/slash"
+    ]
   },
   "candle_fiend.smash": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.smash",
-    "sounds": ["scgextra:asgharian/candle_fiend/smash"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/smash"
+    ]
   },
   "candle_fiend.walk": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.walk",
-    "sounds": ["scgextra:asgharian/candle_fiend/walk"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/walk"
+    ]
   },
   "candle_fiend.warning": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.candle_fiend.warning",
-    "sounds": ["scgextra:asgharian/candle_fiend/warning"]
+    "sounds": [
+      "scgextra:asgharian/candle_fiend/warning"
+    ]
   },
-  "soul_ripper.attack1": {
+  "soul_ripper.attack": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.attack",
-    "sounds": ["scgextra:asgharian/soul_ripper/attack1"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/attack1",
+      "scgextra:asgharian/soul_ripper/attack2"
+    ]
   },
-  "soul_ripper.attack2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.attack",
-    "sounds": ["scgextra:asgharian/soul_ripper/attack2"]
-  },
-  "soul_ripper.death1": {
+  "soul_ripper.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.death",
-    "sounds": ["scgextra:asgharian/soul_ripper/death1"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/death1",
+      "scgextra:asgharian/soul_ripper/death2"
+    ]
   },
-  "soul_ripper.death2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.death",
-    "sounds": ["scgextra:asgharian/soul_ripper/death2"]
-  },
-  "soul_ripper.hurt1": {
+  "soul_ripper.hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.hurt",
-    "sounds": ["scgextra:asgharian/soul_ripper/hurt1"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/hurt1",
+      "scgextra:asgharian/soul_ripper/hurt2",
+      "scgextra:asgharian/soul_ripper/hurt3",
+      "scgextra:asgharian/soul_ripper/hurt4"
+    ]
   },
-  "soul_ripper.hurt2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.hurt",
-    "sounds": ["scgextra:asgharian/soul_ripper/hurt2"]
-  },
-  "soul_ripper.hurt3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.hurt",
-    "sounds": ["scgextra:asgharian/soul_ripper/hurt3"]
-  },
-  "soul_ripper.hurt4": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.hurt",
-    "sounds": ["scgextra:asgharian/soul_ripper/hurt4"]
-  },
-  "soul_ripper.idle1": {
+  "soul_ripper.idle": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.idle",
-    "sounds": ["scgextra:asgharian/soul_ripper/idle1"]
-  },
-  "soul_ripper.idle2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.idle",
-    "sounds": ["scgextra:asgharian/soul_ripper/idle2"]
-  },
-  "soul_ripper.idle3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.idle",
-    "sounds": ["scgextra:asgharian/soul_ripper/idle3"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/idle1",
+      "scgextra:asgharian/soul_ripper/idle2",
+      "scgextra:asgharian/soul_ripper/idle3"
+    ]
   },
   "soul_ripper.lantern_shatter": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.lantern_shatter",
-    "sounds": ["scgextra:asgharian/soul_ripper/lantern_shatter"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/lantern_shatter"
+    ]
   },
-  "soul_ripper.revive1": {
+  "soul_ripper.revive": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.soul_ripper.revive",
-    "sounds": ["scgextra:asgharian/soul_ripper/revive1"]
+    "sounds": [
+      "scgextra:asgharian/soul_ripper/revive1",
+      "scgextra:asgharian/soul_ripper/revive2",
+      "scgextra:asgharian/soul_ripper/revive3"
+    ]
   },
-  "soul_ripper.revive2": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.revive",
-    "sounds": ["scgextra:asgharian/soul_ripper/revive2"]
-  },
-  "soul_ripper.revive3": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.soul_ripper.revive",
-    "sounds": ["scgextra:asgharian/soul_ripper/revive3"]
-  },
+
+
   "cog_general.heavy_hurt": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.cog_general.heavy_hurt",
@@ -1300,7 +1095,7 @@
     "subtitle": "scgextra.subtitle.cog_bombardier.scan",
     "sounds": [
       {
-        "name" : "scgextra:cog/cog_bombardier/scan",
+        "name": "scgextra:cog/cog_bombardier/scan",
         "attenuation_distance": 32
       }
     ]

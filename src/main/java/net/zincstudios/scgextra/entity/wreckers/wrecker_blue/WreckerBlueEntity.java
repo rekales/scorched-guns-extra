@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.InterruptibleVoice;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
@@ -113,11 +112,7 @@ public class WreckerBlueEntity extends GunnerEntity implements GeoEntity, Interr
         boolean hit = super.doHurtTarget(target);
         if (hit) {
 
-            this.playSound(MobUtil.getSound(this.random,
-                    WreckersSounds.BLUE_ATTACK_1.get(),
-                    WreckersSounds.BLUE_ATTACK_2.get(),
-                    WreckersSounds.BLUE_ATTACK_3.get()
-            ), 0.5F, 1.0F);
+            this.playSound(WreckersSounds.BLUE_ATTACK.get());
         }
         return hit;
     }
@@ -158,20 +153,17 @@ public class WreckerBlueEntity extends GunnerEntity implements GeoEntity, Interr
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.BLUE_IDLE_1.get(), WreckersSounds.BLUE_IDLE_2.get(), WreckersSounds.BLUE_IDLE_3.get());
+        return WreckersSounds.BLUE_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.BLUE_HURT_1.get(), WreckersSounds.BLUE_HURT_2.get(), WreckersSounds.BLUE_HURT_3.get());
+        return WreckersSounds.BLUE_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.BLUE_DEATH_1.get(), WreckersSounds.BLUE_DEATH_2.get());
+        return WreckersSounds.BLUE_DEATH.get();
     }
 
     @Override

@@ -29,7 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.util.RandomSource;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.cog.gigantes.FlyCloseToTargetGoal;
 import net.zincstudios.scgextra.entity.common.goal.MobHurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
@@ -47,6 +46,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 
 @ParametersAreNonnullByDefault
+@SuppressWarnings("deprecation")
 public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
@@ -279,7 +279,7 @@ public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(this.random, WreckersSounds.HELICUBE_HURT_1.get(), WreckersSounds.HELICUBE_HURT_2.get());
+        return WreckersSounds.HELICUBE_HURT.get();
     }
 
     static class RandomFloatAroundGoal extends Goal {

@@ -9,7 +9,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -169,22 +168,11 @@ public class AsgharSurgeonEntity extends GunnerEntity implements GeoEntity, Goal
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_SURGEON_IDLE_1.get(),
-                AsgharianSounds.ASGHAR_SURGEON_IDLE_2.get(),
-                AsgharianSounds.ASGHAR_SURGEON_IDLE_3.get()
-        );
+        return AsgharianSounds.ASGHAR_SURGEON_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_SURGEON_HURT_1.get(),
-                AsgharianSounds.ASGHAR_SURGEON_HURT_2.get(),
-                AsgharianSounds.ASGHAR_SURGEON_HURT_3.get(),
-                AsgharianSounds.ASGHAR_SURGEON_HURT_4.get()
-        );
+        return AsgharianSounds.ASGHAR_SURGEON_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
@@ -196,11 +184,7 @@ public class AsgharSurgeonEntity extends GunnerEntity implements GeoEntity, Goal
     }
 
     protected SoundEvent getAttackSound() {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_SURGEON_ATTACK_1.get(),
-                AsgharianSounds.ASGHAR_SURGEON_ATTACK_2.get()
-        );
+        return AsgharianSounds.ASGHAR_SURGEON_ATTACK.get();
     }
 
     protected void playStepSound(BlockPos pos, BlockState block) {

@@ -227,12 +227,7 @@ public class AsgharWorkerEntity extends Monster implements GeoEntity, Stunnable,
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_WORKER_HURT_1.get(),
-                AsgharianSounds.ASGHAR_WORKER_HURT_2.get(),
-                AsgharianSounds.ASGHAR_WORKER_HURT_3.get()
-        );
+        return AsgharianSounds.ASGHAR_WORKER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {

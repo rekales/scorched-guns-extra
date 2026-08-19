@@ -32,7 +32,6 @@ import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.cog.ApproachTargetGoal;
 import net.zincstudios.scgextra.entity.cog.MountedGunGoal;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.Stunnable;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.entity.common.goal.StunnedWithVisualGoal;
@@ -294,16 +293,11 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.DOZER_IDLE_1.get(), WreckersSounds.DOZER_IDLE_2.get(),
-                WreckersSounds.DOZER_IDLE_3.get(), WreckersSounds.DOZER_IDLE_4.get());
+        return WreckersSounds.DOZER_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.DOZER_HURT_1.get(), WreckersSounds.DOZER_HURT_2.get(),
-                WreckersSounds.DOZER_HURT_3.get(), WreckersSounds.DOZER_HURT_4.get(),
-                WreckersSounds.DOZER_HURT_5.get());
+        return WreckersSounds.DOZER_HURT.get();
     }
 }

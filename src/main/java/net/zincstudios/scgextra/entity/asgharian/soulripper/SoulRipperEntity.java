@@ -396,42 +396,23 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
     }
 
     protected SoundEvent getAttackSounds() {
-        return MobUtil.getSound(this.random,
-                AsgharianSounds.SOUL_RIPPER_ATTACK_1.get(),
-                AsgharianSounds.SOUL_RIPPER_ATTACK_2.get()
-        );
+        return AsgharianSounds.SOUL_RIPPER_ATTACK.get();
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(this.random,
-                AsgharianSounds.SOUL_RIPPER_IDLE_1.get(),
-                AsgharianSounds.SOUL_RIPPER_IDLE_2.get(),
-                AsgharianSounds.SOUL_RIPPER_IDLE_3.get()
-        );
+        return AsgharianSounds.SOUL_RIPPER_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(this.random,
-                AsgharianSounds.SOUL_RIPPER_HURT_1.get(),
-                AsgharianSounds.SOUL_RIPPER_HURT_2.get(),
-                AsgharianSounds.SOUL_RIPPER_HURT_3.get(),
-                AsgharianSounds.SOUL_RIPPER_HURT_4.get()
-        );
+        return AsgharianSounds.SOUL_RIPPER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(this.random,
-                AsgharianSounds.SOUL_RIPPER_DEATH_1.get(),
-                AsgharianSounds.SOUL_RIPPER_DEATH_2.get()
-        );
+        return AsgharianSounds.SOUL_RIPPER_DEATH.get();
     }
 
     protected SoundEvent getReviveSound() {
-        return MobUtil.getSound(this.random,
-                AsgharianSounds.SOUL_RIPPER_REVIVE_1.get(),
-                AsgharianSounds.SOUL_RIPPER_REVIVE_2.get(),
-                AsgharianSounds.SOUL_RIPPER_REVIVE_3.get()
-        );
+        return AsgharianSounds.SOUL_RIPPER_REVIVE.get();
     }
 
 }

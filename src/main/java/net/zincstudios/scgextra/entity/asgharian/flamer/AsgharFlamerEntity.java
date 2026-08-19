@@ -129,20 +129,11 @@ public class AsgharFlamerEntity extends GunnerEntity implements GeoEntity, GoalS
     }
 
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_FLAMER_IDLE_1.get(),
-                AsgharianSounds.ASGHAR_FLAMER_IDLE_2.get(),
-                AsgharianSounds.ASGHAR_FLAMER_IDLE_3.get()
-        );
+        return AsgharianSounds.ASGHAR_FLAMER_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_FLAMER_HURT_1.get(),
-                AsgharianSounds.ASGHAR_FLAMER_HURT_2.get()
-        );
+        return AsgharianSounds.ASGHAR_FLAMER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
@@ -154,11 +145,7 @@ public class AsgharFlamerEntity extends GunnerEntity implements GeoEntity, GoalS
     }
 
     protected SoundEvent getAttackSound() {
-        return MobUtil.getSound(
-                this.random,
-                AsgharianSounds.ASGHAR_FLAMER_ATTACK_1.get(),
-                AsgharianSounds.ASGHAR_FLAMER_ATTACK_2.get()
-        );
+        return AsgharianSounds.ASGHAR_FLAMER_ATTACK.get();
     }
 
     protected void playStepSound(BlockPos pos, BlockState block) {

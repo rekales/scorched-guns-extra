@@ -19,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
-import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.InterruptibleVoice;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
@@ -159,23 +158,17 @@ public class WreckerGreenEntity extends GunnerEntity implements GeoEntity, Inter
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.GANG_IDLE_1.get(), WreckersSounds.GANG_IDLE_2.get(),
-                WreckersSounds.GANG_IDLE_3.get(), WreckersSounds.GANG_IDLE_4.get());
+        return WreckersSounds.GANG_IDLE.get();
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.GANG_HURT_1.get(), WreckersSounds.GANG_HURT_2.get(), WreckersSounds.GANG_HURT_3.get());
+        return WreckersSounds.GANG_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return MobUtil.getSound(this.random,
-                WreckersSounds.GANG_DEATH_1.get(), WreckersSounds.GANG_DEATH_2.get(),
-                WreckersSounds.GANG_DEATH_3.get(), WreckersSounds.GANG_DEATH_4.get(),
-                WreckersSounds.GANG_DEATH_5.get());
+        return WreckersSounds.GANG_DEATH.get();
     }
 
     @Override
