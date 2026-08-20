@@ -20,7 +20,6 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_stone_crab.EndStoneCrabEntity;
-import net.zincstudios.scgextra.entity.neutral.end.end_stone_crab.EndStoneCrabRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_dweller.EndDwellerEntity;
 import net.zincstudios.scgextra.entity.neutral.end.end_dweller.EndDwellerRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_pod.EndPodEntity;
@@ -473,19 +472,29 @@ public class NeutralEntities {
                         .noDeathTilt()
         );
 
-//        EntityRenderers.register(NeutralEntities.INFLICTED_BOAR.get(), InflictedBoarRenderer::new);
-//        EntityRenderers.register(NeutralEntities.INFLICTED_WOLF.get(), InflictedWolfRenderer::new);
-//        EntityRenderers.register(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinRenderer::new);
-//        EntityRenderers.register(NeutralEntities.BIG_LUMP.get(), BigLumpRenderer::new);
-//        EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), MutantBatRenderer::new);
-
-//        EntityRenderers.register(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleRenderer::new);
-//        EntityRenderers.register(NeutralEntities.HEAD_HUNTER.get(), HeadHunterRenderer::new);
-//        EntityRenderers.register(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterRenderer::new);
-
-        EntityRenderers.register(NeutralEntities.END_POD.get(), EndPodRenderer::new);
-        EntityRenderers.register(NeutralEntities.END_DWELLER.get(), EndDwellerRenderer::new);
-        EntityRenderers.register(NeutralEntities.END_STONE_CRAB.get(), EndStoneCrabRenderer::new);
-        EntityRenderers.register(NeutralEntities.END_SCORPION.get(), EndScorpionRenderer::new);
+        EntityRenderers.register(NeutralEntities.END_POD.get(), (ctx) ->
+                new EndPodRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/end_pod")))
+                        .shadowRadius(0.2F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.END_DWELLER.get(), (ctx) ->
+                new EndDwellerRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/end_dweller")))
+                        .shadowRadius(0.7F)
+                        // Custom glow layer
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.END_STONE_CRAB.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/end_stone_crab")))
+                        .shadowRadius(2F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.END_SCORPION.get(), (ctx) ->
+                new EndScorpionRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/end_scorpion")))
+                        .shadowRadius(0.3F)
+                        // Custom glow layer
+                        .noDeathTilt()
+        );
     }
 }
