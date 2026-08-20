@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.neutral;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_stone_crab.EndStoneCrabEntity;
 import net.zincstudios.scgextra.entity.neutral.end.end_stone_crab.EndStoneCrabRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_dweller.EndDwellerEntity;
@@ -32,17 +34,13 @@ import net.zincstudios.scgextra.entity.neutral.nether.netherite_eater.NetheriteE
 import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleEntity;
 import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.ammo_goblin.AmmoGoblinEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.ammo_goblin.AmmoGoblinRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_wolf.InflictedWolfEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_wolf.InflictedWolfRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.mutant_bat.MutantBatEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.mutant_bat.MutantBatRenderer;
 import net.zincstudios.scgextra.entity.common.OffsetRotatedHeadshotBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
+import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import top.ribs.scguns.common.BoundingBoxManager;
 
 public class NeutralEntities {
@@ -428,14 +426,47 @@ public class NeutralEntities {
     }
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(NeutralEntities.INFLICTED_BOAR.get(), InflictedBoarRenderer::new);
-        EntityRenderers.register(NeutralEntities.INFLICTED_WOLF.get(), InflictedWolfRenderer::new);
-        EntityRenderers.register(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinRenderer::new);
-        EntityRenderers.register(NeutralEntities.BIG_LUMP.get(), BigLumpRenderer::new);
-        EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), MutantBatRenderer::new);
+        EntityRenderers.register(NeutralEntities.INFLICTED_BOAR.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/inflicted_boar")))
+                        .shadowRadius(0.8F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.INFLICTED_WOLF.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/inflicted_wolf")))
+                        .shadowRadius(0.8F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.AMMO_GOBLIN.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/ammo_goblin")))
+                        .shadowRadius(0.5F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.BIG_LUMP.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/big_lump")))
+                        .shadowRadius(1F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/mutant_bat")))
+                        .shadowRadius(1F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+
+//        EntityRenderers.register(NeutralEntities.INFLICTED_BOAR.get(), InflictedBoarRenderer::new);
+//        EntityRenderers.register(NeutralEntities.INFLICTED_WOLF.get(), InflictedWolfRenderer::new);
+//        EntityRenderers.register(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinRenderer::new);
+//        EntityRenderers.register(NeutralEntities.BIG_LUMP.get(), BigLumpRenderer::new);
+//        EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), MutantBatRenderer::new);
+
         EntityRenderers.register(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleRenderer::new);
         EntityRenderers.register(NeutralEntities.HEAD_HUNTER.get(), HeadHunterRenderer::new);
         EntityRenderers.register(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterRenderer::new);
+
         EntityRenderers.register(NeutralEntities.END_POD.get(), EndPodRenderer::new);
         EntityRenderers.register(NeutralEntities.END_DWELLER.get(), EndDwellerRenderer::new);
         EntityRenderers.register(NeutralEntities.END_STONE_CRAB.get(), EndStoneCrabRenderer::new);
