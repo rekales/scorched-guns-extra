@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.common.brain;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
@@ -13,7 +14,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 import java.util.function.Function;
 
-public class WalkUpToIdealRange extends Behavior<LivingEntity> {
+public class WalkUpToIdealRange extends Behavior<Mob> {
 
     private final Function<LivingEntity, Float> speedModifier;
 
@@ -32,7 +33,7 @@ public class WalkUpToIdealRange extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.WEAPON_IDEAL_RANGE.get())
@@ -41,7 +42,7 @@ public class WalkUpToIdealRange extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void tick(ServerLevel level, Mob entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
         float approachDist = brain.getMemory(ModBrainMemories.WEAPON_IDEAL_RANGE.get()).get();

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -19,7 +20,7 @@ import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
  * For incrementing AIM_TICKS as long as the target is visible.
  * Unlike ApproachTargetAndAim, it can be used to make the mob shoot while moving
  */
-public class AimWhenTargetVisible extends Behavior<LivingEntity> {
+public class AimWhenTargetVisible extends Behavior<Mob> {
 
     private final Predicate<LivingEntity> canAim;
 
@@ -37,18 +38,18 @@ public class AimWhenTargetVisible extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity entity) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
         return this.canAim.test(entity);
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
         return this.canAim.test(entity)
                 && entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
     }
 
     @Override
-    protected void stop(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void stop(ServerLevel level, Mob entity, long gameTime) {
         if (!this.timedOut(gameTime)) {
             entity.getBrain().setMemory(ModBrainMemories.AIM_TICKS.get(), 0);
         }
@@ -56,7 +57,7 @@ public class AimWhenTargetVisible extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void tick(ServerLevel level, Mob entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 

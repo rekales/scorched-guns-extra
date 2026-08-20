@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MAX_AIM_TICKS;
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 
-public class AimWhenNotWalking extends Behavior<LivingEntity> {
+public class AimWhenNotWalking extends Behavior<Mob> {
 
     private final Predicate<LivingEntity> canAim;
 
@@ -35,18 +35,18 @@ public class AimWhenNotWalking extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity entity) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
         return this.canAim.test(entity);
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
         return this.canAim.test(entity)
                 && entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
     }
 
     @Override
-    protected void stop(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void stop(ServerLevel level, Mob entity, long gameTime) {
         if (!this.timedOut(gameTime)) {
             entity.getBrain().setMemory(ModBrainMemories.AIM_TICKS.get(), 0);
         }
@@ -54,7 +54,7 @@ public class AimWhenNotWalking extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void tick(ServerLevel level, Mob entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
@@ -66,8 +66,7 @@ public class AimWhenNotWalking extends Behavior<LivingEntity> {
         if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
             aimTicks = 0;
         } else {
-            boolean lineOfSight = entity instanceof Mob mob
-                    ? mob.getSensing().hasLineOfSight(target) : entity.hasLineOfSight(target);
+            boolean lineOfSight = entity.getSensing().hasLineOfSight(target);
             aimTicks += lineOfSight ? 1 : -1;
             aimTicks = Mth.clamp(aimTicks, MIN_AIM_TICKS, MAX_AIM_TICKS);
         }

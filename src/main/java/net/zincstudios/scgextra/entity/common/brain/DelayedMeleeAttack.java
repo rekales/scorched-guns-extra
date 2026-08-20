@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.common.brain;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -10,7 +11,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 import java.util.UUID;
 
-public class DelayedMeleeAttack extends Behavior<LivingEntity> {
+public class DelayedMeleeAttack extends Behavior<Mob> {
 
     private final int damageDelay;
     private final int meleeDuration;
@@ -39,7 +40,7 @@ public class DelayedMeleeAttack extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on hasRequiredMemories
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity entity) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
         LivingEntity target = entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
         if (this.oldDist < 0 || this.oldTargetId != target.getUUID()) {
@@ -61,13 +62,13 @@ public class DelayedMeleeAttack extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
         return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get());
     }
 
     @Override
-    protected void start(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void start(ServerLevel level, Mob entity, long gameTime) {
         this.oldDist = -1;
         entity.getBrain().setMemoryWithExpiry(
                 ModBrainMemories.DELAYED_MELEE.get(),
@@ -77,13 +78,13 @@ public class DelayedMeleeAttack extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected void stop(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void stop(ServerLevel level, Mob entity, long gameTime) {
         entity.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.meleeCooldown);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void tick(ServerLevel level, Mob entity, long gameTime) {
         LivingEntity target = entity.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
         if (entity.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
                 && entity.position().closerThan(target.position(), (entity.getBbWidth()/2 + this.range) * 1.2)) {

@@ -16,10 +16,8 @@ import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
-import net.zincstudios.scgextra.entity.cog.centipede.CogCentipedeEntity;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.brain.*;
-import net.zincstudios.scgextra.entity.common.gun.IdentityTriggerSampler;
 import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 
 public final class FacWalkerAi {

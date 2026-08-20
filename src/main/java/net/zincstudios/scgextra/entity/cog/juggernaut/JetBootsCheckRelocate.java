@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
@@ -19,7 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class JetBootsCheckRelocate extends Behavior<CogJuggernautEntity> {
+public class JetBootsCheckRelocate extends Behavior<Mob> {
 
     public static final float TOO_CLOSE_DIST = 4;
     public static final float TOO_FAR_DIST = 25;
@@ -39,7 +40,7 @@ public class JetBootsCheckRelocate extends Behavior<CogJuggernautEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") // because already handled on hasRequiredMemories
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, CogJuggernautEntity mob) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
         Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
         float idealRange = brain.getMemory(ModBrainMemories.WEAPON_IDEAL_RANGE.get()).get();
@@ -107,7 +108,7 @@ public class JetBootsCheckRelocate extends Behavior<CogJuggernautEntity> {
     }
 
     @Override
-    protected void start(ServerLevel level, CogJuggernautEntity entity, long gameTime) {
+    protected void start(ServerLevel level, Mob entity, long gameTime) {
         this.oldDist = -1;
     }
 

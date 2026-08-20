@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -17,7 +18,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class TankCannonFire extends Behavior<FacTankEntity> {
+public class TankCannonFire extends Behavior<Mob> {
 
     public static final int DEFAULT_COOLDOWN_DURATION_TICKS = 200;
     public static final String ABILITY_ID = "fac_tank_cannon_fire";
@@ -42,20 +43,20 @@ public class TankCannonFire extends Behavior<FacTankEntity> {
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, FacTankEntity mob) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
         int aimTicks = mob.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
         return aimTicks >= 40 && this.cooldownEnd < level.getGameTime();
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, FacTankEntity mob, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
         Brain<?> brain = mob.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get());
     }
 
     @Override
-    protected void start(ServerLevel level, FacTankEntity mob, long gameTime) {
+    protected void start(ServerLevel level, Mob mob, long gameTime) {
         this.startTime = gameTime;
         mob.getBrain().setMemoryWithExpiry(
                 ModBrainMemories.ABILITY_STATE.get(),
@@ -65,7 +66,7 @@ public class TankCannonFire extends Behavior<FacTankEntity> {
     }
 
     @Override
-    protected void stop(ServerLevel level, FacTankEntity mob, long gameTime) {
+    protected void stop(ServerLevel level, Mob mob, long gameTime) {
         Brain<?> brain = mob.getBrain();
         this.cooldownEnd = gameTime + this.cooldownDuration;
         brain.eraseMemory(ModBrainMemories.ABILITY_STATE.get());
@@ -73,7 +74,7 @@ public class TankCannonFire extends Behavior<FacTankEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, FacTankEntity mob, long gameTime) {
+    protected void tick(ServerLevel level, Mob mob, long gameTime) {
         Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
@@ -82,8 +83,9 @@ public class TankCannonFire extends Behavior<FacTankEntity> {
         }
 
         if (gameTime-this.startTime < 30) return;
-
-        mob.getMainCannon().tickFire(mob, SimulatedGun.getCenterMassPos(target), 2F, true);
+        if(mob instanceof FacTankEntity fte){
+            fte.getMainCannon().tickFire(mob, SimulatedGun.getCenterMassPos(target), 2F, true);
+        }
     }
 
 }

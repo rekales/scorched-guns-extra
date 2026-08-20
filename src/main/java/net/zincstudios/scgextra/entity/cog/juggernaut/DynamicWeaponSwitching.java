@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.item.ItemStack;
 import top.ribs.scguns.init.ModItems;
@@ -14,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class DynamicWeaponSwitching extends Behavior<CogJuggernautEntity> {
+public class DynamicWeaponSwitching extends Behavior<Mob> {
 
     private static final ImmutableList<GunItem> ARSENAL = ImmutableList.of(
             ModItems.GATTALER.get(),
@@ -29,12 +30,12 @@ public class DynamicWeaponSwitching extends Behavior<CogJuggernautEntity> {
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, CogJuggernautEntity owner) {
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
         return this.cooldownEnd < level.getGameTime();
     }
 
     @Override
-    protected void start(ServerLevel level, CogJuggernautEntity entity, long gameTime) {
+    protected void start(ServerLevel level, Mob entity, long gameTime) {
         this.cooldownEnd = gameTime + 300;
 
         ItemStack gunStack = new ItemStack(ARSENAL.get(entity.getRandom().nextInt(ARSENAL.size())));
