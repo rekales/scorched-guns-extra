@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.cog;
+package net.zincstudios.scgextra.entity.wreckers;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
