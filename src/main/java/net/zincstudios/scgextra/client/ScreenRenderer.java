@@ -16,9 +16,9 @@ import net.minecraftforge.fml.common.Mod;
 public class ScreenRenderer {
     private static float alpha = 1;
     private static final ResourceLocation INK =
-            SCGExtra.asResource("textures/ink_splat/model.png");
+            SCGExtra.asResource("textures/misc/ink_splat.png");
     private static final ResourceLocation INK_GLOWING =
-            SCGExtra.asResource("textures/ink_splat/model_glowing.png");
+            SCGExtra.asResource("textures/misc/ink_splat_glowing.png");
     @SubscribeEvent
     public static void onRenderOverlay(RenderGuiEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();
