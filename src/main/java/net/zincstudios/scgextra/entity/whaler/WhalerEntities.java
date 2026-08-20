@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -13,6 +14,7 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
+import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
@@ -80,6 +82,7 @@ public class WhalerEntities {
         modEventBus.addListener(WhalerEntities::onCommonSetup);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(WhalerEntities::onClientSetup);
+            modEventBus.addListener(WhalerEntities::registerLayers);
         }
     }
 
@@ -109,6 +112,12 @@ public class WhalerEntities {
         EntityRenderers.register(WhalerEntities.GLOWING_TENTACLIATOR.get(), GlowingTentacliatorRenderer::new);
         EntityRenderers.register(WhalerEntities.PUFFICUS.get(), PufficusRenderer::new);
         EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleRenderer::new);
+    }
+
+    @OnlyIn(value = Dist.CLIENT)
+    private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        // TODO: replace with geomodel
+        event.registerLayerDefinition(NetEntityModel.LAYER_LOCATION, NetEntityModel::createBodyLayer);
     }
 
 }

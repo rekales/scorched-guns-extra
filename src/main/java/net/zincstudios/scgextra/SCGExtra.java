@@ -2,12 +2,14 @@ package net.zincstudios.scgextra;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.zincstudios.scgextra.block.ModBlockEntities;
 import net.zincstudios.scgextra.block.ModBlocks;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
 import net.zincstudios.scgextra.data.RaidDataLoader;
 import net.zincstudios.scgextra.datagen.DataGenerators;
 import net.zincstudios.scgextra.debug.DevTestCommands;
+import net.zincstudios.scgextra.debug.EntityHeadBoxDebug;
 import net.zincstudios.scgextra.effects.ModEffects;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModEntities;
@@ -18,17 +20,10 @@ import net.zincstudios.scgextra.entity.cog.venator.CogVenatorEntity;
 import net.zincstudios.scgextra.entity.common.client.GunFlashHandler;
 import net.zincstudios.scgextra.entity.fac.bluecoat.FacBluecoatEntity;
 import net.zincstudios.scgextra.entity.fac.commissar.FacCommissarEntity;
-import net.zincstudios.scgextra.entity.fac.shovel_knight.FacShovelKnightEntity;
 import net.zincstudios.scgextra.entity.fac.trench_goblin.FacTrenchGoblinEntity;
 import net.zincstudios.scgextra.entity.fac.trench_sniper.FacTrenchSniperEntity;
-import net.zincstudios.scgextra.entity.fac.trencher.FacTrencherEntity;
-import net.zincstudios.scgextra.entity.rrc.arc_psycho.ArcPsychoEntity;
-import net.zincstudios.scgextra.entity.rrc.copper_knight.CopperKnightEntity;
 import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
-import net.zincstudios.scgextra.entity.rrc.scout.ScoutEntity;
 import net.zincstudios.scgextra.entity.rrc.tallman.TallmanEntity;
-import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
-import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_green.WreckerGreenEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_jumbo.WreckerJumboEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTurretGunnerEntity;
@@ -36,7 +31,6 @@ import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTur
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
@@ -91,7 +85,8 @@ public class SCGExtra
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
         modEventBus.addListener(CommonConfig::onLoad);
         modEventBus.addListener(CommonConfig::onReload);
-        modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(SCGExtra::onCommonSetup);
+        modEventBus.addListener(SCGExtra::onClientSetup);
 
         MinecraftForge.EVENT_BUS.addListener(GunFlashHandler::onTick);
         MinecraftForge.EVENT_BUS.addListener(WaveRaidManager::onLevelTick);
@@ -103,12 +98,16 @@ public class SCGExtra
         modEventBus.addListener(DataGenerators::gatherData);
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
+    private static void onCommonSetup(final FMLCommonSetupEvent event) {
         SCGEPacketHandler.init();
         event.enqueueWork(()->{
             ModTerrablender.registerBiomes();
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules());
         });
+    }
+
+    private static void onClientSetup(final FMLClientSetupEvent event) {
+        EntityHeadBoxDebug.register();
     }
 
     public static ResourceLocation asResource(String path) {
