@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/asghar_flamer_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/asghar_flamer_spawn_egg"
   }
 }

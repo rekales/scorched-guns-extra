@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/cog_venator_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/cog_venator_spawn_egg"
   }
 }

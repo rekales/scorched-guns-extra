@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/fish_folk_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/fish_folk_spawn_egg"
   }
 }

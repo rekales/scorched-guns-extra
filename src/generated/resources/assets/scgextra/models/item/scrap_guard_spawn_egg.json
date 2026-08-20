@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/scrap_guard_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/scrap_guard_spawn_egg"
   }
 }

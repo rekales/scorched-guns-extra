@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/nitro_beetle_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/nitro_beetle_spawn_egg"
   }
 }

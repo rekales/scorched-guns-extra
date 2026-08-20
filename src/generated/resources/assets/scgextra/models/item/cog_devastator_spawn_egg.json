@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/cog_devastator_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/cog_devastator_spawn_egg"
   }
 }

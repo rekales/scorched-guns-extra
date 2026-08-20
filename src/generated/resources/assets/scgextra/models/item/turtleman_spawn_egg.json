@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/turtleman_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/turtleman_spawn_egg"
   }
 }

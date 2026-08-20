@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/copper_knight_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/copper_knight_spawn_egg"
   }
 }

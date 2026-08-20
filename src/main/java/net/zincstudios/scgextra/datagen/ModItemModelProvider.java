@@ -26,9 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(ModItems.END_SHELL.get());
-
         basicItem(ModItems.BANDAGE);
-        basicItem(ModItems.MEDKIT);
 
 //        copyTexture(ModItems.ANTIQUE_SUPER_FLARE, top.ribs.scguns.init.ModItems.ANTIQUE_FLARE);
 //        copyTexture(ModItems.FRONTIER_SUPER_FLARE, top.ribs.scguns.init.ModItems.FRONTIER_FLARE);
@@ -88,71 +86,71 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("armor/", ModItems.PIONEER_LEGGINGS);
         basicItem("armor/", ModItems.PIONEER_BOOTS);
 
-        basicItem(ModItems.FISH_FOLK_SPAWN_EGG.get());
-        basicItem(ModItems.TURTLEMAN_SPAWN_EGG.get());
-        basicItem(ModItems.SALMONSAUR_SPAWN_EGG.get());
-        basicItem(ModItems.GUARDIAN_STATUE_SPAWN_EGG.get());
-        basicItem(ModItems.TENTACLIATOR_SPAWN_EGG.get());
-        basicItem(ModItems.GLOWING_TENTACLIATOR_SPAWN_EGG.get());
-        basicItem(ModItems.PUFFICUS_SPAWN_EGG.get());
-        basicItem(ModItems.ARMORED_WHALE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FISH_FOLK_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.TURTLEMAN_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SALMONSAUR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.GUARDIAN_STATUE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.TENTACLIATOR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.GLOWING_TENTACLIATOR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.PUFFICUS_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ARMORED_WHALE_SPAWN_EGG.get());
 
-        basicItem(ModItems.FAC_TRENCHER_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_BLUECOAT_SPAWN_EGG.get());
-        basicItem(ModItems.TRENCH_GOBLIN_SPAWN_EGG.get());
-        basicItem(ModItems.TRENCH_SNIPER_SPAWN_EGG.get());
-        basicItem(ModItems.SHOVEL_KNIGHT_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_TANK_BUSTER_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_LION_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_COMMISSAR_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_WALKER_SPAWN_EGG.get());
-        basicItem(ModItems.FAC_TANK_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_TRENCHER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_BLUECOAT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.TRENCH_GOBLIN_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.TRENCH_SNIPER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SHOVEL_KNIGHT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_TANK_BUSTER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_LION_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_COMMISSAR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_WALKER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAC_TANK_SPAWN_EGG.get());
 
-        basicItem(ModItems.WRECKER_RED_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_BLUE_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_GREEN_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_JUMBO_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_HELICUBE_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_TURRET_SPAWN_EGG.get());
-        basicItem(ModItems.WRECKER_DOZER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_RED_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_BLUE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_GREEN_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_JUMBO_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_HELICUBE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_TURRET_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_DOZER_SPAWN_EGG.get());
 
-        basicItem(ModItems.COPPER_KNIGHT_SPAWN_EGG.get());
-        basicItem(ModItems.DRONE_SPAWN_EGG.get());
-        basicItem(ModItems.TALLMAN_SPAWN_EGG.get());
-        basicItem(ModItems.SCOUT_SPAWN_EGG.get());
-        basicItem(ModItems.OPPRESSOR_SPAWN_EGG.get());
-        basicItem(ModItems.SPRING_JUNKIE_SPAWN_EGG.get());
-        basicItem(ModItems.FLAMING_HEAD_SPAWN_EGG.get());
-        basicItem(ModItems.SCRAP_GUARD_SPAWN_EGG.get());
-        basicItem(ModItems.ARC_PSYCHO_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COPPER_KNIGHT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.DRONE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.TALLMAN_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SCOUT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.OPPRESSOR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SPRING_JUNKIE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FLAMING_HEAD_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SCRAP_GUARD_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ARC_PSYCHO_SPAWN_EGG.get());
 
-        basicItem(ModItems.FAILED_ONE_SPAWN_EGG.get());
-        basicItem(ModItems.ASGHAR_SURGEON_SPAWN_EGG.get());
-        basicItem(ModItems.ASGHAR_WORKER_SPAWN_EGG.get());
-        basicItem(ModItems.ASGHAR_FLAMER_SPAWN_EGG.get());
-        basicItem(ModItems.CANDLE_FIEND_SPAWN_EGG.get());
-        basicItem(ModItems.SOUL_RIPPER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.FAILED_ONE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ASGHAR_SURGEON_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ASGHAR_WORKER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ASGHAR_FLAMER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.CANDLE_FIEND_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.SOUL_RIPPER_SPAWN_EGG.get());
 
-        basicItem(ModItems.COG_VULTURE_SPAWN_EGG.get());
-        basicItem(ModItems.COG_DEVASTATOR_SPAWN_EGG.get());
-        basicItem(ModItems.COG_BOMBARDIER_SPAWN_EGG.get());
-        basicItem(ModItems.COG_GIGANTES_SPAWN_EGG.get());
-        basicItem(ModItems.COG_VENATOR_SPAWN_EGG.get());
-        basicItem(ModItems.COG_CENTIPEDE_SPAWN_EGG.get());
-        basicItem(ModItems.COG_JUGGERNAUT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_VULTURE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_DEVASTATOR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_BOMBARDIER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_GIGANTES_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_VENATOR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_CENTIPEDE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_JUGGERNAUT_SPAWN_EGG.get());
 
-        basicItem(ModItems.INFLICTED_BOAR_SPAWN_EGG.get());
-        basicItem(ModItems.INFLICTED_WOLF_SPAWN_EGG.get());
-        basicItem(ModItems.AMMO_GOBLIN_SPAWN_EGG.get());
-        basicItem(ModItems.BIG_LUMP_SPAWN_EGG.get());
-        basicItem(ModItems.MUTANT_BAT_SPAWN_EGG.get());
-        basicItem(ModItems.NITRO_BEETLE_SPAWN_EGG.get());
-        basicItem(ModItems.HEAD_HUNTER_SPAWN_EGG.get());
-        basicItem(ModItems.NETHERITE_EATER_SPAWN_EGG.get());
-        basicItem(ModItems.END_POD_SPAWN_EGG.get());
-        basicItem(ModItems.END_DWELLER_SPAWN_EGG.get());
-        basicItem(ModItems.END_STONE_CRAB_SPAWN_EGG.get());
-        basicItem(ModItems.END_SCORPION_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.INFLICTED_BOAR_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.INFLICTED_WOLF_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.AMMO_GOBLIN_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.BIG_LUMP_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.MUTANT_BAT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.NITRO_BEETLE_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.HEAD_HUNTER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.NETHERITE_EATER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.END_POD_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.END_DWELLER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.END_STONE_CRAB_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.END_SCORPION_SPAWN_EGG.get());
     }
 
     public ItemModelBuilder basicItem(RegistryObject<? extends Item> item) {

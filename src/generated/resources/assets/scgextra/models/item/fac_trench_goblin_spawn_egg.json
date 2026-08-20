@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/fac_trench_goblin_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/fac_trench_goblin_spawn_egg"
   }
 }

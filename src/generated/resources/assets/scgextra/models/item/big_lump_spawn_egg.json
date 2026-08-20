@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/big_lump_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/big_lump_spawn_egg"
   }
 }

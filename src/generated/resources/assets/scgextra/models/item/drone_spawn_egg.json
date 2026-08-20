@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/drone_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/drone_spawn_egg"
   }
 }

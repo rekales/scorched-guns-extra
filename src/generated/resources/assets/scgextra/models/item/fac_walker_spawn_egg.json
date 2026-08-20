@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/fac_walker_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/fac_walker_spawn_egg"
   }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "scgextra:item/guardian_statue_spawn_egg"
+    "layer0": "scgextra:item/spawn_egg/guardian_statue_spawn_egg"
   }
 }
