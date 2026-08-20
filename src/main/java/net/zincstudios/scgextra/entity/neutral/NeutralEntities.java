@@ -28,11 +28,8 @@ import net.zincstudios.scgextra.entity.neutral.end.end_pod.EndPodRenderer;
 import net.zincstudios.scgextra.entity.neutral.end.end_scorpion.EndScorpionEntity;
 import net.zincstudios.scgextra.entity.neutral.end.end_scorpion.EndScorpionRenderer;
 import net.zincstudios.scgextra.entity.neutral.nether.head_hunter.HeadHunterEntity;
-import net.zincstudios.scgextra.entity.neutral.nether.head_hunter.HeadHunterRenderer;
 import net.zincstudios.scgextra.entity.neutral.nether.netherite_eater.NetheriteEaterEntity;
-import net.zincstudios.scgextra.entity.neutral.nether.netherite_eater.NetheriteEaterRenderer;
 import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleEntity;
-import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleRenderer;
 import net.zincstudios.scgextra.entity.neutral.overworld.ammo_goblin.AmmoGoblinEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarEntity;
@@ -457,15 +454,34 @@ public class NeutralEntities {
                         .noDeathTilt()
         );
 
+        EntityRenderers.register(NeutralEntities.NITRO_BEETLE.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/nitro_beetle")))
+                        .shadowRadius(0.5F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.HEAD_HUNTER.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/head_hunter")))
+                        .shadowRadius(0.8F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.NETHERITE_EATER.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/netherite_eater")))
+                        .shadowRadius(1F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+
 //        EntityRenderers.register(NeutralEntities.INFLICTED_BOAR.get(), InflictedBoarRenderer::new);
 //        EntityRenderers.register(NeutralEntities.INFLICTED_WOLF.get(), InflictedWolfRenderer::new);
 //        EntityRenderers.register(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinRenderer::new);
 //        EntityRenderers.register(NeutralEntities.BIG_LUMP.get(), BigLumpRenderer::new);
 //        EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), MutantBatRenderer::new);
 
-        EntityRenderers.register(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleRenderer::new);
-        EntityRenderers.register(NeutralEntities.HEAD_HUNTER.get(), HeadHunterRenderer::new);
-        EntityRenderers.register(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterRenderer::new);
+//        EntityRenderers.register(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleRenderer::new);
+//        EntityRenderers.register(NeutralEntities.HEAD_HUNTER.get(), HeadHunterRenderer::new);
+//        EntityRenderers.register(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterRenderer::new);
 
         EntityRenderers.register(NeutralEntities.END_POD.get(), EndPodRenderer::new);
         EntityRenderers.register(NeutralEntities.END_DWELLER.get(), EndDwellerRenderer::new);
