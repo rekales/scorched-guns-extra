@@ -127,20 +127,41 @@ public class COGEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(COGEntities.VULTURE.get(), (ctx) -> new CogVultureRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_vulture"))).noDeathTilt());
-        EntityRenderers.register(COGEntities.DEVASTATOR.get(), (ctx) -> new CogDevastatorRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_devastator"), "chest")).noDeathTilt());
-        EntityRenderers.register(COGEntities.BOMBARDIER.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_bombardier"))).noDeathTilt());
-        EntityRenderers.register(COGEntities.GIGANTES.get(), (ctx) -> new CogGigantesRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_gigantes"))).noDeathTilt());
-        EntityRenderers.register(COGEntities.VENATOR.get(), (ctx) -> new CogVenatorRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_venator"))).noDeathTilt());
-        EntityRenderers.register(COGEntities.CENTIPEDE.get(), (ctx) -> new CogCentipedeRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_centipede"))).noDeathTilt());
-        EntityRenderers.register(COGEntities.JUGGERNAUT.get(), (ctx) -> new CogJuggernautRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_juggernaut"), "chest")).noDeathTilt());
+        EntityRenderers.register(COGEntities.VULTURE.get(), (ctx) ->
+                new CogVultureRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_vulture")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.DEVASTATOR.get(), (ctx) ->
+                new CogDevastatorRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_devastator"), "chest"))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.BOMBARDIER.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_bombardier")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.GIGANTES.get(), (ctx) ->
+                new CogGigantesRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_gigantes")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.VENATOR.get(), (ctx) ->
+                new CogVenatorRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_venator")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.CENTIPEDE.get(), (ctx) ->
+                new CogCentipedeRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_centipede")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(COGEntities.JUGGERNAUT.get(), (ctx) ->
+                new CogJuggernautRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_juggernaut"), "chest"))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
 
         EntityRenderers.register(COGEntities.PLASMA_CANNON_PROJECTILE.get(), ProjectileRenderer::new);
         EntityRenderers.register(COGEntities.ROCKET_BARRAGE_PROJECTILE.get(), RocketRenderer::new);
