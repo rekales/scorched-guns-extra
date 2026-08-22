@@ -25,7 +25,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
  */
 @SuppressWarnings("unused")
 @ParametersAreNonnullByDefault
-public class BaseEntityRenderer <T extends LivingEntity & GeoEntity> extends GeoEntityRenderer<T> {
+public class BaseEntityRenderer<T extends LivingEntity & GeoEntity> extends GeoEntityRenderer<T> {
 
     protected boolean noDeathTilt = false;
     protected boolean noDeathRedTint = false;  // NOTE: can't be assed to do it since nothing uses it yet.
@@ -54,7 +54,7 @@ public class BaseEntityRenderer <T extends LivingEntity & GeoEntity> extends Geo
         return 90f;
     }
 
-    // Factory methods
+    // Fluent methods
 
     public BaseEntityRenderer<T> noDeathTilt() {
         this.noDeathTilt = true;

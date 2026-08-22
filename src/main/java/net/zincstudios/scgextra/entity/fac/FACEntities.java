@@ -144,26 +144,48 @@ public class FACEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(FACEntities.FAC_TRENCHER.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trencher"))));
-        EntityRenderers.register(FACEntities.FAC_BLUECOAT.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_bluecoat"))));
-        EntityRenderers.register(FACEntities.TRENCH_GOBLIN.get(), (ctx) -> new ItemHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trench_goblin"))));
-        EntityRenderers.register(FACEntities.TRENCH_SNIPER.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trench_sniper"))));
-        EntityRenderers.register(FACEntities.SHOVEL_KNIGHT.get(), (ctx) -> new BaseEntityRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_shovel_knight"))));  // TODO: check head bones
-        EntityRenderers.register(FACEntities.FAC_TANK_BUSTER.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_tank_buster"))));
-        EntityRenderers.register(FACEntities.FAC_LION.get(), (ctx) -> new GunHoldingMobRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_lion"))));
-        EntityRenderers.register(FACEntities.FAC_COMMISSAR.get(), (ctx) -> new FacCommissarRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_commissar"), "head")));
-        EntityRenderers.register(FACEntities.FAC_WALKER.get(), (ctx) -> new FacWalkerRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_walker"), "inner_upper_body")).noDeathTilt());
-        EntityRenderers.register(FACEntities.FAC_TANK.get(), (ctx) -> new FacTankRenderer(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_tank"))).noDeathTilt());
+        EntityRenderers.register(FACEntities.FAC_TRENCHER.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trencher")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.FAC_BLUECOAT.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_bluecoat")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.TRENCH_GOBLIN.get(), (ctx) ->
+                new ItemHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trench_goblin")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.TRENCH_SNIPER.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_trench_sniper")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.SHOVEL_KNIGHT.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_shovel_knight")))
+                        .hasGlowLayer()
+        );  // TODO: check head bones
+        EntityRenderers.register(FACEntities.FAC_TANK_BUSTER.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_tank_buster")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.FAC_LION.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_lion")))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.FAC_COMMISSAR.get(), (ctx) ->
+                new FacCommissarRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_commissar"), "head"))
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.FAC_WALKER.get(), (ctx) ->
+                new FacWalkerRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_walker"), "inner_upper_body"))
+                        .noDeathTilt()
+                        .hasGlowLayer()
+        );
+        EntityRenderers.register(FACEntities.FAC_TANK.get(), (ctx) ->
+                new FacTankRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_tank")))
+                        .noDeathTilt()
+                        .hasGlowLayer()
+        );
         EntityRenderers.register(FACEntities.TANK_CANNON_PROJECTILE.get(), TankCannonProjectileRenderer::new);
     }
     public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
