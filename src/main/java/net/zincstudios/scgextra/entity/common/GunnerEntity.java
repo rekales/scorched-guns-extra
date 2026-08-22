@@ -26,8 +26,11 @@ import top.ribs.scguns.entity.ai.GunAttackGoal;
  * Base class for entities that uses guns and the GunAttackGoal goal.
  * Used for handling and fetching states from the aforementioned goal.
  * @see GunAttackGoal
+ *
+ * @deprecated Extend EquippedEntity and use brain instead
  */
 @SuppressWarnings("unused")
+@Deprecated
 public abstract class GunnerEntity extends EquippedEntity {
 
     private static final EntityDataAccessor<Boolean> AIMING =
