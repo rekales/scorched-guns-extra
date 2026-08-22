@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.fac.shovel_knight;
+package net.zincstudios.scgextra.entity.common.brain;
 
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -18,7 +18,6 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.BiPredicate;
 
-// TODO: refactor to common
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class BreakBlocksToTarget extends Behavior<Mob> {

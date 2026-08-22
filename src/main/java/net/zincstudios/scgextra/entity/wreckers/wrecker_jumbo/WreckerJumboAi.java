@@ -21,7 +21,7 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
-import net.zincstudios.scgextra.entity.fac.shovel_knight.BreakBlocksToTarget;
+import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
 
 public class WreckerJumboAi {
     static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(

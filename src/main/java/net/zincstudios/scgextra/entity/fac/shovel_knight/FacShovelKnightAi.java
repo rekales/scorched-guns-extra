@@ -17,10 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
-import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
-import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import net.zincstudios.scgextra.entity.common.brain.*;
 
 public final class FacShovelKnightAi {
     static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
