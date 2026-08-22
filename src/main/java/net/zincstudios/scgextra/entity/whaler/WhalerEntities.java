@@ -13,12 +13,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
-import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkRenderer;
+import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkModel;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueEntity;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueRenderer;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
@@ -103,7 +104,12 @@ public class WhalerEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(WhalerEntities.FISH_FOLK.get(), FishFolkRenderer::new);
+        EntityRenderers.register(WhalerEntities.FISH_FOLK.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new FishFolkModel<>(SCGExtra.asResource("whaler/fish_folk")))
+//                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+
         EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) -> new GunnerRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")), -10));
         EntityRenderers.register(WhalerEntities.SALMONSAUR.get(), SalmonsaurRenderer::new);
