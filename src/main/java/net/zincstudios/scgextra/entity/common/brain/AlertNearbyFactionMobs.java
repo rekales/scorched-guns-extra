@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.common.brain;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -13,7 +14,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import java.util.List;
 
 // Separated checking and alerting because this can be either on an isolated activity or run concurrently with other behaviors
-public class AlertNearbyFactionMobs extends Behavior<LivingEntity> {
+public class AlertNearbyFactionMobs extends Behavior<Mob> {
 
     public static final String ABILITY_ID = "alert_faction_mobs";
 
@@ -26,14 +27,14 @@ public class AlertNearbyFactionMobs extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
-        return entity.getBrain().hasMemoryValue(ModBrainMemories.TO_ALERT.get());
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+        return mob.getBrain().hasMemoryValue(ModBrainMemories.TO_ALERT.get());
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // already handled on hasRequiredMemories
     @Override
-    protected void start(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected void start(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         List<LivingEntity> entities = brain.getMemory(ModBrainMemories.TO_ALERT.get()).get();
         for (LivingEntity other : entities) {
 
@@ -47,9 +48,9 @@ public class AlertNearbyFactionMobs extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected void stop(ServerLevel level, LivingEntity entity, long gameTime) {
-        entity.getBrain().eraseMemory(ModBrainMemories.TO_ALERT.get());
-        entity.getBrain().eraseMemory(ModBrainMemories.ABILITY_STATE.get());
+    protected void stop(ServerLevel level, Mob mob, long gameTime) {
+        mob.getBrain().eraseMemory(ModBrainMemories.TO_ALERT.get());
+        mob.getBrain().eraseMemory(ModBrainMemories.ABILITY_STATE.get());
     }
 }
 

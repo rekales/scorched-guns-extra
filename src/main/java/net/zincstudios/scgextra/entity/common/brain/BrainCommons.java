@@ -50,7 +50,7 @@ public final class BrainCommons {
         ));
     }
 
-    public static void initStunnedActivity(Brain<? extends LivingEntity> brain) {
+    public static void initStunnedActivity(Brain<? extends Mob> brain) {
         brain.addActivityAndRemoveMemoryWhenStopped(ModBrainActivities.STUNNED.get(), 10, ImmutableList.of(
                         new HandleStunnedVisuals()
                 ), ModBrainMemories.STUNNED.get()
@@ -66,7 +66,7 @@ public final class BrainCommons {
         );
     }
 
-    public static void initAlertActivity(Brain<? extends LivingEntity> brain) {
+    public static void initAlertActivity(Brain<? extends Mob> brain) {
         brain.addActivityAndRemoveMemoryWhenStopped(ModBrainActivities.ALERT.get(), 10, ImmutableList.of(
                         new AlertNearbyFactionMobs()
                 ), ModBrainMemories.TO_ALERT.get()

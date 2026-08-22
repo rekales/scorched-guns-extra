@@ -19,11 +19,11 @@ import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 /**
  * Gets closer to the target when not visible for some time
  */
-public class ApproachTargetIfCannotAim extends Behavior<LivingEntity> {
+public class ApproachTargetIfCannotAim extends Behavior<Mob> {
 
-    private final Function<LivingEntity, Float> speedModifier;
+    private final Function<Mob, Float> speedModifier;
 
-    public ApproachTargetIfCannotAim(Function<LivingEntity, Float> speedModifier) {
+    public ApproachTargetIfCannotAim(Function<Mob, Float> speedModifier) {
         super(ImmutableMap.of(
                 MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED,
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
@@ -35,12 +35,12 @@ public class ApproachTargetIfCannotAim extends Behavior<LivingEntity> {
     }
 
     public ApproachTargetIfCannotAim(float speedModifier) {
-        this(entity -> speedModifier);
+        this(mob -> speedModifier);
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.WEAPON_IDEAL_RANGE.get())
                 && brain.hasMemoryValue(ModBrainMemories.WEAPON_MAX_RANGE.get());
@@ -48,25 +48,23 @@ public class ApproachTargetIfCannotAim extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
         float approachDist = brain.getMemory(ModBrainMemories.WEAPON_IDEAL_RANGE.get()).get();
         float weaponRange = brain.getMemory(ModBrainMemories.WEAPON_MAX_RANGE.get()).get();
         int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
 
-        if (!entity.closerThan(target, weaponRange) || aimTicks <= MIN_AIM_TICKS) {
+        if (!mob.closerThan(target, weaponRange) || aimTicks <= MIN_AIM_TICKS) {
             if (!brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
                 brain.setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(
-                        new EntityTracker(target, false), this.speedModifier.apply(entity), 0
+                        new EntityTracker(target, false), this.speedModifier.apply(mob), 0
                 ));
             }
             return;
         }
 
-        boolean lineOfSight = entity instanceof Mob mob
-                ? mob.getSensing().hasLineOfSight(target) : entity.hasLineOfSight(target);
-        if (entity.closerThan(target, approachDist) && lineOfSight) {
+        if (mob.closerThan(target, approachDist) && mob.getSensing().hasLineOfSight(target)) {
             if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
                 brain.eraseMemory(MemoryModuleType.WALK_TARGET);
             }

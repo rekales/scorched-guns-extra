@@ -16,7 +16,7 @@ import java.util.function.Predicate;
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MAX_AIM_TICKS;
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 
-public class AimWhenNotWalking extends Behavior<LivingEntity> {
+public class AimWhenNotWalking extends Behavior<Mob> {
 
     private final Predicate<LivingEntity> canAim;
 
@@ -35,27 +35,27 @@ public class AimWhenNotWalking extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity entity) {
-        return this.canAim.test(entity);
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+        return this.canAim.test(mob);
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
-        return this.canAim.test(entity)
-                && entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+        return this.canAim.test(mob)
+                && mob.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
     }
 
     @Override
-    protected void stop(ServerLevel level, LivingEntity entity, long gameTime) {
+    protected void stop(ServerLevel level, Mob mob, long gameTime) {
         if (!this.timedOut(gameTime)) {
-            entity.getBrain().setMemory(ModBrainMemories.AIM_TICKS.get(), 0);
+            mob.getBrain().setMemory(ModBrainMemories.AIM_TICKS.get(), 0);
         }
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
         if (!brain.hasMemoryValue(MemoryModuleType.LOOK_TARGET)) {
@@ -66,9 +66,7 @@ public class AimWhenNotWalking extends Behavior<LivingEntity> {
         if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
             aimTicks = 0;
         } else {
-            boolean lineOfSight = entity instanceof Mob mob
-                    ? mob.getSensing().hasLineOfSight(target) : entity.hasLineOfSight(target);
-            aimTicks += lineOfSight ? 1 : -1;
+            aimTicks += mob.getSensing().hasLineOfSight(target) ? 1 : -1;
             aimTicks = Mth.clamp(aimTicks, MIN_AIM_TICKS, MAX_AIM_TICKS);
         }
 

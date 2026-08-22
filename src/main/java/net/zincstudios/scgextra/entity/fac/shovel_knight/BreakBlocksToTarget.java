@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -17,9 +18,10 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.BiPredicate;
 
+// TODO: refactor to common
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class BreakBlocksToTarget extends Behavior<LivingEntity> {
+public class BreakBlocksToTarget extends Behavior<Mob> {
 
     public static final int POS_CHECK_INTERVAL = 10;
     public static final double LAST_POS_DISTANCE_THRESHOLD = 0.5;
@@ -42,22 +44,22 @@ public class BreakBlocksToTarget extends Behavior<LivingEntity> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (target == null) return false;
 
         if (level.getGameTime()-this.lastPosCheck > POS_CHECK_INTERVAL) {
-            if (this.lastPos.closerThan(entity.position(), LAST_POS_DISTANCE_THRESHOLD)
-                    && target.position().closerThan(entity.position(), TARGET_DISTANCE_THRESHOLD)){
+            if (this.lastPos.closerThan(mob.position(), LAST_POS_DISTANCE_THRESHOLD)
+                    && target.position().closerThan(mob.position(), TARGET_DISTANCE_THRESHOLD)){
                 this.frustration += 5;
             } else {
                 this.frustration -= 1;
             }
             this.frustration = Mth.clamp(this.frustration, 0, 60);
 
-            this.lastPos = entity.position();
-            this.lastPosCheck = entity.tickCount;
+            this.lastPos = mob.position();
+            this.lastPosCheck = mob.tickCount;
         }
 
         return this.frustration > this.frustrationThresh;
@@ -65,13 +67,13 @@ public class BreakBlocksToTarget extends Behavior<LivingEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+        Brain<?> brain = mob.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
         if (level.getGameTime() % 10 == 0) {
-            AABB breakBB = this.getBreakBB(entity, target);
-            this.breakBlocks(level, entity, breakBB);
+            AABB breakBB = this.getBreakBB(mob, target);
+            this.breakBlocks(level, mob, breakBB);
         }
     }
 
