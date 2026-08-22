@@ -3,7 +3,6 @@ package net.zincstudios.scgextra.entity.common.brain;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -17,7 +16,7 @@ import net.zincstudios.scgextra.entity.common.gun.TriggerStateSampler;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public class ShootTarget extends Behavior<Mob> {
+public class ShootTarget extends Behavior<LivingEntity> {
 
     public static final float DEFAULT_ACCURACY = 1.6F;
     private final int aimThreshold;
@@ -51,7 +50,7 @@ public class ShootTarget extends Behavior<Mob> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.SIMULATED_GUN.get());
@@ -59,7 +58,7 @@ public class ShootTarget extends Behavior<Mob> {
 
     @SuppressWarnings({"OptionalGetWithoutIsPresent"}) // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, Mob entity, long gameTime) {
+    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         if (!canShoot.test(entity)) return;
 

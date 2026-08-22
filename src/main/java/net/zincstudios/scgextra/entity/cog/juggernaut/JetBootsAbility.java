@@ -5,7 +5,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.behavior.PositionTracker;
@@ -23,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class JetBootsAbility extends Behavior<Mob> {
+public class JetBootsAbility extends Behavior<CogJuggernautEntity> {
 
     public static final int DEFAULT_COOLDOWN_DURATION_TICKS = 120;
     public static final String ABILITY_ID = "cog_juggernaut_jet_boots";
@@ -50,14 +49,10 @@ public class JetBootsAbility extends Behavior<Mob> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, CogJuggernautEntity mob, long gameTime) {
         if (gameTime-this.startTime > this.jetStartTicks+10 && mob.onGround()) {
-            if(mob instanceof CogJuggernautEntity cje){
-                cje.setJetActive(false);
-                if (this.recoveryTicks-- <= 0) return false;
-            }else{
-                if (this.recoveryTicks-- <= 0) return false;
-            }
+            mob.setJetActive(false);
+            if (this.recoveryTicks-- <= 0) return false;
         }
 
         Brain<?> brain = mob.getBrain();
@@ -68,10 +63,8 @@ public class JetBootsAbility extends Behavior<Mob> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") // because already handled on hasRequiredMemories
     @Override
-    protected void start(ServerLevel level, Mob mob, long gameTime) {
-        if(mob instanceof CogJuggernautEntity cje){
-            cje.setJetActive(true);
-        }
+    protected void start(ServerLevel level, CogJuggernautEntity mob, long gameTime) {
+        mob.setJetActive(true);
         Brain<?> brain = mob.getBrain();
         PositionTracker target = brain.getMemory(ModBrainMemories.RELOCATE_TARGET.get()).get();
         this.targetRot = MobUtil.rotFromVec(target.currentPosition().subtract(mob.position()));
@@ -86,10 +79,8 @@ public class JetBootsAbility extends Behavior<Mob> {
     }
 
     @Override
-    protected void stop(ServerLevel level, Mob mob, long gameTime) {
-        if(mob instanceof CogJuggernautEntity cje){
-            cje.setJetActive(false);
-        }
+    protected void stop(ServerLevel level, CogJuggernautEntity mob, long gameTime) {
+        mob.setJetActive(false);
         Brain<?> brain = mob.getBrain();
         brain.setMemoryWithExpiry(ModBrainMemories.JET_BOOTS_COOLING_DOWN.get(), true, this.cooldownDuration);
         brain.eraseMemory(ModBrainMemories.ABILITY_STATE.get());
@@ -98,7 +89,7 @@ public class JetBootsAbility extends Behavior<Mob> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent") // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+    protected void tick(ServerLevel level, CogJuggernautEntity mob, long gameTime) {
         Brain<?> brain = mob.getBrain();
         PositionTracker target = brain.getMemory(ModBrainMemories.RELOCATE_TARGET.get()).get();
 

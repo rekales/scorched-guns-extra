@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.server.level.ServerBossEvent;
 import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.fac.ApproachTargetGoal;
+import net.zincstudios.scgextra.entity.wreckers.ApproachTargetGoal;
 import net.zincstudios.scgextra.entity.cog.MountedGunGoal;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
 import net.zincstudios.scgextra.entity.common.Stunnable;

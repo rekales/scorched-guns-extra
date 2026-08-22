@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -15,7 +14,7 @@ import java.util.function.BiPredicate;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class BurnNearby extends Behavior<Mob> {
+public class BurnNearby extends Behavior<LivingEntity> {
 
     private final BiPredicate<LivingEntity, LivingEntity> shouldBurn;
 
@@ -34,13 +33,13 @@ public class BurnNearby extends Behavior<Mob> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
         return entity.getBrain().hasMemoryValue(MemoryModuleType.NEAREST_LIVING_ENTITIES);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, Mob entity, long gameTime) {
+    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         if (gameTime%5 != 1) return;
         List<LivingEntity> entities = entity.getBrain().getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).get();
         for (LivingEntity target : entities) {

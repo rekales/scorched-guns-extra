@@ -19,7 +19,7 @@ import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 /**
  * Gets closer to the target when not visible for some time
  */
-public class ApproachTargetIfCannotAim extends Behavior<Mob> {
+public class ApproachTargetIfCannotAim extends Behavior<LivingEntity> {
 
     private final Function<LivingEntity, Float> speedModifier;
 
@@ -39,7 +39,7 @@ public class ApproachTargetIfCannotAim extends Behavior<Mob> {
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, LivingEntity entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.WEAPON_IDEAL_RANGE.get())
@@ -48,7 +48,7 @@ public class ApproachTargetIfCannotAim extends Behavior<Mob> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, Mob entity, long gameTime) {
+    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
         float approachDist = brain.getMemory(ModBrainMemories.WEAPON_IDEAL_RANGE.get()).get();
@@ -64,7 +64,8 @@ public class ApproachTargetIfCannotAim extends Behavior<Mob> {
             return;
         }
 
-        boolean lineOfSight = entity.getSensing().hasLineOfSight(target);
+        boolean lineOfSight = entity instanceof Mob mob
+                ? mob.getSensing().hasLineOfSight(target) : entity.hasLineOfSight(target);
         if (entity.closerThan(target, approachDist) && lineOfSight) {
             if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
                 brain.eraseMemory(MemoryModuleType.WALK_TARGET);

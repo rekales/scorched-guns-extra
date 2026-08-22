@@ -2,7 +2,6 @@ package net.zincstudios.scgextra.entity.common.brain;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 import java.util.List;
@@ -15,7 +14,7 @@ public class SlamAttack extends DelayedMeleeAttack {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, Mob entity, long gameTime) {
+    protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         if (entity.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime) {
             List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class,
                     entity.getBoundingBox().inflate(this.range * 1.3),
