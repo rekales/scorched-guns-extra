@@ -17,7 +17,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scguns:netherite_scrap_chunk"
+          "name": "minecraft:netherite_scrap"
         }
       ],
       "rolls": 1.0
@@ -38,7 +38,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:netherite_scrap"
+          "name": "scguns:netherite_scrap_chunk"
         }
       ],
       "rolls": 1.0

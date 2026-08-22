@@ -17,6 +17,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.zincstudios.scgextra.entity.asgharian.AsgharianEntities;
 import net.zincstudios.scgextra.entity.cog.COGEntities;
 import net.zincstudios.scgextra.entity.fac.FACEntities;
+import net.zincstudios.scgextra.entity.neutral.NeutralEntities;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
@@ -249,6 +250,49 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 ), 0.3F)
                 .constant(ModItems.COG_HEART.get(), 1)
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3);
+
+        basicLoot(NeutralEntities.INFLICTED_BOAR.get())
+                .range(Items.PORKCHOP, 1, 3)
+                .range(Items.LEATHER, 1, 3)
+                .chance(Items.SKELETON_SKULL, 0.1F);
+        basicLoot(NeutralEntities.INFLICTED_WOLF.get())
+                .range(Items.BONE, 1, 3)
+                .range(Items.LEATHER, 1, 3);
+        basicLoot(NeutralEntities.AMMO_GOBLIN.get())
+                .range(Items.GUNPOWDER, 3, 6)
+                .constant(ModBlocks.SUPPLY_CRATE.get().asItem(), 1)
+                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
+                .range(ModItems.COMPACT_ADVANCED_ROUND.get(), 1, 3)
+                .range(ModItems.STANDARD_COPPER_ROUND.get(), 1, 3)
+                .range(ModItems.COMPACT_COPPER_ROUND.get(), 1, 3)
+                .range(ModItems.SHOTGUN_SHELL.get(), 1, 3)
+                .range(ModItems.RAMROD_ROUND.get(), 1, 3);
+        basicLoot(NeutralEntities.BIG_LUMP.get())
+                .range(Items.ROTTEN_FLESH, 3, 6)
+                .range(ModItems.RAW_ANTHRALITE.get(), 3, 6)
+                .range(ModItems.ADVANCED_ROUND.get(), 3, 9);
+        basicLoot(NeutralEntities.MUTANT_BAT.get())
+                .range(ModItems.RAW_PHOSPHOR.get(), 3, 6);
+        basicLoot(NeutralEntities.NITRO_BEETLE.get())
+                .range(ModItems.NITRO_POWDER_DUST.get(), 1, 3);
+        basicLoot(NeutralEntities.HEAD_HUNTER.get())
+                .chanceRange(Items.WITHER_SKELETON_SKULL, 0.5F, 1, 2)
+                .range(Items.BONE, 1, 3)
+                .range(Items.COAL, 1, 3);
+        basicLoot(NeutralEntities.NETHERITE_EATER.get())
+                .range(Items.NETHERITE_SCRAP, 1, 3)
+                .range(ModItems.NETHERITE_SCRAP_CHUNK.get(), 1, 3);
+        basicLoot(NeutralEntities.END_POD.get())
+                .range(net.zincstudios.scgextra.item.ModItems.END_SHELL.get(), 1, 3);
+        basicLoot(NeutralEntities.END_DWELLER.get())
+                .range(ModItems.PLASMA.get(), 1, 3);
+        basicLoot(NeutralEntities.END_STONE_CRAB.get())
+                .range(Items.END_STONE, 1, 3)
+                .range(net.zincstudios.scgextra.item.ModItems.END_SHELL.get(), 3, 6);
+        basicLoot(NeutralEntities.END_SCORPION.get())
+                .constant(ModItems.NETHER_STAR_FRAGMENT.get(), 1)
+                .range(net.zincstudios.scgextra.item.ModItems.END_SHELL.get(), 3, 6)
+                .range(ModItems.PLASMA.get(), 3, 6);
     }
 
     // don't use this for more complex loot tables
@@ -308,6 +352,17 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                     .when(LootItemRandomChanceCondition.randomChance(chance))
                     .add(LootItem.lootTableItem(item)
                             .apply(SetItemCountFunction.setCount(ConstantValue.exactly(count)))
+                    )
+            );
+            return this;
+        }
+
+        public LootTableEntryBuilder chanceRange(Item item, float chance, int min, int max) {
+            this.lootTableRef.withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .when(LootItemRandomChanceCondition.randomChance(chance))
+                    .add(LootItem.lootTableItem(item)
+                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(min, max)))
                     )
             );
             return this;

@@ -3,17 +3,27 @@
   "pools": [
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.5,
+          "condition": "minecraft:random_chance"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "functions": [
             {
               "add": false,
-              "count": 1,
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2.0,
+                "min": 1.0
+              },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scguns:nether_star_fragment"
+          "name": "minecraft:wither_skeleton_skull"
         }
       ],
       "rolls": 1.0
@@ -28,13 +38,13 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 3.0
+                "max": 3.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scgextra:end_shell"
+          "name": "minecraft:bone"
         }
       ],
       "rolls": 1.0
@@ -49,17 +59,17 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 6.0,
-                "min": 3.0
+                "max": 3.0,
+                "min": 1.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scguns:plasma"
+          "name": "minecraft:coal"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "scgextra:entities/end_scorpion"
+  "random_sequence": "scgextra:entities/head_hunter"
 }

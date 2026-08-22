@@ -9,15 +9,11 @@
           "functions": [
             {
               "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
+              "count": 1.0,
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:bone"
+          "name": "scguns:nether_star_fragment"
         }
       ],
       "rolls": 1.0
@@ -32,25 +28,19 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
+                "max": 6.0,
+                "min": 3.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:coal"
+          "name": "scgextra:end_shell"
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
-      "conditions": [
-        {
-          "chance": 0.5,
-          "condition": "minecraft:random_chance"
-        }
-      ],
       "entries": [
         {
           "type": "minecraft:item",
@@ -59,17 +49,17 @@
               "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "max": 2.0,
-                "min": 1.0
+                "max": 6.0,
+                "min": 3.0
               },
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:wither_skeleton_skull"
+          "name": "scguns:plasma"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "scgextra:entities/head_hunter"
+  "random_sequence": "scgextra:entities/end_scorpion"
 }
