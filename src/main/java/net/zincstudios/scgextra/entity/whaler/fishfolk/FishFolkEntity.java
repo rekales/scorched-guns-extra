@@ -1,16 +1,21 @@
 package net.zincstudios.scgextra.entity.whaler.fishfolk;
 
+import com.mojang.serialization.Dynamic;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.fluids.FluidType;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
+import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -57,6 +62,35 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     }
 
     @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return FishFolkAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Brain<FishFolkEntity> getBrain() {
+        return (Brain<FishFolkEntity>) super.getBrain();
+    }
+
+    @Override
+    protected Brain.Provider<FishFolkEntity> brainProvider() {
+        return FishFolkAi.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("facBluecoatBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        BrainCommons.updateActivity(this);
+        BrainCommons.updateMaxRangeAggressive(this);
+        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+            this.setYBodyRot(this.getYHeadRot());
+        }
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
+    }
+
+    @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.geoCache;
     }
@@ -64,7 +98,7 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 0, state -> {
-            if(state.getAnimatable().isPassenger()){
+            if (state.getAnimatable().isPassenger()) {
                 state.setAndContinue(RawAnimation.begin().thenLoop("sitting"));
             }else if (state.isMoving()) {
                 state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
