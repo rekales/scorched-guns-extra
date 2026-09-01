@@ -35,6 +35,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner, VariantHolder<Integer> {
 
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation AIM = RawAnimation.begin().thenLoop("aim");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
+
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(FishFolkEntity.class, EntityDataSerializers.INT);
 
@@ -97,18 +102,25 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 0, state -> {
+        controllers.add(new AnimationController<>(this, "controller", 3, state -> {
             if (state.getAnimatable().isPassenger()) {
-                state.setAndContinue(RawAnimation.begin().thenLoop("sitting"));
-            }else if (state.isMoving()) {
-                state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
+                state.setAndContinue(RawAnimation.begin().thenLoop("sitting"));  // TODO: custom anim
+            } else if (state.getAnimatable().isAggressive()) {
+                state.setAndContinue(AIM);
+            } else if (state.isMoving()) {
+                state.setAndContinue(WALK);
             } else {
-                state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
+                state.setAndContinue(IDLE);
             }
             return PlayState.CONTINUE;
-        }).triggerableAnim("attack", RawAnimation.begin().thenPlay("attack")));
-        controllers.add(new AnimationController<>(this, "special", 0, state -> PlayState.CONTINUE)
-        .triggerableAnim("attack", RawAnimation.begin().thenPlay("attack")));
+        }));
+
+        controllers.add(new AnimationController<>(this, "death", 2, state -> {
+            if (state.getAnimatable().isDeadOrDying()) {
+                return state.setAndContinue(DEATH);
+            }
+            return PlayState.STOP;
+        }));
     }
 
     @Override
@@ -152,5 +164,10 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        return true;
     }
 }

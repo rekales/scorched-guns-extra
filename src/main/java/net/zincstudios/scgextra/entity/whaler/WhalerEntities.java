@@ -106,7 +106,7 @@ public class WhalerEntities {
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(WhalerEntities.FISH_FOLK.get(), (ctx) ->
                 new GunHoldingMobRenderer<>(ctx, new FishFolkModel<>(SCGExtra.asResource("whaler/fish_folk")))
-//                        .hasGlowLayer()
+//                        .hasGlowLayer()  // TODO: needs glow layer for third texture variant
                         .noDeathTilt()
         );
 
