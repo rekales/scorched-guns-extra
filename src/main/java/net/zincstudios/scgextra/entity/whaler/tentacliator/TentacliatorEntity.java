@@ -165,4 +165,7 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
+    public boolean isGlowing(){
+        return this.getVariant() == 2;
+    }
 }
