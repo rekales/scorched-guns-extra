@@ -36,7 +36,6 @@ public class RaidSummonerEntity extends Mob {
         whalerElite.add(WhalerEntities.SALMONSAUR.get());
         whalerElite.add(WhalerEntities.TURTLEMAN.get());
         whalerElite.add(WhalerEntities.TENTACLIATOR.get());
-        whalerElite.add(WhalerEntities.GLOWING_TENTACLIATOR.get());
         whalerElite.add(WhalerEntities.PUFFICUS.get());
 
         rrcElite.add(RRCEntities.SPRING_JUNKIE.get());

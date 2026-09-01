@@ -73,7 +73,6 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(WhalerEntities.TURTLEMAN.get())
                 .add(WhalerEntities.SALMONSAUR.get())
                 .add(WhalerEntities.TENTACLIATOR.get())
-                .add(WhalerEntities.GLOWING_TENTACLIATOR.get())
                 .add(WhalerEntities.PUFFICUS.get())
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
                 .add(WhalerEntities.ARMORED_WHALE.get())
@@ -122,7 +121,6 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(WhalerEntities.SALMONSAUR.get())
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
                 .add(WhalerEntities.TENTACLIATOR.get())
-                .add(WhalerEntities.GLOWING_TENTACLIATOR.get())
                 .add(WhalerEntities.PUFFICUS.get())
                 .add(WhalerEntities.ARMORED_WHALE.get());
 

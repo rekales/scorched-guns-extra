@@ -3,7 +3,6 @@
   "entity.scgextra.turtleman":  "Turtle Man",
   "entity.scgextra.salmonsaur":  "Salmonsaurus",
   "entity.scgextra.tentacliator":  "Tentacliator",
-  "entity.scgextra.glowing_tentacliator":  "Glowing Tentacliator",
   "entity.scgextra.armored_whale":  "Armored Whale",
   "entity.scgextra.pufficus":  "Pufficus",
   "entity.scgextra.guardian_statue":  "Guardian Statue",
@@ -71,7 +70,6 @@
   "item.scgextra.salmonsaur_spawn_egg":  "Salmonsaur Spawn Egg",
   "item.scgextra.guardian_statue_spawn_egg":  "Guardian Statue Spawn Egg",
   "item.scgextra.tentacliator_spawn_egg":  "Tentacliator Spawn Egg",
-  "item.scgextra.glowing_tentacliator_spawn_egg":  "Glowing Tentacliator Spawn Egg",
   "item.scgextra.pufficus_spawn_egg":  "Pufficus Spawn Egg",
   "item.scgextra.armored_whale_spawn_egg":  "Armored Whale Spawn Egg",
 

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "scgextra:item/spawn_egg/glowing_tentacliator_spawn_egg"
-  }
-}

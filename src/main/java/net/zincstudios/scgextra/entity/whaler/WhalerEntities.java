@@ -26,10 +26,8 @@ import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusRenderer;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
-import net.zincstudios.scgextra.entity.whaler.tentacliator.GlowingTentacliatorEntity;
-import net.zincstudios.scgextra.entity.whaler.tentacliator.GlowingTentacliatorRenderer;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
-import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorRenderer;
+import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import top.ribs.scguns.common.BoundingBoxManager;
@@ -64,10 +62,6 @@ public class WhalerEntities {
             .register("tentacliator", () -> EntityType.Builder.of(TentacliatorEntity::new, MobCategory.MONSTER)
                     .sized(0.6F, 1.95F).build("tentacliator"));
 
-    public static final RegistryObject<EntityType<GlowingTentacliatorEntity>> GLOWING_TENTACLIATOR = ENTITY_TYPES
-            .register("glowing_tentacliator", () -> EntityType.Builder.of(GlowingTentacliatorEntity::new, MobCategory.MONSTER)
-                    .sized(0.6F, 1.95F).build("glowing_tentacliator"));
-
     public static final RegistryObject<EntityType<PufficusEntity>> PUFFICUS = ENTITY_TYPES
             .register("pufficus", () -> EntityType.Builder.of(PufficusEntity::new, MobCategory.MONSTER)
                     .sized(1F, 3F).build("pufficus"));
@@ -93,7 +87,6 @@ public class WhalerEntities {
         event.put(WhalerEntities.SALMONSAUR.get(), SalmonsaurEntity.createAttributes().build());
         event.put(WhalerEntities.GUARDIAN_STATUE.get(), GuardianStatueEntity.createAttributes().build());
         event.put(WhalerEntities.TENTACLIATOR.get(), TentacliatorEntity.createAttributes().build());
-        event.put(WhalerEntities.GLOWING_TENTACLIATOR.get(), GlowingTentacliatorEntity.createAttributes().build());
         event.put(WhalerEntities.PUFFICUS.get(), PufficusEntity.createAttributes().build());
         event.put(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleEntity.createAttributes().build());
     }
@@ -106,7 +99,7 @@ public class WhalerEntities {
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(WhalerEntities.FISH_FOLK.get(), (ctx) ->
                 new GunHoldingMobRenderer<>(ctx, new FishFolkModel<>(SCGExtra.asResource("whaler/fish_folk")))
-//                        .hasGlowLayer()  // TODO: needs glow layer for third texture variant
+                        .hasGlowLayer()  // DONE: needs glow layer for third texture variant
                         .noDeathTilt()
         );
 
@@ -114,8 +107,11 @@ public class WhalerEntities {
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")), -10));
         EntityRenderers.register(WhalerEntities.SALMONSAUR.get(), SalmonsaurRenderer::new);
         EntityRenderers.register(WhalerEntities.GUARDIAN_STATUE.get(), GuardianStatueRenderer::new);
-        EntityRenderers.register(WhalerEntities.TENTACLIATOR.get(), TentacliatorRenderer::new);
-        EntityRenderers.register(WhalerEntities.GLOWING_TENTACLIATOR.get(), GlowingTentacliatorRenderer::new);
+        EntityRenderers.register(WhalerEntities.TENTACLIATOR.get(), (ctx) -> 
+                new GunHoldingMobRenderer<>(ctx, new TentacliatorModel<>(SCGExtra.asResource("whaler/tentacliator")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
         EntityRenderers.register(WhalerEntities.PUFFICUS.get(), PufficusRenderer::new);
         EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleRenderer::new);
     }

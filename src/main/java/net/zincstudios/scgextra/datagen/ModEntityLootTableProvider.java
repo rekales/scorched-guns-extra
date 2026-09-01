@@ -53,10 +53,6 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(ModItems.FROG_DART.get(), 1, 3)
                 .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
                 .range(Items.INK_SAC, 1, 3);
-        basicLoot(WhalerEntities.GLOWING_TENTACLIATOR.get())
-                .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .range(Items.GLOW_INK_SAC, 1, 3);
         basicLoot(WhalerEntities.PUFFICUS.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
                 .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
