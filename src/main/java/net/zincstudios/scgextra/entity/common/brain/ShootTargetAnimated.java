@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.whaler.tentacliator;
+package net.zincstudios.scgextra.entity.common.brain;
 
 import com.google.common.collect.ImmutableMap;
 

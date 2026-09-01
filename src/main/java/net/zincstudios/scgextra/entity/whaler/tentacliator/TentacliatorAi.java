@@ -11,6 +11,7 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.zincstudios.scgextra.entity.common.brain.ShootTargetAnimated;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
