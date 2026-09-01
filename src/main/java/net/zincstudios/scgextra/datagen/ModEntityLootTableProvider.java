@@ -1,6 +1,8 @@
 package net.zincstudios.scgextra.datagen;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -9,8 +11,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -25,6 +29,9 @@ import top.ribs.scguns.init.ModBlocks;
 import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import com.google.gson.JsonPrimitive;
+
 import java.util.List;
 
 @ParametersAreNonnullByDefault
@@ -52,7 +59,7 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         basicLoot(WhalerEntities.TENTACLIATOR.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
                 .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .range(Items.INK_SAC, 1, 3);
+                .variant(List.of(Items.INK_SAC, Items.GLOW_INK_SAC), 2, 1, 3);
         basicLoot(WhalerEntities.PUFFICUS.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
                 .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
@@ -375,6 +382,30 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
             this.lootTableRef.withPool(poolBuilder);
 
+            return this;
+        }
+
+        public LootTableEntryBuilder variant(List<Item> items, int totalVariants, int min, int max) {
+            for(int i = 0; i < totalVariants; i++){
+                this.lootTableRef.withPool(
+                    LootPool.lootPool()
+                    .add(
+                        LootItem.lootTableItem(items.get(i))
+                        .when(
+                            LootItemEntityPropertyCondition.hasProperties(
+                                EntityTarget.THIS, 
+                                EntityPredicate.Builder.entity()
+                                .nbt(NbtPredicate.fromJson(new JsonPrimitive("{variant: " + (i+1) + "}")))
+                            )
+                        )
+                        .apply(
+                            SetItemCountFunction.setCount(
+                                UniformGenerator.between(min, max)
+                            )
+                        )
+                    )
+                );
+            }
             return this;
         }
     }
