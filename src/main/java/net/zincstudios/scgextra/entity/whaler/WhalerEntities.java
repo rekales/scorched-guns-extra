@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.whaler;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -15,6 +16,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
+import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
@@ -23,7 +25,6 @@ import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkModel;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueEntity;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueRenderer;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
-import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusRenderer;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
@@ -112,7 +113,16 @@ public class WhalerEntities {
                         .hasGlowLayer()
                         .noDeathTilt()
         );
-        EntityRenderers.register(WhalerEntities.PUFFICUS.get(), PufficusRenderer::new);
+        EntityRenderers.register(WhalerEntities.PUFFICUS.get(), (ctx) ->
+                new TransformableItemHoldingMobRenderer<>(ctx, 
+                        new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/pufficus")), 
+                        new Vec3(-0.3, 0, 0), // translate
+                        new Vec3(0, 80, -90), // rotate
+                        new Vec3(1.5, 1.5, 1.5) // scale
+                )
+                .hasGlowLayer()
+                .noDeathTilt()
+        );
         EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleRenderer::new);
     }
 

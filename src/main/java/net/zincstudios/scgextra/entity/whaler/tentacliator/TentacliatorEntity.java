@@ -85,13 +85,11 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
             return PlayState.STOP;
         }));
 
-        controllers.add(new AnimationController<>(this, "shoot", 0, state -> {
+        controllers.add(new AnimationController<>(this, "attack", 0, state -> {
             return PlayState.CONTINUE;
-        }).triggerableAnim("shoot", SHOOT));
-
-        controllers.add(new AnimationController<>(this, "ink_splash", 0, state -> {
-            return PlayState.CONTINUE;
-        }).triggerableAnim("ink_splash", INK_SPLASH));
+        })
+        .triggerableAnim("shoot", SHOOT)
+        .triggerableAnim("ink_splash", INK_SPLASH));
     }
 
     @Override

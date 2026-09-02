@@ -66,8 +66,8 @@ public class TentacliatorAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new ShootTargetAnimated(10, 1.6F, "shoot", "shoot", 12),
-                new InkAttack(600, "ink_splash", "ink_splash", 10)
+                new ShootTargetAnimated(10, 1.6F, "attack", "shoot", 12),
+                new InkAttack(600, "attack", "ink_splash", 10)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }
