@@ -32,6 +32,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
+    private static final RawAnimation NET_THROW = RawAnimation.begin().thenPlay("throw");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -100,7 +101,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
             return PlayState.STOP;
         }));
 
-        controllers.add(new AnimationController<>(this, "attack", 0, state -> PlayState.STOP).triggerableAnim("melee", ATTACK));
+        controllers.add(new AnimationController<>(this, "attack", 0, state -> PlayState.STOP).triggerableAnim("melee", ATTACK).triggerableAnim("throw_net", NET_THROW));
     }
 
     @Override

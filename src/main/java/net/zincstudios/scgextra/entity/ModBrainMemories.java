@@ -35,6 +35,8 @@ public class ModBrainMemories {
             .register("ink_attack_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
     public static final Supplier<MemoryModuleType<Boolean>> IS_ON_INK_COOLDOWN = MEMORY_MODULE_TYPES
             .register("is_on_ink_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_NET_COOLDOWN = MEMORY_MODULE_TYPES
+            .register("is_on_net_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
     public static final Supplier<MemoryModuleType<Float>> WEAPON_IDEAL_RANGE = MEMORY_MODULE_TYPES
             .register("approach_dist", () -> new MemoryModuleType<>(Optional.of(Codec.FLOAT)));
     public static final Supplier<MemoryModuleType<Float>> WEAPON_MAX_RANGE = MEMORY_MODULE_TYPES

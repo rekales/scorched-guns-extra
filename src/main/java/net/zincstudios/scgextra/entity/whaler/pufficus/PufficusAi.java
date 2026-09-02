@@ -37,7 +37,8 @@ public class PufficusAi {
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
-            ModBrainMemories.DELAYED_MELEE.get()
+            ModBrainMemories.DELAYED_MELEE.get(),
+            ModBrainMemories.IS_ON_NET_COOLDOWN.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -62,7 +63,8 @@ public class PufficusAi {
                     List.of(
                         MobEffects.MOVEMENT_SLOWDOWN,
                         MobEffects.POISON
-                    ))
+                    )),
+                new ThrowNet(400)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }
