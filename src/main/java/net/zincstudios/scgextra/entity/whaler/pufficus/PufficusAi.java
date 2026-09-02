@@ -1,7 +1,11 @@
 package net.zincstudios.scgextra.entity.whaler.pufficus;
 
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -51,7 +55,14 @@ public class PufficusAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                new DelayedMeleeAttack(PufficusEntity.MELEE_DAMAGE_DELAY, PufficusEntity.MELEE_DURATION, 1.4f, 10)
+                new DelayedMeleeAttackWithEffects(
+                    PufficusEntity.MELEE_DAMAGE_DELAY, PufficusEntity.MELEE_DURATION, 
+                    1.4f, 
+                    10,
+                    List.of(
+                        MobEffects.MOVEMENT_SLOWDOWN,
+                        MobEffects.POISON
+                    ))
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }

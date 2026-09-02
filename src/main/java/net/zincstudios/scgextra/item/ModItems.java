@@ -48,7 +48,7 @@ public class ModItems {
 
     // NOTE: custom tier or nah?
     public static final RegistryObject<AtlanticMaceItem> ATLANTIC_MACE = ITEMS.register("atlantic_mace",
-            () -> new AtlanticMaceItem(Tiers.IRON, 7, -3.2F, new Item.Properties())
+            () -> new AtlanticMaceItem(Tiers.IRON, 5, -3.2F, new Item.Properties())
     );
 
     public static final RegistryObject<CavalrySaberItem> CAVALRY_SABER = ITEMS.register("cavalry_saber",
