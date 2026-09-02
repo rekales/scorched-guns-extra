@@ -53,6 +53,8 @@ public class InkAttack extends Behavior<LivingEntity> {
 
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
+        if(entity.distanceToSqr(target) > 256)return;
+
         int aimTicks = brain.getMemory(ModBrainMemories.INK_ATTACK_TICKS.get()).orElse(-10);
         
         if(aimTicks == 1)if(entity instanceof GeoEntity ge)ge.triggerAnim(this.animController, this.animName);

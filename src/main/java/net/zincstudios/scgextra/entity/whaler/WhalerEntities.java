@@ -112,6 +112,7 @@ public class WhalerEntities {
                 new GunHoldingMobRenderer<>(ctx, new TentacliatorModel<>(SCGExtra.asResource("whaler/tentacliator")))
                         .hasGlowLayer()
                         .noDeathTilt()
+                        .noDeathRedTint()
         );
         EntityRenderers.register(WhalerEntities.PUFFICUS.get(), (ctx) ->
                 new TransformableItemHoldingMobRenderer<>(ctx, 
