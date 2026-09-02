@@ -100,7 +100,7 @@ public class WhalerEntities {
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(WhalerEntities.FISH_FOLK.get(), (ctx) ->
                 new GunHoldingMobRenderer<>(ctx, new FishFolkModel<>(SCGExtra.asResource("whaler/fish_folk")))
-                        .hasGlowLayer()  // DONE: needs glow layer for third texture variant
+                        .hasGlowLayer()
                         .noDeathTilt()
         );
 
@@ -122,6 +122,7 @@ public class WhalerEntities {
                 )
                 .hasGlowLayer()
                 .noDeathTilt()
+                .noDeathRedTint()
         );
         EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleRenderer::new);
     }
