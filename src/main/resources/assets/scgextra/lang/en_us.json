@@ -6,6 +6,7 @@
   "entity.scgextra.armored_whale":  "Armored Whale",
   "entity.scgextra.pufficus":  "Pufficus",
   "entity.scgextra.guardian_statue":  "Guardian Statue",
+  "entity.scgextra.lion_fish":  "Lion Fish",
 
   "entity.scgextra.drone":  "RRC Drone",
   "entity.scgextra.scout":  "RRC Scout",
@@ -72,6 +73,7 @@
   "item.scgextra.tentacliator_spawn_egg":  "Tentacliator Spawn Egg",
   "item.scgextra.pufficus_spawn_egg":  "Pufficus Spawn Egg",
   "item.scgextra.armored_whale_spawn_egg":  "Armored Whale Spawn Egg",
+  "item.scgextra.lion_fish_spawn_egg":  "Lion Fish Spawn Egg",
 
   "item.scgextra.drone_spawn_egg":  "RRC Drone Spawn Egg",
   "item.scgextra.tallman_spawn_egg":  "RRC Tallman Spawn Egg",

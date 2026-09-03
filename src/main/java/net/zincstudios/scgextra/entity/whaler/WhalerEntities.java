@@ -101,7 +101,7 @@ public class WhalerEntities {
     private static void onCommonSetup(FMLCommonSetupEvent event) {
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.TURTLEMAN.get(), new BasicHeadshotBox<>(11.0, 28.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.TENTACLIATOR.get(), new BasicHeadshotBox<>(11.0, 20.0));
-        BoundingBoxManager.registerHeadshotBox(WhalerEntities.PUFFICUS.get(), new BasicHeadshotBox<>(11.0, 28.0));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.PUFFICUS.get(), new BasicHeadshotBox<>(11.0, 30.0));
     }
 
     @OnlyIn(value = Dist.CLIENT)
