@@ -63,7 +63,7 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
         .add(Attributes.FOLLOW_RANGE, 35.0D)
         .add(Attributes.MOVEMENT_SPEED, 0.23F)
         .add(Attributes.ATTACK_DAMAGE, 3.0D)
-        .add(Attributes.ARMOR, 8.0D)
+        .add(Attributes.ARMOR, 4.0D)
         .add(Attributes.MAX_HEALTH, 60.0D);
     }
 
