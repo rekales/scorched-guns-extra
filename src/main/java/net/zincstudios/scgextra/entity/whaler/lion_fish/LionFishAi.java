@@ -37,7 +37,8 @@ public class LionFishAi {
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
-            ModBrainMemories.WEAPON_MAX_RANGE.get()
+            ModBrainMemories.WEAPON_MAX_RANGE.get(),
+            ModBrainMemories.ATTACK_RUN_FOR.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -63,6 +64,11 @@ public class LionFishAi {
                     LionFishEntity.MELEE_DAMAGE_DELAY, LionFishEntity.MELEE_DURATION, 
                     4f, 
                     20
+                ),
+                new SplashPoison(
+                    6f,
+                    300, 
+                    LionFishEntity.POISON_DURATION
                 )
         ), MemoryModuleType.ATTACK_TARGET);
     }

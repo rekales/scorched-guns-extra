@@ -2123,7 +2123,6 @@
 			}
 		},
 		"splash": {
-			"loop": true,
 			"animation_length": 2.85,
 			"bones": {
 				"rider_body": {

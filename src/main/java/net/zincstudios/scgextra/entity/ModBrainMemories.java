@@ -57,6 +57,8 @@ public class ModBrainMemories {
             .register("relocate_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Long>> DELAYED_MELEE = MEMORY_MODULE_TYPES
             .register("delayed_melee", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
+    public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
+            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
 
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES
