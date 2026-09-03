@@ -24,6 +24,7 @@ import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkModel;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueEntity;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueRenderer;
+import net.zincstudios.scgextra.entity.whaler.lion_fish.LionFishEntity;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
@@ -73,6 +74,10 @@ public class WhalerEntities {
                     .sized(5.5F, 6F)
                     .build("armored_whale"));
 
+    public static final RegistryObject<EntityType<LionFishEntity>> LION_FISH = ENTITY_TYPES
+            .register("lion_fish", () -> EntityType.Builder.of(LionFishEntity::new, MobCategory.MONSTER)
+                    .sized(2F, 2.7F).build("lion_fish"));
+
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);
         modEventBus.addListener(WhalerEntities::onCommonSetup);
@@ -90,10 +95,13 @@ public class WhalerEntities {
         event.put(WhalerEntities.TENTACLIATOR.get(), TentacliatorEntity.createAttributes().build());
         event.put(WhalerEntities.PUFFICUS.get(), PufficusEntity.createAttributes().build());
         event.put(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleEntity.createAttributes().build());
+        event.put(WhalerEntities.LION_FISH.get(), LionFishEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.TURTLEMAN.get(), new BasicHeadshotBox<>(11.0, 28.0));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.TENTACLIATOR.get(), new BasicHeadshotBox<>(11.0, 20.0));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.PUFFICUS.get(), new BasicHeadshotBox<>(11.0, 28.0));
     }
 
     @OnlyIn(value = Dist.CLIENT)
@@ -119,6 +127,17 @@ public class WhalerEntities {
                         new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/pufficus")), 
                         new Vec3(-0.3, 0, 0), // translate
                         new Vec3(0, 80, -90), // rotate
+                        new Vec3(1.5, 1.5, 1.5) // scale
+                )
+                .hasGlowLayer()
+                .noDeathTilt()
+                .noDeathRedTint()
+        );
+        EntityRenderers.register(WhalerEntities.LION_FISH.get(), (ctx) ->
+                new TransformableItemHoldingMobRenderer<>(ctx, 
+                        new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/lion_fish")), 
+                        new Vec3(0.7, -1.2, -1), // translate
+                        new Vec3(-90, 0, 0), // rotate
                         new Vec3(1.5, 1.5, 1.5) // scale
                 )
                 .hasGlowLayer()
