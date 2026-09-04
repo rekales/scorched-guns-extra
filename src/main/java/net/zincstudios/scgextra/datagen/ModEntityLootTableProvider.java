@@ -85,6 +85,11 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(ModItems.BLUEPRINT_SCRAP.get(), 1, 2)
                 .constant(ModItems.LEVIATHAN_TOOTH.get(), 1)
                 .range(ModBlocks.SUPPLY_CRATE.get().asItem(), 3, 6);
+        basicLoot(WhalerEntities.LION_FISH.get())
+                .constant(Items.TROPICAL_FISH, 1)
+                .chance(Items.SADDLE, 0.5f)
+                .range(Items.PRISMARINE_SHARD, 1, 3)
+                .range(Items.PRISMARINE_CRYSTALS, 1, 3);
 
         basicLoot(FACEntities.FAC_TRENCHER.get())
                 .range(Items.IRON_NUGGET, 1, 3);
