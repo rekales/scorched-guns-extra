@@ -4,6 +4,7 @@ import net.zincstudios.scgextra.entity.common.EquippedEntity;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.server.level.ServerLevel;
@@ -28,10 +29,13 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class PufficusEntity extends EquippedEntity implements GeoEntity {
     static final int MELEE_DAMAGE_DELAY = 16;
     static final int MELEE_DURATION = 33;
+    static final int NET_DELAY = 14;
+    static final int NET_DURATION = 25;
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
+    private static final RawAnimation ATTACK_WALKING = RawAnimation.begin().thenPlay("attack_walking");
     private static final RawAnimation NET_THROW = RawAnimation.begin().thenPlay("throw");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("death");
 
@@ -79,6 +83,10 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.triggerAnim("attack", "melee");
         }
+
+        if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.NET_TICKS.get()) == NET_DURATION) {
+            this.triggerAnim("throw", "throw_net");
+        }
     }
 
     @Override
@@ -94,6 +102,15 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
                 }
         ));
 
+        controllers.add(new ExpandedAnimationController<>(this, "attack", 0, state -> PlayState.STOP)
+                .triggerableAnim("melee", (ctr) -> {
+                    PufficusEntity entity = (PufficusEntity) ctr.getAnimatable();
+                    AnimationController<?> mainCtr = entity.getAnimatableInstanceCache().getManagerForId(entity.getId()).getAnimationControllers().get("main");
+                    return mainCtr.getCurrentRawAnimation() == WALK ? ATTACK_WALKING : ATTACK;
+                })
+                .setAnimationSpeed(1.4f)
+        );
+
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
                 return state.setAndContinue(DEATH);
@@ -101,7 +118,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
             return PlayState.STOP;
         }));
 
-        controllers.add(new AnimationController<>(this, "attack", 0, state -> PlayState.STOP).triggerableAnim("melee", ATTACK).triggerableAnim("throw_net", NET_THROW));
+        controllers.add(new AnimationController<>(this, "throw", 0, state -> PlayState.STOP).triggerableAnim("throw_net", NET_THROW));
     }
 
     @Override

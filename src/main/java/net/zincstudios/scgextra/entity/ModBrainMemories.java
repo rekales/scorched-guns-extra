@@ -53,14 +53,19 @@ public class ModBrainMemories {
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES
             .register("jet_boots_cooling_down", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+
     public static final Supplier<MemoryModuleType<Boolean>> IS_ON_COOLDOWN = MEMORY_MODULE_TYPES
             .register("is_on_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
     public static final Supplier<MemoryModuleType<Integer>> INK_ATTACK_TICKS = MEMORY_MODULE_TYPES
             .register("ink_attack_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
     public static final Supplier<MemoryModuleType<Boolean>> IS_ON_INK_COOLDOWN = MEMORY_MODULE_TYPES
             .register("is_on_ink_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+
     public static final Supplier<MemoryModuleType<Boolean>> IS_ON_NET_COOLDOWN = MEMORY_MODULE_TYPES
             .register("is_on_net_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Long>> NET_TICKS = MEMORY_MODULE_TYPES
+            .register("net_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
+
     public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
             .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
     public static final Supplier<MemoryModuleType<Boolean>> POISON_COOLDOWN = MEMORY_MODULE_TYPES

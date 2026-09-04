@@ -38,7 +38,8 @@ public class PufficusAi {
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
-            ModBrainMemories.IS_ON_NET_COOLDOWN.get()
+            ModBrainMemories.IS_ON_NET_COOLDOWN.get(),
+            ModBrainMemories.NET_TICKS.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -58,13 +59,19 @@ public class PufficusAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new DelayedMeleeAttackWithEffects(
                     PufficusEntity.MELEE_DAMAGE_DELAY, PufficusEntity.MELEE_DURATION, 
-                    1.4f, 
+                    2f, 
                     10,
                     List.of(
                         MobEffects.MOVEMENT_SLOWDOWN,
                         MobEffects.POISON
-                    )),
-                new ThrowNet(400)
+                    )
+                ),
+                new ThrowNet(
+                    PufficusEntity.NET_DELAY, 
+                    PufficusEntity.NET_DURATION, 
+                    6f,
+                    200
+                )
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }
