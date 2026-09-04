@@ -1,9 +1,11 @@
 package net.zincstudios.scgextra.entity.whaler.lion_fish;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.google.common.collect.ImmutableMap;
 
+import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -12,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.phys.AABB;
 
 public class SplashPoison extends Behavior<LivingEntity>{
 
@@ -30,7 +33,7 @@ public class SplashPoison extends Behavior<LivingEntity>{
     public SplashPoison(float range, int cooldown, int duration) {
         super(ImmutableMap.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
-                MemoryModuleType.ATTACK_COOLING_DOWN, MemoryStatus.VALUE_ABSENT,
+                ModBrainMemories.POISON_COOLDOWN.get(), MemoryStatus.VALUE_ABSENT,
                 ModBrainMemories.ATTACK_RUN_FOR.get(), MemoryStatus.REGISTERED
         ));
         this.range = range;
@@ -80,16 +83,22 @@ public class SplashPoison extends Behavior<LivingEntity>{
 
     @Override
     protected void stop(ServerLevel level, LivingEntity mob, long gameTime) {
-        mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.cooldown);
+        mob.getBrain().setMemoryWithExpiry(ModBrainMemories.POISON_COOLDOWN.get(), true, this.cooldown);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
     protected void tick(ServerLevel level, LivingEntity mob, long gameTime) {
-        LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-        if (mob.getBrain().hasMemoryValue(ModBrainMemories.ATTACK_RUN_FOR.get()) && mob.position().closerThan(target.position(), (mob.getBbWidth()/2 + this.range) * 1.2)) {
-            target.addEffect(new MobEffectInstance(MobEffects.POISON, 160));
-            target.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160));
+        // LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+        if (mob.getBrain().hasMemoryValue(ModBrainMemories.ATTACK_RUN_FOR.get())) {
+            AABB aabb = mob.getBoundingBox().inflate(5);
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, aabb);
+            for(LivingEntity entity : list){
+                if(!Faction.isFriendlies(mob, entity)){
+                    entity.addEffect(new MobEffectInstance(MobEffects.POISON, 160));
+                    entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160));
+                }
+            }
         }
     }
 }

@@ -76,7 +76,7 @@ public class WhalerEntities {
 
     public static final RegistryObject<EntityType<LionFishEntity>> LION_FISH = ENTITY_TYPES
             .register("lion_fish", () -> EntityType.Builder.of(LionFishEntity::new, MobCategory.MONSTER)
-                    .sized(2F, 2.7F).build("lion_fish"));
+                    .sized(3.5F, 3.5F).build("lion_fish"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);

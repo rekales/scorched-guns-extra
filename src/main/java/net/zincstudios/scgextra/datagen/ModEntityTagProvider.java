@@ -76,6 +76,7 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(WhalerEntities.PUFFICUS.get())
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
                 .add(WhalerEntities.ARMORED_WHALE.get())
+                .add(WhalerEntities.LION_FISH.get())
                 .add(top.ribs.scguns.init.ModEntities.FINFORCER.get());
 
         tag(EntityTypeTags.WRECKERS)

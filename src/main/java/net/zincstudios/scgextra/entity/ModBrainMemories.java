@@ -29,14 +29,6 @@ public class ModBrainMemories {
 
     public static final Supplier<MemoryModuleType<Integer>> AIM_TICKS = MEMORY_MODULE_TYPES
             .register("aim_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
-    public static final Supplier<MemoryModuleType<Integer>> INK_ATTACK_TICKS = MEMORY_MODULE_TYPES
-            .register("ink_attack_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_INK_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_ink_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_NET_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_net_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
     public static final Supplier<MemoryModuleType<Float>> WEAPON_IDEAL_RANGE = MEMORY_MODULE_TYPES
             .register("approach_dist", () -> new MemoryModuleType<>(Optional.of(Codec.FLOAT)));
     public static final Supplier<MemoryModuleType<Float>> WEAPON_MAX_RANGE = MEMORY_MODULE_TYPES
@@ -57,12 +49,23 @@ public class ModBrainMemories {
             .register("relocate_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Long>> DELAYED_MELEE = MEMORY_MODULE_TYPES
             .register("delayed_melee", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
-    public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
-            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
-
+            
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES
             .register("jet_boots_cooling_down", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_COOLDOWN = MEMORY_MODULE_TYPES
+            .register("is_on_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Integer>> INK_ATTACK_TICKS = MEMORY_MODULE_TYPES
+            .register("ink_attack_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
+    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_INK_COOLDOWN = MEMORY_MODULE_TYPES
+            .register("is_on_ink_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_NET_COOLDOWN = MEMORY_MODULE_TYPES
+            .register("is_on_net_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
+            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
+    public static final Supplier<MemoryModuleType<Boolean>> POISON_COOLDOWN = MEMORY_MODULE_TYPES
+            .register("poison_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+
 
     public static final int MAX_AIM_TICKS = 60;
     public static final int MIN_AIM_TICKS = -20;

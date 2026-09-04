@@ -6,7 +6,6 @@ import com.google.common.collect.ImmutableSet;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
@@ -38,7 +37,8 @@ public class LionFishAi {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get(),
-            ModBrainMemories.ATTACK_RUN_FOR.get()
+            ModBrainMemories.ATTACK_RUN_FOR.get(),
+            ModBrainMemories.POISON_COOLDOWN.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -60,9 +60,9 @@ public class LionFishAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                new DelayedMeleeAttack(
+                new BiteAttack(
                     LionFishEntity.MELEE_DAMAGE_DELAY, LionFishEntity.MELEE_DURATION, 
-                    4f, 
+                    5f, 
                     20
                 ),
                 new SplashPoison(
