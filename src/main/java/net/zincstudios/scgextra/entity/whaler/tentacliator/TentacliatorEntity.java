@@ -1,5 +1,6 @@
 package net.zincstudios.scgextra.entity.whaler.tentacliator;
 
+import net.zincstudios.scgextra.entity.common.AmphibiousMoveControl;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 
@@ -17,14 +18,18 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.fluids.FluidType;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -49,6 +54,8 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
 
     public TentacliatorEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new AmphibiousMoveControl(this);
     }
 
     @Override
@@ -165,5 +172,18 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
     }
     public boolean isGlowing(){
         return this.getVariant() == 2;
+    }
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
 }
