@@ -47,6 +47,9 @@
   "miniboss" : [
     {
       "entity_id": "scgextra:pufficus"
+    },
+    {
+      "entity_id": "scgextra:lion_fish"
     }
   ],
   "boss" : [

@@ -13,6 +13,7 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
@@ -60,6 +61,7 @@ public class LionFishAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+                new LookAtTargetSink(100, 200),
                 new BiteAttack(
                     LionFishEntity.MELEE_DAMAGE_DELAY, LionFishEntity.MELEE_DURATION, 
                     5f, 
