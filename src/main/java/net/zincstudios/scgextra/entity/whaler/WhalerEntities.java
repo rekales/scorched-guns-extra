@@ -14,6 +14,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
@@ -27,7 +28,6 @@ import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueRend
 import net.zincstudios.scgextra.entity.whaler.lion_fish.LionFishEntity;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurEntity;
-import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
@@ -111,10 +111,14 @@ public class WhalerEntities {
                         .hasGlowLayer()
                         .noDeathTilt()
         );
-
+        EntityRenderers.register(WhalerEntities.SALMONSAUR.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/salmonsaur")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+                // TODO: held trident
+        );
         EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) -> new GunnerRenderer<>(ctx,
                 new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")), -10));
-        EntityRenderers.register(WhalerEntities.SALMONSAUR.get(), SalmonsaurRenderer::new);
         EntityRenderers.register(WhalerEntities.GUARDIAN_STATUE.get(), GuardianStatueRenderer::new);
         EntityRenderers.register(WhalerEntities.TENTACLIATOR.get(), (ctx) -> 
                 new GunHoldingMobRenderer<>(ctx, new TentacliatorModel<>(SCGExtra.asResource("whaler/tentacliator")))

@@ -84,7 +84,7 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("facBluecoatBrain");
+        this.level().getProfiler().push("whalerFishFolkBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
         BrainCommons.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
@@ -154,11 +154,6 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     @Override
     protected boolean canRide(Entity vehicle) {
         return super.canRide(vehicle);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
     }
 
     @Override
