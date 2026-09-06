@@ -16,7 +16,6 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
-import net.zincstudios.scgextra.entity.common.client.GunnerRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
@@ -37,7 +36,6 @@ import top.ribs.scguns.common.headshot.BasicHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
-@SuppressWarnings("deprecation")
 public class WhalerEntities {
 
     public static final RegistryObject<EntityType<FishFolkEntity>> FISH_FOLK = ENTITY_TYPES
@@ -117,8 +115,11 @@ public class WhalerEntities {
                         .noDeathTilt()
                 // TODO: held trident
         );
-        EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) -> new GunnerRenderer<>(ctx,
-                new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")), -10));
+        EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
         EntityRenderers.register(WhalerEntities.GUARDIAN_STATUE.get(), GuardianStatueRenderer::new);
         EntityRenderers.register(WhalerEntities.TENTACLIATOR.get(), (ctx) -> 
                 new GunHoldingMobRenderer<>(ctx, new TentacliatorModel<>(SCGExtra.asResource("whaler/tentacliator")))
