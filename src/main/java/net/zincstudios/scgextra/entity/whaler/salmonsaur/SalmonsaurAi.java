@@ -49,6 +49,10 @@ public class SalmonsaurAi {
         return brain;
     }
 
+    public static <T extends PathfinderMob> Brain.Provider<T> brainProvider() {
+        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
+    }
+
     public static <T extends PathfinderMob> void initFightActivity(T mob, Brain<T> brain) {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),

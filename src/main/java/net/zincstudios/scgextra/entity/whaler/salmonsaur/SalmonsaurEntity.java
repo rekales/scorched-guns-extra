@@ -61,7 +61,7 @@ public class SalmonsaurEntity extends Monster implements GeoEntity {
     }
 
     protected Brain.Provider<SalmonsaurEntity> brainProvider() {
-        return Brain.provider(SalmonsaurAi.MEMORY_TYPES, SalmonsaurAi.SENSOR_TYPES);
+        return SalmonsaurAi.brainProvider();
     }
 
     @Override

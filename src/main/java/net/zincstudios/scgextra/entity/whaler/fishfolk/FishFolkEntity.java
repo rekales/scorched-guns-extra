@@ -102,10 +102,8 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 3, state -> {
-            if (state.getAnimatable().isPassenger()) {
-                state.setAndContinue(RawAnimation.begin().thenLoop("sitting"));  // TODO: custom anim
-            } else if (state.getAnimatable().isAggressive()) {
+        controllers.add(new AnimationController<>(this, "main", 3, state -> {
+            if (state.getAnimatable().isAggressive()) {
                 state.setAndContinue(AIM);
             } else if (state.isMoving()) {
                 state.setAndContinue(WALK);

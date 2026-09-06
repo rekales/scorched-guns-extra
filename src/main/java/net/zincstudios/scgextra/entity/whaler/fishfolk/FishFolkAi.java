@@ -48,7 +48,7 @@ public class FishFolkAi {
     }
 
     public static <T extends PathfinderMob> Brain.Provider<T> brainProvider() {
-        return Brain.provider(FishFolkAi.MEMORY_TYPES, FishFolkAi.SENSOR_TYPES);
+        return Brain.provider(MEMORY_TYPES, SENSOR_TYPES);
     }
 
     public static <T extends PathfinderMob> void initFightActivity(T mob, Brain<T> brain) {
