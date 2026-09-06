@@ -23,6 +23,7 @@ public class ThrowNet extends Behavior<LivingEntity>{
     private UUID oldTargetId = UUID.randomUUID();
     private float oldDist = -1;
     private float accDistDelta = 0;  // accumulated distance delta
+    private long cooldownEnd = 0;  // gameTime timestamp
 
     public ThrowNet(int damageDelay, int duration, float range) {
         this(damageDelay, duration, range, 0);
@@ -31,8 +32,7 @@ public class ThrowNet extends Behavior<LivingEntity>{
     public ThrowNet(int damageDelay, int duration, float range, int cooldown) {
         super(ImmutableMap.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
-                ModBrainMemories.IS_ON_NET_COOLDOWN.get(), MemoryStatus.VALUE_ABSENT,
-                ModBrainMemories.NET_TICKS.get(), MemoryStatus.REGISTERED
+                ModBrainMemories.ABILITY_STATE.get(), MemoryStatus.REGISTERED
         ));
         this.damageDelay = damageDelay;
         this.duration = duration;
@@ -44,23 +44,26 @@ public class ThrowNet extends Behavior<LivingEntity>{
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity mob) {
         LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-
-        if (this.oldDist < 0 || this.oldTargetId != target.getUUID()) {
-            this.oldTargetId = target.getUUID();
-            this.oldDist = mob.distanceTo(target);
-            this.accDistDelta = 0;
+        if(this.cooldownEnd < level.getGameTime()){
+            if (this.oldDist < 0 || this.oldTargetId != target.getUUID()) {
+                this.oldTargetId = target.getUUID();
+                this.oldDist = mob.distanceTo(target);
+                this.accDistDelta = 0;
+            }
+            
+            float dist = mob.distanceTo(target);
+            this.accDistDelta += dist - this.oldDist;
+            this.oldDist = dist;
+            if (this.accDistDelta > 0) {
+                this.accDistDelta = Math.max(0, this.accDistDelta-0.06f);
+            } else {
+                this.accDistDelta = Math.min(0, this.accDistDelta+0.06f);
+            }
+            return mob.position().closerThan(target.position(), mob.getBbWidth()/2 + this.range - this.accDistDelta);
+        }else{
+            return false;
         }
 
-        float dist = mob.distanceTo(target);
-        this.accDistDelta += dist - this.oldDist;
-        this.oldDist = dist;
-        if (this.accDistDelta > 0) {
-            this.accDistDelta = Math.max(0, this.accDistDelta-0.06f);
-        } else {
-            this.accDistDelta = Math.min(0, this.accDistDelta+0.06f);
-        }
-
-        return mob.position().closerThan(target.position(), mob.getBbWidth()/2 + this.range - this.accDistDelta);
     }
 
     @Override
@@ -79,11 +82,6 @@ public class ThrowNet extends Behavior<LivingEntity>{
         );
     }
 
-    @Override
-    protected void stop(ServerLevel level, LivingEntity mob, long gameTime) {
-        mob.getBrain().setMemoryWithExpiry(ModBrainMemories.IS_ON_NET_COOLDOWN.get(), true, this.cooldown);
-    }
-
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
     protected void tick(ServerLevel level, LivingEntity mob, long gameTime) {
@@ -97,7 +95,7 @@ public class ThrowNet extends Behavior<LivingEntity>{
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             net.shoot(d0, d1 + d3 * (double)0.2F, d2, 1F, (float)(14 - level.getDifficulty().getId() * 4));
             level.addFreshEntity(net);
-            mob.getBrain().setMemoryWithExpiry(ModBrainMemories.IS_ON_NET_COOLDOWN.get(), true, this.cooldown);
+            this.cooldownEnd = gameTime + this.cooldown;
         }
     }
 }

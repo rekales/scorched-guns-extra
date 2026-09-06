@@ -20,6 +20,7 @@ public class SplashPoison extends Behavior<LivingEntity>{
     protected final float range;
     private final int cooldown;
     private final int duration;
+    private long cooldownEnd = 0;  // gameTime timestamp
 
     public SplashPoison(float range, int duration) {
         this(range, 0, duration);
@@ -28,12 +29,16 @@ public class SplashPoison extends Behavior<LivingEntity>{
     public SplashPoison(float range, int cooldown, int duration) {
         super(ImmutableMap.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
-                ModBrainMemories.POISON_COOLDOWN.get(), MemoryStatus.VALUE_ABSENT,
                 ModBrainMemories.ATTACK_RUN_FOR.get(), MemoryStatus.REGISTERED
         ), duration);
         this.range = range;
         this.cooldown = cooldown;
         this.duration = duration;
+    }
+
+    @Override
+    protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity owner) {
+        return this.cooldownEnd < level.getGameTime();
     }
 
     @Override
@@ -53,7 +58,7 @@ public class SplashPoison extends Behavior<LivingEntity>{
 
     @Override
     protected void stop(ServerLevel level, LivingEntity mob, long gameTime) {
-        mob.getBrain().setMemoryWithExpiry(ModBrainMemories.POISON_COOLDOWN.get(), true, this.cooldown);
+        this.cooldownEnd = gameTime + this.cooldown;
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse

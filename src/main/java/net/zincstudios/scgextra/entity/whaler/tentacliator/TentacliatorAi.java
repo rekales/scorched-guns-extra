@@ -38,9 +38,8 @@ public class TentacliatorAi {
             MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             MemoryModuleType.PATH,
             ModBrainMemories.AIM_TICKS.get(),
-            ModBrainMemories.IS_ON_COOLDOWN.get(),
-            ModBrainMemories.INK_ATTACK_TICKS.get(),
-            ModBrainMemories.IS_ON_INK_COOLDOWN.get(),
+            MemoryModuleType.ATTACK_COOLING_DOWN,
+            ModBrainMemories.ABILITY_STATE.get(),
             ModBrainMemories.SIMULATED_GUN.get(),
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get()

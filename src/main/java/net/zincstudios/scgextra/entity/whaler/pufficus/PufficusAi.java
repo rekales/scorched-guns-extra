@@ -38,8 +38,8 @@ public class PufficusAi {
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
-            ModBrainMemories.IS_ON_NET_COOLDOWN.get(),
-            ModBrainMemories.NET_TICKS.get()
+            ModBrainMemories.NET_TICKS.get(),
+            ModBrainMemories.ABILITY_STATE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {

@@ -56,22 +56,11 @@ public class ModBrainMemories {
     public static final Supplier<MemoryModuleType<Integer>> SHOCK_CELL_COUNT = MEMORY_MODULE_TYPES
             .register("shock_cell_count", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
 
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
-    public static final Supplier<MemoryModuleType<Integer>> INK_ATTACK_TICKS = MEMORY_MODULE_TYPES
-            .register("ink_attack_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_INK_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_ink_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
-
-    public static final Supplier<MemoryModuleType<Boolean>> IS_ON_NET_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("is_on_net_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
     public static final Supplier<MemoryModuleType<Long>> NET_TICKS = MEMORY_MODULE_TYPES
-            .register("net_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
+            .register("net_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));// LEAVING CAUSE THE ENTITY ALSO USES THIS
 
     public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
-            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
-    public static final Supplier<MemoryModuleType<Boolean>> POISON_COOLDOWN = MEMORY_MODULE_TYPES
-            .register("poison_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));// LEAVING CAUSE THE ENTITY ALSO USES THIS
 
 
     public static final int MAX_AIM_TICKS = 60;

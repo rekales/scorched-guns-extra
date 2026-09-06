@@ -69,7 +69,7 @@ public class ShootTargetAnimated extends Behavior<LivingEntity> {
     @Override
     protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
-        if(brain.getMemory(ModBrainMemories.IS_ON_COOLDOWN.get()).orElse(false))return;
+        if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false))return;
         if (!canShoot.test(entity)) return;
 
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
@@ -81,7 +81,7 @@ public class ShootTargetAnimated extends Behavior<LivingEntity> {
         if (aimTicks >= this.aimThreshold) {
             simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, true), true);
             brain.setMemory(ModBrainMemories.AIM_TICKS.get(), -12);
-            brain.setMemoryWithExpiry(ModBrainMemories.IS_ON_COOLDOWN.get(), true, this.cooldown);
+            brain.setMemoryWithExpiry(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.cooldown);
         } else {
             simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, false), false);
         }

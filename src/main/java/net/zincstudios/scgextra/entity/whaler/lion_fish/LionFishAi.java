@@ -38,8 +38,7 @@ public class LionFishAi {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get(),
-            ModBrainMemories.ATTACK_RUN_FOR.get(),
-            ModBrainMemories.POISON_COOLDOWN.get()
+            ModBrainMemories.ATTACK_RUN_FOR.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
