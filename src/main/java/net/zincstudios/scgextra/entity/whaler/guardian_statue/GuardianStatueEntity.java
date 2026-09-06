@@ -5,6 +5,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -24,6 +25,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
@@ -41,6 +43,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -280,12 +283,12 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         return pLevel.isUnobstructed(this);
     }
 
-
     @Override
     public boolean checkSpawnRules(LevelAccessor pLevel, MobSpawnType pSpawnReason) {
-        return this.level().getEntitiesOfClass(GuardianStatueEntity.class, this.getBoundingBox().inflate(100)).isEmpty();
+        return true;
     }
 
+    // Krei, leave this as is for now, I'll probably come back to it to make it better
     private void checkShouldDeleteSelf(){
         if(
             this.getSpawnType() == MobSpawnType.SPAWN_EGG ||
@@ -322,25 +325,36 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
                 return;
             }
             triedRemove=true;
-            BlockPos temp = this.getOnPos();
-            Set<BlockState> tempStates = new HashSet<>();
-            for (int x = temp.getX() - 1; x <= temp.getX() + 1; x++) {
-                for (int z = temp.getZ() - 1; z <= temp.getZ() + 1; z++) {
-                    int y = temp.getY();
-                    BlockPos pos = new BlockPos(x, y, z);
-                    tempStates.add(level().getBlockState(pos));
+            ArrayList<BlockState> tempStates = new ArrayList<>();
+            AABB box = new AABB(
+                this.getX()-12,
+                this.getY()-2,
+                this.getZ()-12,
+                this.getX()+12,
+                this.getY()+2,
+                this.getZ()+12
+            );
+            for(double x = box.minX; x < box.maxX; x++){
+                for(double y = box.minY; y < box.maxY; y++){
+                    for(double z = box.minZ; z < box.maxZ; z++){
+                        tempStates.add(level().getBlockState(new BlockPos((int)x,(int)y,(int)z)));
+                    }
                 }
             }
-            boolean foundBricks = false;
-            boolean foundPrismarine = false;
+            int lanternCount = 0;
+            int prismarineBricksCount = 0;
+            int prismarineCount = 0;
             for(BlockState state : tempStates){
-                if(state.is(Blocks.PRISMARINE_BRICKS)){
-                    foundBricks = true;
-                }else if(state.is(Blocks.PRISMARINE)){
-                    foundPrismarine = true;
-                }
+                if(state.is(Blocks.SEA_LANTERN))lanternCount++;
+                if(state.is(Blocks.PRISMARINE_BRICKS))prismarineBricksCount++;
+                if(state.is(Blocks.PRISMARINE))prismarineCount++;
             }
-            if(!foundBricks || !foundPrismarine){
+            this.setCustomName(Component.literal("Lantern: "+lanternCount+" Prismarine Bricks: "+prismarineBricksCount+" Prismarine: "+prismarineCount));
+            if(lanternCount<10){
+                this.remove(RemovalReason.DISCARDED);
+                return;
+            }
+            if(prismarineBricksCount>300){
                 this.remove(RemovalReason.DISCARDED);
                 return;
             }

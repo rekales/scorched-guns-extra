@@ -16,18 +16,12 @@ import net.minecraft.world.level.levelgen.structure.structures.OceanMonumentPiec
 
 @Mixin(value = MonumentBuilding.class)
 public class OceanMonumentEntryRoomMixin {
-    boolean spawned = false;
     // ArrayList<BlockPos> spawnedAt = new ArrayList<>();
     @Inject(method = "generateWing", at=@At("TAIL"))
     private void onGenerateWing(boolean pWing, int pX, WorldGenLevel pLevel, RandomSource pRandom, BoundingBox pBox, CallbackInfo ci){
-        if(!spawned){
-            BlockPos pos = pBox.getCenter();
-            GuardianStatueEntity entity = new GuardianStatueEntity(WhalerEntities.GUARDIAN_STATUE.get(), pLevel.getLevel());
-            entity.moveTo(pos.below(70), 0, 0);
-            pLevel.addFreshEntity(entity);
-            spawned = true;
-        }else{
-            spawned = false;
-        }
+        BlockPos pos = pBox.getCenter();
+        GuardianStatueEntity entity = new GuardianStatueEntity(WhalerEntities.GUARDIAN_STATUE.get(), pLevel.getLevel());
+        entity.moveTo(pos.below(70), 0, 0);
+        pLevel.addFreshEntity(entity);
     }
 }
