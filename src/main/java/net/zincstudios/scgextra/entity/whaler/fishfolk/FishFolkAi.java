@@ -40,7 +40,7 @@ public class FishFolkAi {
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
         BrainCommons.initCoreActivity(brain);
         BrainCommons.initIdleActivity(brain);
-        FishFolkAi.initFightActivity(mob, brain);
+        initFightActivity(mob, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();

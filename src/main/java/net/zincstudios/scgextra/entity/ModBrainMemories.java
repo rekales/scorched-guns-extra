@@ -49,10 +49,12 @@ public class ModBrainMemories {
             .register("relocate_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Long>> DELAYED_MELEE = MEMORY_MODULE_TYPES
             .register("delayed_melee", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
-            
+
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES
             .register("jet_boots_cooling_down", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Integer>> SHOCK_CELL_COUNT = MEMORY_MODULE_TYPES
+            .register("shock_cell_count", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
 
     public static final Supplier<MemoryModuleType<Boolean>> IS_ON_COOLDOWN = MEMORY_MODULE_TYPES
             .register("is_on_cooldown", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));

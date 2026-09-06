@@ -6,7 +6,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 public class CheckHeadshotStun extends Behavior<LivingEntity> {
