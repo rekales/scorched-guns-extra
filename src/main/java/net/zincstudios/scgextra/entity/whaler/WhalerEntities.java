@@ -33,6 +33,7 @@ import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.BasicHeadshotBox;
+import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
@@ -74,7 +75,7 @@ public class WhalerEntities {
 
     public static final RegistryObject<EntityType<LionFishEntity>> LION_FISH = ENTITY_TYPES
             .register("lion_fish", () -> EntityType.Builder.of(LionFishEntity::new, MobCategory.MONSTER)
-                    .sized(3.5F, 3.5F).build("lion_fish"));
+                    .sized(3.5F, 4F).build("lion_fish"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);
@@ -101,6 +102,13 @@ public class WhalerEntities {
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.TENTACLIATOR.get(), new BasicHeadshotBox<>(11.0, 20.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.FISH_FOLK.get(), new BasicHeadshotBox<>(8.0, 25.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.PUFFICUS.get(), new BasicHeadshotBox<>(11.0, 35.0));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.LION_FISH.get(), new RotatedHeadshotBox<>(
+                30.0,
+                36.0,
+                52.0,
+                true,
+                true
+        ));
     }
 
     @OnlyIn(value = Dist.CLIENT)
