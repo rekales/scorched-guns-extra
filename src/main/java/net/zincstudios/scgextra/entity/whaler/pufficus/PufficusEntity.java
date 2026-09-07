@@ -4,6 +4,7 @@ import net.zincstudios.scgextra.entity.common.EquippedEntity;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.AmphibiousMoveControl;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
@@ -15,9 +16,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraftforge.fluids.FluidType;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -43,6 +47,8 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
 
     public PufficusEntity(EntityType<? extends EquippedEntity> entityType, Level level) {
         super(entityType, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new AmphibiousMoveControl(this);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -132,5 +138,20 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
             le.addEffect(new MobEffectInstance(MobEffects.POISON, 40));
         }
         return super.hurt(source, amount);
+    }
+
+    @Override
+    public boolean canDrownInFluidType(FluidType type) {
+        return false;
+    }
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
 }

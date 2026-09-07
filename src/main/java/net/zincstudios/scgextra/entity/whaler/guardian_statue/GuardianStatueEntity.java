@@ -5,7 +5,6 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -343,13 +342,10 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
             }
             int lanternCount = 0;
             int prismarineBricksCount = 0;
-            int prismarineCount = 0;
             for(BlockState state : tempStates){
                 if(state.is(Blocks.SEA_LANTERN))lanternCount++;
                 if(state.is(Blocks.PRISMARINE_BRICKS))prismarineBricksCount++;
-                if(state.is(Blocks.PRISMARINE))prismarineCount++;
             }
-            this.setCustomName(Component.literal("Lantern: "+lanternCount+" Prismarine Bricks: "+prismarineBricksCount+" Prismarine: "+prismarineCount));
             if(lanternCount<10){
                 this.remove(RemovalReason.DISCARDED);
                 return;
