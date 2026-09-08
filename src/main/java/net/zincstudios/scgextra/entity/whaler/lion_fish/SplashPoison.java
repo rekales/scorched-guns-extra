@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 public class SplashPoison extends Behavior<LivingEntity>{
 
@@ -71,6 +73,23 @@ public class SplashPoison extends Behavior<LivingEntity>{
                 entity.addEffect(new MobEffectInstance(MobEffects.POISON, 160));
                 entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160));
             }
+        }
+        float f = (float)mob.getY();
+        Vec3 vec3 = mob.getDeltaMovement();
+        for(int j = 0; j < 10; ++j) {
+            float f1 = (mob.getRandom().nextFloat() * 2.0F - 1.0F) * mob.getBbWidth() * 0.8F;
+            float f2 = (mob.getRandom().nextFloat() * 2.0F - 1.0F) * mob.getBbWidth() * 0.8F;
+            level.sendParticles(
+                ParticleTypes.SPLASH, 
+                mob.getX() + (double)f1, 
+                (double)(f + 1F), 
+                mob.getZ() + (double)f2, 
+                5, 
+                vec3.x, 
+                vec3.y, 
+                vec3.z,
+                0.2
+            );
         }
     }
 }
