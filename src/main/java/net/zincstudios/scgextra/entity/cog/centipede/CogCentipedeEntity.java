@@ -64,7 +64,6 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
                 .velocityModifier(vec -> vec.scale(1/3f))
                 .projectileFactory(PlasmaCannonProjectileEntity::new)
                 .build();
-        this.setId(ENTITY_COUNTER.getAndAdd(this.subEntities.length + 1) + 1); 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -187,11 +186,5 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return COGSounds.GENERAL_HEAVY_HURT.get();
-    }
-    @Override
-    public void setId(int pId) {
-        super.setId(pId);
-        for (int i = 0; i < this.subEntities.length; i++)
-            this.subEntities[i].setId(pId + i + 1);
     }
 }
