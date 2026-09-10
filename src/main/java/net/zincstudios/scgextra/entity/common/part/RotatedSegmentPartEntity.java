@@ -24,7 +24,6 @@ public class RotatedSegmentPartEntity<T extends LivingEntity> extends PartEntity
 
     private final EntityDimensions size;
     private final boolean collision;
-    private boolean idDone = false;
 
     private Vec3 offset;
 
@@ -48,15 +47,6 @@ public class RotatedSegmentPartEntity<T extends LivingEntity> extends PartEntity
     public void tick() {
         this.setOldPosAndRot();
         this.setPos(this.getParent().position().add(this.offset.yRot(-this.getParent().yBodyRot * Mth.DEG_TO_RAD)));
-        if(!this.getIdDone()){
-            PartEntity<?>[] parts = this.getParent().getParts();
-            for (int i = 0; i < parts.length; i++){
-                if(parts[i] instanceof RotatedSegmentPartEntity<?> rspe){
-                    rspe.setId(this.getParent().getId()+i+1);
-                    rspe.setIdDone();
-                }
-            }
-        }
     }
 
     @Override
@@ -120,21 +110,9 @@ public class RotatedSegmentPartEntity<T extends LivingEntity> extends PartEntity
 
     @Override
     protected void readAdditionalSaveData(CompoundTag compound) {
-        if(compound.contains("idDone")){
-            this.idDone = compound.getBoolean("idDone");
-        }
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag compound) {
-        compound.putBoolean("idDone", this.idDone);
-    }
-
-    public boolean getIdDone(){
-        return this.idDone;
-    }
-
-    public void setIdDone(){
-        this.idDone = true;
     }
 }
