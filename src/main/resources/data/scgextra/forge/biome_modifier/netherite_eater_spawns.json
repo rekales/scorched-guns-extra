@@ -1,6 +1,6 @@
 {
   "type": "forge:add_spawns",
-  "biomes": "minecraft:nether_wastes",
+  "biomes": "#minecraft:is_nether",
   "spawners": [
     {
       "type": "scgextra:netherite_eater",

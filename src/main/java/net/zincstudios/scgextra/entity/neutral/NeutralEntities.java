@@ -34,6 +34,7 @@ import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_wolf.InflictedWolfEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.mutant_bat.MutantBatEntity;
+import net.zincstudios.scgextra.tag.Tags;
 import net.zincstudios.scgextra.entity.common.OffsetRotatedHeadshotBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
@@ -359,21 +360,27 @@ public class NeutralEntities {
             NeutralEntities.NITRO_BEETLE.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            NitroBeetleEntity::checkMonsterSpawnRules,
+            (type, level, spawnType, pos, random) ->{
+                return NitroBeetleEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.CRIMSON_NILYUM);
+            },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
         event.register(
             NeutralEntities.HEAD_HUNTER.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            HeadHunterEntity::checkMonsterSpawnRules,
+            (type, level, spawnType, pos, random) ->{
+                return HeadHunterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.SOUL_SAND);
+            },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
         event.register(
             NeutralEntities.NETHERITE_EATER.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            NetheriteEaterEntity::checkMonsterSpawnRules,
+            (type, level, spawnType, pos, random) ->{
+                return NetheriteEaterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.NETHERRACK);
+            },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
         event.register(
