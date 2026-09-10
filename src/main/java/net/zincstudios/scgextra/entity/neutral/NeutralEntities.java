@@ -361,7 +361,7 @@ public class NeutralEntities {
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
             (type, level, spawnType, pos, random) ->{
-                return NitroBeetleEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.CRIMSON_NILYUM);
+                return NitroBeetleEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.NITRO_BEETLE_SPAWNABLE_ON);
             },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
@@ -370,7 +370,7 @@ public class NeutralEntities {
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
             (type, level, spawnType, pos, random) ->{
-                return HeadHunterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.SOUL_SAND);
+                return HeadHunterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.HEAD_HUNTER_SPAWNABLE_ON);
             },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
@@ -379,7 +379,7 @@ public class NeutralEntities {
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
             (type, level, spawnType, pos, random) ->{
-                return NetheriteEaterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.NETHERRACK);
+                return NetheriteEaterEntity.checkMonsterSpawnRules(type, level, spawnType, pos, random) && level.getBlockState(pos.below()).is(Tags.NETHERITE_EATER_SPAWNABLE_ON);
             },
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
