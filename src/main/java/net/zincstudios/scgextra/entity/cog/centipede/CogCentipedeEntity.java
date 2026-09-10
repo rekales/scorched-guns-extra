@@ -109,6 +109,13 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
     }
 
     @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         this.tickSubEntities();
@@ -187,11 +194,5 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return COGSounds.GENERAL_HEAVY_HURT.get();
-    }
-    @Override
-    public void setId(int pId) {
-        super.setId(pId);
-        for (int i = 0; i < this.subEntities.length; i++)
-            this.subEntities[i].setId(pId + i + 1);
     }
 }

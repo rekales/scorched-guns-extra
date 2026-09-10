@@ -168,6 +168,12 @@ public class EndStoneCrabEntity extends Monster implements GeoEntity{
         return true;
     }
     @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+    @Override
     public boolean doHurtTarget(Entity entity) {
         if (!this.level().isClientSide) {
             if (this.hurtDelay > 0) return false;

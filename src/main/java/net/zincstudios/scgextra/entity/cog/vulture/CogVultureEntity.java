@@ -115,6 +115,13 @@ public class CogVultureEntity extends Monster implements GeoEntity, Gunner, Bull
     }
 
     @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
         this.tickSubEntities();

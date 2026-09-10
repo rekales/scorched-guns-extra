@@ -173,6 +173,13 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
         return true;
     }
 
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
     public void updateBoundOrigin() {
         Vec3 start = this.position().add(0,2,0);
         Vec3 end = start.add(0, -64, 0);
