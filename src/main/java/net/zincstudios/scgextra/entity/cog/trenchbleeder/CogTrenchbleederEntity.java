@@ -31,6 +31,9 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     
     private static final Vec3 GUN_OFFSET = new Vec3(2.5/16f, 31.7715/16f, -17.05/16f);
 
+    static final int MELEE_DAMAGE_DELAY = 10;
+    static final int MELEE_DURATION = 15;
+
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final SimulatedGun customGun;
 
@@ -60,6 +63,9 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
         super.tick();
         if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim == 20).isPresent()) {
             this.triggerAnim("main", "shoot");
+        }
+        if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+            this.triggerAnim("attack", "stomp");
         }
     }
 
@@ -102,6 +108,10 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
             return PlayState.CONTINUE;
         }).triggerableAnim("shoot", RawAnimation.begin().thenPlay("shoot"))
         );
+
+        controllers.add(new AnimationController<>(this, "attack", 0, state ->{
+            return PlayState.CONTINUE;
+        }).triggerableAnim("stomp", RawAnimation.begin().thenPlay("stomp")));
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
