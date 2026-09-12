@@ -52,6 +52,7 @@
   "entity.scgextra.cog_venator": "COG Venator",
   "entity.scgextra.cog_centipede": "COG Centipede",
   "entity.scgextra.cog_juggernaut": "COG Juggernaut",
+  "entity.scgextra.cog_trenchbleeder": "COG Trenchbleeder",
 
   "entity.scgextra.inflicted_boar":  "Inflicted Boar",
   "entity.scgextra.inflicted_wolf":  "Inflicted Wolf",
@@ -132,6 +133,7 @@
   "item.scgextra.cog_venator_spawn_egg": "COG Venator Spawn Egg",
   "item.scgextra.cog_centipede_spawn_egg": "COG Centipede Spawn Egg",
   "item.scgextra.cog_juggernaut_spawn_egg": "COG Juggernaut Spawn Egg",
+  "item.scgextra.cog_trenchbleeder_spawn_egg": "COG Trenchbleeder Spawn Egg",
 
   "item.scgextra.atlantic_mace":  "Atlantic Mace",
   "item.scgextra.cavalry_saber":  "Cavalry Saber",

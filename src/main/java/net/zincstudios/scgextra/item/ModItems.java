@@ -289,6 +289,7 @@ public class ModItems {
             COG_VENATOR_SPAWN_EGG = basicSpawnEgg(COGEntities.VENATOR),
             COG_CENTIPEDE_SPAWN_EGG = basicSpawnEgg(COGEntities.CENTIPEDE),
             COG_JUGGERNAUT_SPAWN_EGG = basicSpawnEgg(COGEntities.JUGGERNAUT),
+            COG_TRENCHBLEEDER_SPAWN_EGG = basicSpawnEgg(COGEntities.TRENCHBLEEDER),
 
             // Neutral
             INFLICTED_BOAR_SPAWN_EGG = basicSpawnEgg(NeutralEntities.INFLICTED_BOAR),

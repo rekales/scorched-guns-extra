@@ -138,6 +138,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.COG_VENATOR_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.COG_CENTIPEDE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.COG_JUGGERNAUT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_TRENCHBLEEDER_SPAWN_EGG.get());
 
         basicItem("spawn_egg/", ModItems.INFLICTED_BOAR_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.INFLICTED_WOLF_SPAWN_EGG.get());

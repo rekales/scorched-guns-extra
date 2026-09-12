@@ -27,6 +27,8 @@ import net.zincstudios.scgextra.entity.cog.devastator.CogDevastatorEntity;
 import net.zincstudios.scgextra.entity.cog.gigantes.CogGigantesEntity;
 import net.zincstudios.scgextra.entity.cog.juggernaut.CogJuggernautEntity;
 import net.zincstudios.scgextra.entity.cog.juggernaut.RocketBarrageProjectileEntity;
+import net.zincstudios.scgextra.entity.cog.trenchbleeder.CogTrenchbleederEntity;
+import net.zincstudios.scgextra.entity.cog.trenchbleeder.CogTrenchbleederRenderer;
 import net.zincstudios.scgextra.entity.cog.venator.CogVenatorEntity;
 import net.zincstudios.scgextra.entity.cog.vulture.CogVultureEntity;
 import net.zincstudios.scgextra.entity.common.WeakPointBox;
@@ -78,6 +80,12 @@ public class COGEntities {
                     .setUpdateInterval(1)
                     .build("cog_juggernaut"));
 
+    public static final RegistryObject<EntityType<CogTrenchbleederEntity>> TRENCHBLEEDER = ENTITY_TYPES
+            .register("cog_trenchbleeder", () -> EntityType.Builder.of(CogTrenchbleederEntity::new, MobCategory.MONSTER)
+                    .sized(2F, 3.0F)
+                    .setUpdateInterval(1)
+                    .build("cog_trenchbleeder"));
+
     public static final RegistryObject<EntityType<PlasmaCannonProjectileEntity>> PLASMA_CANNON_PROJECTILE = ENTITY_TYPES
             .register("plasma_cannon_projectile", () -> EntityType.Builder.of(
                             (EntityType<PlasmaCannonProjectileEntity> type, Level level) -> new PlasmaCannonProjectileEntity(type, level), MobCategory.MISC)
@@ -114,6 +122,7 @@ public class COGEntities {
         event.put(COGEntities.VENATOR.get(), CogVenatorEntity.createAttributes().build());
         event.put(COGEntities.CENTIPEDE.get(), CogCentipedeEntity.createAttributes().build());
         event.put(COGEntities.JUGGERNAUT.get(), CogJuggernautEntity.createAttributes().build());
+        event.put(COGEntities.TRENCHBLEEDER.get(), CogTrenchbleederEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -162,7 +171,11 @@ public class COGEntities {
                         .hasGlowLayer()
                         .noDeathTilt()
         );
-
+        EntityRenderers.register(COGEntities.TRENCHBLEEDER.get(), (ctx) ->
+                new CogTrenchbleederRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_trenchbleeder")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
         EntityRenderers.register(COGEntities.PLASMA_CANNON_PROJECTILE.get(), ProjectileRenderer::new);
         EntityRenderers.register(COGEntities.ROCKET_BARRAGE_PROJECTILE.get(), RocketRenderer::new);
     }
