@@ -13,6 +13,7 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.ShootTarget;
+import net.zincstudios.scgextra.entity.common.gun.IdentityTriggerSampler;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
@@ -62,7 +63,7 @@ public class CogTrenchbleederAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new ShootTarget(20)
+                new ShootTarget(20, (entity, firing) -> 1.4f, entity -> true, new IdentityTriggerSampler())
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 ), ImmutableSet.of(
