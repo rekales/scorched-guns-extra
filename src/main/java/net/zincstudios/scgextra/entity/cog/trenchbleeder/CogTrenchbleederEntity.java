@@ -103,7 +103,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                 state.setAnimation(RawAnimation.begin().thenPlayAndHold("idle_1"));
             } else {
                 state.setAndContinue(RawAnimation.begin()
-                .thenLoop("idle_2"));
+                .thenPlayXTimes("idle_1", 2).thenLoop("idle_2"));
             }
             return PlayState.CONTINUE;
         }).triggerableAnim("shoot", RawAnimation.begin().thenPlay("shoot"))

@@ -250,6 +250,9 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 ), 0.3F)
                 .constant(ModItems.COG_HEART.get(), 1)
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3);
+        basicLoot(COGEntities.TRENCHBLEEDER.get())
+                .range(ModItems.ANCIENT_BRASS.get(), 1, 3)
+                .range(ModItems.SHOTGUN_SHELL.get(), 3, 6);
 
         basicLoot(NeutralEntities.INFLICTED_BOAR.get())
                 .range(Items.PORKCHOP, 1, 3)

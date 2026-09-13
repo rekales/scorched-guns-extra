@@ -54,7 +54,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.GIGANTES.get())
                 .add(COGEntities.VENATOR.get())
                 .add(COGEntities.CENTIPEDE.get())
-                .add(COGEntities.JUGGERNAUT.get());
+                .add(COGEntities.JUGGERNAUT.get())
+                .add(COGEntities.TRENCHBLEEDER.get());
 
         tag(EntityTypeTags.FAC)
                 .add(FACEntities.FAC_TRENCHER.get())
@@ -114,7 +115,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.GIGANTES.get())
                 .add(COGEntities.VENATOR.get())
                 .add(COGEntities.CENTIPEDE.get())
-                .add(COGEntities.JUGGERNAUT.get());
+                .add(COGEntities.JUGGERNAUT.get())
+                .add(COGEntities.TRENCHBLEEDER.get());
 
         tag(ModTags.Entities.WATER)
                 .add(WhalerEntities.FISH_FOLK.get())
@@ -138,7 +140,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.GIGANTES.get())
                 .add(COGEntities.VENATOR.get())
                 .add(COGEntities.CENTIPEDE.get())
-                .add(COGEntities.JUGGERNAUT.get());
+                .add(COGEntities.JUGGERNAUT.get())
+                .add(COGEntities.TRENCHBLEEDER.get());
 
         tag(ModTags.Entities.VERY_HEAVY)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
@@ -159,7 +162,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.GIGANTES.get())
                 .add(COGEntities.VENATOR.get())
                 .add(COGEntities.CENTIPEDE.get())
-                .add(COGEntities.JUGGERNAUT.get());
+                .add(COGEntities.JUGGERNAUT.get())
+                .add(COGEntities.TRENCHBLEEDER.get());
 
         tag(ModTags.Entities.WHITE_BLOOD)
                 .add(WhalerEntities.GUARDIAN_STATUE.get());
