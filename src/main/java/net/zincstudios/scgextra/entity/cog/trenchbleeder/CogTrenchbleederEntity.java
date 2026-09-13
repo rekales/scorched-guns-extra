@@ -12,6 +12,7 @@ import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -62,8 +63,8 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                     (-16/16f)*-1f
                 ),
                 5/16f, 
-                31/16f, 
-                true
+                25/16f, 
+                false
             ),
             //leg_part_2
             new RotatedSegmentPartEntity<>(
@@ -74,8 +75,8 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                     (-15/16f)*-1f
                 ),
                 5/16f, 
-                31/16f, 
-                true
+                25/16f, 
+                false
             ),
             //leg_part_3
             new RotatedSegmentPartEntity<>(
@@ -86,140 +87,8 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                     (12.4/16f)*-1f
                 ),
                 6/16f, 
-                31/16f, 
-                true
-            ),
-            //lower_body_part_1
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f)*-1f,
-                    6/16f,
-                    (0/16f)*-1f
-                ),
-                3/16f, 
-                1/16f, 
-                true
-            ),
-            //lower_body_part_2
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f)*-1f,
-                    7/16f,
-                    (0/16f)*-1f
-                ),
-                4/16f, 
-                6/16f, 
-                true
-            ),
-            //lower_body_part_3
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f)*-1f,
-                    13/16f,
-                    (0/16f)*-1f
-                ),
-                6/16f, 
-                8/16f, 
-                true
-            ),
-            //lower_body_part_4
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f)*-1f,
-                    21/16f,
-                    (0/16f)*-1f
-                ),
-                10/16f, 
-                6/16f, 
-                true
-            ),
-            //head_part_1
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f),
-                    27/16f,
-                    (0/16f)
-                ),
-                14/16f, 
-                10/16f, 
-                true
-            ),
-            //head_part_2
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f),
-                    37/16f,
-                    (0/16f)
-                ),
-                16/16f, 
-                11/16f, 
-                true
-            ),
-            //head_gear_part
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (0/16f)*-1f,
-                    48/16f,
-                    (0/16f)*-1f
-                ),
-                8/16f, 
-                2/16f, 
-                true
-            ),
-            //head_horn_part
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (-9/16f)*-1f,
-                    45/16f,
-                    (7/16f)*-1f
-                ),
-                2/16f, 
-                4/16f, 
-                true
-            ),
-            //head_horn_part
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (7/16f)*-1f,
-                    45/16f,
-                    (7/16f)*-1f
-                ),
-                2/16f, 
-                4/16f, 
-                true
-            ),
-            //head_horn_part
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (7/16f)*-1f,
-                    45/16f,
-                    (-9/16f)*-1f
-                ),
-                2/16f, 
-                4/16f, 
-                true
-            ),
-            //head_horn_part
-            new RotatedSegmentPartEntity<>(
-                this, 
-                new Vec3(
-                    (-9/16f)*-1f,
-                    45/16f,
-                    (-9/16f)*-1f
-                ),
-                2/16f, 
-                4/16f, 
-                true
+                25/16f, 
+                false
             )
         };
     }
@@ -333,6 +202,14 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     @Override
     public void onGunFire(SimulatedGun gun, Vec3 targetPos) {
         this.triggerAnim("main", "fire");
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getEntity()!=null && source.getEntity().is(this)){
+            return false;
+        }
+        return super.hurt(source, amount);
     }
 
     @Override
