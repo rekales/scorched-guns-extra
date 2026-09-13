@@ -55,7 +55,8 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.MAX_HEALTH, 60.0D)
-                .add(Attributes.ARMOR, 6.0D);
+                .add(Attributes.ARMOR, 6.0D)
+                .add(Attributes.ATTACK_DAMAGE, 7.0D);
     }
 
     @Override
@@ -102,8 +103,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                 state.setAnimation(RawAnimation.begin().thenPlayAndHold("idle_1"));
             } else {
                 state.setAndContinue(RawAnimation.begin()
-                    .thenPlayXTimes("idle_1", state.getAnimatable().random.nextIntBetweenInclusive(2,4))
-                        .thenLoop("idle_2"));
+                .thenLoop("idle_2"));
             }
             return PlayState.CONTINUE;
         }).triggerableAnim("shoot", RawAnimation.begin().thenPlay("shoot"))

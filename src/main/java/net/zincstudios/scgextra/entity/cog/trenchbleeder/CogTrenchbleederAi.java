@@ -71,6 +71,7 @@ public class CogTrenchbleederAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1.0F),
+                //Any better way to do this?
                 new AimWhenNotWalking(){
                         @Override
                         protected void tick(ServerLevel level, Mob mob, long gameTime) {
@@ -92,7 +93,7 @@ public class CogTrenchbleederAi {
                         }
                 },
                 new CogTrenchbleederShootTarget(16, (entity, firing) -> 1.4f, entity -> true),
-                new DelayedMeleeAttack(CogTrenchbleederEntity.MELEE_DAMAGE_DELAY, CogTrenchbleederEntity.MELEE_DURATION, 1f, 20)
+                new DelayedMeleeAttack(CogTrenchbleederEntity.MELEE_DAMAGE_DELAY, CogTrenchbleederEntity.MELEE_DURATION, 1.4f, 20)
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 ), ImmutableSet.of(
