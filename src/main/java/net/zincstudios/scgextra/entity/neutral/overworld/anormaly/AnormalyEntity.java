@@ -1,20 +1,15 @@
 package net.zincstudios.scgextra.entity.neutral.overworld.anormaly;
 
-import java.util.EnumSet;
-
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -72,7 +67,7 @@ public class AnormalyEntity extends Monster implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new AnormalyRandomMoveGoal());
+        this.goalSelector.addGoal(2, new AnormalyRandomMoveGoal(this));
         this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
     }
 
@@ -81,71 +76,9 @@ public class AnormalyEntity extends Monster implements GeoEntity {
         super.tick();
         this.setNoGravity(true);
     }
-
-    class AnormalyMoveControl extends MoveControl {
-        public AnormalyMoveControl(AnormalyEntity anormaly) {
-            super(anormaly);
-        }
-
-        public void tick() {
-            if (this.operation == Operation.MOVE_TO) {
-                Vec3 vec3 = new Vec3(this.wantedX - AnormalyEntity.this.getX(),
-                        this.wantedY - AnormalyEntity.this.getY(), this.wantedZ - AnormalyEntity.this.getZ());
-                double d0 = vec3.length();
-                if (d0 < AnormalyEntity.this.getBoundingBox().getSize()) {
-                    this.operation = Operation.WAIT;
-                    AnormalyEntity.this.setDeltaMovement(AnormalyEntity.this.getDeltaMovement().scale((double) 0.5F));
-                } else {
-                    AnormalyEntity.this.setDeltaMovement(
-                            AnormalyEntity.this.getDeltaMovement().add(vec3.scale(this.speedModifier * 0.05 / d0)));
-                    if (AnormalyEntity.this.getTarget() == null) {
-                        Vec3 vec31 = AnormalyEntity.this.getDeltaMovement();
-                        AnormalyEntity.this.setYRot(-((float) Mth.atan2(vec31.x, vec31.z)) * (180F / (float) Math.PI));
-                        AnormalyEntity.this.yBodyRot = AnormalyEntity.this.getYRot();
-                    } else {
-                        double d2 = AnormalyEntity.this.getTarget().getX() - AnormalyEntity.this.getX();
-                        double d1 = AnormalyEntity.this.getTarget().getZ() - AnormalyEntity.this.getZ();
-                        AnormalyEntity.this.setYRot(-((float) Mth.atan2(d2, d1)) * (180F / (float) Math.PI));
-                        AnormalyEntity.this.yBodyRot = AnormalyEntity.this.getYRot();
-                    }
-                }
-            }
-        }
-    }
-
-    class AnormalyRandomMoveGoal extends Goal {
-        public AnormalyRandomMoveGoal() {
-            this.setFlags(EnumSet.of(Flag.MOVE));
-        }
-
-        public boolean canUse() {
-            return !AnormalyEntity.this.getMoveControl().hasWanted()
-                    && AnormalyEntity.this.random.nextInt(reducedTickDelay(7)) == 0;
-        }
-
-        public boolean canContinueToUse() {
-            return false;
-        }
-
-        public void tick() {
-            BlockPos blockpos = AnormalyEntity.this.blockPosition();
-
-            for (int i = 0; i < 3; ++i) {
-                BlockPos blockpos1 = blockpos.offset(AnormalyEntity.this.random.nextInt(15) - 7,
-                        AnormalyEntity.this.random.nextInt(11) - 5, AnormalyEntity.this.random.nextInt(15) - 7);
-                if (AnormalyEntity.this.level().isEmptyBlock(blockpos1)) {
-                    AnormalyEntity.this.moveControl.setWantedPosition((double) blockpos1.getX() + (double) 0.5F,
-                            (double) blockpos1.getY() + (double) 0.5F, (double) blockpos1.getZ() + (double) 0.5F,
-                            (double) 0.25F);
-                    if (AnormalyEntity.this.getTarget() == null) {
-                        AnormalyEntity.this.getLookControl().setLookAt((double) blockpos1.getX() + (double) 0.5F,
-                                (double) blockpos1.getY() + (double) 0.5F, (double) blockpos1.getZ() + (double) 0.5F,
-                                180.0F, 20.0F);
-                    }
-                    break;
-                }
-            }
-
-        }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.is(DamageTypes.FALL))return false;
+        return super.hurt(source, amount);
     }
 }
