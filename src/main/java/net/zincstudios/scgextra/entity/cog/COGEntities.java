@@ -82,7 +82,7 @@ public class COGEntities {
 
     public static final RegistryObject<EntityType<CogTrenchbleederEntity>> TRENCHBLEEDER = ENTITY_TYPES
             .register("cog_trenchbleeder", () -> EntityType.Builder.of(CogTrenchbleederEntity::new, MobCategory.MONSTER)
-                    .sized(2F, 3.0F)
+                    .sized(1F, 3.0F)
                     .setUpdateInterval(1)
                     .build("cog_trenchbleeder"));
 

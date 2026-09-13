@@ -6,6 +6,7 @@ import net.zincstudios.scgextra.entity.common.gun.CustomGunHolder;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -33,6 +35,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
 
     static final int MELEE_DAMAGE_DELAY = 10;
     static final int MELEE_DURATION = 15;
+    private final PartEntity<?>[] subEntities;
 
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final SimulatedGun customGun;
@@ -48,6 +51,177 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
         .ammoCapacity(3)
         .reloadTime(80)
         .build();
+        //some offsets are multiplied by -1 because blockbench xyz for some reason are opposites of this xyz
+        this.subEntities = new PartEntity[] {
+            //leg_part_1
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (11/16f)*-1f,
+                    0/16f, 
+                    (-16/16f)*-1f
+                ),
+                5/16f, 
+                31/16f, 
+                true
+            ),
+            //leg_part_2
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (-15/16f)*-1f,
+                    0/16f, 
+                    (-15/16f)*-1f
+                ),
+                5/16f, 
+                31/16f, 
+                true
+            ),
+            //leg_part_3
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (-3/16f)*-1f,
+                    0/16f,
+                    (12.4/16f)*-1f
+                ),
+                6/16f, 
+                31/16f, 
+                true
+            ),
+            //lower_body_part_1
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f)*-1f,
+                    6/16f,
+                    (0/16f)*-1f
+                ),
+                3/16f, 
+                1/16f, 
+                true
+            ),
+            //lower_body_part_2
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f)*-1f,
+                    7/16f,
+                    (0/16f)*-1f
+                ),
+                4/16f, 
+                6/16f, 
+                true
+            ),
+            //lower_body_part_3
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f)*-1f,
+                    13/16f,
+                    (0/16f)*-1f
+                ),
+                6/16f, 
+                8/16f, 
+                true
+            ),
+            //lower_body_part_4
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f)*-1f,
+                    21/16f,
+                    (0/16f)*-1f
+                ),
+                10/16f, 
+                6/16f, 
+                true
+            ),
+            //head_part_1
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f),
+                    27/16f,
+                    (0/16f)
+                ),
+                14/16f, 
+                10/16f, 
+                true
+            ),
+            //head_part_2
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f),
+                    37/16f,
+                    (0/16f)
+                ),
+                16/16f, 
+                11/16f, 
+                true
+            ),
+            //head_gear_part
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (0/16f)*-1f,
+                    48/16f,
+                    (0/16f)*-1f
+                ),
+                8/16f, 
+                2/16f, 
+                true
+            ),
+            //head_horn_part
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (-9/16f)*-1f,
+                    45/16f,
+                    (7/16f)*-1f
+                ),
+                2/16f, 
+                4/16f, 
+                true
+            ),
+            //head_horn_part
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (7/16f)*-1f,
+                    45/16f,
+                    (7/16f)*-1f
+                ),
+                2/16f, 
+                4/16f, 
+                true
+            ),
+            //head_horn_part
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (7/16f)*-1f,
+                    45/16f,
+                    (-9/16f)*-1f
+                ),
+                2/16f, 
+                4/16f, 
+                true
+            ),
+            //head_horn_part
+            new RotatedSegmentPartEntity<>(
+                this, 
+                new Vec3(
+                    (-9/16f)*-1f,
+                    45/16f,
+                    (-9/16f)*-1f
+                ),
+                2/16f, 
+                4/16f, 
+                true
+            )
+        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -62,6 +236,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
         if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim == 20).isPresent()) {
             this.triggerAnim("main", "shoot_start");
         }
@@ -70,6 +245,29 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
         }
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.triggerAnim("main", "stomp");
+        }
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
         }
     }
 
