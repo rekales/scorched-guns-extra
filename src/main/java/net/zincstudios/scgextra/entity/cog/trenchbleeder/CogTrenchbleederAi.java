@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
+import net.zincstudios.scgextra.entity.common.brain.PatchedEntityTracker;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.Faction;
@@ -13,8 +14,9 @@ import net.zincstudios.scgextra.entity.common.brain.AimWhenNotWalking;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.ShootTarget;
-import net.zincstudios.scgextra.entity.common.gun.IdentityTriggerSampler;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -24,6 +26,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+
+import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 
 public class CogTrenchbleederAi {
     
@@ -67,8 +71,27 @@ public class CogTrenchbleederAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1.0F),
-                new AimWhenNotWalking(),
-                new ShootTarget(20, (entity, firing) -> 1.4f, entity -> true, new IdentityTriggerSampler()),
+                new AimWhenNotWalking(){
+                        @Override
+                        protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                                Brain<?> brain = mob.getBrain();
+                                LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+
+                                if (!brain.hasMemoryValue(MemoryModuleType.LOOK_TARGET)) {
+                                brain.setMemory(MemoryModuleType.LOOK_TARGET, new PatchedEntityTracker(target, true));
+                                }
+
+                                int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
+                                if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
+                                aimTicks = 0;
+                                } else {
+                                aimTicks += mob.getSensing().hasLineOfSight(target) ? 1 : -1;
+                                aimTicks = Mth.clamp(aimTicks, MIN_AIM_TICKS, 48);
+                                }
+                                brain.setMemory(ModBrainMemories.AIM_TICKS.get(), aimTicks);
+                        }
+                },
+                new CogTrenchbleederShootTarget(16, (entity, firing) -> 1.4f, entity -> true),
                 new DelayedMeleeAttack(CogTrenchbleederEntity.MELEE_DAMAGE_DELAY, CogTrenchbleederEntity.MELEE_DURATION, 1f, 20)
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
