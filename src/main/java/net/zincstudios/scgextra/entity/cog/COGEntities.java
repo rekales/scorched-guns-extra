@@ -132,6 +132,7 @@ public class COGEntities {
         BoundingBoxManager.registerHeadshotBox(COGEntities.CENTIPEDE.get(), new BasicHeadshotBox<>(1,0));
         BoundingBoxManager.registerHeadshotBox(COGEntities.VENATOR.get(), new BasicHeadshotBox<>(0,0));
         BoundingBoxManager.registerHeadshotBox(COGEntities.VULTURE.get(), new BasicHeadshotBox<>(10,16));
+        BoundingBoxManager.registerHeadshotBox(COGEntities.TRENCHBLEEDER.get(), new BasicHeadshotBox<>(11,25));
     }
 
     @OnlyIn(value = Dist.CLIENT)
