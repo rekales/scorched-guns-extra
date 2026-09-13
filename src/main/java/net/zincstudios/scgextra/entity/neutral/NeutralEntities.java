@@ -30,6 +30,7 @@ import net.zincstudios.scgextra.entity.neutral.nether.head_hunter.HeadHunterEnti
 import net.zincstudios.scgextra.entity.neutral.nether.netherite_eater.NetheriteEaterEntity;
 import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.ammo_goblin.AmmoGoblinEntity;
+import net.zincstudios.scgextra.entity.neutral.overworld.anormaly.AnormalyEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_wolf.InflictedWolfEntity;
@@ -91,6 +92,16 @@ public class NeutralEntities {
         )
         .sized(2F, 2F)
         .build("mutant_bat")
+    );
+    
+    public static final RegistryObject<EntityType<AnormalyEntity>> ANORMALY = ENTITY_TYPES.register(
+        "anormaly", 
+        () -> EntityType.Builder.of(
+            AnormalyEntity::new, 
+            MobCategory.MONSTER
+        )
+        .sized(1.5F, 1.5F)
+        .build("anormaly")
     );
     
     public static final RegistryObject<EntityType<NitroBeetleEntity>> NITRO_BEETLE = ENTITY_TYPES.register(
@@ -177,6 +188,7 @@ public class NeutralEntities {
         event.put(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinEntity.createAttributes().build());
         event.put(NeutralEntities.BIG_LUMP.get(), BigLumpEntity.createAttributes().build());
         event.put(NeutralEntities.MUTANT_BAT.get(), MutantBatEntity.createAttributes().build());
+        event.put(NeutralEntities.ANORMALY.get(), AnormalyEntity.createAttributes().build());
         event.put(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleEntity.createAttributes().build());
         event.put(NeutralEntities.HEAD_HUNTER.get(), HeadHunterEntity.createAttributes().build());
         event.put(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterEntity.createAttributes().build());
@@ -456,6 +468,12 @@ public class NeutralEntities {
         EntityRenderers.register(NeutralEntities.MUTANT_BAT.get(), (ctx) ->
                 new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/mutant_bat")))
                         .shadowRadius(1F)
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(NeutralEntities.ANORMALY.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/anormaly")))
+                        .shadowRadius(0F)
                         .hasGlowLayer()
                         .noDeathTilt()
         );
