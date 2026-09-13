@@ -175,6 +175,7 @@ public class COGEntities {
                 new CogTrenchbleederRenderer(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("cog/cog_trenchbleeder")))
                         .hasGlowLayer()
                         .noDeathTilt()
+                        .noDeathRedTint()
         );
         EntityRenderers.register(COGEntities.PLASMA_CANNON_PROJECTILE.get(), ProjectileRenderer::new);
         EntityRenderers.register(COGEntities.ROCKET_BARRAGE_PROJECTILE.get(), RocketRenderer::new);

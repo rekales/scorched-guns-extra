@@ -63,10 +63,13 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     public void tick() {
         super.tick();
         if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim == 20).isPresent()) {
-            this.triggerAnim("main", "shoot");
+            this.triggerAnim("main", "shoot_start");
+        }
+        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim == 48).isPresent()) {
+            this.triggerAnim("main", "shoot_end");
         }
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
-            this.triggerAnim("attack", "stomp");
+            this.triggerAnim("main", "stomp");
         }
     }
 
@@ -94,7 +97,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "main", 2, state -> {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
             if (state.getAnimatable().isSprinting()) {
                 state.setAnimation(RawAnimation.begin().thenLoop("run"));
             } else if (state.isMoving()) {
@@ -106,12 +109,10 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
                 .thenPlayXTimes("idle_1", 2).thenLoop("idle_2"));
             }
             return PlayState.CONTINUE;
-        }).triggerableAnim("shoot", RawAnimation.begin().thenPlay("shoot"))
-        );
-
-        controllers.add(new AnimationController<>(this, "attack", 0, state ->{
-            return PlayState.CONTINUE;
-        }).triggerableAnim("stomp", RawAnimation.begin().thenPlay("stomp")));
+        }).triggerableAnim("stomp", RawAnimation.begin().thenPlay("stomp"))
+        .triggerableAnim("shoot_start", RawAnimation.begin().thenPlay("shoot_start"))
+        .triggerableAnim("fire", RawAnimation.begin().thenPlay("fire"))
+        .triggerableAnim("shoot_end", RawAnimation.begin().thenPlay("shoot_end")));
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
@@ -129,6 +130,11 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     @Override
     public SimulatedGun getCustomGun() {
         return this.customGun;
+    }
+
+    @Override
+    public void onGunFire(SimulatedGun gun, Vec3 targetPos) {
+        this.triggerAnim("main", "fire");
     }
 
     @Override
