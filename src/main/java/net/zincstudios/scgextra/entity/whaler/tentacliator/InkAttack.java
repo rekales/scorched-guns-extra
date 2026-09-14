@@ -4,14 +4,11 @@ import com.google.common.collect.ImmutableMap;
 
 import net.zincstudios.scgextra.entity.common.brain.PatchedEntityTracker;
 import net.zincstudios.scgextra.entity.AbilityState;
-import net.zincstudios.scgextra.effects.ModEffects;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
@@ -34,7 +31,7 @@ public class InkAttack extends Behavior<LivingEntity> {
             MemoryModuleType.ATTACK_TARGET, 
             MemoryStatus.VALUE_PRESENT,
             ModBrainMemories.ABILITY_STATE.get(), MemoryStatus.REGISTERED
-        ));
+        ), 15);
         this.cooldown = cooldown;
         this.animController = animController;
         this.animName = animName;
@@ -67,41 +64,21 @@ public class InkAttack extends Behavior<LivingEntity> {
         }
         if(gameTime-this.startTime == 1)if(entity instanceof GeoEntity ge)ge.triggerAnim(this.animController, this.animName);
 
-        if(gameTime-this.startTime >= 1){
-            Vec3 vec = entity.position().add(new Vec3(-5.5D/16D,20D/16D,1.5D/16D).yRot(-entity.yBodyRot * Mth.DEG_TO_RAD));
-            BlockPos end = target.blockPosition();
-            double startX = vec.x;
-            double startY = vec.y;
-            double startZ = vec.z;
-        
-            double endX = end.getX() + 0.5;
-            double endY = end.getY() + 0.5;
-            double endZ = end.getZ() + 0.5;
-        
-            double dx = endX - startX;
-            double dy = endY - startY;
-            double dz = endZ - startZ;
-        
-            double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
-        
-            double stepX = dx / distance;
-            double stepY = dy / distance;
-            double stepZ = dz / distance;
-            for (double i = 0; i < distance; i += 0.1) {
-                double px = startX + stepX * i;
-                double py = startY + stepY * i;
-                double pz = startZ + stepZ * i;
-                if (entity.level() instanceof ServerLevel serverLevel)serverLevel.sendParticles(ParticleTypes.FALLING_WATER, px, py, pz,1,0,0,0,0);    
-            }
-        }
-
         if (gameTime-this.startTime >= this.aimThreshold) {
-            if(entity instanceof TentacliatorEntity te){
-                if(te.isGlowing()){
-                    target.addEffect(new MobEffectInstance(ModEffects.GLOWING_INK_EFFECT.get(), 100));
-                }else{
-                    target.addEffect(new MobEffectInstance(ModEffects.INK_EFFECT.get(), 100));
-                }
+            if(entity instanceof TentacliatorEntity){
+                InkProjectileEntity inkProjectile = new InkProjectileEntity(entity, level);
+                Vec3 vec = entity.position().add(new Vec3(-5.5D/16D,20D/16D,1.5D/16D).yRot(-entity.yBodyRot * Mth.DEG_TO_RAD));
+                inkProjectile.moveTo(
+                    vec.x,
+                    vec.y,
+                    vec.z
+                );
+                double d0 = target.getX() - vec.x;
+                double d1 = target.getY(0.333333333) - inkProjectile.getY();
+                double d2 = target.getZ() - vec.z;
+                double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+                inkProjectile.shoot(d0, d1 + d3 * (double)0.2F, d2, 1F, (float)(14 - level.getDifficulty().getId() * 4));
+                level.addFreshEntity(inkProjectile);
             }
         }
     }

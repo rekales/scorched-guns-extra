@@ -30,6 +30,7 @@ import net.zincstudios.scgextra.entity.projectile.SoulFireBallRenderer;
 import net.zincstudios.scgextra.entity.projectile.SoulFireball;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntity;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityRenderer;
+import net.zincstudios.scgextra.entity.projectile.ink_projectile.*;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.turret.TurretManningHandler;
 import net.zincstudios.scgextra.entity.turret.TurretSeatEntity;
@@ -53,6 +54,9 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<NetEntity>> NET = ENTITY_TYPES
             .register("net", () -> EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC).sized(4F, 1F).clientTrackingRange(4).updateInterval(20).build("net"));
+
+    public static final RegistryObject<EntityType<InkProjectileEntity>> INK_PROJECTILE = ENTITY_TYPES
+            .register("ink_projectile", () -> EntityType.Builder.<InkProjectileEntity>of(InkProjectileEntity::new, MobCategory.MISC).sized(0.2F, 0.2F).clientTrackingRange(4).updateInterval(20).build("ink_projectile"));
 
     public static final RegistryObject<EntityType<ArmoredWhaleProjectileEntity>> WHALE_PROJECTILE = ENTITY_TYPES
             .register("whale_tank_projectile", () -> EntityType.Builder.of(ArmoredWhaleProjectileEntity::create, MobCategory.MISC)
@@ -126,6 +130,7 @@ public class ModEntities {
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(ModEntities.NET.get(), NetEntityRenderer::new);
+        EntityRenderers.register(ModEntities.INK_PROJECTILE.get(), InkProjectileRenderer::new);
         EntityRenderers.register(ModEntities.WHALE_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.BIG_LUMP_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.FIRE_PROJECTILE.get(), EnemyProjectileRenderer::new);

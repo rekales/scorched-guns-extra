@@ -1197,6 +1197,7 @@
 		},
 		"ink_splash": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {

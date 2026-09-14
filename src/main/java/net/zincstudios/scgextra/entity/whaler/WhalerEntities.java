@@ -18,6 +18,7 @@ import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
+import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
@@ -165,6 +166,7 @@ public class WhalerEntities {
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         // TODO: replace with geomodel
         event.registerLayerDefinition(NetEntityModel.LAYER_LOCATION, NetEntityModel::createBodyLayer);
+        event.registerLayerDefinition(InkProjectileEntityModel.LAYER_LOCATION, InkProjectileEntityModel::createBodyLayer);
     }
 
 }
