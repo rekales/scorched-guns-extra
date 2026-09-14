@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -92,7 +94,7 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.ARMOR, 20.0D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 1)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                 .add(Attributes.FLYING_SPEED, 0.8)
                 .add(Attributes.MAX_HEALTH, 10.0D);
     }
@@ -213,5 +215,18 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
             Vec3 vec32 = HoverRandomPos.getPos(AnormalyEntity.this, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
             return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(AnormalyEntity.this, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
         }
+    }
+    @Override
+    protected @Nullable SoundEvent getAmbientSound() {
+        return SoundEvents.ALLAY_AMBIENT_WITHOUT_ITEM;
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.ALLAY_HURT;
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SoundEvents.ALLAY_DEATH;
     }
 }

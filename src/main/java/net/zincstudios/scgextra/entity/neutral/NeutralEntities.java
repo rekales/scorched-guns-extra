@@ -226,6 +226,15 @@ public class NeutralEntities {
             false, 
             true
         ));
+        BoundingBoxManager.registerHeadshotBox(NeutralEntities.ANORMALY.get(), new OffsetRotatedHeadshotBox<>(
+            24, 
+            24, 
+            0, 
+            0.0F, 
+            0.0, 
+            false, 
+            true
+        ));
         BoundingBoxManager.registerHeadshotBox(NeutralEntities.BIG_LUMP.get(), new OffsetRotatedHeadshotBox<>(
             8, 
             9.5, 
