@@ -1,0 +1,46 @@
+{
+  "type": "forge:add_spawns",
+  "biomes": [
+    "minecraft:badlands",
+    "minecraft:eroded_badlands",
+    "minecraft:wooded_badlands",
+
+    "minecraft:birch_forest",
+    "minecraft:dark_forest",
+    "minecraft:flower_forest",
+    "minecraft:forest",
+    "minecraft:grove",
+    "minecraft:old_growth_birch_forest",
+
+    "minecraft:windswept_forest",
+    "minecraft:windswept_gravelly_hills",
+    "minecraft:windswept_hills",
+
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:windswept_savanna",
+
+    "minecraft:old_growth_pine_taiga",
+    "minecraft:old_growth_spruce_taiga",
+    "minecraft:snowy_taiga",
+    "minecraft:taiga",
+
+    "minecraft:cherry_grove",
+    "minecraft:frozen_peaks",
+    "minecraft:jagged_peaks",
+    "minecraft:meadow",
+    "minecraft:snowy_slopes",
+    "minecraft:stony_peaks",
+
+    "minecraft:plains",
+    "minecraft:sunflower_plains"
+  ],
+  "spawners": [
+    {
+      "type": "scgextra:anormaly",
+      "weight": 1,
+      "minCount": 1,
+      "maxCount": 1
+    }
+  ]
+}

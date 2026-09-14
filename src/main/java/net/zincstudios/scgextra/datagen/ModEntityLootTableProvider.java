@@ -261,6 +261,8 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         basicLoot(NeutralEntities.INFLICTED_WOLF.get())
                 .range(Items.BONE, 1, 3)
                 .range(Items.LEATHER, 1, 3);
+        basicLoot(NeutralEntities.ANORMALY.get())
+                .constant(ModItems.EMPTY_CORE.get(), 1);
         basicLoot(NeutralEntities.AMMO_GOBLIN.get())
                 .range(Items.GUNPOWDER, 3, 6)
                 .constant(ModBlocks.SUPPLY_CRATE.get().asItem(), 1)

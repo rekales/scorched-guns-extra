@@ -437,14 +437,22 @@ public class NeutralEntities {
             NeutralEntities.INFLICTED_BOAR.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            EndScorpionEntity::checkMonsterSpawnRules,
+            InflictedBoarEntity::checkMonsterSpawnRules,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
         event.register(
             NeutralEntities.INFLICTED_WOLF.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            EndScorpionEntity::checkMonsterSpawnRules,
+            InflictedWolfEntity::checkMonsterSpawnRules,
+            SpawnPlacementRegisterEvent.Operation.REPLACE
+        );
+        //
+        event.register(
+            NeutralEntities.ANORMALY.get(),
+            SpawnPlacements.Type.ON_GROUND,
+            Heightmap.Types.WORLD_SURFACE,
+            AnormalyEntity::checkMonsterSpawnRules,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }

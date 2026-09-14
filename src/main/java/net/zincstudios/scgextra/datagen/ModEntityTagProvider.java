@@ -126,6 +126,7 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(WhalerEntities.TENTACLIATOR.get())
                 .add(WhalerEntities.GLOWING_TENTACLIATOR.get())
                 .add(WhalerEntities.PUFFICUS.get())
+                .add(NeutralEntities.ANORMALY.get())
                 .add(WhalerEntities.ARMORED_WHALE.get());
 
         tag(ModTags.Entities.HEAVY)
