@@ -95,7 +95,7 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.ARMOR, 20.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
-                .add(Attributes.FLYING_SPEED, 0.8)
+                .add(Attributes.FLYING_SPEED, 0.2)
                 .add(Attributes.MAX_HEALTH, 10.0D);
     }
 
@@ -128,7 +128,7 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true,
                 player -> !((Player) player).isCreative() && !player.isSpectator()));
         this.goalSelector.addGoal(1, new AnormalyAttackGoal(this, 1, true, 40));
-        this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1f, 35));
+        this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1, 35));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(5, new AnormalyEntityWanderGoal());
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
@@ -204,7 +204,7 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
         public void start() {
             Vec3 vec3 = this.findPos();
             if (vec3 != null) {
-                AnormalyEntity.this.navigation.moveTo(AnormalyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), (double)1.3F);
+                AnormalyEntity.this.navigation.moveTo(AnormalyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1);
             }
 
         }
