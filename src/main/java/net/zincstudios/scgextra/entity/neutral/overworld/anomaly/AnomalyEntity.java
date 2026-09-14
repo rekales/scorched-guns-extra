@@ -166,6 +166,7 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if(source.is(DamageTypes.FALL))return false;
+        if(source.is(DamageTypes.LIGHTNING_BOLT))return false;
         return super.hurt(source, amount);
     }
     @Override
