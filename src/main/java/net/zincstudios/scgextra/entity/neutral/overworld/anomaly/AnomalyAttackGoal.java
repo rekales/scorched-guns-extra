@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.neutral.overworld.anormaly;
+package net.zincstudios.scgextra.entity.neutral.overworld.anomaly;
 
 import java.util.EnumSet;
 
@@ -10,8 +10,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.pathfinder.Node;
 import net.minecraft.world.level.pathfinder.Path;
 
-public class AnormalyAttackGoal extends Goal{
-   protected final AnormalyEntity mob;
+public class AnomalyAttackGoal extends Goal{
+   protected final AnomalyEntity mob;
    private final double speedModifier;
    private final boolean followingTargetEvenIfNotSeen;
    private Path path;
@@ -27,7 +27,7 @@ public class AnormalyAttackGoal extends Goal{
    private int cooldown = 0;
    private boolean attacked = false;
 
-   public AnormalyAttackGoal(AnormalyEntity mob, double speedModifier, boolean followingTargetEvenIfNotSeen, int cooldown) {
+   public AnomalyAttackGoal(AnomalyEntity mob, double speedModifier, boolean followingTargetEvenIfNotSeen, int cooldown) {
       this.mob = mob;
       this.speedModifier = speedModifier;
       this.followingTargetEvenIfNotSeen = followingTargetEvenIfNotSeen;

@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.neutral.overworld.anormaly;
+package net.zincstudios.scgextra.entity.neutral.overworld.anomaly;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -44,19 +44,19 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
+public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
 
-    private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(AnormalyEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(AnomalyEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final int MELEE_DAMAGE_DELAY = 5;
     private int hurtDelay = -1;
 
-    public AnormalyEntity(EntityType<? extends Monster> entityType, Level level) {
+    public AnomalyEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
     }
@@ -127,10 +127,10 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
         super.registerGoals();
         this.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(this, Player.class, true,
                 player -> !((Player) player).isCreative() && !player.isSpectator()));
-        this.goalSelector.addGoal(1, new AnormalyAttackGoal(this, 1, true, 40));
+        this.goalSelector.addGoal(1, new AnomalyAttackGoal(this, 1, true, 40));
         this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1, 35));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(5, new AnormalyEntityWanderGoal());
+        this.goalSelector.addGoal(5, new AnomalyEntityWanderGoal());
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
     }
 
@@ -188,32 +188,32 @@ public class AnormalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     public boolean isAttacking(){
         return this.entityData.get(IS_ATTACKING);
     }
-    class AnormalyEntityWanderGoal extends Goal {
-        AnormalyEntityWanderGoal() {
+    class AnomalyEntityWanderGoal extends Goal {
+        AnomalyEntityWanderGoal() {
             this.setFlags(EnumSet.of(Flag.MOVE));
         }
 
         public boolean canUse() {
-            return AnormalyEntity.this.navigation.isDone() && AnormalyEntity.this.random.nextInt(10) == 0 && !AnormalyEntity.this.isAttacking();
+            return AnomalyEntity.this.navigation.isDone() && AnomalyEntity.this.random.nextInt(10) == 0 && !AnomalyEntity.this.isAttacking();
         }
 
         public boolean canContinueToUse() {
-            return AnormalyEntity.this.navigation.isInProgress() && !AnormalyEntity.this.isAttacking();
+            return AnomalyEntity.this.navigation.isInProgress() && !AnomalyEntity.this.isAttacking();
         }
 
         public void start() {
             Vec3 vec3 = this.findPos();
             if (vec3 != null) {
-                AnormalyEntity.this.navigation.moveTo(AnormalyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1);
+                AnomalyEntity.this.navigation.moveTo(AnomalyEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1);
             }
 
         }
 
         @Nullable
         private Vec3 findPos() {
-            Vec3 vec3 = AnormalyEntity.this.getViewVector(0.0F);
-            Vec3 vec32 = HoverRandomPos.getPos(AnormalyEntity.this, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
-            return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(AnormalyEntity.this, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
+            Vec3 vec3 = AnomalyEntity.this.getViewVector(0.0F);
+            Vec3 vec32 = HoverRandomPos.getPos(AnomalyEntity.this, 8, 7, vec3.x, vec3.z, ((float)Math.PI / 2F), 3, 1);
+            return vec32 != null ? vec32 : AirAndWaterRandomPos.getPos(AnomalyEntity.this, 8, 4, -2, vec3.x, vec3.z, (double)((float)Math.PI / 2F));
         }
     }
     @Override

@@ -30,7 +30,7 @@ import net.zincstudios.scgextra.entity.neutral.nether.head_hunter.HeadHunterEnti
 import net.zincstudios.scgextra.entity.neutral.nether.netherite_eater.NetheriteEaterEntity;
 import net.zincstudios.scgextra.entity.neutral.nether.nitro_beetle.NitroBeetleEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.ammo_goblin.AmmoGoblinEntity;
-import net.zincstudios.scgextra.entity.neutral.overworld.anormaly.AnormalyEntity;
+import net.zincstudios.scgextra.entity.neutral.overworld.anomaly.AnomalyEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.big_lump.BigLumpEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_boar.InflictedBoarEntity;
 import net.zincstudios.scgextra.entity.neutral.overworld.inflicted_wolf.InflictedWolfEntity;
@@ -94,14 +94,14 @@ public class NeutralEntities {
         .build("mutant_bat")
     );
     
-    public static final RegistryObject<EntityType<AnormalyEntity>> ANORMALY = ENTITY_TYPES.register(
-        "anormaly", 
+    public static final RegistryObject<EntityType<AnomalyEntity>> ANOMALY = ENTITY_TYPES.register(
+        "anomaly", 
         () -> EntityType.Builder.of(
-            AnormalyEntity::new, 
+            AnomalyEntity::new, 
             MobCategory.MONSTER
         )
         .sized(1.5F, 1.5F)
-        .build("anormaly")
+        .build("anomaly")
     );
     
     public static final RegistryObject<EntityType<NitroBeetleEntity>> NITRO_BEETLE = ENTITY_TYPES.register(
@@ -188,7 +188,7 @@ public class NeutralEntities {
         event.put(NeutralEntities.AMMO_GOBLIN.get(), AmmoGoblinEntity.createAttributes().build());
         event.put(NeutralEntities.BIG_LUMP.get(), BigLumpEntity.createAttributes().build());
         event.put(NeutralEntities.MUTANT_BAT.get(), MutantBatEntity.createAttributes().build());
-        event.put(NeutralEntities.ANORMALY.get(), AnormalyEntity.createAttributes().build());
+        event.put(NeutralEntities.ANOMALY.get(), AnomalyEntity.createAttributes().build());
         event.put(NeutralEntities.NITRO_BEETLE.get(), NitroBeetleEntity.createAttributes().build());
         event.put(NeutralEntities.HEAD_HUNTER.get(), HeadHunterEntity.createAttributes().build());
         event.put(NeutralEntities.NETHERITE_EATER.get(), NetheriteEaterEntity.createAttributes().build());
@@ -226,7 +226,7 @@ public class NeutralEntities {
             false, 
             true
         ));
-        BoundingBoxManager.registerHeadshotBox(NeutralEntities.ANORMALY.get(), new OffsetRotatedHeadshotBox<>(
+        BoundingBoxManager.registerHeadshotBox(NeutralEntities.ANOMALY.get(), new OffsetRotatedHeadshotBox<>(
             24, 
             24, 
             0, 
@@ -449,10 +449,10 @@ public class NeutralEntities {
         );
         //
         event.register(
-            NeutralEntities.ANORMALY.get(),
+            NeutralEntities.ANOMALY.get(),
             SpawnPlacements.Type.ON_GROUND,
             Heightmap.Types.WORLD_SURFACE,
-            AnormalyEntity::checkMonsterSpawnRules,
+            AnomalyEntity::checkMonsterSpawnRules,
             SpawnPlacementRegisterEvent.Operation.REPLACE
         );
     }
@@ -488,8 +488,8 @@ public class NeutralEntities {
                         .hasGlowLayer()
                         .noDeathTilt()
         );
-        EntityRenderers.register(NeutralEntities.ANORMALY.get(), (ctx) ->
-                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/anormaly")))
+        EntityRenderers.register(NeutralEntities.ANOMALY.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/anomaly")))
                         .shadowRadius(0F)
                         .hasGlowLayer()
                         .noDeathTilt()
