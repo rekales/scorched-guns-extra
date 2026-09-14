@@ -7,6 +7,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -67,8 +69,12 @@ public class AnormalyEntity extends Monster implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new AnormalyRandomMoveGoal(this));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true,
+                player -> !((Player) player).isCreative() && !player.isSpectator()));
+        this.goalSelector.addGoal(2, new AnormalyAttackGoal(this, 5, 13, 20));
+        this.goalSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1f, 35));
+        this.goalSelector.addGoal(4, new AnormalyRandomMoveGoal(this));
+        this.goalSelector.addGoal(5, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
     }
 
     @Override

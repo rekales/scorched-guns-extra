@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 
 public class AnormalyRandomMoveGoal extends Goal {
     private final AnormalyEntity anormaly;
@@ -14,7 +15,12 @@ public class AnormalyRandomMoveGoal extends Goal {
     }
 
     public boolean canUse() {
-        return !anormaly.getMoveControl().hasWanted()
+        return anormaly.goalSelector.getRunningGoals().anyMatch((e)->{
+            if(e.getGoal() instanceof MoveTowardsTargetGoal || e.getGoal() instanceof AnormalyAttackGoal){
+                return false;
+            }
+            return true;
+        }) && !anormaly.getMoveControl().hasWanted()
                 && anormaly.getRandom().nextInt(reducedTickDelay(7)) == 0;
     }
 
