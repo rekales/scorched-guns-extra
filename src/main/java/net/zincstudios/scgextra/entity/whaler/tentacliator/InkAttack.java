@@ -67,10 +67,10 @@ public class InkAttack extends Behavior<LivingEntity> {
         if (gameTime-this.startTime >= this.aimThreshold) {
             if(entity instanceof TentacliatorEntity){
                 InkProjectileEntity inkProjectile = new InkProjectileEntity(entity, level);
-                Vec3 vec = entity.position().add(new Vec3(-5.5D/16D,20D/16D,1.5D/16D).yRot(-entity.yBodyRot * Mth.DEG_TO_RAD));
+                Vec3 vec = entity.position().add(new Vec3(-5.5D/16D,20D/16D,2D/16D).yRot(-entity.yBodyRot * Mth.DEG_TO_RAD));
                 inkProjectile.moveTo(
                     vec.x,
-                    vec.y,
+                    vec.y-1,
                     vec.z
                 );
                 double d0 = target.getX() - vec.x;
