@@ -43,6 +43,7 @@
   "entity.scgextra.wrecker_helicube": "Wrecker Helicube",
   "entity.scgextra.wrecker_turret_gunner": "Wrecker Turret",
   "entity.scgextra.wrecker_dozer": "Wrecker Dozer",
+  "entity.scgextra.wrecker_biker": "Wrecker Biker",
   "entity.scgextra.turret_seat": "Turret Seat",
 
   "entity.scgextra.cog_vulture":  "COG Vulture",
@@ -112,6 +113,7 @@
   "item.scgextra.wrecker_helicube_spawn_egg": "Wrecker Helicube Spawn Egg",
   "item.scgextra.wrecker_turret_gunner_spawn_egg": "Wrecker Turret Spawn Egg",
   "item.scgextra.wrecker_dozer_spawn_egg": "Wrecker Dozer Spawn Egg",
+  "item.scgextra.wrecker_biker_spawn_egg": "Wrecker Biker Spawn Egg",
 
   "item.scgextra.inflicted_boar_spawn_egg":  "Inflicted Boar Spawn Egg",
   "item.scgextra.inflicted_wolf_spawn_egg":  "Inflicted Wolf Spawn Egg",

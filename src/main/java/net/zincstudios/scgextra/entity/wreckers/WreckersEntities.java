@@ -18,6 +18,7 @@ import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
+import net.zincstudios.scgextra.entity.wreckers.wrecker_biker.WreckerBikerEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_blue.WreckerBlueEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_dozer.WreckerDozerEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_dozer.WreckerDozerRenderer;
@@ -75,6 +76,11 @@ public class WreckersEntities {
                     .sized(4.0F, 3.5F)
                     .build("wrecker_dozer"));
 
+    public static final RegistryObject<EntityType<WreckerBikerEntity>> WRECKER_BIKER = ENTITY_TYPES
+            .register("wrecker_biker", () -> EntityType.Builder.of(WreckerBikerEntity::new, MobCategory.MONSTER)
+                    .sized(1.375F, 2.5125F)
+                    .build("wrecker_biker"));
+
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WreckersEntities::registerAttributes);
         modEventBus.addListener(WreckersEntities::onCommonSetup);
@@ -94,6 +100,7 @@ public class WreckersEntities {
         event.put(WRECKER_HELICUBE.get(), WreckerHelicubeEntity.createAttributes().build());
         event.put(WRECKER_TURRET_GUNNER.get(), WreckerTurretGunnerEntity.createAttributes().build());
         event.put(WRECKER_DOZER.get(), WreckerDozerEntity.createAttributes().build());
+        event.put(WRECKER_BIKER.get(), WreckerBikerEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -110,6 +117,7 @@ public class WreckersEntities {
         WeakPointBoxManager.registerWeakPointBox(WRECKER_DOZER.get(),
                 new WeakPointBox<>(new OffsetRotatedHeadshotBox<>(13.0, 16.0, 9.0, 0.0F, false, true)),
                 new WeakPointBox<>(new OffsetRotatedHeadshotBox<>(24.0, 24.0, 18.0, 0.0F, -24.0, false, true)));
+        BoundingBoxManager.registerHeadshotBox(WRECKER_BIKER.get(), new BasicHeadshotBox<>(10.0, 10.0, 28.0));
     }
 
     @OnlyIn(value = Dist.CLIENT)
@@ -136,6 +144,10 @@ public class WreckersEntities {
                         .hasGlowLayer());
         EntityRenderers.register(WRECKER_DOZER.get(), (ctx) ->
                 new WreckerDozerRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_dozer")))
+                        .noDeathTilt()
+                        .hasGlowLayer());
+        EntityRenderers.register(WRECKER_BIKER.get(), (ctx) ->
+                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("wreckers/wrecker_biker")))
                         .noDeathTilt()
                         .hasGlowLayer());
 
