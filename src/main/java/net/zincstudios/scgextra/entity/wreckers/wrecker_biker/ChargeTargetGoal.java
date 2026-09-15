@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import top.ribs.scguns.entity.throwable.ThrowableMolotovCocktailEntity;
 
 public class ChargeTargetGoal extends Goal{
 
@@ -41,15 +42,21 @@ public class ChargeTargetGoal extends Goal{
     @Override
     public void tick() {
         super.tick();
+        if(this.biker.level().isClientSide())return;
+        LivingEntity target = this.biker.getTarget();
         if(this.points.isEmpty()){
-            this.biker.getNavigation().moveTo(this.biker.getTarget(), 1);
-            this.charged = true;
+            this.biker.getNavigation().moveTo(target, 2);
+            if(this.biker.distanceToSqr(target)<=5){
+                ThrowableMolotovCocktailEntity cocktail = new ThrowableMolotovCocktailEntity(this.biker.level(), this.biker, 20);
+                cocktail.shoot(target.getX(), target.getY()+3, target.getZ(), 0.6f, 0f);
+                this.biker.level().addFreshEntity(cocktail);
+                this.charged = true;
+            }
         }else{
             BlockPos pos = this.points.get(0);
             if(this.biker.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())>5){
-                this.biker.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1);
+                this.biker.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.2);
             }else{
-                this.biker.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1);
                 this.points.remove(0);
             }
         }
