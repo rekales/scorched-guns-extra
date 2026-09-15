@@ -1,9 +1,17 @@
 package net.zincstudios.scgextra.entity.wreckers.wrecker_biker;
 
+import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -29,7 +37,7 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.FOLLOW_RANGE, 35.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.35F)
+            .add(Attributes.MOVEMENT_SPEED, 0.45F)
             .add(Attributes.ATTACK_DAMAGE, 10.0D)
             .add(Attributes.ATTACK_KNOCKBACK, 2.0D)
             .add(Attributes.ARMOR, 6.0D)
@@ -57,5 +65,19 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.geoCache;
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false,
+                        player -> !((Player) player).isCreative() && !player.isSpectator()));
+        this.goalSelector.addGoal(2, new ChargeTargetGoal(this));
+        this.targetSelector.addGoal(3, new HurtByNonFactionGoal(this));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
+                entity -> Faction.isEnemies(this, entity)));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+
     }
 }
