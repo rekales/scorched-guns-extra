@@ -74,8 +74,8 @@ public class ChargeTargetGoal extends Goal{
             }
         }else{
             BlockPos pos = this.points.get(0);
-            if(this.biker.distanceToSqr(pos.getX(), pos.getY(), pos.getZ())>5){
-                this.biker.getNavigation().moveTo(pos.getX(), pos.getY(), pos.getZ(), 1.05);
+            if(this.biker.distanceToSqr(pos.getX(), this.biker.getY(), pos.getZ())>5){
+                this.biker.getNavigation().moveTo(pos.getX(), 300/* Can't get stuck if sky's the limit */, pos.getZ(), 1.05);
             }else{
                 this.points.remove(0);
             }
