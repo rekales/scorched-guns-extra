@@ -87,7 +87,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(WreckersEntities.WRECKER_JUMBO.get())
                 .add(WreckersEntities.WRECKER_HELICUBE.get())
                 .add(WreckersEntities.WRECKER_TURRET_GUNNER.get())
-                .add(WreckersEntities.WRECKER_DOZER.get());
+                .add(WreckersEntities.WRECKER_DOZER.get())
+                .add(WreckersEntities.WRECKER_BIKER.get());
 
         tag(EntityTypeTags.RRC)
                 .add(RRCEntities.DRONE.get())

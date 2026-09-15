@@ -113,6 +113,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.WRECKER_HELICUBE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.WRECKER_TURRET_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.WRECKER_DOZER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_BIKER_SPAWN_EGG.get());
 
         basicItem("spawn_egg/", ModItems.COPPER_KNIGHT_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.DRONE_SPAWN_EGG.get());

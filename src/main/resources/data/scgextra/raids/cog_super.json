@@ -51,6 +51,9 @@
     },
     {
       "entity_id": "scguns:cog_knight"
+    },
+    {
+      "entity_id": "scgextra:cog_trenchbleeder"
     }
   ],
   "miniboss" : [

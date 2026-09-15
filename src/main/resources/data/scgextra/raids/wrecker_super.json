@@ -42,6 +42,9 @@
   "elite" : [
     {
       "entity_id": "scgextra:wrecker_helicube"
+    },
+    {
+      "entity_id": "scgextra:wrecker_biker"
     }
   ],
   "miniboss" : [
