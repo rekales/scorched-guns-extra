@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.wreckers.wrecker_biker;
 
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Level.ExplosionInteraction;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -80,5 +83,13 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
                 entity -> Faction.isEnemies(this, entity)));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+    }
+
+    @Override
+    public void die(DamageSource damageSource) {
+        if(!this.level().isClientSide()){
+            this.level().explode(this, this.damageSources().explosion(this, this), null, new Vec3(this.getX(), this.getY(), this.getZ()), 3, false, ExplosionInteraction.NONE);
+        }
+        super.die(damageSource);
     }
 }
