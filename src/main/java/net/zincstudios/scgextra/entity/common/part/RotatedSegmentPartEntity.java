@@ -43,6 +43,10 @@ public class RotatedSegmentPartEntity<T extends LivingEntity> extends PartEntity
         this.offset = offset;
     }
 
+    public Vec3 getOffset() {
+        return this.offset;
+    }
+
     @Override
     public void tick() {
         this.setOldPosAndRot();

@@ -6,6 +6,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -15,11 +16,14 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.*;
+import net.zincstudios.scgextra.entity.common.part.RotatedBulletProofPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -52,9 +56,14 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final RotatedBulletProofPartEntity<?>[] subEntities;
 
     public TurtlemanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.subEntities = new RotatedBulletProofPartEntity[] {
+                new RotatedBulletProofPartEntity<>(this, new Vec3(0.3, 0.75, -0.5), 0.6f, 1.5f),
+                new RotatedBulletProofPartEntity<>(this, new Vec3(-0.3, 0.75, -0.5), 0.6f, 1.5f),
+        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -88,6 +97,8 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         this.getBrain().tick((ServerLevel)this.level(), this);
         TurtlemanAi.updateActivity(this);
 
+        // TODO: adjust look direction towards the player when moving
+
         LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (target != null) {
             if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
@@ -111,11 +122,44 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     }
 
     @Override
+    public RotatedSegmentPartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
+//
+//        this.setTurnedAround(true);
+//
+//        this.setYRot(0);
+//        this.setYBodyRot(this.getYRot());
 
         if (!this.level().isClientSide) {
             this.setStunned(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()));
+        }
+    }
+
+    protected void tickSubEntities() {
+        // TODO: gradual transition
+        float rotOffset = this.isTurnedAround() ? -180 : -20;
+
+        for(RotatedSegmentPartEntity<?> partEntity : this.getParts()) {
+            partEntity.setOldPosAndRot();
+            partEntity.setPos(this.position().add(partEntity.getOffset().yRot((rotOffset-this.yBodyRot) * Mth.DEG_TO_RAD)));
         }
     }
 
