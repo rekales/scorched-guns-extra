@@ -314,6 +314,11 @@
 					"pivot": [-6, 12, -2]
 				},
 				{
+					"name": "right_hand",
+					"parent": "right_arm",
+					"pivot": [-6, 17, -2]
+				},
+				{
 					"name": "left_arm",
 					"parent": "root",
 					"pivot": [6, 20.75, -2],
@@ -344,6 +349,11 @@
 							}
 						}
 					]
+				},
+				{
+					"name": "left_hand",
+					"parent": "left_arm",
+					"pivot": [6, 17.75, -2]
 				},
 				{
 					"name": "left_wing",
