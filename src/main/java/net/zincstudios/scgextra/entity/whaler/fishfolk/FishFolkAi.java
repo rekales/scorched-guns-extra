@@ -13,6 +13,7 @@ import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
 import net.zincstudios.scgextra.entity.common.brain.*;
+import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 
 public class FishFolkAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
@@ -57,7 +58,8 @@ public class FishFolkAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new ShootTarget(20, 1.6F)
+                new ShootTarget(20, (simGun, entity) -> 1.1F, entity -> true,
+                        new IntervalTriggerSampler(30, 50, 5, 30))
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }

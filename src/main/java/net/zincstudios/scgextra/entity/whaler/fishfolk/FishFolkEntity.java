@@ -91,7 +91,7 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
         this.level().getProfiler().push("whalerFishFolkBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
         BrainCommons.updateActivity(this);
-        BrainCommons.updateMaxRangeAggressive(this);
+        BrainCommons.updateAimingAggressive(this);
         if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
             this.setYBodyRot(this.getYHeadRot());
         }
