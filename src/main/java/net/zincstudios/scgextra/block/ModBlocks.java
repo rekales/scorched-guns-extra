@@ -21,6 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.block.barbed_wires.BarbedWireBlock;
 import net.zincstudios.scgextra.block.electrical_wires.ElectricalWiresBlock;
+import net.zincstudios.scgextra.block.mob_spawner.MobSpawnerBlock;
 import net.zincstudios.scgextra.block.wreckerturret.WreckerTurretBlock;
 import net.zincstudios.scgextra.block.wreckerturret.WreckerTurretBlockModel;
 import net.zincstudios.scgextra.block.wreckerturret.WreckerTurretBlockRenderer;
@@ -32,6 +33,7 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BARBED_WIRES = registerBlock("barbed_wires", () -> new BarbedWireBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN).noCollission().strength(5.0F, 6.0F).requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> ELECTRICAL_WIRES = registerBlock("electrical_wires", () -> new ElectricalWiresBlock(BlockBehaviour.Properties.copy(Blocks.CHAIN).noCollission().strength(5.0F, 6.0F).requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> MOB_SPAWNER = registerBlock("mob_spawner", () -> new MobSpawnerBlock(BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final RegistryObject<Block> WARZONE_SPRUCE_SAPLING = BLOCKS.register("warzone_spruce_sapling",
             () -> new SaplingBlock(new WarzoneSpruceTreeGrower(), BlockBehaviour.Properties.copy(Blocks.OAK_SAPLING)));
 
