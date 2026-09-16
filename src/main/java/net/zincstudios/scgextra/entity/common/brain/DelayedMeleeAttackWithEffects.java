@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
+// TODO: replace with adding effects via mob#doHurtTarget
 public class DelayedMeleeAttackWithEffects extends DelayedMeleeAttack {
 
     private final List<MobEffect> EFFECTS;

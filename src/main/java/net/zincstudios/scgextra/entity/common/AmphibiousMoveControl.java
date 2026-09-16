@@ -5,6 +5,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 
+// TODO: redo
 //mostly copied from turtle
 public class AmphibiousMoveControl extends MoveControl {
     private final Mob mob;
@@ -32,8 +33,8 @@ public class AmphibiousMoveControl extends MoveControl {
                 this.mob.yBodyRot = this.mob.getYRot();
                 float f1 = (float) (this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED));
                 this.mob.setSpeed(f1);
-                this.mob.setDeltaMovement(this.mob.getDeltaMovement().add((double) 0.0F,
-                        (double) this.mob.getSpeed() * d1 * 0.1, (double) 0.0F));
+                this.mob.setDeltaMovement(this.mob.getDeltaMovement().add( 0.0F,
+                        (double) this.mob.getSpeed() * d1 * 0.1, 0.0F));
             }
         } else {
             this.mob.setSpeed(0.0F);
