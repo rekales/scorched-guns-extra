@@ -25,6 +25,34 @@
       "scgextra:leviathan_syndicate/fish_folk/fish_folk_death2"
     ]
   },
+  "leviathan_syndicate.tentacliator.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.tentacliator.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_idle1",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_idle2",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_idle3"
+    ]
+  },
+  "leviathan_syndicate.tentacliator.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.tentacliator.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_hurt1",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_hurt2",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_hurt3",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_hurt4"
+    ]
+  },
+  "leviathan_syndicate.tentacliator.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.tentacliator.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_death1",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_death2",
+      "scgextra:leviathan_syndicate/tentacliator/tentacliator_death3"
+    ]
+  },
   "armored_whale_slam": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.armored_whale_slam",

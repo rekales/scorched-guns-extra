@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.nbt.CompoundTag;
@@ -15,7 +16,9 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
@@ -185,5 +188,17 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
     }
     protected PathNavigation createNavigation(Level level) {
         return new AmphibiousPathNavigation(this, level);
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.TENTACLIATOR_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.TENTACLIATOR_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.TENTACLIATOR_DEATH.get();
     }
 }
