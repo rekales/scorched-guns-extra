@@ -193,6 +193,9 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         basicLoot(RRCEntities.ARC_PSYCHO.get())
                 .range(Items.REDSTONE, 1, 3)
                 .range(ModItems.SHOCK_CELL.get(), 1, 3);
+        basicLoot(RRCEntities.GARGOYLE.get())
+                .range(Items.LEATHER, 1, 3)
+                .range(ModItems.STANDARD_COPPER_ROUND.get(), 1, 3);
 
         basicLoot(AsgharianEntities.FAILED_ONE.get())
                 .range(Items.ROTTEN_FLESH, 1, 3)
