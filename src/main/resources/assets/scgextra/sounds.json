@@ -1,4 +1,30 @@
 {
+  "leviathan_syndicate.fish_folk.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.fish_folk.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_jump1",
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_jump2",
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_jump3"
+    ]
+  },
+  "leviathan_syndicate.fish_folk.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.fish_folk.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_pain1",
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_pain2",
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_pain3"
+    ]
+  },
+  "leviathan_syndicate.fish_folk.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.fish_folk.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_death1",
+      "scgextra:leviathan_syndicate/fish_folk/fish_folk_death2"
+    ]
+  },
   "armored_whale_slam": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.armored_whale_slam",

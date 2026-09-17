@@ -1,9 +1,12 @@
 package net.zincstudios.scgextra.entity.whaler.fishfolk;
 
 import com.mojang.serialization.Dynamic;
+
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -16,6 +19,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -162,5 +166,17 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     @Override
     public boolean isLeftHanded() {
         return true;
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.FISH_FOLK_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.FISH_FOLK_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.FISH_FOLK_DEATH.get();
     }
 }

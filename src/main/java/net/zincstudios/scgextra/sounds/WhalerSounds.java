@@ -8,6 +8,17 @@ import static net.zincstudios.scgextra.sounds.ModSounds.SOUND_EVENTS;
 
 public class WhalerSounds {
 
+    public static final RegistryObject<SoundEvent> FISH_FOLK_IDLE = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.idle")));
+
+    public static final RegistryObject<SoundEvent> FISH_FOLK_HURT = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.hurt")));
+    
+    public static final RegistryObject<SoundEvent> FISH_FOLK_DEATH = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.death")));
+
+
+
     public static final RegistryObject<SoundEvent> WHALE_SLAM = SOUND_EVENTS.register("armored_whale_slam", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("armored_whale_slam")));
 
