@@ -2,12 +2,16 @@ package net.zincstudios.scgextra.entity.whaler.lion_fish;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -144,5 +148,23 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
 
     public void setPoison(boolean bool){
         this.entityData.set(IS_POISON, bool);
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.LION_FISH_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.LION_FISH_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.LION_FISH_DEATH.get();
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        this.playSound(WhalerSounds.LION_FISH_ATTACK.get());
+        return super.doHurtTarget(entity);
     }
 }

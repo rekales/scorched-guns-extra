@@ -1,8 +1,13 @@
 package net.zincstudios.scgextra.entity.whaler.salmonsaur;
 
 import com.mojang.serialization.Dynamic;
+
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -114,5 +119,23 @@ public class SalmonsaurEntity extends Monster implements GeoEntity {
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.SALMONSAUR_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.SALMONSAUR_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.SALMONSAUR_DEATH.get();
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        this.playSound(WhalerSounds.SALMONSAUR_ATTACK.get());
+        return super.doHurtTarget(entity);
     }
 }

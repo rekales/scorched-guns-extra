@@ -26,6 +26,32 @@ public class WhalerSounds {
     
     public static final RegistryObject<SoundEvent> TENTACLIATOR_DEATH = SOUND_EVENTS.register("leviathan_syndicate.tentacliator.death", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.tentacliator.death")));
+    
+    
+    public static final RegistryObject<SoundEvent> SALMONSAUR_IDLE = SOUND_EVENTS.register("leviathan_syndicate.salmonsaur.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.salmonsaur.idle")));
+
+    public static final RegistryObject<SoundEvent> SALMONSAUR_HURT = SOUND_EVENTS.register("leviathan_syndicate.salmonsaur.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.salmonsaur.hurt")));
+    
+    public static final RegistryObject<SoundEvent> SALMONSAUR_ATTACK = SOUND_EVENTS.register("leviathan_syndicate.salmonsaur.attack", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.salmonsaur.attack")));
+    
+    public static final RegistryObject<SoundEvent> SALMONSAUR_DEATH = SOUND_EVENTS.register("leviathan_syndicate.salmonsaur.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.salmonsaur.death")));
+    
+    
+    public static final RegistryObject<SoundEvent> LION_FISH_IDLE = SOUND_EVENTS.register("leviathan_syndicate.lion_fish.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.lion_fish.idle")));
+
+    public static final RegistryObject<SoundEvent> LION_FISH_HURT = SOUND_EVENTS.register("leviathan_syndicate.lion_fish.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.lion_fish.hurt")));
+    
+    public static final RegistryObject<SoundEvent> LION_FISH_ATTACK = SOUND_EVENTS.register("leviathan_syndicate.lion_fish.attack", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.lion_fish.attack")));
+    
+    public static final RegistryObject<SoundEvent> LION_FISH_DEATH = SOUND_EVENTS.register("leviathan_syndicate.lion_fish.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.lion_fish.death")));
 
 
 

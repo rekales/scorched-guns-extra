@@ -53,6 +53,78 @@
       "scgextra:leviathan_syndicate/tentacliator/tentacliator_death3"
     ]
   },
+  "leviathan_syndicate.salmonsaur.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.salmonsaur.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_idle1",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_idle2",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_idle3"
+    ]
+  },
+  "leviathan_syndicate.salmonsaur.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.salmonsaur.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_hurt1",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_hurt2",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_hurt3"
+    ]
+  },
+  "leviathan_syndicate.salmonsaur.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.salmonsaur.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_death1",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_death2",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_death3"
+    ]
+  },
+  "leviathan_syndicate.salmonsaur.attack": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.salmonsaur.attack",
+    "sounds": [
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_attack1",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_attack2",
+      "scgextra:leviathan_syndicate/salmonsaur/salmonsaur_attack3"
+    ]
+  },
+    "leviathan_syndicate.lion_fish.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.lion_fish.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_idle1",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_idle2",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_idle3"
+    ]
+  },
+  "leviathan_syndicate.lion_fish.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.lion_fish.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_hurt1",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_hurt2",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_hurt3"
+    ]
+  },
+  "leviathan_syndicate.lion_fish.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.lion_fish.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_death1",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_death2",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_death3"
+    ]
+  },
+  "leviathan_syndicate.lion_fish.attack": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.lion_fish.attack",
+    "sounds": [
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_attack1",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_attack2",
+      "scgextra:leviathan_syndicate/lion_fish/lion_fish_attack3"
+    ]
+  },
   "armored_whale_slam": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.armored_whale_slam",
