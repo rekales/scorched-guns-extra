@@ -333,7 +333,9 @@
   "scgextra.subtitle.arc_psycho.idle": "Arc psycho Groans",
   "scgextra.subtitle.arc_psycho.hurt": "Arc psycho Hurts",
   "scgextra.subtitle.arc_psycho.death": "Arc psycho Dies",
-  "scgextra.subtitle.scrapguard.punch": "Scrap Guard Punches",
+  "scgextra.subtitle.gargoyle.idle": "RRC Gargoyle Groans",
+  "scgextra.subtitle.gargoyle.hurt": "RRC Gargoyle Hurts",
+  "scgextra.subtitle.gargoyle.death": "RRC Gargoyle Dies",
   
   "scgextra.subtitle.cog_devastator.idle": "Cog devastator Noises",
   "scgextra.subtitle.cog_bombardier.walk": "Cog bombardier Walking",
@@ -348,6 +350,11 @@
   "scgextra.subtitle.cog_bombardier.scan": "Cog bombardier Scans",
   "scgextra.subtitle.cog_centipede.idle": "Cog centipede Noises",
   "scgextra.subtitle.cog_juggernaut.hurt": "Cog juggernaut Hurts",
+  "scgextra.subtitle.cog_trenchbleeder.idle": "Cog Trenchbleeder Noises",
+  "scgextra.subtitle.cog_trenchbleeder.step": "Cog Trenchbleeder Noises",
+  "scgextra.subtitle.cog_trenchbleeder.stomp": "Cog Trenchbleeder Attacks",
+  "scgextra.subtitle.cog_trenchbleeder.death": "Cog Trenchbleeder Dies",
+  "scgextra.subtitle.cog_trenchbleeder.hurt": "Cog Trenchbleeder Hurts",
   
   "scgextra.subtitle.fac_lion.hurt": "Fac lion Hurts",
   "scgextra.subtitle.fac_trench_sniper.idle": "Fac trench sniper Groans",

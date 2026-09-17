@@ -1184,6 +1184,48 @@
       "scgextra:cog/cog_juggernaut/hurt3"
     ]
   },
+  "scgextra.cog.cog_trenchbleeder.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.idle",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/idle"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.step": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.step",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/step1",
+      "scgextra:cog/cog_trenchbleeder/step2"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.stomp": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.stomp",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/stomp1",
+      "scgextra:cog/cog_trenchbleeder/stomp2"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.hurt",
+    "sounds": [
+      "scgextra:cog/heavy_hurt1",
+      "scgextra:cog/heavy_hurt2",
+      "scgextra:cog/heavy_hurt3",
+      "scgextra:cog/heavy_hurt4",
+      "scgextra:cog/heavy_hurt5"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.death",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/death1",
+      "scgextra:cog/cog_trenchbleeder/death2"
+    ]
+  },
   "ammo_goblin.dead": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.ammo_goblin.death",

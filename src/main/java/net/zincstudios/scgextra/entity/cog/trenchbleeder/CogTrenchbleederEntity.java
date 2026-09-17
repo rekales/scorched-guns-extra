@@ -7,10 +7,13 @@ import net.zincstudios.scgextra.entity.common.gun.CustomGunHolder;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.sounds.COGSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -19,6 +22,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -113,6 +118,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
             this.triggerAnim("main", "shoot_end");
         }
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+            this.playSound(COGSounds.COG_TRENCHBLEEDER_STOMP.get());
             this.triggerAnim("main", "stomp");
         }
     }
@@ -215,5 +221,26 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
         return GUN_OFFSET.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return COGSounds.COG_TRENCHBLEEDER_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return COGSounds.COG_TRENCHBLEEDER_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return COGSounds.COG_TRENCHBLEEDER_HURT.get();
+    }
+    
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        SoundType soundtype = state.getSoundType(this.level(), pos, this);
+        this.playSound(COGSounds.COG_TRENCHBLEEDER_STEP.get(), soundtype.getVolume() * 0.15F, soundtype.getPitch());
     }
 }
