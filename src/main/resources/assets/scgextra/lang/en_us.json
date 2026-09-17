@@ -417,6 +417,11 @@
   "scgextra.subtitle.wreckers.idle": "Wreckers Groans",
   "scgextra.subtitle.wreckers.attack": "Wreckers Attacks",
   "scgextra.subtitle.wrecking_tool.use": "Wrecking tool uses",
+  "scgextra.subtitle.wrecker_biker.idle": "Wrecker Biker Noises",
+  "scgextra.subtitle.wrecker_biker.wrecker_biker_idle_while_circling": "Wrecker Biker Circling Noises",
+  "scgextra.subtitle.wrecker_biker.hurt": "Wrecker Biker Hurts",
+  "scgextra.subtitle.wrecker_biker.hit": "Wrecker Biker Hits",
+  "scgextra.subtitle.wrecker_biker.death": "Wrecker Biker Dies",
   
   "scgextra.subtitle.asghar_flamer.idle": "Asghar flamer Groans",
   "scgextra.subtitle.asghar_worker.hurt": "Asghar worker Hurts",

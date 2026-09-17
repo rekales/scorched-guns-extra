@@ -46,6 +46,13 @@ public class WreckersSounds {
     public static final RegistryObject<SoundEvent> DOZER_MOVE = register("wrecker_dozer.move");
     public static final RegistryObject<SoundEvent> DOZER_STUN_DEATH = register("wrecker_dozer.stun_death");
 
+    // BIKER
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_IDLE = register("scgextra.wreckers.wrecker_biker.idle");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_IDLE_WHILE_CIRCLING = register("scgextra.wreckers.wrecker_biker.idle_while_circling");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_HURT = register("scgextra.wreckers.wrecker_biker.hurt");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_HIT = register("scgextra.wreckers.wrecker_biker.hit");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_DEATH = register("scgextra.wreckers.wrecker_biker.death");
+
     public static List<SoundEvent> gangVoiceLines() {
         return List.of(GANG_IDLE.get(),
                 GANG_HURT.get(),

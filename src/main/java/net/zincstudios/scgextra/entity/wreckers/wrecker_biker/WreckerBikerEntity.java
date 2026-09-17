@@ -2,6 +2,11 @@ package net.zincstudios.scgextra.entity.wreckers.wrecker_biker;
 
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
+import net.zincstudios.scgextra.sounds.WreckersSounds;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,10 +34,11 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-        private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
+    public static final EntityDataAccessor<Boolean> IS_CIRCLING = SynchedEntityData.defineId(WreckerBikerEntity.class, EntityDataSerializers.BOOLEAN);
 
     public WreckerBikerEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -91,5 +97,46 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
             this.level().explode(this, this.damageSources().explosion(this, this), null, new Vec3(this.getX(), this.getY(), this.getZ()), 3, false, ExplosionInteraction.NONE);
         }
         super.die(damageSource);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_CIRCLING, false);
+    }
+
+    public boolean isCircling(){
+        return this.entityData.get(IS_CIRCLING);
+    }
+
+    public void setCircling(boolean bool){
+        this.entityData.set(IS_CIRCLING, bool);
+    }
+
+    @Override
+    public void playAmbientSound() {
+        SoundEvent soundevent = this.getAmbientSound();
+        if (soundevent != null) {
+            this.playSound(soundevent, this.isCircling() ? this.getSoundVolume() * 1.5f : this.getSoundVolume(), this.getVoicePitch());
+        }
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return this.isCircling() ? WreckersSounds.WRECKER_BIKER_IDLE_WHILE_CIRCLING.get() : WreckersSounds.WRECKER_BIKER_IDLE.get();
+    }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WreckersSounds.WRECKER_BIKER_HURT.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return WreckersSounds.WRECKER_BIKER_DEATH.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return this.isCircling() ? 3 : 2;
     }
 }

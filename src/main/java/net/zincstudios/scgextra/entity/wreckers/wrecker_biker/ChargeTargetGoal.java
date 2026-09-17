@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.AABB;
+import net.zincstudios.scgextra.sounds.WreckersSounds;
 import top.ribs.scguns.entity.throwable.ThrowableMolotovCocktailEntity;
 
 public class ChargeTargetGoal extends Goal{
@@ -38,6 +39,7 @@ public class ChargeTargetGoal extends Goal{
         this.points.add(new BlockPos((int)(target.getX()+8), (int)target.getY(), (int)target.getZ()));
         this.points.add(new BlockPos((int)(target.getX()-8), (int)target.getY(), (int)target.getZ()));
         this.biker.getNavigation().stop();
+        this.biker.setCircling(true);
     }
 
     @Override
@@ -60,6 +62,7 @@ public class ChargeTargetGoal extends Goal{
                     0.3F, 
                     0.1F
                 );
+                this.biker.playSound(WreckersSounds.WRECKER_BIKER_HIT.get());
                 this.biker.level().addFreshEntity(cocktail);
                 this.biker.doHurtTarget(target);
                 //move away to not get hit
@@ -80,5 +83,10 @@ public class ChargeTargetGoal extends Goal{
                 this.points.remove(0);
             }
         }
+    }
+    @Override
+    public void stop() {
+        super.stop();
+        this.biker.setCircling(false);
     }
 }
