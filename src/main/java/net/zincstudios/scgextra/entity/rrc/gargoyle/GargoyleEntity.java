@@ -71,8 +71,8 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.subEntities = new PartEntity[] {
-            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(-15/16f, 8/16f, 4/16f), 22/16f, 22/16f, 2/16f),
-            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(15/16f, 8/16f, 4/16f), 22/16f, 22/16f, 2/16f),
+            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(-15/16f, 8/16f, -4/16f), 22/16f, 22/16f, 2/16f),
+            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(15/16f, 8/16f, -4/16f), 22/16f, 22/16f, 2/16f),
         };
     }
 
