@@ -1222,13 +1222,6 @@
       "scgextra:cog/cog_juggernaut/hurt3"
     ]
   },
-  "scgextra.cog.cog_trenchbleeder.idle": {
-    "category": "hostile",
-    "subtitle": "scgextra.subtitle.cog_trenchbleeder.idle",
-    "sounds": [
-      "scgextra:cog/cog_trenchbleeder/idle"
-    ]
-  },
   "scgextra.cog.cog_trenchbleeder.step": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.cog_trenchbleeder.step",

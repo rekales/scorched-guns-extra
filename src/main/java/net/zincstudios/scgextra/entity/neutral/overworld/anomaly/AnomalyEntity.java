@@ -17,6 +17,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -149,7 +150,10 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
                 double reach = 64;
                 if (distToEnemySqr <= reach) {
                     target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
-                    target.hurt(this.damageSources().generic(), 10);
+                    LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(this.level());
+                    lightning.moveTo(target.blockPosition(), 0, 0);
+                    this.level().addFreshEntity(lightning);
+
                 }else{
                     this.getNavigation().moveTo(target.getX(), target.getY()+2, target.getZ(), 0.6);
                     this.getLookControl().setLookAt(target);

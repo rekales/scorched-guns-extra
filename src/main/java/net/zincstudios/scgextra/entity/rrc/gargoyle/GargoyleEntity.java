@@ -8,7 +8,7 @@ import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.sounds.RRCSounds;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
 import net.zincstudios.scgextra.entity.common.goal.AnimatedGunAttackGoal;
-import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointWithZPartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -71,8 +71,8 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.subEntities = new PartEntity[] {
-            new RotatedWeakPointPartEntity<>(this, new Vec3(12/16f, 14/16f, -16/16f), 22/16f, 24/16f),
-            new RotatedWeakPointPartEntity<>(this, new Vec3(-33/16f, 14/16f, -16/16f), 22/16f, 24/16f),
+            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(-15/16f, 8/16f, 4/16f), 22/16f, 22/16f, 2/16f),
+            new RotatedWeakPointWithZPartEntity<>(this, new Vec3(15/16f, 8/16f, 4/16f), 22/16f, 22/16f, 2/16f),
         };
     }
 

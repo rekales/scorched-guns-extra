@@ -8,6 +8,7 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.sounds.COGSounds;
+import net.zincstudios.scgextra.sounds.FACSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
@@ -225,7 +226,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return COGSounds.COG_TRENCHBLEEDER_IDLE.get();
+        return FACSounds.FAC_WALKER_IDLE.get();
     }
 
     @Override

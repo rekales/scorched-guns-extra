@@ -41,8 +41,6 @@ public final class COGSounds {
     public static final RegistryObject<SoundEvent> COG_JUGGERNAUT_HURT = SOUND_EVENTS.register("cog_juggernaut.hurt",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("cog_juggernaut.hurt")));
 
-    public static final RegistryObject<SoundEvent> COG_TRENCHBLEEDER_IDLE = SOUND_EVENTS.register("scgextra.cog.cog_trenchbleeder.idle",
-            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("scgextra.cog.cog_trenchbleeder.idle")));
     public static final RegistryObject<SoundEvent> COG_TRENCHBLEEDER_STEP = SOUND_EVENTS.register("scgextra.cog.cog_trenchbleeder.step",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("scgextra.cog.cog_trenchbleeder.step")));
     public static final RegistryObject<SoundEvent> COG_TRENCHBLEEDER_STOMP = SOUND_EVENTS.register("scgextra.cog.cog_trenchbleeder.stomp",
