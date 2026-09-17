@@ -297,6 +297,34 @@
       "scgextra:rrc/arc_psycho/idle_3"
     ]
   },
+  "scgextra.rrc.gargoyle.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.idle",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_idle1",
+      "scgextra:rrc/gargoyle/gargoyle_idle2",
+      "scgextra:rrc/gargoyle/gargoyle_idle3",
+      "scgextra:rrc/gargoyle/gargoyle_idle4",
+      "scgextra:rrc/gargoyle/gargoyle_idle5"
+    ]
+  },
+  "scgextra.rrc.gargoyle.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.hurt",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_hurt1",
+      "scgextra:rrc/gargoyle/gargoyle_hurt2",
+      "scgextra:rrc/gargoyle/gargoyle_hurt3"
+    ]
+  },
+  "scgextra.rrc.gargoyle.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.death",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_death1",
+      "scgextra:rrc/gargoyle/gargoyle_death2"
+    ]
+  },
   "fac_bluecoat.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.fac_bluecoat.death",

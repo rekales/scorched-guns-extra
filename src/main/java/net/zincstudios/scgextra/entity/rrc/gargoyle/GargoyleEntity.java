@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import javax.annotation.Nullable;
 
+import net.zincstudios.scgextra.sounds.RRCSounds;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
 import net.zincstudios.scgextra.entity.common.goal.AnimatedGunAttackGoal;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -185,4 +187,19 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
         
         return data;
     }
+    
+    @Override
+    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+        return RRCSounds.RRC_GARGOYLE_HURT.get();
+    };
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return RRCSounds.RRC_GARGOYLE_IDLE.get();
+    };
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return RRCSounds.RRC_GARGOYLE_DEAD.get();
+    };
 }

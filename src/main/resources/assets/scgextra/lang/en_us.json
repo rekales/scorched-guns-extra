@@ -17,6 +17,7 @@
   "entity.scgextra.flaming_head":  "RRC Flaming Head",
   "entity.scgextra.copper_knight":  "RRC Copper Knight",
   "entity.scgextra.scrap_guard":  "RRC Scrap Guard",
+  "entity.scgextra.gargoyle":  "RRC Gargoyle",
 
   "entity.scgextra.fac_trencher":  "FAC Trencher",
   "entity.scgextra.fac_bluecoat":  "FAC Bluecoat",
@@ -87,6 +88,7 @@
   "item.scgextra.scrap_guard_spawn_egg":  "RRC Scrap Guard Spawn Egg",
   "item.scgextra.arc_psycho_spawn_egg":  "RRC Arc Psycho Spawn Egg",
   "item.scgextra.copper_knight_spawn_egg":  "RRC Copper Knight Spawn Egg",
+  "item.scgextra.gargoyle_spawn_egg":  "RRC Gargoyle Spawn Egg",
 
   "item.scgextra.fac_trencher_spawn_egg":  "FAC Trencher Spawn Egg",
   "item.scgextra.fac_bluecoat_spawn_egg":  "FAC Bluecoat Spawn Egg",
