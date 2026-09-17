@@ -99,7 +99,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(RRCEntities.SCRAP_GUARD.get())
                 .add(RRCEntities.ARC_PSYCHO.get())
                 .add(RRCEntities.FLAMING_HEAD.get())
-                .add(RRCEntities.COPPER_KNIGHT.get());
+                .add(RRCEntities.COPPER_KNIGHT.get())
+                .add(RRCEntities.GARGOYLE.get());
 
         tag(ModTags.Entities.CANNOT_BE_LACERATED)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())

@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import javax.annotation.Nullable;
 
+import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.sounds.RRCSounds;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
 import net.zincstudios.scgextra.entity.common.goal.AnimatedGunAttackGoal;
@@ -17,6 +18,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
@@ -148,6 +150,8 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
                 player -> !((Player) player).isCreative() && !player.isSpectator()));
         this.goalSelector.addGoal(3, new GargoyleMoveUpGoal(this));
         this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
+                entity -> Faction.isEnemies(this, entity)));
         this.goalSelector.addGoal(5, new GargoyleEntityWanderGoal());
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 3.0F, 1.0F));
     }

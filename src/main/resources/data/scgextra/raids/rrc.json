@@ -40,6 +40,9 @@
     },
     {
       "entity_id": "scgextra:arc_psycho"
+    },
+    {
+      "entity_id": "scgextra:gargoyle"
     }
   ],
   "miniboss" : [
