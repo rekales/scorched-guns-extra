@@ -116,6 +116,19 @@ public class RRCEntities {
         BoundingBoxManager.registerHeadshotBox(RRCEntities.SPRING_JUNKIE.get(), new OffsetRotatedHeadshotBox<>(9.0, 20.0, 34.0, 0.0F, 0, false, true));
         BoundingBoxManager.registerHeadshotBox(RRCEntities.COPPER_KNIGHT.get(), new OffsetRotatedHeadshotBox<>(8, 9.5, 28.0, 0.0F, 2.0, false, true));
 
+        BoundingBoxManager.registerHeadshotBox(
+            RRCEntities.GARGOYLE.get(), 
+            new OffsetRotatedHeadshotBox<>(
+                8, 
+                8, 
+                22.0, 
+                0.0F, 
+                6.0, 
+                false, 
+                true
+            )
+        );
+
         WeakPointBoxManager.registerWeakPointBox(RRCEntities.FLAMING_HEAD.get(), new WeakPointBox<>(new OffsetRotatedHeadshotBox<>(10.0F, 55.0, 13, -70, false, true)));
     }
     @OnlyIn(value = Dist.CLIENT)

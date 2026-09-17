@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import net.zincstudios.scgextra.sounds.RRCSounds;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
 import net.zincstudios.scgextra.entity.common.goal.AnimatedGunAttackGoal;
+import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -37,6 +38,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -61,9 +63,15 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
 
     private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(GargoyleEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private final PartEntity<?>[] subEntities;
+
     public GargoyleEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
+        this.subEntities = new PartEntity[] {
+            new RotatedWeakPointPartEntity<>(this, new Vec3(12/16f, 14/16f, -16/16f), 22/16f, 24/16f),
+            new RotatedWeakPointPartEntity<>(this, new Vec3(-33/16f, 14/16f, -16/16f), 22/16f, 24/16f),
+        };
     }
 
     protected PathNavigation createNavigation(Level p_level) {
@@ -202,4 +210,44 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
     protected SoundEvent getDeathSound() {
         return RRCSounds.RRC_GARGOYLE_DEAD.get();
     };
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return false;
+    }
+
+    @Override
+    public boolean canBeHitByProjectile() {
+        return false;
+    }
+
+    @Override
+    public void tick(){
+        super.tick();
+        this.tickSubEntities();
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+    
 }

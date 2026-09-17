@@ -30,7 +30,7 @@ public class GargoyleMoveUpGoal extends Goal{
     public void tick() {
         super.tick();
         this.gargoyle.getLookControl().setLookAt(this.gargoyle.getTarget());
-        if(!this.gargoyle.level().getBlockState(this.gargoyle.blockPosition().below(3)).isAir()){
+        if(!this.gargoyle.level().getBlockState(this.gargoyle.blockPosition().below(5)).isAir()){
             if(this.gargoyle.distanceToSqr(this.gargoyle.getTarget())>100){
                 this.gargoyle.getNavigation().moveTo(this.gargoyle.getTarget().getX(), this.gargoyle.getY()+5, this.gargoyle.getTarget().getZ(), 1.2);
             }else{
