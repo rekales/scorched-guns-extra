@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.wreckers.wrecker_biker;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -13,7 +14,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
-import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -37,11 +37,14 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation MOVE = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
-
+    public Vec3 moveTargetPoint;
+    public BlockPos anchorPoint;
     public static final EntityDataAccessor<Boolean> IS_CIRCLING = SynchedEntityData.defineId(WreckerBikerEntity.class, EntityDataSerializers.BOOLEAN);
 
     public WreckerBikerEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.moveTargetPoint = Vec3.ZERO;
+        this.anchorPoint = BlockPos.ZERO;
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -83,7 +86,6 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false,
                         player -> !((Player) player).isCreative() && !player.isSpectator()));
         this.goalSelector.addGoal(2, new ChargeTargetGoal(this));
-        this.targetSelector.addGoal(3, new MoveTowardsTargetGoal(this, 1, 35));
         this.targetSelector.addGoal(3, new HurtByNonFactionGoal(this));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
                 entity -> Faction.isEnemies(this, entity)));
@@ -138,5 +140,16 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     @Override
     public int getAmbientSoundInterval() {
         return this.isCircling() ? 3 : 2;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(this.level().isClientSide)return;
+        if(this.getTarget()!=null){
+            this.anchorPoint = this.getTarget().blockPosition();
+        }else{
+            this.anchorPoint = BlockPos.ZERO;
+        }
     }
 }
