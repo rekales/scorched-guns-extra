@@ -4,22 +4,28 @@ import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.MoveTowardsTargetGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.Level.ExplosionInteraction;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -30,6 +36,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+@SuppressWarnings("deprecation")
 public class WreckerBikerEntity extends Monster implements GeoEntity{
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -40,6 +47,7 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     public Vec3 moveTargetPoint;
     public BlockPos anchorPoint;
     public static final EntityDataAccessor<Boolean> IS_CIRCLING = SynchedEntityData.defineId(WreckerBikerEntity.class, EntityDataSerializers.BOOLEAN);
+    public float clockwise = 1.0F;
 
     public WreckerBikerEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -89,8 +97,36 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
         this.targetSelector.addGoal(3, new HurtByNonFactionGoal(this));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
                 entity -> Faction.isEnemies(this, entity)));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(4, new MoveTowardsTargetGoal(this, 1, 35){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !WreckerBikerEntity.this.isCircling() && (WreckerBikerEntity.this.getTarget() != null ? WreckerBikerEntity.this.distanceToSqr(WreckerBikerEntity.this.getTarget()) >= 64 : false);
+            }
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !WreckerBikerEntity.this.isCircling() && (WreckerBikerEntity.this.getTarget() != null ? WreckerBikerEntity.this.distanceToSqr(WreckerBikerEntity.this.getTarget()) >= 64 : false);
+            }
+        });
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !WreckerBikerEntity.this.isCircling();
+            }
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !WreckerBikerEntity.this.isCircling();
+            }
+        });
+        this.goalSelector.addGoal(6, new RandomLookAroundGoal(this){
+            @Override
+            public boolean canUse() {
+                return super.canUse() && !WreckerBikerEntity.this.isCircling();
+            }
+            @Override
+            public boolean canContinueToUse() {
+                return super.canContinueToUse() && !WreckerBikerEntity.this.isCircling();
+            }
+        });
     }
 
     @Override
@@ -151,5 +187,11 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
         }else{
             this.anchorPoint = BlockPos.ZERO;
         }
+    }
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason,
+            SpawnGroupData spawnData, CompoundTag dataTag) {
+        this.clockwise = this.random.nextBoolean() ? 1.0F : -1.0F;
+        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 }
