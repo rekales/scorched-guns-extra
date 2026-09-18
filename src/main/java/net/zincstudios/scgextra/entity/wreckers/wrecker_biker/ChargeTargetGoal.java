@@ -51,7 +51,6 @@ public class ChargeTargetGoal extends Goal{
             ++this.distance;
             if (this.distance > 15.0F) {
                 this.distance = 5.0F;
-                this.clockwise = -this.clockwise;
             }
         }
         
@@ -73,7 +72,7 @@ public class ChargeTargetGoal extends Goal{
            this.height = Math.min(-1.0F, this.height);
            this.selectNext();
         }
-        this.biker.getNavigation().moveTo(this.biker.moveTargetPoint.x, this.biker.moveTargetPoint.y, this.biker.moveTargetPoint.z, 1);
+        this.biker.getNavigation().moveTo(this.biker.moveTargetPoint.x, this.biker.moveTargetPoint.y, this.biker.moveTargetPoint.z, 1.2);
 
     }
     @Override
