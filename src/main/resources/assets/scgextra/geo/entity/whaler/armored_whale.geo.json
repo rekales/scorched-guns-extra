@@ -13,7 +13,8 @@
 			"bones": [
 				{
 					"name": "root",
-					"pivot": [0, 34, -38]
+					"pivot": [0, 34, -38],
+					"rotation": [0, 180, 0]
 				},
 				{
 					"name": "left_wheel",
