@@ -20,7 +20,6 @@ import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMob
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
-import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkModel;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueEntity;
@@ -159,7 +158,9 @@ public class WhalerEntities {
                 .noDeathTilt()
                 .noDeathRedTint()
         );
-        EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), ArmoredWhaleRenderer::new);
+        EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), (ctx) -> new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/armored_whale")))
+                        .hasGlowLayer()
+                        .noDeathTilt());
     }
 
     @OnlyIn(value = Dist.CLIENT)

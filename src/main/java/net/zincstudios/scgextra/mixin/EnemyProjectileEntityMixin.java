@@ -5,7 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
-import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhalePart;
+// import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhalePart;
 import org.spongepowered.asm.mixin.Mixin;
 import top.ribs.scguns.entity.projectile.EnemyProjectileEntity;
 
@@ -24,7 +24,11 @@ public abstract class EnemyProjectileEntityMixin extends AbstractArrow {
     @Override
     protected boolean canHitEntity(Entity target) {
         // Spawned clientside projectiles have no owners for some fucking reason.
-        if (target.level().isClientSide() && (target instanceof ArmoredWhaleEntity || target instanceof ArmoredWhalePart)) {
+        if (target.level().isClientSide() && (
+            target instanceof ArmoredWhaleEntity 
+            // || 
+            // target instanceof ArmoredWhalePart
+        )) {
             return false;
         }
         return super.canHitEntity(target);
