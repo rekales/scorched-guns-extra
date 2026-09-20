@@ -75,6 +75,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .idealRange(16)
             .ammoCapacity(32)
             .reloadTime(80)
+            .projectileFactory(MountedGunProjectileEntity::new)
             .build();
         this.subEntities = new PartEntity[] {
             //head-neck

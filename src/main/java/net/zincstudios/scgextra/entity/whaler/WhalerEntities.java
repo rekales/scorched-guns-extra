@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -20,6 +21,7 @@ import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMob
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
 import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
+import net.zincstudios.scgextra.entity.whaler.armoredwhale.MountedGunProjectileEntity;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkModel;
 import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueEntity;
@@ -31,6 +33,7 @@ import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import top.ribs.scguns.client.render.entity.ProjectileRenderer;
 import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.BasicHeadshotBox;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
@@ -76,6 +79,14 @@ public class WhalerEntities {
     public static final RegistryObject<EntityType<LionFishEntity>> LION_FISH = ENTITY_TYPES
             .register("lion_fish", () -> EntityType.Builder.of(LionFishEntity::new, MobCategory.MONSTER)
                     .sized(3.5F, 4F).build("lion_fish"));
+
+    public static final RegistryObject<EntityType<MountedGunProjectileEntity>> MOUNTED_GUN_PROJECTILE = ENTITY_TYPES
+            .register("mounted_gun_projectile", () -> EntityType.Builder.of(
+                            (EntityType<MountedGunProjectileEntity> type, Level level) -> new MountedGunProjectileEntity(type, level), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(3)
+                    .build("mounted_gun_projectile"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);
@@ -161,6 +172,7 @@ public class WhalerEntities {
         EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), (ctx) -> new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/armored_whale")))
                         .hasGlowLayer()
                         .noDeathTilt());
+        EntityRenderers.register(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), ProjectileRenderer::new);
     }
 
     @OnlyIn(value = Dist.CLIENT)
