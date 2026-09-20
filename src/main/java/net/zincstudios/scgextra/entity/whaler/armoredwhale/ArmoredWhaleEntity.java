@@ -12,7 +12,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -26,6 +28,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
@@ -54,11 +58,11 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     private static final RawAnimation SPLASH = RawAnimation.begin().thenPlay("splash");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
-    // private static final int STUN_RECOVERY_TICKS = 10;
-
-    private final SimulatedGun customGun;//temporary, make 2 guns
+    private final SimulatedGun customGun;
     private static final Vec3 LEFT_GUN_OFFSET = new Vec3(-31/16f, 43/16f, 6/16f);
     private static final Vec3 RIGHT_GUN_OFFSET = new Vec3(33/16f, 43/16f, 6/16f);
+
+    private final PartEntity<?>[] subEntities;
 
     public ArmoredWhaleEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -71,6 +75,18 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .ammoCapacity(50)
             .reloadTime(20)
             .build();
+        this.subEntities = new PartEntity[] {
+            //head-neck
+            new RotatedWeakPointPartEntity<>(this, new Vec3(0/16f, 59/16f, -183/16f * -1f), 16/16f, 19/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -160/16f * -1f), 42/16f, 106/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -121/16f * -1f), 42/16f, 106/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -79/16f * -1f), 42/16f, 106/16f),
+            //back
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, 39/16f * -1f), 34/16f, 56/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 20/16f, 73/16f * -1f), 20/16f, 27/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 20/16f, 93/16f * -1f), 20/16f, 27/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 28/16f, 99/16f * -1f), 92/16f, 11/16f),
+        };
     }
 
     @Override
@@ -149,8 +165,25 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
         super.customServerAiStep();
     }
     @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+    @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.triggerAnim("attack", "bite");
         }
@@ -168,6 +201,11 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             }
         }
     }
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
+    }
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
@@ -175,4 +213,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     }
     public void setLeft(boolean bool){this.entityData.set(IS_LEFT, bool);}
     public boolean isLeft(){return this.entityData.get(IS_LEFT);}
+    @Override
+    public AABB getBoundingBoxForCulling() {
+        return this.getBoundingBox().inflate(5,0,5);
+    }
 }
