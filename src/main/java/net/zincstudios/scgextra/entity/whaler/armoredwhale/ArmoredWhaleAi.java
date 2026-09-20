@@ -58,8 +58,6 @@ public class ArmoredWhaleAi {
             ModBrainMemories.SIMULATED_GUN.get(),
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get(),
-            ModBrainMemories.STUNNED.get(),
-            ModBrainMemories.STUNNED_COOLING_DOWN.get(),
             ModBrainMemories.HEADSHOT_COUNT.get(),
             ModBrainMemories.DELAYED_MELEE.get(),
             ModBrainMemories.ABILITY_STATE.get()
@@ -69,7 +67,6 @@ public class ArmoredWhaleAi {
         BrainCommons.initCoreWithStunActivity(brain, MobUtil.DEFAULT_STUN_DURATION);
         BrainCommons.initIdleActivity(brain);
         initFightActivity(mob, brain);
-        BrainCommons.initStunnedActivity(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -86,8 +83,35 @@ public class ArmoredWhaleAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new DelayedMeleeAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 3, 60),
-                new ApproachTargetIfCannotAim(1F),
-                new AimWhenTargetVisible(),
+                new ApproachTargetIfCannotAim(1F){
+                    @Override
+                    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                        Brain<?> brain = mob.getBrain();
+                        LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+                        float approachDist = brain.getMemory(ModBrainMemories.WEAPON_IDEAL_RANGE.get()).get();
+                        float weaponRange = brain.getMemory(ModBrainMemories.WEAPON_MAX_RANGE.get()).get();
+                        int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
+
+                        if (mob.closerThan(target, approachDist) && mob.getSensing().hasLineOfSight(target)) {
+                            if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
+                                brain.eraseMemory(MemoryModuleType.WALK_TARGET);
+                            }
+                        }
+                    }
+                },
+                new AimWhenTargetVisible(){
+                    @Override
+                    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                        Brain<?> brain = mob.getBrain();
+                        LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+
+                        int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
+                        aimTicks += mob.hasLineOfSight(target) ? 1 : -1;
+                        aimTicks = Mth.clamp(aimTicks, MIN_AIM_TICKS, MAX_AIM_TICKS);
+
+                        brain.setMemory(ModBrainMemories.AIM_TICKS.get(), aimTicks);
+                    }
+                },
                 new ShootTargetAnimated(20,
                         (entity, firing) -> 1.0F,
                         entity -> !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()),
@@ -102,18 +126,9 @@ public class ArmoredWhaleAi {
 
     public static void updateActivity(ArmoredWhaleEntity mob) {
         Brain<ArmoredWhaleEntity> brain = mob.getBrain();
-        Activity oldActivity = brain.getActiveNonCoreActivity().orElse(null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(
-                ModBrainActivities.STUNNED.get(),
                 Activity.FIGHT,
                 Activity.IDLE
         ));
-
-        Activity newActivity = brain.getActiveNonCoreActivity().orElse(null);
-        if (oldActivity != newActivity && newActivity == ModBrainActivities.STUNNED.get()) {
-            brain.stopAll((ServerLevel) mob.level(), mob);
-            mob.getNavigation().stop();
-            mob.setYHeadRot(mob.getYRot());
-        }
     }
 }

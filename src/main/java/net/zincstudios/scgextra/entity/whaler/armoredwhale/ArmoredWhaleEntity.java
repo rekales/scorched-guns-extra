@@ -4,6 +4,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -66,14 +67,14 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
 
     public ArmoredWhaleEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.customGun = new CustomScorchedSimGun.Builder(ModItems.BIRDFEEDER.get().getGun())
+        this.customGun = new CustomScorchedSimGun.Builder(ModItems.MAK_MKII.get().getGun())
             .fireRate(80)
-            .burstAmount(50)
-            .burstInterval(4)
-            .maxRange(20)
-            .idealRange(15)
-            .ammoCapacity(50)
-            .reloadTime(20)
+            .burstAmount(32)
+            .burstInterval(2)
+            .maxRange(16)
+            .idealRange(16)
+            .ammoCapacity(32)
+            .reloadTime(80)
             .build();
         this.subEntities = new PartEntity[] {
             //head-neck
@@ -216,5 +217,12 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(5,0,5);
+    }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getEntity()!=null && source.getEntity().is(this)){
+            return false;
+        }
+        return super.hurt(source, amount);
     }
 }
