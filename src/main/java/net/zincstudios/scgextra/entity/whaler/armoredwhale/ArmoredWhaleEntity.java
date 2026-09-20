@@ -1,5 +1,8 @@
 package net.zincstudios.scgextra.entity.whaler.armoredwhale;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,10 +41,13 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     static final int MELEE_DURATION = 24;
     static final int MELEE_DAMAGE_DELAY = 12;
 
+    private static final EntityDataAccessor<Boolean> IS_LEFT = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
+
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation BITE = RawAnimation.begin().thenPlay("attack_melee");
-    private static final RawAnimation GUN_FIRE = RawAnimation.begin().thenPlay("attack_range");
+    private static final RawAnimation GUN_FIRE_LEFT = RawAnimation.begin().thenPlay("attack_range_left");
+    private static final RawAnimation GUN_FIRE_RIGHT = RawAnimation.begin().thenPlay("attack_range_right");
     private static final RawAnimation SLAM_UP = RawAnimation.begin().thenPlay("slam_up");
     private static final RawAnimation SLAM_AIR = RawAnimation.begin().thenLoop("slam_air");
     private static final RawAnimation SLAM_DOWN = RawAnimation.begin().thenPlay("slam_down");
@@ -83,7 +89,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
         controllers.add(new AnimationController<>(this, "attack", 0,
                 state -> PlayState.STOP)
                 .triggerableAnim("bite", BITE)
-                .triggerableAnim("fire", GUN_FIRE)
+                .triggerableAnim("fire", this.isLeft() ? GUN_FIRE_LEFT : GUN_FIRE_RIGHT)
                 .triggerableAnim("slam_up", SLAM_UP)
                 .triggerableAnim("slam_air", SLAM_AIR)
                 .triggerableAnim("slam_down", SLAM_DOWN)
@@ -105,18 +111,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
 
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
-        Vec3 lookDir = this.getViewVector(1.0F).normalize();
-        if(brain.getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
-            LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
-            Vec3 toTarget = new Vec3(
-                target.getX() - this.getX(),
-                0.0D,
-                target.getZ() - this.getZ()
-            ).normalize();
-            double rightDot = lookDir.x * toTarget.z - lookDir.z * toTarget.x;
-            return rightDot > 0 ? RIGHT_GUN_OFFSET : LEFT_GUN_OFFSET;
-        }
-        return LEFT_GUN_OFFSET;
+        return this.isLeft() ? LEFT_GUN_OFFSET : RIGHT_GUN_OFFSET;
     }
 
     @Override
@@ -159,5 +154,25 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.triggerAnim("attack", "bite");
         }
+        if(!this.level().isClientSide()){
+            if(brain.getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+                Vec3 lookDir = this.getViewVector(1.0F).normalize();
+                LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+                Vec3 toTarget = new Vec3(
+                    target.getX() - this.getX(),
+                    0.0D,
+                    target.getZ() - this.getZ()
+                ).normalize();
+                double rightDot = lookDir.x * toTarget.z - lookDir.z * toTarget.x;
+                this.setLeft(rightDot > 0);
+            }
+        }
     }
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_LEFT, false);
+    }
+    public void setLeft(boolean bool){this.entityData.set(IS_LEFT, bool);}
+    public boolean isLeft(){return this.entityData.get(IS_LEFT);}
 }
