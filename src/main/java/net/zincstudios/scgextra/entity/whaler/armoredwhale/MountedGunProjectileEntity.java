@@ -14,16 +14,22 @@ import net.zincstudios.scgextra.item.ModItems;
 import top.ribs.scguns.common.Gun;
 import top.ribs.scguns.entity.projectile.ProjectileEntity;
 import top.ribs.scguns.item.GunItem;
+import top.ribs.scguns.network.PacketHandler;
+import top.ribs.scguns.network.message.S2CMessageTurretBulletTrail;
+
 //custom projectile to not hit the shooter
 public class MountedGunProjectileEntity extends ProjectileEntity{
+    private boolean trailSpawned;
     public MountedGunProjectileEntity(EntityType<? extends Entity> entityType, Level worldIn) {
         super(entityType, worldIn);
+        this.trailSpawned = false;
     }
-
+    
     public MountedGunProjectileEntity(EntityType<? extends Entity> entityType, Level worldIn, LivingEntity shooter, ItemStack weapon, GunItem item, Gun modifiedGun) {
         super(entityType, worldIn, shooter, weapon, item, modifiedGun);
+        this.trailSpawned = false;
     }
-
+    
     public MountedGunProjectileEntity(Level worldIn, LivingEntity shooter, ItemStack weapon, GunItem item, Gun modifiedGun) {
         this(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), worldIn, shooter, weapon, item, modifiedGun);
     }
@@ -42,5 +48,24 @@ public class MountedGunProjectileEntity extends ProjectileEntity{
             }
         }
         super.onHit(result, startVec, endVec);
+    }
+    //copied from EnemyProjectileEntity
+    @Override
+    public void tick() {
+        if (!this.level().isClientSide && !this.trailSpawned && this.tickCount == 1) {
+            this.spawnBulletTrail();
+            this.trailSpawned = true;
+        }
+        super.tick();
+    }
+    private void spawnBulletTrail() {
+        Vec3 position = this.position();
+        Vec3 motion = this.getDeltaMovement();
+        int trailColor = 16755200;
+        double trailLength = (double)1.0F;
+        int maxAge = 300;
+        double trailThickness = 0.7;
+        S2CMessageTurretBulletTrail message = new S2CMessageTurretBulletTrail(this.getId(), position, motion, trailColor, trailLength, maxAge, trailThickness);
+        PacketHandler.getPlayChannel().sendToTrackingEntity(() -> this, message);
     }
 }
