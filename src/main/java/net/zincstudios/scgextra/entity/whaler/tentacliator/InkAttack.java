@@ -77,7 +77,12 @@ public class InkAttack extends Behavior<LivingEntity> {
                 double d1 = target.getY(0.333333333) - inkProjectile.getY();
                 double d2 = target.getZ() - vec.z;
                 double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-                inkProjectile.shoot(d0, d1 + d3 * (double)0.2F, d2, 1F, (float)(14 - level.getDifficulty().getId() * 4));
+                inkProjectile.shoot(
+                    d0, 
+                    d1 + d3 * (double)2F, 
+                    d2, 
+                    0.6F, 
+                    (float)(14 - level.getDifficulty().getId() * 4));
                 level.addFreshEntity(inkProjectile);
             }
         }

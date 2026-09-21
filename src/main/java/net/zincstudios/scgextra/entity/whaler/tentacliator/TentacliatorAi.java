@@ -11,7 +11,6 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.ShootTargetAnimated;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
@@ -65,7 +64,7 @@ public class TentacliatorAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new ShootTargetAnimated(10, 1.6F, "attack", "shoot", 12),
+                new TentacliatorShootTarget(29, 1.6F, "attack", "shoot", 22),
                 new InkAttack(600, "attack", "ink_splash", 5)
         ), MemoryModuleType.ATTACK_TARGET);
     }
