@@ -2,10 +2,15 @@ package net.zincstudios.scgextra.entity.whaler.salmonsaur;
 
 import com.mojang.serialization.Dynamic;
 
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
+import net.zincstudios.scgextra.entity.common.MobUtil;
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -32,8 +37,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
 
-    // TODO: subentities
-
     static final int MELEE_DAMAGE_DELAY = 12;
     static final int MELEE_DURATION = 21;
 
@@ -44,9 +47,20 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final PartEntity<?>[] subEntities;
 
     public SalmonsaurEntity(EntityType<? extends SalmonsaurEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.subEntities = new PartEntity[] {
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 0, 0), 1.85f, 2.4f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 1.75, -1.3), 0.8f, 0.8f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 1.75, -2.1), 0.8f, 0.8f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 1.85, -2.85), 0.7f, 0.7f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 1.85, -3.55), 0.7f, 0.7f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 1.1, 1.1), 0.85f, 2f),
+                new RotatedWeakPointPartEntity<>(this, new Vec3(0, 2, 1.8), 0.9f, 0.9f),
+                new RotatedWeakPointPartEntity<>(this, new Vec3(0, 1.9, 2.7), 0.9f, 0.9f),
+        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -82,12 +96,39 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
     }
 
     @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
+
+//        this.setYRot(this.getYRot()+1F);
+//        this.setYBodyRot(this.getYRot());
 
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             // TODO: sounds
             this.triggerAnim("main", "melee");
+        }
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
         }
     }
 
@@ -120,6 +161,11 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
+    }
+
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 30);
     }
     
     protected SoundEvent getAmbientSound() {

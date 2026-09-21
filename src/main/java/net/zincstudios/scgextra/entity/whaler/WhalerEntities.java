@@ -55,7 +55,7 @@ public class WhalerEntities {
 
     public static final RegistryObject<EntityType<SalmonsaurEntity>> SALMONSAUR = ENTITY_TYPES
             .register("salmonsaur", () -> EntityType.Builder.of(SalmonsaurEntity::new, MobCategory.MONSTER)
-                    .sized(2F, 2.7F).build("salmonsaur"));
+                    .sized(0.8F, 3.7F).build("salmonsaur"));
 
     public static final RegistryObject<EntityType<GuardianStatueEntity>> GUARDIAN_STATUE = ENTITY_TYPES
             .register("guardian_statue", () -> EntityType.Builder.of(GuardianStatueEntity::new, MobCategory.MONSTER)
