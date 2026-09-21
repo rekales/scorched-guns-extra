@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.whaler.salmonsaur;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +30,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class SalmonsaurEntity extends Monster implements GeoEntity {
+public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
 
     // TODO: subentities
 

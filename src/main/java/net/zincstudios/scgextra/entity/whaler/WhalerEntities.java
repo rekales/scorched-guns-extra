@@ -29,6 +29,7 @@ import net.zincstudios.scgextra.entity.whaler.guardian_statue.GuardianStatueRend
 import net.zincstudios.scgextra.entity.whaler.lion_fish.LionFishEntity;
 import net.zincstudios.scgextra.entity.whaler.pufficus.PufficusEntity;
 import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurEntity;
+import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
@@ -130,10 +131,9 @@ public class WhalerEntities {
                         .noDeathTilt()
         );
         EntityRenderers.register(WhalerEntities.SALMONSAUR.get(), (ctx) ->
-                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/salmonsaur")))
+                new SalmonsaurRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/salmonsaur")))
                         .hasGlowLayer()
                         .noDeathTilt()
-                // TODO: held trident
         );
         EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) ->
                 new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")))

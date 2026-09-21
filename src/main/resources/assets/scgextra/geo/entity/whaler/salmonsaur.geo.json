@@ -83,9 +83,9 @@
 					]
 				},
 				{
-					"name": "weapon",
+					"name": "right_hand",
 					"parent": "rider_right_arm",
-					"pivot": [-5, 54, 5]
+					"pivot": [-6, 46, 3]
 				},
 				{
 					"name": "rider_left_leg",
