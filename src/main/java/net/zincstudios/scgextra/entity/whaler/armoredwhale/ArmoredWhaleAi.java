@@ -89,7 +89,17 @@ public class ArmoredWhaleAi {
                 new ShootTargetAnimated(20,
                         (entity, firing) -> 1.0F,
                         entity -> !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()),
-                        "attack", "fire", 0),
+                        "attack", "fire", 0){
+                            @Override
+                            protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
+                                super.tick(level, entity, gameTime);
+                                Brain<?> brain = entity.getBrain();
+                                if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false))return;
+                                if(entity instanceof PathfinderMob pm){
+                                    pm.getNavigation().stop();
+                                }
+                            }
+                        },
                 new SplashWater<>()
             )), 
             ImmutableSet.of(
