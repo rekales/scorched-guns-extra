@@ -232,6 +232,16 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
+					}
 				}
 			}
 		},
@@ -826,6 +836,16 @@
 							"vector": [0, 0, 0]
 						}
 					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
+					}
 				}
 			}
 		},
@@ -1095,11 +1115,20 @@
 					"rotation": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
+					}
 				}
 			}
 		},
 		"slam_up": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 0.5,
 			"bones": {
 				"mouth": {
@@ -3383,6 +3412,16 @@
 							"vector": [1, 1, 1]
 						}
 					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
+					}
 				}
 			}
 		},
@@ -3635,6 +3674,16 @@
 				"right_turret": {
 					"rotation": {
 						"vector": [0, 0, 0]
+					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
 					}
 				}
 			}
@@ -4097,6 +4146,16 @@
 							"lerp_mode": "catmullrom"
 						}
 					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
+					}
 				}
 			}
 		},
@@ -4557,6 +4616,16 @@
 							},
 							"lerp_mode": "catmullrom"
 						}
+					}
+				},
+				"eye_flash": {
+					"position": {
+						"vector": [-3, 0, 0]
+					}
+				},
+				"eye_flash2": {
+					"position": {
+						"vector": [3, 0, 0]
 					}
 				}
 			}

@@ -47,6 +47,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     static final int MELEE_DAMAGE_DELAY = 12;
 
     private static final EntityDataAccessor<Boolean> IS_LEFT = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_SLAMMING = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -94,22 +95,23 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 4,
-                state -> {
-                    if (state.isMoving() || state.isMoving()) {
-                        state.setAnimation(WALK);
-                    } else {
-                        state.setAnimation(IDLE);
-                    }
-                    return PlayState.CONTINUE;
-                })
+            state -> {
+                if(state.getAnimatable().isSlamming()){
+                    state.setAnimation(SLAM_AIR);   
+                }else if (state.isMoving() || state.isMoving()) {
+                    state.setAnimation(WALK);
+                } else {
+                    state.setAnimation(IDLE);
+                }
+                return PlayState.CONTINUE;
+            })
         );
 
         controllers.add(new AnimationController<>(this, "attack", 0,
-                state -> PlayState.STOP)
+            state -> PlayState.STOP)
                 .triggerableAnim("bite", BITE)
                 .triggerableAnim("fire", this.isLeft() ? GUN_FIRE_LEFT : GUN_FIRE_RIGHT)
                 .triggerableAnim("slam_up", SLAM_UP)
-                .triggerableAnim("slam_air", SLAM_AIR)
                 .triggerableAnim("slam_down", SLAM_DOWN)
                 .triggerableAnim("splash", SPLASH)
         );
@@ -212,9 +214,12 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_LEFT, false);
+        this.entityData.define(IS_SLAMMING, false);
     }
     public void setLeft(boolean bool){this.entityData.set(IS_LEFT, bool);}
     public boolean isLeft(){return this.entityData.get(IS_LEFT);}
+    public void setSlamming(boolean i){this.entityData.set(IS_SLAMMING, i);}
+    public boolean isSlamming(){return this.entityData.get(IS_SLAMMING);}
     @Override
     public AABB getBoundingBoxForCulling() {
         return this.getBoundingBox().inflate(5,0,5);
@@ -225,5 +230,9 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             return false;
         }
         return super.hurt(source, amount);
+    }
+    @Override
+    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+        return false;
     }
 }
