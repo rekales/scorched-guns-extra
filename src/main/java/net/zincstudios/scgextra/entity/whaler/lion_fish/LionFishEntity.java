@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.whaler.lion_fish;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
@@ -18,6 +19,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import net.minecraftforge.fluids.FluidType;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -46,8 +49,17 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
 
     public static final EntityDataAccessor<Boolean> IS_POISON = SynchedEntityData.defineId(LionFishEntity.class, EntityDataSerializers.BOOLEAN);
 
+    private final PartEntity<?>[] subEntities;
+
     public LionFishEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
+        this.subEntities = new PartEntity[] {
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 41/16f, -60/16f * -1f), 26/16f, 24/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 31/16f, 22/16f * -1f), 14/16f, 16/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 38/16f, 36/16f * -1f), 14/16f, 16/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 49/16f, 51/16f * -1f), 8/16f, 12/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 60/16f, 58/16f * -1f), 8/16f, 12/16f),
+        };
     }
 
     @Override
@@ -124,6 +136,7 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
     @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.triggerAnim("behavior", "attack");
         }
@@ -166,5 +179,26 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
     public boolean doHurtTarget(Entity entity) {
         this.playSound(WhalerSounds.LION_FISH_ATTACK.get());
         return super.doHurtTarget(entity);
+    }
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
     }
 }
