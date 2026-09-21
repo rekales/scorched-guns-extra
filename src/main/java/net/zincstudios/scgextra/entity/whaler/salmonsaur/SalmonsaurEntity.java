@@ -68,6 +68,7 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
                 .add(Attributes.MOVEMENT_SPEED, 0.26F)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.6F)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
+                .add(Attributes.ARMOR, 4)
                 .add(Attributes.MAX_HEALTH, 80.0D);
     }
 
@@ -116,9 +117,6 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
     public void tick() {
         super.tick();
         this.tickSubEntities();
-
-//        this.setYRot(this.getYRot()+1F);
-//        this.setYBodyRot(this.getYRot());
 
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             // TODO: sounds
