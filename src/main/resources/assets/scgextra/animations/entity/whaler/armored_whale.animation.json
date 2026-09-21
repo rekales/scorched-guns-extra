@@ -1369,7 +1369,6 @@
 			}
 		},
 		"slam_down": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 0.95,
 			"bones": {
 				"mouth": {
@@ -1611,7 +1610,6 @@
 			}
 		},
 		"splash": {
-			"loop": true,
 			"animation_length": 2.15,
 			"bones": {
 				"mouth": {

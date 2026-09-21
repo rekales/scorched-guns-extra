@@ -67,6 +67,7 @@ public class ArmoredWhaleAi {
         BrainCommons.initCoreWithStunActivity(brain, MobUtil.DEFAULT_STUN_DURATION);
         BrainCommons.initIdleActivity(brain);
         initFightActivity(mob, brain);
+        initSplashActivity(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -88,11 +89,26 @@ public class ArmoredWhaleAi {
                 new ShootTargetAnimated(20,
                         (entity, firing) -> 1.0F,
                         entity -> !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()),
-                        "attack", "fire", 0)
-            )), ImmutableSet.of(
-            Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
-            ), ImmutableSet.of(
-                    ModBrainMemories.AIM_TICKS.get()
+                        "attack", "fire", 0),
+                new SplashWater<>()
+            )), 
+            ImmutableSet.of(
+                Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
+            ), 
+            ImmutableSet.of(
+                ModBrainMemories.AIM_TICKS.get()
+            )
+        );
+    }
+
+    public static <T extends ArmoredWhaleEntity> void initSplashActivity(Brain<T> brain) {
+        brain.addActivityAndRemoveMemoriesWhenStopped(Activity.IDLE, BrainUtils.createPriorityPairs(10,
+            ImmutableList.of(
+                new SplashWater<>()
+            )), 
+            ImmutableSet.of(),
+            ImmutableSet.of(
+                ModBrainMemories.ABILITY_STATE.get()
             )
         );
     }
