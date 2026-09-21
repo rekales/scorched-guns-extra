@@ -22,6 +22,7 @@ public class MountedGunProjectileEntity extends ProjectileEntity{
     private boolean trailSpawned;
     public MountedGunProjectileEntity(EntityType<? extends Entity> entityType, Level worldIn) {
         super(entityType, worldIn);
+        this.modifiedGun = ModItems.PLACEHOLDER_GUN.get().getGun();
         this.trailSpawned = false;
     }
     
@@ -35,7 +36,7 @@ public class MountedGunProjectileEntity extends ProjectileEntity{
     }
 
     public MountedGunProjectileEntity(Level worldIn, LivingEntity shooter, Gun gun) {
-        this(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), worldIn, shooter, ItemStack.EMPTY, ModItems.PLACEHOLDER_GUN.get(), gun);
+        this(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), worldIn, shooter, new ItemStack(ModItems.PLACEHOLDER_GUN.get()), ModItems.PLACEHOLDER_GUN.get(), gun);
     }
     @Override
     public void onHit(HitResult result, Vec3 startVec, Vec3 endVec) {

@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.projectile.ink_projectile;
 
 import net.zincstudios.scgextra.effects.ModEffects;
 import net.zincstudios.scgextra.entity.ModEntities;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -51,5 +52,10 @@ public class InkProjectileEntity extends AbstractArrow{
     @Override
     protected ItemStack getPickupItem() {
         return new ItemStack(Items.STRING);
+    }
+    @Override
+    public void tick() {
+        super.tick();
+        if(!this.level().isClientSide())this.level().addParticle(ParticleTypes.DRIPPING_WATER, this.getX(), this.getY(), this.getZ(), 0, 0, 0);
     }
 }
