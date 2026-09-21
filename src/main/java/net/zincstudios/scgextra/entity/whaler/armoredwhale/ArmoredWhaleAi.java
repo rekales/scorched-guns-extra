@@ -82,7 +82,7 @@ public class ArmoredWhaleAi {
             ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                new DelayedMeleeAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 3, 60),
+                new DelayedMeleeAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 10, 60),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenTargetVisible(),
                 new ShootTargetAnimated(20,
