@@ -174,8 +174,8 @@ public class FlamingHeadEntity extends Monster implements GeoEntity, Stunnable, 
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 400D)
-                .add(Attributes.ARMOR, 12D)
+                .add(Attributes.MAX_HEALTH, 300D)
+                .add(Attributes.ARMOR, 3D)
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1)
                 .add(Attributes.MOVEMENT_SPEED, 0.35F);
