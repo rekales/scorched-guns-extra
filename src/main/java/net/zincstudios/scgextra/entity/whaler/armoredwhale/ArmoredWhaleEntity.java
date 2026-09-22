@@ -46,6 +46,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     static final int MELEE_DURATION = 24;
     static final int MELEE_DAMAGE_DELAY = 12;
 
+    public boolean STARTED_SLAM = false;//server side boolean only used to stop other behaviors from hapenning
+
     private static final EntityDataAccessor<Boolean> IS_LEFT = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_SLAMMING = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -64,6 +66,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     private static final Vec3 LEFT_GUN_OFFSET = new Vec3(-31/16f, 43/16f, 6/16f);
     private static final Vec3 RIGHT_GUN_OFFSET = new Vec3(33/16f, 43/16f, 6/16f);
 
+    public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headMiddlePart;
+
     private final PartEntity<?>[] subEntities;
 
     public ArmoredWhaleEntity(EntityType<? extends Monster> entityType, Level level) {
@@ -78,11 +82,12 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .reloadTime(80)
             .projectileFactory(MountedGunProjectileEntity::new)
             .build();
+        this.headMiddlePart = new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -121/16f * -1f), 42/16f, 106/16f);
         this.subEntities = new PartEntity[] {
             //head-neck
             new RotatedWeakPointPartEntity<>(this, new Vec3(0/16f, 59/16f, -183/16f * -1f), 16/16f, 19/16f),
             new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -160/16f * -1f), 42/16f, 106/16f),
-            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -121/16f * -1f), 42/16f, 106/16f),
+            this.headMiddlePart,
             new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -79/16f * -1f), 42/16f, 106/16f),
             //back
             new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, 39/16f * -1f), 34/16f, 56/16f),

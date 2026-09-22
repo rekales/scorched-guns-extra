@@ -107,10 +107,9 @@ public class ArmoredWhaleAi {
                                 }
                             }
                         },
-                new SplashWater<>(),
                 new Slam<>(10, 60, 10, 600),
+                new SplashWaterAndGrenades<>(),
                 new SummonInfantry<>(200, 2),
-                new DeployMines<>(),
                 new BreakBlocksToTarget(ArmoredWhaleAi::canBreak, 20)
             )),
             ImmutableSet.of(
@@ -125,7 +124,7 @@ public class ArmoredWhaleAi {
     public static <T extends ArmoredWhaleEntity> void initSplashActivity(Brain<T> brain) {
         brain.addActivityAndRemoveMemoriesWhenStopped(Activity.IDLE, BrainUtils.createPriorityPairs(10,
             ImmutableList.of(
-                new SplashWater<>()
+                new SplashWaterAndGrenades<>()
             )), 
             ImmutableSet.of(),
             ImmutableSet.of(

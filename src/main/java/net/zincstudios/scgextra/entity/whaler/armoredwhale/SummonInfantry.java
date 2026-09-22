@@ -23,7 +23,7 @@ public class SummonInfantry <T extends ArmoredWhaleEntity> extends Behavior<T>{
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
         if(this.cooldown > 0)this.cooldown--;
-        return this.cooldown <= 0;
+        return this.cooldown <= 0 && !owner.STARTED_SLAM;
     }
     @Override
     protected boolean canStillUse(ServerLevel level, T entity, long gameTime) {

@@ -1,6 +1,8 @@
 package net.zincstudios.scgextra.entity.whaler.armoredwhale;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -46,6 +48,12 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
     protected void start(ServerLevel level, T entity, long gameTime) {
         this.cooldown = this.cooldownDuration;
         this.runsUntil = gameTime+this.slamUpTicks+this.airTicks+this.slamDownTicks;
+        entity.STARTED_SLAM = true;
+    }
+
+    @Override
+    protected void stop(ServerLevel level, T entity, long gameTime) {
+        entity.STARTED_SLAM = false;
     }
     
     @Override
@@ -67,7 +75,19 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
             owner.triggerAnim("attack", "slam_down");
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
-            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner));
+            Set<LivingEntity> entitiesHurt = new HashSet<>();
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(20), (e)->!e.is(owner));
+            for(LivingEntity entity : list){
+                if(owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
+                    entity.hurt(owner.damageSources().genericKill(), 10);
+                    entitiesHurt.add(entity);
+                }
+                if(owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 100){
+                    entity.hurt(owner.damageSources().genericKill(), 10);
+                    entitiesHurt.add(entity);
+                }
+            }
+            list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner) && ! entitiesHurt.contains(e));
             for(LivingEntity entity : list){
                 if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
                     entity.hurt(owner.damageSources().genericKill(), 10);
