@@ -28,6 +28,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -88,6 +89,7 @@ public class ArmoredWhaleAi {
             ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new DelayedMeleeAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 10, 60),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenTargetVisible(),
@@ -106,7 +108,7 @@ public class ArmoredWhaleAi {
                             }
                         },
                 new SplashWater<>(),
-                new Slam<>(10, 60, 19, 600),
+                new Slam<>(10, 60, 10, 600),
                 new SummonInfantry<>(200, 2),
                 new DeployMines<>(),
                 new BreakBlocksToTarget(ArmoredWhaleAi::canBreak, 20)
@@ -147,7 +149,7 @@ public class ArmoredWhaleAi {
         if (hardness < 0) return false;  // Unbreakable
         if (hardness >= 5) return false;  // Ex. Iron Block: 5, Stone: 1.5
 
-        return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.LEAVES))
+        return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES))
                 && !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
     }
 }
