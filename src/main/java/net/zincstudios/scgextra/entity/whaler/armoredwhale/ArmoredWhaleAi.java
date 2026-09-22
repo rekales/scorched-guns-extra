@@ -101,7 +101,8 @@ public class ArmoredWhaleAi {
                             }
                         },
                 new SplashWater<>(),
-                new Slam<>(10, 60, 19, 600)
+                new Slam<>(10, 60, 19, 600),
+                new SummonInfantry<>(200, 2)
             )),
             ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)

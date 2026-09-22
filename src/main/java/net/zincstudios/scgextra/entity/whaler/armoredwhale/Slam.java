@@ -11,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.zincstudios.scgextra.SCGExtra;
 
 public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
 
@@ -68,7 +67,7 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
             owner.triggerAnim("attack", "slam_down");
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
-            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20, 0, 20), (e)->!e.is(owner));
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner));
             for(LivingEntity entity : list){
                 if(owner.distanceToSqr(entity) <= 25){
                     entity.hurt(owner.damageSources().genericKill(), 10);
