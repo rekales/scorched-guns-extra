@@ -69,10 +69,10 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
             List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner));
             for(LivingEntity entity : list){
-                if(owner.distanceToSqr(entity) <= 25){
+                if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
                     entity.hurt(owner.damageSources().genericKill(), 10);
                 }
-                if(owner.distanceToSqr(entity) <= 100){
+                if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 100){
                     entity.hurt(owner.damageSources().genericKill(), 10);
                 }
             }
