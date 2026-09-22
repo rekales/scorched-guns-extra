@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
+import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
 import net.zincstudios.scgextra.entity.common.brain.ShootTargetAnimated;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
@@ -18,7 +19,9 @@ import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.common.brain.ShootTarget;
 import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -32,6 +35,8 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MAX_AIM_TICKS;
 import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
@@ -103,7 +108,8 @@ public class ArmoredWhaleAi {
                 new SplashWater<>(),
                 new Slam<>(10, 60, 19, 600),
                 new SummonInfantry<>(200, 2),
-                new DeployMines<>()
+                new DeployMines<>(),
+                new BreakBlocksToTarget(ArmoredWhaleAi::canBreak, 20)
             )),
             ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
@@ -132,5 +138,16 @@ public class ArmoredWhaleAi {
                 Activity.FIGHT,
                 Activity.IDLE
         ));
+    }
+    private static boolean canBreak(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.isAir()) return false;
+
+        float hardness = state.getDestroySpeed(level, pos);
+        if (hardness < 0) return false;  // Unbreakable
+        if (hardness >= 5) return false;  // Ex. Iron Block: 5, Stone: 1.5
+
+        return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.LEAVES))
+                && !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
     }
 }
