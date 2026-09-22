@@ -146,8 +146,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-            .add(Attributes.FOLLOW_RANGE, 64.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.35F)
+            .add(Attributes.FOLLOW_RANGE, 128.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.15F)
             .add(Attributes.ATTACK_DAMAGE, 20.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 100.0D)
             .add(Attributes.ARMOR, 8.0D)
