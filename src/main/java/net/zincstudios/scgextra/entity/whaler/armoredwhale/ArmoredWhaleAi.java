@@ -16,18 +16,13 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
-import net.zincstudios.scgextra.entity.common.brain.ShootTarget;
-import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
-import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -38,9 +33,6 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-
-import static net.zincstudios.scgextra.entity.ModBrainMemories.MAX_AIM_TICKS;
-import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
 
 public class ArmoredWhaleAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
@@ -90,7 +82,7 @@ public class ArmoredWhaleAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                new DelayedMeleeAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 10, 60),
+                new BiteAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 3, 60),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenTargetVisible(),
                 new ShootTargetAnimated(20,

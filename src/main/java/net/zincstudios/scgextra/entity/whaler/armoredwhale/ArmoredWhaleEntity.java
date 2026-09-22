@@ -67,6 +67,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     private static final Vec3 RIGHT_GUN_OFFSET = new Vec3(33/16f, 43/16f, 6/16f);
 
     public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headMiddlePart;
+    public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headFrontPart;
 
     private final PartEntity<?>[] subEntities;
 
@@ -83,10 +84,11 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .projectileFactory(MountedGunProjectileEntity::new)
             .build();
         this.headMiddlePart = new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -121/16f * -1f), 42/16f, 106/16f);
+        this.headFrontPart = new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -160/16f * -1f), 42/16f, 106/16f);
         this.subEntities = new PartEntity[] {
             //head-neck
             new RotatedWeakPointPartEntity<>(this, new Vec3(0/16f, 59/16f, -183/16f * -1f), 16/16f, 19/16f),
-            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -160/16f * -1f), 42/16f, 106/16f),
+            this.headFrontPart,
             this.headMiddlePart,
             new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -79/16f * -1f), 42/16f, 106/16f),
             //back
