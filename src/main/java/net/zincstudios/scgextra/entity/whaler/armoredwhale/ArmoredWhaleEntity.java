@@ -144,7 +144,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .add(Attributes.FOLLOW_RANGE, 64.0D)
             .add(Attributes.MOVEMENT_SPEED, 0.35F)
             .add(Attributes.ATTACK_DAMAGE, 20.0D)
-            .add(Attributes.ARMOR, 100.0D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 100.0D)
+            .add(Attributes.ARMOR, 8.0D)
             .add(Attributes.MAX_HEALTH, 800.0D);
     }
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {
