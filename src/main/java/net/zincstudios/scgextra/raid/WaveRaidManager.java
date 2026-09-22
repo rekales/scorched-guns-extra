@@ -14,6 +14,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
+import net.zincstudios.scgextra.SCGExtra;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -101,9 +102,14 @@ public class WaveRaidManager extends SavedData {
                 this.raidState.advanceWave();
                 
                 ServerPlayer player = WaveRaidUtil.findNearestPlayer(level, this.raidState.getCenter(), RAID_RADIUS);
-                Vec3 waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, raidState.getCenter(),
-                        player == null ? null : player.position());
-                if (waveCenter == null){
+                Vec3 waveCenter;
+                if (player != null) {
+                    waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, player.position(), player.position());
+                } else {
+                    waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, this.raidState.getCenter(), null);
+                }
+                if (waveCenter == null) {
+                    SCGExtra.LOGGER.warn("Can't find wave spawn location");
                     return;
                 }
                 this.raidState.spawnCurrentWaveMobs(waveCenter, WAVE_SPAWN_RADIUS, player);
