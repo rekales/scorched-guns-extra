@@ -7,12 +7,14 @@ import java.util.Set;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 
 public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
 
@@ -61,8 +63,10 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
         long hasRanFor = gameTime-(runsUntil-(this.slamUpTicks+this.airTicks+this.slamDownTicks));
         if(hasRanFor == 0){
             owner.triggerAnim("attack", "slam_up");
+            owner.playSound(WhalerSounds.ARMORED_WHALE_FINSLAP.get());
         }
         if(hasRanFor == this.slamUpTicks){
+            owner.playSound(WhalerSounds.ARMORED_WHALE_JUMP.get());
             owner.setSlamming(true);
             int seconds = airTicks/20;
             int blocks = (78*seconds)/2;
@@ -73,6 +77,7 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
         if(hasRanFor == this.slamUpTicks+this.airTicks){
             owner.setSlamming(false);
             owner.triggerAnim("attack", "slam_down");
+            owner.playSound(SoundEvents.IRON_GOLEM_STEP, 10f, 1f);
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
             Set<LivingEntity> entitiesHurt = new HashSet<>();

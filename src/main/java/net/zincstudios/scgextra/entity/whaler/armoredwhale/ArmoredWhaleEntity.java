@@ -4,6 +4,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -31,6 +32,7 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.entity.common.part.RotatedWeakPointPartEntity;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
@@ -197,6 +199,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
         super.tick();
         this.tickSubEntities();
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+            this.playSound(WhalerSounds.ARMORED_WHALE_BITE.get());
             this.triggerAnim("attack", "bite");
         }
         if(!this.level().isClientSide()){
@@ -242,5 +245,21 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
         return false;
+    }
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.ARMORED_WHALE_IDLE.get();
+    }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.ARMORED_WHALE_HURT.get();
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.ARMORED_WHALE_DEATH.get();
+    }
+    @Override
+    protected float getSoundVolume() {
+        return 5.0F;
     }
 }

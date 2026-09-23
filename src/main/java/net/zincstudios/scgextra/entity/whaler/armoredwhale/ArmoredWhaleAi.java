@@ -6,6 +6,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
 import net.zincstudios.scgextra.entity.common.brain.ShootTargetAnimated;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -97,6 +98,11 @@ public class ArmoredWhaleAi {
                                 if(entity instanceof PathfinderMob pm){
                                     pm.getNavigation().stop();
                                 }
+                            }
+                            @Override
+                            protected void start(ServerLevel level, LivingEntity entity, long gameTime) {
+                                super.start(level, entity, gameTime);
+                                entity.playSound(WhalerSounds.ARMORED_WHALE_SHOOT.get());
                             }
                         },
                 new Slam<>(10, 60, 10, 600),

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import top.ribs.scguns.entity.throwable.ThrowableGrenadeEntity;
 import top.ribs.scguns.init.ModEntities;
 
@@ -51,6 +52,7 @@ public class SplashWaterAndGrenades <T extends ArmoredWhaleEntity> extends Behav
                 level.addFreshEntity(ge);
             }
         }
+        entity.playSound(WhalerSounds.ARMORED_WHALE_SPLASH.get());
     }
 
     @Override
