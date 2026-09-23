@@ -11,14 +11,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.gun.GunDamageMult;
-import net.zincstudios.scgextra.entity.common.part.RotatedDamageMultPartEntity;
 import net.zincstudios.scgextra.sounds.FACSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -39,16 +36,11 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
     private static final RawAnimation WALK_AIM = RawAnimation.begin().thenLoop("walk_aim");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    private final PartEntity<?>[] subEntities;
 
     private DamageSource deathDamage = null;
 
     public FacTankBusterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.subEntities = new PartEntity[] {
-                new RotatedDamageMultPartEntity<>(this, 0.5F, new Vec3(0,1.35,0), 1.03F, 0.85f, false),
-                new FacTankBusterEyeSlitPartEntity<>(this, new Vec3(0,1.62,0.25), 0.8F, 0.12f),
-        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -84,28 +76,6 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
         }
         this.level().getProfiler().pop();
         super.customServerAiStep();
-    }
-
-    @Override
-    public PartEntity<?>[] getParts() {
-        return this.subEntities;
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.tickSubEntities();
-    }
-
-    protected void tickSubEntities() {
-        for(PartEntity<?> partEntity : this.getParts()) {
-            partEntity.tick();
-        }
     }
 
     @Override
