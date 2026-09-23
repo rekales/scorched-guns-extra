@@ -255,6 +255,42 @@
       "scgextra:leviathan_syndicate/pufficus/throw_net2"
     ]
   },
+  "leviathan_syndicate.turtleman.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.turtleman.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/turtleman/death"
+    ]
+  },
+  "leviathan_syndicate.turtleman.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.turtleman.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/turtleman/idle1",
+      "scgextra:leviathan_syndicate/turtleman/idle2",
+      "scgextra:leviathan_syndicate/turtleman/idle3",
+      "scgextra:leviathan_syndicate/turtleman/idle4",
+      "scgextra:leviathan_syndicate/turtleman/idle5"
+    ]
+  },
+  "leviathan_syndicate.turtleman.stun": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.turtleman.stun",
+    "sounds": [
+      "scgextra:leviathan_syndicate/turtleman/stun"
+    ]
+  },
+  "leviathan_syndicate.turtleman.walk": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.turtleman.walk",
+    "sounds": [
+      "scgextra:leviathan_syndicate/turtleman/walk1",
+      "scgextra:leviathan_syndicate/turtleman/walk2",
+      "scgextra:leviathan_syndicate/turtleman/walk3",
+      "scgextra:leviathan_syndicate/turtleman/walk4",
+      "scgextra:leviathan_syndicate/turtleman/walk5"
+    ]
+  },
   "guardian_statue_charge": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.guardian_statue_charge",

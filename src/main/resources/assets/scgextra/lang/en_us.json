@@ -318,6 +318,10 @@
   "scgextra.subtitle.leviathan_syndicate.pufficus.hurt": "Pufficus Hurts",
   "scgextra.subtitle.leviathan_syndicate.pufficus.idle": "Pufficus Groans",
   "scgextra.subtitle.leviathan_syndicate.pufficus.throw_net": "Pufficus Throws Net",
+  "scgextra.subtitle.leviathan_syndicate.turtleman.death": "Turtleman Dies",
+  "scgextra.subtitle.leviathan_syndicate.turtleman.idle": "Turtleman Groans",
+  "scgextra.subtitle.leviathan_syndicate.turtleman.stun": "Turtleman Stunned",
+  "scgextra.subtitle.leviathan_syndicate.turtleman.walk": "Turtleman Noises",
   "scgextra.subtitle.guardian_statue_charge": "Guardian statue charge Charges",
   
   "scgextra.subtitle.tallman.walk": "Tallman Walking",
