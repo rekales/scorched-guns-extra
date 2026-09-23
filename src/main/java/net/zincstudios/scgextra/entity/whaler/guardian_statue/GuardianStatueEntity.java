@@ -8,8 +8,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -29,6 +31,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
+
 import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -196,6 +200,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         }
         super.setTarget(target);
         this.entityData.set(TARGET_ID, target == null ? 0 : target.getId());
+        this.playSound(WhalerSounds.GUARDIAN_STATUE_AGGRO.get());
     }
 
     @Override
@@ -457,5 +462,17 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
             if (dir == Direction.UP || dir == Direction.DOWN) return Direction.NORTH;
             return dir;
         }
+    }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.GUARDIAN_STATUE_HURT.get();
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.GUARDIAN_STATUE_DEATH.get();
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(WhalerSounds.GUARDIAN_STATUE_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
 }

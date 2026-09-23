@@ -291,11 +291,46 @@
       "scgextra:leviathan_syndicate/turtleman/walk5"
     ]
   },
-  "guardian_statue_charge": {
+  "leviathan_syndicate.guardian_statue.aggro": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.guardian_statue_charge",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.guardian_statue.aggro",
     "sounds": [
-      "scgextra:guardian_statue_charge"
+      "scgextra:leviathan_syndicate/guardian_statue/aggro"
+    ]
+  },
+  "leviathan_syndicate.guardian_statue.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.guardian_statue.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/guardian_statue/death"
+    ]
+  },
+  "leviathan_syndicate.guardian_statue.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.guardian_statue.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/guardian_statue/hurt1",
+      "scgextra:leviathan_syndicate/guardian_statue/hurt2",
+      "scgextra:leviathan_syndicate/guardian_statue/hurt3"
+    ]
+  },
+  "leviathan_syndicate.guardian_statue.laser": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.guardian_statue.laser",
+    "sounds": [
+      "scgextra:leviathan_syndicate/guardian_statue/laser1",
+      "scgextra:leviathan_syndicate/guardian_statue/laser2"
+    ]
+  },
+  "leviathan_syndicate.guardian_statue.walk": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.guardian_statue.walk",
+    "sounds": [
+      "scgextra:leviathan_syndicate/guardian_statue/walk1",
+      "scgextra:leviathan_syndicate/guardian_statue/walk2",
+      "scgextra:leviathan_syndicate/guardian_statue/walk3",
+      "scgextra:leviathan_syndicate/guardian_statue/walk4",
+      "scgextra:leviathan_syndicate/guardian_statue/walk5"
     ]
   },
   "drone.death": {

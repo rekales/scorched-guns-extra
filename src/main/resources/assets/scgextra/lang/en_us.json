@@ -322,7 +322,11 @@
   "scgextra.subtitle.leviathan_syndicate.turtleman.idle": "Turtleman Groans",
   "scgextra.subtitle.leviathan_syndicate.turtleman.stun": "Turtleman Stunned",
   "scgextra.subtitle.leviathan_syndicate.turtleman.walk": "Turtleman Noises",
-  "scgextra.subtitle.guardian_statue_charge": "Guardian statue charge Charges",
+  "scgextra.subtitle.leviathan_syndicate.guardian_statue.aggro": "Guardian statue Angry",
+  "scgextra.subtitle.leviathan_syndicate.guardian_statue.death": "Guardian statue Dies",
+  "scgextra.subtitle.leviathan_syndicate.guardian_statue.hurt": "Guardian statue Hurts",
+  "scgextra.subtitle.leviathan_syndicate.guardian_statue.laser": "Guardian statue Laser Beam",
+  "scgextra.subtitle.leviathan_syndicate.guardian_statue.walk": "Guardian statue Moving",
   
   "scgextra.subtitle.tallman.walk": "Tallman Walking",
   "scgextra.subtitle.tallman.idle": "Tallman Groans",

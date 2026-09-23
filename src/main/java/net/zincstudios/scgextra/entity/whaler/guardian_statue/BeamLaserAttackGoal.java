@@ -70,7 +70,7 @@ public class BeamLaserAttackGoal extends Goal {
             this.mob.level().playSound(
                 this.mob, 
                 this.mob.blockPosition(), 
-                WhalerSounds.GUARDIAN_STATUE_CHARGE.get(), 
+                WhalerSounds.GUARDIAN_STATUE_LASER.get(), 
                 SoundSource.MASTER, 
                 2.0F, 
                 1.0F

@@ -108,8 +108,20 @@ public class WhalerSounds {
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.turtleman.stun")));
 
 
-    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_CHARGE = SOUND_EVENTS.register("guardian_statue_charge", 
-        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("guardian_statue_charge")));
+    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_DEATH = SOUND_EVENTS.register("leviathan_syndicate.guardian_statue.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.guardian_statue.death")));
+
+    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_WALK = SOUND_EVENTS.register("leviathan_syndicate.guardian_statue.walk", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.guardian_statue.walk")));
+    
+    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_AGGRO = SOUND_EVENTS.register("leviathan_syndicate.guardian_statue.aggro", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.guardian_statue.aggro")));
+    
+    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_HURT = SOUND_EVENTS.register("leviathan_syndicate.guardian_statue.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.guardian_statue.hurt")));
+    
+    public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_LASER = SOUND_EVENTS.register("leviathan_syndicate.guardian_statue.laser", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.guardian_statue.laser")));
 
     public static void init() {}
 }
