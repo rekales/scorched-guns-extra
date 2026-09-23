@@ -95,6 +95,19 @@ public class WhalerSounds {
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.pufficus.throw_net")));
 
 
+    public static final RegistryObject<SoundEvent> TURTLEMAN_DEATH = SOUND_EVENTS.register("leviathan_syndicate.turtleman.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.turtleman.death")));
+
+    public static final RegistryObject<SoundEvent> TURTLEMAN_WALK = SOUND_EVENTS.register("leviathan_syndicate.turtleman.walk", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.turtleman.walk")));
+    
+    public static final RegistryObject<SoundEvent> TURTLEMAN_IDLE = SOUND_EVENTS.register("leviathan_syndicate.turtleman.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.turtleman.idle")));
+    
+    public static final RegistryObject<SoundEvent> TURTLEMAN_STUN = SOUND_EVENTS.register("leviathan_syndicate.turtleman.stun", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.turtleman.stun")));
+
+
     public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_CHARGE = SOUND_EVENTS.register("guardian_statue_charge", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("guardian_statue_charge")));
 
