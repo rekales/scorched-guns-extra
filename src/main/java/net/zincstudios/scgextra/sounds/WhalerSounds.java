@@ -14,6 +14,9 @@ public class WhalerSounds {
     public static final RegistryObject<SoundEvent> FISH_FOLK_HURT = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.hurt", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.hurt")));
     
+    public static final RegistryObject<SoundEvent> FISH_FOLK_ATTACK = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.attack", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.attack")));
+    
     public static final RegistryObject<SoundEvent> FISH_FOLK_DEATH = SOUND_EVENTS.register("leviathan_syndicate.fish_folk.death", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.fish_folk.death")));
 

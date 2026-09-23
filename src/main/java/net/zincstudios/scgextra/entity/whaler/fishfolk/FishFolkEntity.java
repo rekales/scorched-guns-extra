@@ -3,8 +3,10 @@ package net.zincstudios.scgextra.entity.whaler.fishfolk;
 import com.mojang.serialization.Dynamic;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidType;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
@@ -178,5 +181,10 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     protected SoundEvent getDeathSound() {
         return WhalerSounds.FISH_FOLK_DEATH.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.DROWNED_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
 }
