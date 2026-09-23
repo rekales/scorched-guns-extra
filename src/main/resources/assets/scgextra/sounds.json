@@ -125,20 +125,81 @@
       "scgextra:leviathan_syndicate/lion_fish/lion_fish_attack3"
     ]
   },
-  "armored_whale_slam": {
+  "leviathan_syndicate.armored_whale.bite": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.armored_whale_slam",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.bite",
     "sounds": [
-      "scgextra:armored_whale_slam_1",
-      "scgextra:armored_whale_slam_2"
+      "scgextra:leviathan_syndicate/armored_whale/bite1",
+      "scgextra:leviathan_syndicate/armored_whale/bite2",
+      "scgextra:leviathan_syndicate/armored_whale/bite3",
+      "scgextra:leviathan_syndicate/armored_whale/bite4",
+      "scgextra:leviathan_syndicate/armored_whale/bite5",
+      "scgextra:leviathan_syndicate/armored_whale/bite6",
+      "scgextra:leviathan_syndicate/armored_whale/bite7",
+      "scgextra:leviathan_syndicate/armored_whale/bite8",
+      "scgextra:leviathan_syndicate/armored_whale/bite9",
+      "scgextra:leviathan_syndicate/armored_whale/bite10"
     ]
   },
-  "armored_whale_splash": {
+  "leviathan_syndicate.armored_whale.death": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.armored_whale_splash",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.death",
     "sounds": [
-      "scgextra:armored_whale_splash_1",
-      "scgextra:armored_whale_splash_2"
+      "scgextra:leviathan_syndicate/armored_whale/death1",
+      "scgextra:leviathan_syndicate/armored_whale/death2",
+      "scgextra:leviathan_syndicate/armored_whale/death3"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.finslap": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.finslap",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/finslap"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/hurt1",
+      "scgextra:leviathan_syndicate/armored_whale/hurt2",
+      "scgextra:leviathan_syndicate/armored_whale/hurt3",
+      "scgextra:leviathan_syndicate/armored_whale/hurt4",
+      "scgextra:leviathan_syndicate/armored_whale/hurt5"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/idle1",
+      "scgextra:leviathan_syndicate/armored_whale/idle2",
+      "scgextra:leviathan_syndicate/armored_whale/idle3"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.jump": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.jump",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/jump1",
+      "scgextra:leviathan_syndicate/armored_whale/jump2",
+      "scgextra:leviathan_syndicate/armored_whale/jump3"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.shoot": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.shoot",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/shoot1",
+      "scgextra:leviathan_syndicate/armored_whale/shoot2",
+      "scgextra:leviathan_syndicate/armored_whale/shoot3"
+    ]
+  },
+  "leviathan_syndicate.armored_whale.splash": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.armored_whale.splash",
+    "sounds": [
+      "scgextra:leviathan_syndicate/armored_whale/splash"
     ]
   },
   "guardian_statue_charge": {

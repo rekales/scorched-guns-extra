@@ -54,12 +54,30 @@ public class WhalerSounds {
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.lion_fish.death")));
 
 
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_BITE = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.bite", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.bite")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_DEATH = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.death")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_FINSLAP = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.finslap", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.finslap")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_HURT = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.hurt")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_IDLE = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.idle")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_JUMP = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.jump", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.jump")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_SHOOT = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.shoot", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.shoot")));
+    
+    public static final RegistryObject<SoundEvent> ARMORED_WHALE_SPLASH = SOUND_EVENTS.register("leviathan_syndicate.armored_whale.splash", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.splash")));
 
-    public static final RegistryObject<SoundEvent> WHALE_SLAM = SOUND_EVENTS.register("armored_whale_slam", 
-        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("armored_whale_slam")));
-
-    public static final RegistryObject<SoundEvent> WHALE_SPLASH = SOUND_EVENTS.register("armored_whale_splash", 
-        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("armored_whale_splash")));
 
     public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_CHARGE = SOUND_EVENTS.register("guardian_statue_charge", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("guardian_statue_charge")));
