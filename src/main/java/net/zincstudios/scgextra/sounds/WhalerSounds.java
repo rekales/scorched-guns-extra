@@ -79,6 +79,19 @@ public class WhalerSounds {
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.armored_whale.splash")));
 
 
+    public static final RegistryObject<SoundEvent> PUFFICUS_DEATH = SOUND_EVENTS.register("leviathan_syndicate.pufficus.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.pufficus.death")));
+
+    public static final RegistryObject<SoundEvent> PUFFICUS_HURT = SOUND_EVENTS.register("leviathan_syndicate.pufficus.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.pufficus.hurt")));
+    
+    public static final RegistryObject<SoundEvent> PUFFICUS_IDLE = SOUND_EVENTS.register("leviathan_syndicate.pufficus.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.pufficus.idle")));
+    
+    public static final RegistryObject<SoundEvent> PUFFICUS_THROW_NET = SOUND_EVENTS.register("leviathan_syndicate.pufficus.throw_net", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("leviathan_syndicate.pufficus.throw_net")));
+
+
     public static final RegistryObject<SoundEvent> GUARDIAN_STATUE_CHARGE = SOUND_EVENTS.register("guardian_statue_charge", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("guardian_statue_charge")));
 

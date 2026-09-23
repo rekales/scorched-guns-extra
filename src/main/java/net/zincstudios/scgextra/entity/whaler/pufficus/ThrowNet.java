@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntity;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
@@ -88,6 +89,7 @@ public class ThrowNet extends Behavior<LivingEntity>{
         LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
         if (mob.getBrain().getMemory(ModBrainMemories.NET_TICKS.get()).get() == gameTime
                 && mob.position().closerThan(target.position(), (mob.getBbWidth()/2 + this.range) * 1.2)) {            
+            mob.playSound(WhalerSounds.PUFFICUS_THROW_NET.get());
             AbstractArrow net = new NetEntity(mob, level);
             double d0 = target.getX() - mob.getX();
             double d1 = target.getY(0.3333333333333333) - net.getY();

@@ -6,9 +6,13 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.AmphibiousMoveControl;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,6 +24,7 @@ import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.fluids.FluidType;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -153,5 +158,25 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     }
     protected PathNavigation createNavigation(Level level) {
         return new AmphibiousPathNavigation(this, level);
+    }
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.PUFFICUS_IDLE.get();
+    }
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.PUFFICUS_HURT.get();
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.PUFFICUS_DEATH.get();
+    }
+    @Override
+    protected float getSoundVolume() {
+        return super.getSoundVolume() * 2f;
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.DROWNED_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
 }

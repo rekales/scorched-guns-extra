@@ -313,6 +313,10 @@
   "scgextra.subtitle.leviathan_syndicate.armored_whale.jump": "Armored whale Noises",
   "scgextra.subtitle.leviathan_syndicate.armored_whale.shoot": "Armored whale Shooting",
   "scgextra.subtitle.leviathan_syndicate.armored_whale.splash": "Armored whale Splashes",
+  "scgextra.subtitle.leviathan_syndicate.pufficus.death": "Pufficus Dies",
+  "scgextra.subtitle.leviathan_syndicate.pufficus.hurt": "Pufficus Hurts",
+  "scgextra.subtitle.leviathan_syndicate.pufficus.idle": "Pufficus Groans",
+  "scgextra.subtitle.leviathan_syndicate.pufficus.throw_net": "Pufficus Throws Net",
   "scgextra.subtitle.guardian_statue_charge": "Guardian statue charge Charges",
   
   "scgextra.subtitle.tallman.walk": "Tallman Walking",

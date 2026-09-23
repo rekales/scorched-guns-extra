@@ -202,6 +202,41 @@
       "scgextra:leviathan_syndicate/armored_whale/splash"
     ]
   },
+  "leviathan_syndicate.pufficus.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.pufficus.death",
+    "sounds": [
+      "scgextra:leviathan_syndicate/pufficus/dead1",
+      "scgextra:leviathan_syndicate/pufficus/dead2",
+      "scgextra:leviathan_syndicate/pufficus/dead3"
+    ]
+  },
+  "leviathan_syndicate.pufficus.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.pufficus.hurt",
+    "sounds": [
+      "scgextra:leviathan_syndicate/pufficus/hurt1",
+      "scgextra:leviathan_syndicate/pufficus/hurt2",
+      "scgextra:leviathan_syndicate/pufficus/hurt3"
+    ]
+  },
+  "leviathan_syndicate.pufficus.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.pufficus.idle",
+    "sounds": [
+      "scgextra:leviathan_syndicate/pufficus/idle1",
+      "scgextra:leviathan_syndicate/pufficus/idle2",
+      "scgextra:leviathan_syndicate/pufficus/idle3"
+    ]
+  },
+  "leviathan_syndicate.pufficus.throw_net": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.leviathan_syndicate.pufficus.throw_net",
+    "sounds": [
+      "scgextra:leviathan_syndicate/pufficus/throw_net1",
+      "scgextra:leviathan_syndicate/pufficus/throw_net2"
+    ]
+  },
   "guardian_statue_charge": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.guardian_statue_charge",
