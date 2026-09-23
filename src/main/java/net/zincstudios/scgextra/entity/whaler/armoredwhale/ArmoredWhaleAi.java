@@ -63,7 +63,7 @@ public class ArmoredWhaleAi {
     );
 
     public static <T extends ArmoredWhaleEntity> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreWithStunActivity(brain, MobUtil.DEFAULT_STUN_DURATION);
+        BrainCommons.initCoreActivity(brain);
         BrainCommons.initIdleActivity(brain);
         initFightActivity(mob, brain);
         initSplashActivity(brain);
