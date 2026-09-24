@@ -3,6 +3,10 @@
     {
       "structure": "scgextra:trenches",
       "weight": 1
+    },
+    {
+      "structure": "scgextra:bunker_trenches",
+      "weight": 1
     }
   ],
   "placement": {

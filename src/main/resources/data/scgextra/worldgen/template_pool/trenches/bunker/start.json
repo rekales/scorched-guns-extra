@@ -1,0 +1,33 @@
+{
+  "name": "scgextra:trenches/bunker/start",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/start_top",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/start_stairs",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/start_end",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
