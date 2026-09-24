@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:jigsaw",
+  "type": "scgextra:trenches_anchor_structure",
   "start_pool": "scgextra:trenches/bunker/start",
   "start_jigsaw_name": "scgextra:trenches/bunker/start_top",
   "size": 7,
