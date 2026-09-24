@@ -6,7 +6,28 @@
       "weight": 1,
       "element": {
         "location": "scgextra:trenches/bunker/start_top",
-        "processors": "scgextra:warship_processor",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -15,7 +36,28 @@
       "weight": 1,
       "element": {
         "location": "scgextra:trenches/bunker/start_stairs",
-        "processors": "scgextra:warship_processor",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
@@ -24,7 +66,28 @@
       "weight": 1,
       "element": {
         "location": "scgextra:trenches/bunker/start_end",
-        "processors": "scgextra:warship_processor",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

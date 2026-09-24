@@ -11,6 +11,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -26,6 +43,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -41,6 +75,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -56,6 +107,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -71,6 +139,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -86,6 +171,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -101,6 +203,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -116,6 +235,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
@@ -131,6 +267,23 @@
             "processor_type": "minecraft:gravity",
             "heightmap": "WORLD_SURFACE",
             "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
           }
         ],
         "projection": "rigid",
