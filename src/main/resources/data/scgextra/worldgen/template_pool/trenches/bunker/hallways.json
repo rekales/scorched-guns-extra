@@ -57,7 +57,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 1,
       "element": {
         "location": "scgextra:trenches/bunker/hallway7",
         "processors": "scgextra:warship_processor",
