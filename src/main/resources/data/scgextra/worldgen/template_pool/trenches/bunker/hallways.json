@@ -3,7 +3,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 3,
       "element": {
         "location": "scgextra:trenches/bunker/hallway1",
         "processors": "scgextra:warship_processor",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 3,
       "element": {
         "location": "scgextra:trenches/bunker/hallway2",
         "processors": "scgextra:warship_processor",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 3,
       "element": {
         "location": "scgextra:trenches/bunker/hallway3",
         "processors": "scgextra:warship_processor",
@@ -57,7 +57,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 3,
       "element": {
         "location": "scgextra:trenches/bunker/hallway7",
         "processors": "scgextra:warship_processor",
