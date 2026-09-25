@@ -1,0 +1,33 @@
+{
+  "name": "scgextra:trenches/bunker/start_hallways",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 3,
+      "element": {
+        "location": "scgextra:trenches/bunker/hallway1",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "scgextra:trenches/bunker/hallway2",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "scgextra:trenches/bunker/hallway3",
+        "processors": "scgextra:warship_processor",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
