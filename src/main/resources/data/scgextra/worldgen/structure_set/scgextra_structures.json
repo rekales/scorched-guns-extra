@@ -67,6 +67,10 @@
     {
       "structure": "scgextra:leviathan_submarine",
       "weight": 2
+    },
+    {
+      "structure": "scgextra:leviathan_mining_site",
+      "weight": 2
     }
   ],
   "placement": {

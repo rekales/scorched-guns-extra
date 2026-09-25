@@ -1,0 +1,24 @@
+{
+  "name": "scgextra:leviathan_mining_site",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "scgextra:leviathan_mining_site/leviathan_mining_site",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -6
+          }
+        ]
+      }
+    }
+  ]
+}
