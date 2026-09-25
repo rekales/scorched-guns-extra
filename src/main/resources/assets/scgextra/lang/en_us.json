@@ -232,6 +232,8 @@
   "block.scgextra.wrecker_turret.ammo_type": "Ammo: %s",
   "block.scgextra.wrecker_turret.desc": "Interact to mount",
   "block.scgextra.wrecker_turret.occupied": "Someone else is already manning this turret.",
+  
+  "block.scgextra.mob_spawner": "Leviathan Mobs Spawner",
 
 
   "effect.scgextra.ink_effect":  "Ink Effect",

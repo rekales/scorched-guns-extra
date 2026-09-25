@@ -63,6 +63,10 @@
     {
       "structure": "scgextra:asghar_soul_forge",
       "weight": 2
+    },
+    {
+      "structure": "scgextra:leviathan_submarine",
+      "weight": 2
     }
   ],
   "placement": {
