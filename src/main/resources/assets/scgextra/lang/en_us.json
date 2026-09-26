@@ -479,5 +479,7 @@
   "scgextra.subtitle.netherite_eater.hurt": "Netherite eater Hurts",
   "scgextra.subtitle.ammo_goblin.idle": "Ammo goblin Groans",
   "scgextra.subtitle.mutant_bat.hurt": "Mutant bat Hurts",
-  "scgextra.subtitle.end_stone_crab.death": "End stone crab Dies"
+  "scgextra.subtitle.end_stone_crab.death": "End stone crab Dies",
+
+  "biome.scgextra.warzone_biome": "Warzone"
 }

@@ -34,7 +34,7 @@ public class TrenchesAnchorStructure extends Structure {
                     Codec.BOOL.fieldOf("use_expansion_hack").forGetter((p_227646_) -> p_227646_.useExpansionHack),
                     Types.CODEC.optionalFieldOf("project_start_to_heightmap")
                             .forGetter((p_227644_) -> p_227644_.projectStartToHeightmap),
-                    Codec.intRange(1, 256).fieldOf("max_distance_from_center")
+                    Codec.intRange(1, 1024).fieldOf("max_distance_from_center")
                             .forGetter((p_227642_) -> p_227642_.maxDistanceFromCenter))
                     .apply(p_227640_, TrenchesAnchorStructure::new)), TrenchesAnchorStructure::verifyRange)
             .codec();

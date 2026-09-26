@@ -1,0 +1,149 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gas_grenade"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:grenade"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gunpowder_dust"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:iron_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:anthralite_ingot"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:compact_advanced_round"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:advanced_round"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:microjet"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:blueprint_scrap"
+        }
+      ],
+      "rolls": 4,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": 4,
+          "add": true
+        }
+      ],
+      "conditions": []
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:copper_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:iron_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:wrecker_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:treated_brass_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:diamond_steel_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:blueprint_scrap",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "scgextra:chests/scgextra_default"
+        }
+      ],
+      "rolls": 1,
+      "functions": [],
+      "conditions": []
+    }
+  ],
+  "functions": []
+}
