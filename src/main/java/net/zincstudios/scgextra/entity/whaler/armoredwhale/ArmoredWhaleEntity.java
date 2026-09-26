@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -140,7 +141,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
 
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
-        return this.isLeft() ? LEFT_GUN_OFFSET : RIGHT_GUN_OFFSET;
+        return this.isLeft() ? LEFT_GUN_OFFSET.yRot(-this.yBodyRot * Mth.DEG_TO_RAD) : RIGHT_GUN_OFFSET.yRot(-this.yBodyRot * Mth.DEG_TO_RAD);
     }
 
     @Override
