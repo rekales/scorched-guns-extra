@@ -4,19 +4,19 @@
   "spawners": [
     {
       "type": "scgextra:ammo_goblin",
-      "weight": 80,
+      "weight": 50,
       "minCount": 1,
       "maxCount": 1
     },
     {
       "type": "scgextra:big_lump",
-      "weight": 2,
+      "weight": 10,
       "minCount": 1,
       "maxCount": 1
     },
     {
       "type": "scgextra:mutant_bat",
-      "weight": 2,
+      "weight": 10,
       "minCount": 1,
       "maxCount": 1
     }

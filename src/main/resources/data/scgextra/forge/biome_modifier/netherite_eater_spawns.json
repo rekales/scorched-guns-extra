@@ -4,7 +4,7 @@
   "spawners": [
     {
       "type": "scgextra:netherite_eater",
-      "weight": 1,
+      "weight": 5,
       "minCount": 1,
       "maxCount": 1
     }
