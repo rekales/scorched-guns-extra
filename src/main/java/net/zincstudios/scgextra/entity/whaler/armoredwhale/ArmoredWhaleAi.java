@@ -24,6 +24,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -63,7 +65,7 @@ public class ArmoredWhaleAi {
     );
 
     public static <T extends ArmoredWhaleEntity> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreActivity(brain);
+        initCoreActivity(brain);
         BrainCommons.initIdleActivity(brain);
         initFightActivity(mob, brain);
         initSplashActivity(brain);
@@ -148,5 +150,15 @@ public class ArmoredWhaleAi {
 
         return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES))
                 && !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
+    }
+    public static void initCoreActivity(Brain<? extends Mob> brain) {
+        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+                new LookAtTargetSink(45, 90){
+                    protected void tick(ServerLevel level, Mob owner, long gameTime) {
+                        owner.getBrain().getMemory(MemoryModuleType.LOOK_TARGET).ifPresent((p_23486_) -> owner.getLookControl().setLookAt(p_23486_.currentPosition().x, p_23486_.currentPosition().y, p_23486_.currentPosition().z, 2, 2));
+                    }
+                },
+                new MoveToTargetSink()
+        ));
     }
 }
