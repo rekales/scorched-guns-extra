@@ -19,6 +19,7 @@ import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
 import net.zincstudios.scgextra.entity.common.brain.*;
+import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 import net.zincstudios.scgextra.entity.fac.lion.WeaponRangeOverride;
 
 public class TurtlemanAi {
@@ -76,10 +77,11 @@ public class TurtlemanAi {
                 ImmutableList.of(
                         StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                         AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                        new WeaponRangeOverride(9, 12),
+                        new WeaponRangeOverride(9, 14),
                         new ApproachTargetIfCannotAim(1.0F),
                         new AimWhenNotWalking(),
-                        new ShootTarget(30, 1.6F)
+                        new ShootTarget(30, (simGun, entity) -> 1.6F, entity -> true,
+                                new IntervalTriggerSampler(40, 60, 1, 5))
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 ), ImmutableSet.of()
