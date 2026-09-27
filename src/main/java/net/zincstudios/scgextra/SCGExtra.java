@@ -6,6 +6,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.zincstudios.scgextra.block.ModBlockEntities;
 import net.zincstudios.scgextra.block.ModBlocks;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
+import net.zincstudios.scgextra.data.CraterDataLoader;
 import net.zincstudios.scgextra.data.RaidDataLoader;
 import net.zincstudios.scgextra.datagen.DataGenerators;
 import net.zincstudios.scgextra.debug.DevTestCommands;
@@ -54,6 +55,7 @@ import net.zincstudios.scgextra.sounds.ModSounds;
 import net.zincstudios.scgextra.worldgen.biome.ModBiomes;
 import net.zincstudios.scgextra.worldgen.biome.ModTerrablender;
 import net.zincstudios.scgextra.worldgen.biome.surface.ModSurfaceRules;
+import net.zincstudios.scgextra.worldgen.features.ModFeatures;
 import net.zincstudios.scgextra.worldgen.structure.ModStructureProcessors;
 import net.zincstudios.scgextra.worldgen.structure.ModStructures;
 import terrablender.api.SurfaceRuleManager;
@@ -81,6 +83,7 @@ public class SCGExtra
         ModBlockEntities.register(modEventBus);
         ModStructures.register(modEventBus);
         ModStructureProcessors.register(modEventBus);
+        ModFeatures.register(modEventBus);
 
         SCGEAttributes.register(modEventBus);
 
@@ -95,6 +98,7 @@ public class SCGExtra
         MinecraftForge.EVENT_BUS.addListener(WaveRaidManager::onLevelLoad);
         MinecraftForge.EVENT_BUS.addListener(Faction::onTagsUpdated);
         MinecraftForge.EVENT_BUS.addListener(RaidDataLoader::onAddReloadListeners);
+        MinecraftForge.EVENT_BUS.addListener(CraterDataLoader::onAddReloadListeners);
         MinecraftForge.EVENT_BUS.addListener(DevTestCommands::registerCommands);
 
         modEventBus.addListener(DataGenerators::gatherData);

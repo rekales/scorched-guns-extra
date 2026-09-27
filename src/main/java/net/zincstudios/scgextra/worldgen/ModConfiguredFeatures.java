@@ -16,6 +16,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.TreeConfiguration;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.worldgen.features.ModFeatures;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 
 public class ModConfiguredFeatures {
@@ -33,6 +35,7 @@ public class ModConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> GRAVEL_PATCH_KEY = registerKey("gravel_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GRASS_PATCH_KEY = registerKey("grass_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> GRASS_PATCH_TALL_KEY = registerKey("grass_patch_tall");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CRATERS_KEY = registerKey("craters_feature");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
 
@@ -73,6 +76,12 @@ public class ModConfiguredFeatures {
                 3, 
                 PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TALL_GRASS.defaultBlockState().trySetValue(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER))))
             )
+        );
+        register(
+            context, 
+            CRATERS_KEY, 
+            ModFeatures.CRATERS_FEATURE.get(), 
+            NoneFeatureConfiguration.INSTANCE
         );
     }
 

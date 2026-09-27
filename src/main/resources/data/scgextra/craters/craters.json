@@ -1,0 +1,100 @@
+{
+    "craters":[
+        {
+            "name": "scgextra:craters/crater_1",
+            "gravity": -7
+        },
+        {
+            "name": "scgextra:craters/crater_2",
+            "gravity": -5
+        },
+        {
+            "name": "scgextra:craters/crater_3",
+            "gravity": -5
+        },
+        {
+            "name": "scgextra:craters/crater_4",
+            "gravity": -5
+        },
+        {
+            "name": "scgextra:craters/crater_5",
+            "gravity": -7
+        },
+        {
+            "name": "scgextra:craters/crater_6",
+            "gravity": -5
+        },
+        {
+            "name": "scgextra:craters/crater_7",
+            "gravity": -5
+        },
+        {
+            "name": "scgextra:craters/crater_8",
+            "gravity": -6
+        },
+        {
+            "name": "scgextra:craters/crater_9",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_10",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_11",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_12",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_13",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_14",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_15",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_16",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_17",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_18",
+            "gravity": -1
+        },
+        {
+            "name": "scgextra:craters/crater_19",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_20",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_21",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_22",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_23",
+            "gravity": -2
+        },
+        {
+            "name": "scgextra:craters/crater_24",
+            "gravity": -2
+        }
+    ]
+}
