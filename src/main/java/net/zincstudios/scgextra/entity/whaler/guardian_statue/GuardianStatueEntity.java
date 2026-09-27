@@ -1,5 +1,6 @@
 package net.zincstudios.scgextra.entity.whaler.guardian_statue;
 
+import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.Faction;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -9,13 +10,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -31,6 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 
 import org.joml.Vector3f;
@@ -49,9 +49,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Supplier;
 
-// NOTE: maybe make an abstract class that automatically gives access to the target entity in client if it gets common enough
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class GuardianStatueEntity extends Monster implements GeoEntity {
@@ -69,6 +67,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     public static final RawAnimation EYE_FLASH = RawAnimation.begin().then("effect.eye_flash", Animation.LoopType.PLAY_ONCE);
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final PartEntity<?>[] subEntities;
 
     @Nonnull
     private Direction prefferedDirection = Direction.NORTH;
@@ -76,18 +75,16 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     @Nullable
     private LivingEntity clientSideCachedTarget;
 
-    private final GuardianStatuePart[] subEntities;
-
     public GuardianStatueEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.subEntities = new RotatedSegmentPartEntity[] {
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 0, 0), 3f, 2f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 2, 0), 1.5f, 4.5f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1, 4.3, 0), 1f, 0.8f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1.7, 4.35, 0), 0.8f, 0.7f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(-1.1, 4.3, 0), 1f, 0.8f, true),
+        };
         this.setPersistenceRequired();
-        GuardianStatuePart eye = new GuardianStatuePart(this, "eye", 1F, 0.5F);
-        GuardianStatuePart body = new GuardianStatuePart(this, "body", 1.6F, 4.15F);
-        GuardianStatuePart l_fin = new GuardianStatuePart(this, "l_fin", 1F, 0.8F);
-        GuardianStatuePart r_fin = new GuardianStatuePart(this, "r_fin", 1F, 0.8F);
-        GuardianStatuePart base = new GuardianStatuePart(this, "base", 3F, 2F);
-        GuardianStatuePart head = new GuardianStatuePart(this, "head", 1.3F, 1.5F);
-        this.subEntities = new GuardianStatuePart[]{ eye, body, l_fin, r_fin, base, head };
     }
 
     @Override
@@ -134,8 +131,26 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     }
 
     @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
 
         if (!this.level().isClientSide) {
             // Centering the entity to the block, only first few seconds for alignment
@@ -158,7 +173,12 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
                 checkShouldDeleteSelf();
             }
         }
-        updateSubentities();
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
     }
 
     @Override
@@ -363,70 +383,6 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
             if(prismarineBricksCount>300){
                 this.remove(RemovalReason.DISCARDED);
             }
-        }
-    }
-
-    @SuppressWarnings("unused")
-    public GuardianStatuePart[] getSubEntities() {
-        return this.subEntities;
-    }
-
-    @Override
-    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
-        return this.subEntities;
-    }
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
-    }
-    public void updateSubentities(){
-        for (GuardianStatuePart part : this.subEntities) {
-            part.xo = part.getX();
-            part.yo = part.getY();
-            part.zo = part.getZ();
-            part.xOld = part.getX();
-            part.yOld = part.getY();
-            part.zOld = part.getZ();
-        }
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        float[] offsets = new float[] { 0.6f, 0F, 0F, 0F, 0F, 0F };
-        float[] lateralOffsets = new float[] { 0F, 0F, 1.5f, -1.3F, 0F, 0F };
-        double yawRad = Math.toRadians(this.getYRot());
-        if(this.yHeadRotO!=this.yHeadRot){
-            yawRad = Math.toRadians(this.getYHeadRot());
-        }else if(this.yBodyRotO!=this.yBodyRot){
-            yawRad = Math.toRadians(this.yBodyRot);
-        }
-        for (int i = 0; i < this.subEntities.length; i++) {
-            GuardianStatuePart part = this.subEntities[i];
-            float fDistance = offsets[i];
-            float lateral = lateralOffsets[i];
-
-            double offsetX = -Math.sin(yawRad) * fDistance + Math.cos(yawRad) * lateral;
-            double offsetZ =  Math.cos(yawRad) * fDistance + Math.sin(yawRad) * lateral;
-            //eye
-            if(i==0){
-                part.setPosRaw(x + offsetX, y+5.7, z + offsetZ);
-            }
-            //body
-            else if(i == 1){
-                part.setPosRaw(x + offsetX, y+1, z + offsetZ);
-            }
-            //l_fin && r_fin
-            else if(i == 2 || i == 3){
-                part.setPosRaw(x + offsetX, y+4.33, z + offsetZ);
-            }
-            //head
-            else if(i == 5){
-                part.setPosRaw(x + offsetX, y+5, z + offsetZ);
-            }
-            else{
-                part.setPosRaw(x + offsetX, y, z + offsetZ);
-            }
-            part.setOldPosAndRot();
-            part.refreshDimensions();
         }
     }
 
