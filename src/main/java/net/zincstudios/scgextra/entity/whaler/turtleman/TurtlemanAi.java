@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.whaler.turtleman;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
 import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
@@ -70,14 +72,18 @@ public class TurtlemanAi {
     }
 
     public static <T extends PathfinderMob> void initFightActivity(T mob, Brain<T> brain) {
-        brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
-                StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
-                AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                new WeaponRangeOverride(9, 12),
-                new ApproachTargetIfCannotAim(1.0F),
-                new AimWhenNotWalking(),
-                new ShootTarget(30, 1.6F)
-        ), MemoryModuleType.ATTACK_TARGET);
+        brain.addActivityAndRemoveMemoriesWhenStopped(Activity.FIGHT, BrainUtils.createPriorityPairs(10,
+                ImmutableList.of(
+                        StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
+                        AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                        new WeaponRangeOverride(9, 12),
+                        new ApproachTargetIfCannotAim(1.0F),
+                        new AimWhenNotWalking(),
+                        new ShootTarget(30, 1.6F)
+                )), ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
+                ), ImmutableSet.of()
+        );
     }
 
     public static void updateActivity(TurtlemanEntity mob) {
