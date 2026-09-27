@@ -19,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
-import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.*;
 import net.zincstudios.scgextra.entity.common.part.RotatedBulletProofPartEntity;
@@ -39,7 +38,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner {
 
-    private static final EntityDataAccessor<Boolean> TURNED_AROUND =
+    private static final int TURN_TICKS = 20;  // match with BACK_FRONT and FRONT_BACK anims
+
+    private static final EntityDataAccessor<Boolean> TURN_TARGET =  // true: turned back
             SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> STUNNED =
             SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
@@ -48,15 +49,20 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation IDLE_BACK = RawAnimation.begin().thenLoop("idle_back");
     private static final RawAnimation WALK_BACK = RawAnimation.begin().thenLoop("walk_back");
-    private static final RawAnimation FRONT_BACK = RawAnimation.begin().thenPlay("front_back");
-    private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlay("back_front");
+    private static final RawAnimation FRONT_BACK = RawAnimation.begin().thenPlayAndHold("front_back");
+    private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlayAndHold("back_front");
     private static final RawAnimation STUN = RawAnimation.begin().thenLoop("stun");
     private static final RawAnimation STUN_BACK = RawAnimation.begin().thenLoop("stun");
+    @SuppressWarnings("unused")  // TODO: later
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final RotatedBulletProofPartEntity<?>[] subEntities;
+
+    // hopefully synced with similar logic on both sides at #tick
+    private boolean turnTo = false;
+    private int turnTick = 0;
 
     public TurtlemanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -98,19 +104,18 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         TurtlemanAi.updateActivity(this);
 
         // TODO: adjust look direction towards the player when moving
-
         LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (target != null) {
             if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
-                this.setTurnedAround(false);
+                this.setTurnTarget(false);
                 this.setAggressive(true);
                 this.setYBodyRot(this.getYHeadRot());
             } else {
-                this.setTurnedAround(true);
+                this.setTurnTarget(true);
                 this.setAggressive(false);
             }
         } else {
-            this.setTurnedAround(false);
+            this.setTurnTarget(false);
             this.setAggressive(false);
         }
 
@@ -142,7 +147,17 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     public void tick() {
         super.tick();
         this.tickSubEntities();
-//
+
+        if (this.turnTick == 0) {
+            if (this.turnTo != this.getTurnTarget()) {
+                this.turnTo = this.getTurnTarget();
+                this.turnTick++;
+            }
+        } else if (this.turnTick++ > TURN_TICKS) {
+            this.turnTick = 0;
+        }
+
+
 //        this.setTurnedAround(true);
 //
 //        this.setYRot(0);
@@ -175,35 +190,40 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         return super.hurt(source, amount);
     }
 
+    // TODO: find a way to allow transition tick time to be 3 without jitters
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "main", 3, state -> {
-            AnimationController<?> ctr = state.getController();
-            RawAnimation anim = ctr.getCurrentRawAnimation();
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+//            AnimationController<?> ctr = state.getController();
+//            RawAnimation anim = ctr.getCurrentRawAnimation();
 
-            if (state.getAnimatable().isTurnedAround()) {
-                // TODO: transition animations, maybe triggered transitions instead?
-                if (state.getAnimatable().isStunned()) {
-                    state.setAnimation(STUN_BACK);
-                } else if (state.isMoving()) {
-                    SCGExtra.LOGGER.debug("walk back");
-                    state.setAnimation(WALK_BACK);
-                } else {
-                    state.setAnimation(IDLE_BACK);
-                }
+            if (state.getAnimatable().turnTick != 0) {
+//                state.getController().transitionLength(0);
+                state.setAnimation(state.getAnimatable().turnTo ? FRONT_BACK : BACK_FRONT);
             } else {
-                if (state.getAnimatable().isStunned()) {
-                    state.setAnimation(STUN);
-                } else if (state.isMoving()) {
-                    state.setAnimation(WALK);
+//                state.getController().transitionLength(anim == FRONT_BACK || anim == BACK_FRONT ? 0 : 3);
+                if (state.getAnimatable().isTurnedAround()) {
+                    if (state.getAnimatable().isStunned()) {
+                        state.setAnimation(STUN_BACK);
+                    } else if (state.isMoving()) {
+                        state.setAnimation(WALK_BACK);
+                    } else {
+                        state.setAnimation(IDLE_BACK);
+                    }
                 } else {
-                    state.setAnimation(IDLE);
+                    if (state.getAnimatable().isStunned()) {
+                        state.setAnimation(STUN);
+                    } else if (state.isMoving()) {
+                        state.setAnimation(WALK);
+                    } else {
+                        state.setAnimation(IDLE);
+                    }
                 }
             }
             return PlayState.CONTINUE;
         }));
 
-        controllers.add(new AnimationController<>(this, "death", 2, state -> {
+        controllers.add(new AnimationController<>(this, "death", 6, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
                 return state.setAndContinue(DEATH);
             }
@@ -212,11 +232,15 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     }
 
     public boolean isTurnedAround() {
-        return this.entityData.get(TURNED_AROUND);
+        return this.turnTo && this.turnTick == 0;
     }
 
-    private void setTurnedAround(boolean turnedAround) {
-        this.entityData.set(TURNED_AROUND, turnedAround);
+    private void setTurnTarget(boolean turnTarget) {
+        this.entityData.set(TURN_TARGET, turnTarget);
+    }
+
+    private boolean getTurnTarget() {
+        return this.entityData.get(TURN_TARGET);
     }
 
     // privated for internal use only, use memory accessor otherwise
@@ -231,7 +255,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        this.entityData.define(TURNED_AROUND, false);
+        this.entityData.define(TURN_TARGET, false);
         this.entityData.define(STUNNED, false);
     }
 
@@ -243,5 +267,10 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
+    }
+
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 30);
     }
 }
