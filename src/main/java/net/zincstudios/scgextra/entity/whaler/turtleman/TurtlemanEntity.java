@@ -52,10 +52,11 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     private static final RawAnimation FRONT_BACK = RawAnimation.begin().thenPlayAndHold("front_back");
     private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlayAndHold("back_front");
     private static final RawAnimation STUN = RawAnimation.begin().thenLoop("stun");
-    private static final RawAnimation STUN_BACK = RawAnimation.begin().thenLoop("stun");
+    private static final RawAnimation STUN_BACK = RawAnimation.begin().thenLoop("stun_back");
     @SuppressWarnings("unused")  // TODO: later
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
+    private static final RawAnimation DEATH_BACK = RawAnimation.begin().thenPlayAndHold("death_back");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final RotatedBulletProofPartEntity<?>[] subEntities;
@@ -103,32 +104,28 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         this.getBrain().tick((ServerLevel)this.level(), this);
         TurtlemanAi.updateActivity(this);
 
-        LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
-        if (target != null) {
-
-            // adjust look direction towards the player when moving (direction is fucked by navigation)
-            if (!this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())) {
+        if (!this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())) {
+            LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+            if (target != null) {
+                // adjust look direction towards the player when moving (direction is fucked by navigation)
                 float rotDiff = yRotDiffToTarget(this, target.position());
                 this.setYRot(this.getYRot() + Mth.clamp(rotDiff, -45, 45));
                 this.setYHeadRot(this.getYRot());
-            }
+                this.setYBodyRot(this.getYRot());
 
-            if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
-                this.setTurnTarget(false);
-                this.setAggressive(true);
-                this.setYBodyRot(this.getYHeadRot());
+                if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+                    this.setTurnTarget(false);
+                    this.setAggressive(true);
+                } else {
+                    this.setTurnTarget(true);
+                    this.setAggressive(false);
+                }
             } else {
-                this.setTurnTarget(true);
+                this.setTurnTarget(false);
                 this.setAggressive(false);
             }
-        } else {
-            this.setTurnTarget(false);
-            this.setAggressive(false);
         }
 
-        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
-            this.setYBodyRot(this.getYHeadRot());
-        }
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
@@ -186,6 +183,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        // TODO: don't count shock bounces
         if (source.getDirectEntity() instanceof LightningProjectileEntity) {
             if (this.getBrain().checkMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), MemoryStatus.REGISTERED)) {
                 int shockCellCount = this.getBrain().getMemory(ModBrainMemories.SHOCK_CELL_COUNT.get()).orElse(0);
@@ -207,7 +205,6 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 //                state.getController().transitionLength(0);
                 state.setAnimation(state.getAnimatable().turnTo ? FRONT_BACK : BACK_FRONT);
             } else {
-//                state.getController().transitionLength(anim == FRONT_BACK || anim == BACK_FRONT ? 0 : 3);
                 if (state.getAnimatable().isTurnedAround()) {
                     if (state.getAnimatable().isStunned()) {
                         state.setAnimation(STUN_BACK);
@@ -229,8 +226,12 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
             return PlayState.CONTINUE;
         }));
 
-        controllers.add(new AnimationController<>(this, "death", 6, state -> {
+        controllers.add(new AnimationController<>(this, "death", 3, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
+                if (state.getAnimatable().isTurnedAround()) {
+                    state.getController().transitionLength(0);
+                    return state.setAndContinue(DEATH_BACK);
+                }
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
