@@ -15,7 +15,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
@@ -40,6 +39,8 @@ import top.ribs.scguns.common.headshot.BasicHeadshotBox;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
+
+import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 
 public class WhalerEntities {
 
@@ -169,7 +170,7 @@ public class WhalerEntities {
                 .noDeathTilt()
                 .noDeathRedTint()
         );
-        EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), (ctx) -> new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/armored_whale")))
+        EntityRenderers.register(WhalerEntities.ARMORED_WHALE.get(), (ctx) -> new ArmoredWhaleRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/armored_whale")))
                         .hasGlowLayer()
                         .noDeathTilt());
         EntityRenderers.register(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), ProjectileRenderer::new);

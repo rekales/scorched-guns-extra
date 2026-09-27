@@ -66,8 +66,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final SimulatedGun customGun;
-    private static final Vec3 LEFT_GUN_OFFSET = new Vec3(-31/16f, 43/16f, 6/16f * -1f);
-    private static final Vec3 RIGHT_GUN_OFFSET = new Vec3(33/16f, 43/16f, 6/16f * -1f);
+    private static final Vec3 LEFT_GUN_OFFSET = new Vec3(-31/16f, 43/16f, 70/16f);
+    private static final Vec3 RIGHT_GUN_OFFSET = new Vec3(33/16f, 43/16f, 70/16f);
 
     public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headMiddlePart;
     public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headFrontPart;
