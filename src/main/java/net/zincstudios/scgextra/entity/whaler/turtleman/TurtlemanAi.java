@@ -76,7 +76,7 @@ public class TurtlemanAi {
                 new WeaponRangeOverride(9, 12),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new ShootTarget(20, 1.6F)
+                new ShootTarget(30, 1.6F)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 

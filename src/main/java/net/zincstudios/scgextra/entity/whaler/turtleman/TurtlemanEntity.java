@@ -103,9 +103,16 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         this.getBrain().tick((ServerLevel)this.level(), this);
         TurtlemanAi.updateActivity(this);
 
-        // TODO: adjust look direction towards the player when moving
         LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
         if (target != null) {
+
+            // adjust look direction towards the player when moving (direction is fucked by navigation)
+            if (!this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())) {
+                float rotDiff = yRotDiffToTarget(this, target.position());
+                this.setYRot(this.getYRot() + Mth.clamp(rotDiff, -45, 45));
+                this.setYHeadRot(this.getYRot());
+            }
+
             if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
                 this.setTurnTarget(false);
                 this.setAggressive(true);
@@ -271,5 +278,12 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 30);
+    }
+
+    public static float yRotDiffToTarget(Mob mob, Vec3 target) {
+        double dx = target.x - mob.getX();
+        double dz = target.z - mob.getZ();
+        float targetYRot = (float)(Math.atan2(-dx, dz) * (180.0 / Math.PI));
+        return Mth.wrapDegrees(targetYRot - mob.getYRot());
     }
 }
