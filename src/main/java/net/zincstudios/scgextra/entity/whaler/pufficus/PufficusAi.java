@@ -59,7 +59,7 @@ public class PufficusAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new DelayedMeleeAttackWithEffects(
                     PufficusEntity.MELEE_DAMAGE_DELAY, PufficusEntity.MELEE_DURATION, 
-                    2f, 
+                    3f, 
                     10,
                     List.of(
                         MobEffects.MOVEMENT_SLOWDOWN,

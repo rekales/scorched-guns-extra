@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -60,7 +61,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D)
+                .add(Attributes.ATTACK_DAMAGE, 10.0D)
                 .add(Attributes.ARMOR, 4.0D)
                 .add(Attributes.MAX_HEALTH, 240.0D);
     }
@@ -139,8 +140,10 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if(source.getEntity() instanceof LivingEntity le){
-            le.addEffect(new MobEffectInstance(MobEffects.POISON, 40));
+        if(source.is(DamageTypes.PLAYER_ATTACK) || source.is(DamageTypes.MOB_ATTACK)){
+            if(source.getEntity() instanceof LivingEntity le){
+                le.addEffect(new MobEffectInstance(MobEffects.POISON, 40));
+            }
         }
         return super.hurt(source, amount);
     }
@@ -178,5 +181,9 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.DROWNED_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+    @Override
+    public float getJumpBoostPower() {
+        return super.getJumpBoostPower()+0.2F;
     }
 }
