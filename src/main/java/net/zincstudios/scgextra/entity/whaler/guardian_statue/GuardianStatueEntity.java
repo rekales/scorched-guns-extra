@@ -430,51 +430,16 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         }
     }
 
-
-    // NOTE: Uses no flags, checks if there's a target instead
-    public static class ResetLookToDirection extends Goal {
-
-        protected final Mob mob;
-        protected final float turnSpeed;
-        private final Supplier<Direction> dirSupplier;
-
-        public ResetLookToDirection(Mob mob, Supplier<Direction> dirSupplier, float turnSpeed) {
-            this.mob = mob;
-            this.dirSupplier = dirSupplier;
-            this.turnSpeed = turnSpeed;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.mob.getTarget() == null;
-        }
-
-        @Override
-        public void tick() {
-            this.mob.setYRot(Mth.approachDegrees(
-                    this.mob.getYRot(),
-                    getPreferredDirection().toYRot(),
-                    this.turnSpeed
-            ));
-
-            this.mob.yHeadRot = this.mob.getYRot();
-            this.mob.yBodyRot = this.mob.getYRot();
-        }
-
-        public Direction getPreferredDirection() {
-            Direction dir = this.dirSupplier.get();
-            if (dir == Direction.UP || dir == Direction.DOWN) return Direction.NORTH;
-            return dir;
-        }
-    }
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return WhalerSounds.GUARDIAN_STATUE_HURT.get();
     }
+
     @Override
     protected SoundEvent getDeathSound() {
         return WhalerSounds.GUARDIAN_STATUE_DEATH.get();
     }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(WhalerSounds.GUARDIAN_STATUE_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
