@@ -94,6 +94,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(4, new BeamLaserAttackGoal(this, 400, 32));
         this.goalSelector.addGoal(4, new GuardianLaserAttackGoal(this));
+        this.goalSelector.addGoal(4, new SlideToTargetGoal(this, 0.02F));
 
         // Bosses will prioritize players and does not require line of sight to maintain targeting to avoid cheese
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false,
@@ -137,18 +138,22 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         super.tick();
 
         if (!this.level().isClientSide) {
-            // Centering the entity to the block
-            Vec3 oldPos = this.position();
-            Vec3 newPos = BlockPos.containing(oldPos).getCenter();
-            newPos = new Vec3(newPos.x, oldPos.y, newPos.z);
-            if (!oldPos.equals(newPos)) {
-                this.setPos(newPos);
+            // Centering the entity to the block, only first few seconds for alignment
+            if (this.tickCount < 100) {
+                Vec3 oldPos = this.position();
+                Vec3 newPos = BlockPos.containing(oldPos).getCenter();
+                newPos = new Vec3(newPos.x, oldPos.y, newPos.z);
+                if (!oldPos.equals(newPos)) {
+                    this.setPos(newPos);
+                }
             }
-            //make gaurdian statue fall faster
+
+            // Make guardian statue fall faster
             if (!this.onGround()) {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y - 0.08 * 3, this.getDeltaMovement().z);
             }
-            //remove self if it's in ocean monument but not at the entrance
+
+            // Remove self if it's in ocean monument but not at the entrance
             if(this.tickCount%5==0){
                 checkShouldDeleteSelf();
             }
@@ -357,7 +362,6 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
             }
             if(prismarineBricksCount>300){
                 this.remove(RemovalReason.DISCARDED);
-                return;
             }
         }
     }
