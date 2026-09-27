@@ -79,10 +79,11 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         super(entityType, level);
         this.subEntities = new RotatedSegmentPartEntity[] {
                 new RotatedSegmentPartEntity<>(this, new Vec3(0, 0, 0), 3f, 2f, true),
-                new RotatedSegmentPartEntity<>(this, new Vec3(0, 2, 0), 1.5f, 4.5f, true),
-                new RotatedSegmentPartEntity<>(this, new Vec3(1, 4.3, 0), 1f, 0.8f, true),
-                new RotatedSegmentPartEntity<>(this, new Vec3(1.7, 4.35, 0), 0.8f, 0.7f, true),
-                new RotatedSegmentPartEntity<>(this, new Vec3(-1.1, 4.3, 0), 1f, 0.8f, true),
+//                new RotatedSegmentPartEntity<>(this, new Vec3(0, 2, 0), 1.4f, 4.5f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1, 4.3, 0), 1f, 0.8f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1.7, 4.35, 0), 0.8f, 0.7f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(-1.1, 4.3, 0), 1f, 0.8f),
+//                new RotatedWeakPointPartEntity<>(this, new Vec3(0, 5.55, 0.6), 0.75f, 0.6f),
         };
         this.setPersistenceRequired();
     }

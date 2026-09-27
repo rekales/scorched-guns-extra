@@ -62,7 +62,7 @@ public class WhalerEntities {
     public static final RegistryObject<EntityType<GuardianStatueEntity>> GUARDIAN_STATUE = ENTITY_TYPES
             .register("guardian_statue", () -> EntityType.Builder.of(GuardianStatueEntity::new, MobCategory.MONSTER)
                     .setUpdateInterval(1)
-                    .sized(2F, 6.75F)
+                    .sized(1.4F, 6.6F)
                     .build("guardian_statue"));
 
     public static final RegistryObject<EntityType<TentacliatorEntity>> TENTACLIATOR = ENTITY_TYPES
@@ -116,13 +116,9 @@ public class WhalerEntities {
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.TENTACLIATOR.get(), new BasicHeadshotBox<>(11.0, 20.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.FISH_FOLK.get(), new BasicHeadshotBox<>(8.0, 25.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.PUFFICUS.get(), new BasicHeadshotBox<>(11.0, 35.0));
-        BoundingBoxManager.registerHeadshotBox(WhalerEntities.LION_FISH.get(), new RotatedHeadshotBox<>(
-                30.0,
-                36.0,
-                52.0,
-                true,
-                true
-        ));
+//        BoundingBoxManager.registerHeadshotBox(WhalerEntities.GUARDIAN_STATUE.get(), new BasicHeadshotBox<>(0.0, 0.0, 0.0));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.GUARDIAN_STATUE.get(), new RotatedHeadshotBox<>(12.0, 8.0, 91.0, 10.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.LION_FISH.get(), new RotatedHeadshotBox<>(30.0, 36.0, 52.0, true, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
