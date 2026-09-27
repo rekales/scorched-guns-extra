@@ -153,15 +153,9 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
                 this.turnTo = this.getTurnTarget();
                 this.turnTick++;
             }
-        } else if (this.turnTick++ > TURN_TICKS) {
+        } else if (this.turnTick++ >= TURN_TICKS) {
             this.turnTick = 0;
         }
-
-
-//        this.setTurnedAround(true);
-//
-//        this.setYRot(0);
-//        this.setYBodyRot(this.getYRot());
 
         if (!this.level().isClientSide) {
             this.setStunned(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()));
@@ -169,8 +163,13 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     }
 
     protected void tickSubEntities() {
-        // TODO: gradual transition
-        float rotOffset = this.isTurnedAround() ? -180 : -20;
+        float rotOffset;
+        if (this.turnTick != 0) {
+            float rot = this.turnTo ? this.turnTick : TURN_TICKS - this.turnTick;
+            rotOffset = Mth.map(rot, 0F, TURN_TICKS, -20, -180);
+        } else {
+            rotOffset = this.turnTo ? -180 : -20;
+        }
 
         for(RotatedSegmentPartEntity<?> partEntity : this.getParts()) {
             partEntity.setOldPosAndRot();
