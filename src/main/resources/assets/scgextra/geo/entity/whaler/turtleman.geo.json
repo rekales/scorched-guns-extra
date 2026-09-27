@@ -58,24 +58,9 @@
 					]
 				},
 				{
-					"name": "weapon",
+					"name": "right_hand",
 					"parent": "right_arm",
-					"pivot": [-7, 10, -1],
-					"rotation": [42.5, 0, 0],
-					"cubes": [
-						{
-							"origin": [-10, 7, -19],
-							"size": [6, 6, 22],
-							"uv": {
-								"north": {"uv": [116, 113], "uv_size": [6, 6]},
-								"east": {"uv": [103, 115], "uv_size": [22, 6]},
-								"south": {"uv": [119, 119], "uv_size": [6, 6]},
-								"west": {"uv": [104, 120], "uv_size": [22, 6]},
-								"up": {"uv": [110, 103], "uv_size": [6, 22]},
-								"down": {"uv": [111, 125], "uv_size": [6, -22]}
-							}
-						}
-					]
+					"pivot": [-9.5, 11, 0]
 				},
 				{
 					"name": "left_arm",

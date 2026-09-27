@@ -32,6 +32,7 @@ import net.zincstudios.scgextra.entity.whaler.salmonsaur.SalmonsaurRenderer;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorEntity;
 import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
+import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanRenderer;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import top.ribs.scguns.client.render.entity.ProjectileRenderer;
 import top.ribs.scguns.common.BoundingBoxManager;
@@ -137,7 +138,7 @@ public class WhalerEntities {
                         .noDeathTilt()
         );
         EntityRenderers.register(WhalerEntities.TURTLEMAN.get(), (ctx) ->
-                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")))
+                new TurtlemanRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/turtleman")))
                         .hasGlowLayer()
                         .noDeathTilt()
         );
