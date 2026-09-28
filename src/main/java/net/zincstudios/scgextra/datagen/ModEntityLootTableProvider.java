@@ -47,8 +47,7 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
         basicLoot(WhalerEntities.FISH_FOLK.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
-                .constant(Items.TROPICAL_FISH, 1)
-                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
+                .constant(Items.TROPICAL_FISH, 1);
         basicLoot(WhalerEntities.SALMONSAUR.get())
                 .constant(Items.COD, 1)
                 .chance(Items.SADDLE,  0.2f)
