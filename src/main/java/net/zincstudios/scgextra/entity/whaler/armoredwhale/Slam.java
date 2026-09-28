@@ -85,7 +85,7 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
             int slamStart = this.slamUpTicks + this.airTicks;
             int particleTick = (int) (hasRanFor - slamStart);
             double progress = (double) particleTick / this.slamDownTicks;
-            double radius = 2.0 + progress * 48.0;
+            double radius = 2.0 + progress * 18.0;
             for (int i = 0; i < 60; i++) {
                 double angle = (Math.PI * 2 * i) / 60;
                 double x = owner.getX() + Math.cos(angle) * radius;
