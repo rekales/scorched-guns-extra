@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -79,6 +80,26 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
             owner.setSlamming(false);
             owner.triggerAnim("attack", "slam_down");
             owner.playSound(SoundEvents.IRON_GOLEM_STEP, 10f, 1f);
+        }
+        if((hasRanFor >= this.slamUpTicks+this.airTicks)){
+            int slamStart = this.slamUpTicks + this.airTicks;
+            int particleTick = (int) (hasRanFor - slamStart);
+            double progress = (double) particleTick / this.slamDownTicks;
+            double radius = 2.0 + progress * 48.0;
+            for (int i = 0; i < 60; i++) {
+                double angle = (Math.PI * 2 * i) / 60;
+                double x = owner.getX() + Math.cos(angle) * radius;
+                double z = owner.getZ() + Math.sin(angle) * radius;
+                level.sendParticles(
+                    ParticleTypes.CRIT,
+                    x,
+                    owner.getY() + 0.1,
+                    z,
+                    3,
+                    0.1, 0, 0.1,
+                    0
+                );
+            }
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
             Set<LivingEntity> entitiesHurt = new HashSet<>();
