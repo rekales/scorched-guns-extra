@@ -86,6 +86,8 @@ public class ModItems {
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0)
     ));
 
+    public static final RegistryObject<Item> MEDIPACK = ITEMS.register("medipack", () -> new Item((new Item.Properties()).stacksTo(1).durability(64)));
+
     public static final RegistryObject<Item> END_SHELL = ITEMS.register("end_shell",
             () -> new Item(new Item.Properties().stacksTo(64))
     );
