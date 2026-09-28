@@ -30,21 +30,23 @@
           "functions": [
             {
               "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
+              "count": 1.0,
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scguns:advanced_round"
+          "name": "minecraft:scute"
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "chance": 0.3,
+          "condition": "minecraft:random_chance"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
@@ -55,7 +57,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:scute"
+          "name": "scguns:ocean_flare"
         }
       ],
       "rolls": 1.0

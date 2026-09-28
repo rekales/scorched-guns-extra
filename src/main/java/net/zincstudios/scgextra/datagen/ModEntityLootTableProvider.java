@@ -47,23 +47,24 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
         basicLoot(WhalerEntities.FISH_FOLK.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .constant(Items.TROPICAL_FISH, 1);
+                .constant(Items.TROPICAL_FISH, 1)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.SALMONSAUR.get())
                 .constant(Items.COD, 1)
-                .chance(Items.SADDLE,  0.2f);
+                .chance(Items.SADDLE,  0.2f)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.TURTLEMAN.get())
                 .range(ModItems.SHOTBALL.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .constant(Items.SCUTE, 1);
+                .constant(Items.SCUTE, 1)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.TENTACLIATOR.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .variant(List.of(Items.INK_SAC, Items.GLOW_INK_SAC), 2, 1, 3);
+                .variant(List.of(Items.INK_SAC, Items.GLOW_INK_SAC), 2, 1, 3)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.PUFFICUS.get())
-                .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .constant(Items.PUFFERFISH, 1);
+                .constant(Items.PUFFERFISH, 1)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
+                
         basicLoot(WhalerEntities.GUARDIAN_STATUE.get())
                 .altsChance(List.of(
                         net.zincstudios.scgextra.item.ModItems.LEVIATHAN_HELMET.get(),
@@ -89,7 +90,8 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .constant(Items.TROPICAL_FISH, 1)
                 .chance(Items.SADDLE, 0.5f)
                 .range(Items.PRISMARINE_SHARD, 1, 3)
-                .range(Items.PRISMARINE_CRYSTALS, 1, 3);
+                .range(Items.PRISMARINE_CRYSTALS, 1, 3)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.5f);
 
         basicLoot(FACEntities.FAC_TRENCHER.get())
                 .range(Items.IRON_NUGGET, 1, 3);

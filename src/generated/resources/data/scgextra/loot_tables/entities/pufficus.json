@@ -9,42 +9,23 @@
           "functions": [
             {
               "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
+              "count": 1.0,
               "function": "minecraft:set_count"
             }
           ],
-          "name": "scguns:frog_dart"
+          "name": "minecraft:pufferfish"
         }
       ],
       "rolls": 1.0
     },
     {
       "bonus_rolls": 0.0,
-      "entries": [
+      "conditions": [
         {
-          "type": "minecraft:item",
-          "functions": [
-            {
-              "add": false,
-              "count": {
-                "type": "minecraft:uniform",
-                "max": 3.0,
-                "min": 1.0
-              },
-              "function": "minecraft:set_count"
-            }
-          ],
-          "name": "scguns:advanced_round"
+          "chance": 0.3,
+          "condition": "minecraft:random_chance"
         }
       ],
-      "rolls": 1.0
-    },
-    {
-      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
@@ -55,7 +36,7 @@
               "function": "minecraft:set_count"
             }
           ],
-          "name": "minecraft:pufferfish"
+          "name": "scguns:ocean_flare"
         }
       ],
       "rolls": 1.0
