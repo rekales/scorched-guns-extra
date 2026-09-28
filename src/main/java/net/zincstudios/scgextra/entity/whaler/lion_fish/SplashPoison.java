@@ -40,7 +40,7 @@ public class SplashPoison extends Behavior<LivingEntity>{
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, LivingEntity owner) {
-        return this.cooldownEnd < level.getGameTime();
+        return this.cooldownEnd < level.getGameTime() && owner.getRandom().nextFloat() <= 0.3F;
     }
 
     @Override

@@ -17,6 +17,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -36,7 +37,7 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
     static final int MELEE_DAMAGE_DELAY = 15;
     static final int MELEE_DURATION = 22;
 
-    static final int POISON_DURATION = 160;
+    static final int POISON_DURATION = 80;
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -95,7 +96,7 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
         return Monster.createMonsterAttributes()
         .add(Attributes.FOLLOW_RANGE, 35.0D)
         .add(Attributes.MOVEMENT_SPEED, 0.45F)
-        .add(Attributes.ATTACK_DAMAGE, 8.0D)
+        .add(Attributes.ATTACK_DAMAGE, 16.0D)
         .add(Attributes.ARMOR, 4.0D)
         .add(Attributes.MAX_HEALTH, 240.0D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D);
@@ -141,7 +142,7 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
             this.triggerAnim("behavior", "attack");
         }
         if (!this.level().isClientSide){
-            if(brain.hasMemoryValue(ModBrainMemories.ATTACK_RUN_FOR.get())){
+            if(brain.hasMemoryValue(ModBrainMemories.ATTACK_RUN_FOR.get()) && brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
                 this.setPoison(true);
             }else{
                 this.setPoison(false);
