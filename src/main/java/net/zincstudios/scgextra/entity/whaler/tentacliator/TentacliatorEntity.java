@@ -64,7 +64,7 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @org.jetbrains.annotations.Nullable SpawnGroupData spawnData, @org.jetbrains.annotations.Nullable CompoundTag dataTag) {
         float rand = this.getRandom().nextFloat();
-        this.setVariant(rand < 0.5f ? 1 : 2);
+        this.setVariant(rand < 0.8f ? 1 : 2);
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
