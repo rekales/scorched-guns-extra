@@ -14,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.player.Player;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 
 public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
@@ -81,7 +82,7 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
             Set<LivingEntity> entitiesHurt = new HashSet<>();
-            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(20), (e)->!e.is(owner));
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(20), (e)->!e.is(owner) && ((e instanceof Player p) ? (!p.isCreative() && !p.isSpectator()) : true));
             for(LivingEntity entity : list){
                 if(owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
                     entity.hurt(owner.damageSources().genericKill(), 10);
@@ -92,7 +93,7 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
                     entitiesHurt.add(entity);
                 }
             }
-            list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner) && ! entitiesHurt.contains(e));
+            list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner) && ! entitiesHurt.contains(e) && ((e instanceof Player p) ? (!p.isCreative() && !p.isSpectator()) : true));
             for(LivingEntity entity : list){
                 if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
                     entity.hurt(owner.damageSources().genericKill(), 10);

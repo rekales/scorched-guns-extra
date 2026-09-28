@@ -90,7 +90,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
         this.headFrontPart = new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -160/16f * -1f), 42/16f, 106/16f);
         this.subEntities = new PartEntity[] {
             //head-neck
-            new RotatedWeakPointPartEntity<>(this, new Vec3(0/16f, 59/16f, -183/16f * -1f), 16/16f, 19/16f),
+            new RotatedWeakPointPartEntity<>(this, new Vec3(0/16f, 59/16f, -190/16f * -1f), 16/16f, 19/16f),
             this.headFrontPart,
             this.headMiddlePart,
             new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -79/16f * -1f), 42/16f, 106/16f),

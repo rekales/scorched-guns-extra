@@ -119,7 +119,7 @@ public class WhalerEntities {
 //        BoundingBoxManager.registerHeadshotBox(WhalerEntities.GUARDIAN_STATUE.get(), new BasicHeadshotBox<>(0.0, 0.0, 0.0));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.GUARDIAN_STATUE.get(), new RotatedHeadshotBox<>(12.0, 8.0, 91.0, 10.0, false, true));
         BoundingBoxManager.registerHeadshotBox(WhalerEntities.LION_FISH.get(), new RotatedHeadshotBox<>(30.0, 36.0, 52.0, true, true));
-        BoundingBoxManager.registerHeadshotBox(WhalerEntities.ARMORED_WHALE.get(), new RotatedHeadshotBox<>(16.0, 19.0, 59.0, 183.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(WhalerEntities.ARMORED_WHALE.get(), new RotatedHeadshotBox<>(16.0, 19.0, 59.0, 190.0, false, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
