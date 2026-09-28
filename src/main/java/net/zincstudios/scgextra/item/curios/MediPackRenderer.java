@@ -20,10 +20,10 @@ public class MediPackRenderer implements ICurioRenderer {
     @Override
     public <T extends LivingEntity, M extends EntityModel<T>> void render(ItemStack stack, SlotContext slotContext, PoseStack matrixStack, RenderLayerParent<T, M> renderLayerParent, MultiBufferSource bufferSource, int light, float limbSwing,float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,float headPitch) {
         matrixStack.pushPose();
-        matrixStack.translate(0D/16D, 10.75D/16D, 7D/16D);
+        matrixStack.translate(0D/16D, 5.75D/16D, 5D/16D);
         matrixStack.mulPose(new Quaternionf().rotationZ((float) Math.toRadians(180)));
 
-        matrixStack.scale(1.5F, 1.5F, 1.5F);
+        matrixStack.scale(1F, 1F, 1F);
 
         ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
         BakedModel bakedModel = itemRenderer.getModel(stack, null, null, 0);

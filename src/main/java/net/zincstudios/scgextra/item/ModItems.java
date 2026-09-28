@@ -30,10 +30,12 @@ import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
 import net.zincstudios.scgextra.item.armor.*;
+import net.zincstudios.scgextra.item.custom.BandageItem;
 import top.ribs.scguns.attributes.SCAttributes;
 import top.ribs.scguns.item.GunItem;
 import top.ribs.scguns.item.HealingBandageItem;
 
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -75,8 +77,13 @@ public class ModItems {
             () -> new net.zincstudios.scgextra.item.custom.WreckerTurretItem(ModBlocks.WRECKER_TURRET.get(), new Item.Properties())
     );
 
-    public static final RegistryObject<HealingBandageItem> BANDAGE = ITEMS.register("bandage", () -> new HealingBandageItem(
-            (new Item.Properties()).stacksTo(16), 4,
+    public static final RegistryObject<BandageItem> BANDAGE = ITEMS.register("bandage", () -> new BandageItem(
+            (new Item.Properties()).stacksTo(16), 4, 8,
+            List.of(
+                new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
+                new MobEffectInstance(MobEffects.ABSORPTION, 400, 0),
+                new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 2)
+            ),
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0)
     ));
 
