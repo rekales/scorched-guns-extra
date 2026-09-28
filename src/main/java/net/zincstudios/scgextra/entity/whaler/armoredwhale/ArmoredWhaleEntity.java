@@ -81,9 +81,9 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
             .burstAmount(32)
             .burstInterval(2)
             .maxRange(16)
-            .idealRange(16)
+            .idealRange(10)
             .ammoCapacity(32)
-            .reloadTime(80)
+            .reloadTime(100)
             .projectileFactory(MountedGunProjectileEntity::new)
             .build();
         this.headMiddlePart = new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 0/16f, -121/16f * -1f), 42/16f, 106/16f);

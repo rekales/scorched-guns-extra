@@ -5,8 +5,6 @@ import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
 import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
-import net.zincstudios.scgextra.entity.common.brain.ShootTargetAnimated;
-import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -85,28 +83,13 @@ public class ArmoredWhaleAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                new BiteAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 3, 60),
+                new BiteAttack(ArmoredWhaleEntity.MELEE_DAMAGE_DELAY, ArmoredWhaleEntity.MELEE_DURATION, 6, 60),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenTargetVisible(),
-                new ShootTargetAnimated(20,
+                new ArmoredWhaleShootTarget(20,
                         (entity, firing) -> 1.0F,
                         entity -> !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()),
-                        "attack", "fire", 0){
-                            @Override
-                            protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
-                                super.tick(level, entity, gameTime);
-                                Brain<?> brain = entity.getBrain();
-                                if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false))return;
-                                if(entity instanceof PathfinderMob pm){
-                                    pm.getNavigation().stop();
-                                }
-                            }
-                            @Override
-                            protected void start(ServerLevel level, LivingEntity entity, long gameTime) {
-                                super.start(level, entity, gameTime);
-                                entity.playSound(WhalerSounds.ARMORED_WHALE_SHOOT.get());
-                            }
-                        },
+                        "attack", "fire", 0),
                 new Slam<>(10, 60, 10, 600),
                 new SplashWaterAndGrenades<>(),
                 new SummonInfantry<>(200, 2),
