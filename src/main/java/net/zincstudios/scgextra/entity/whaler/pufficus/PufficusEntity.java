@@ -182,8 +182,4 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.DROWNED_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
-    @Override
-    public float getJumpBoostPower() {
-        return super.getJumpBoostPower()+0.2F;
-    }
 }
