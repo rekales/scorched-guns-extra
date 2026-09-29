@@ -34,10 +34,6 @@
         {
           "type": "minecraft:item",
           "name": "scguns:microjet"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "scguns:blueprint_scrap"
         }
       ],
       "rolls": 4,
