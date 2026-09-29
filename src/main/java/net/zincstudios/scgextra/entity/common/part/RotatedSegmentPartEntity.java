@@ -13,6 +13,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
+import top.ribs.scguns.entity.projectile.ProjectileEntity;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -65,7 +66,11 @@ public class RotatedSegmentPartEntity<T extends LivingEntity> extends PartEntity
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        return !this.isInvulnerableTo(source) && this.getParent().hurt(source, amount);
+        boolean ret = !this.isInvulnerableTo(source) && this.getParent().hurt(source, amount);
+        if (source.getDirectEntity() instanceof ProjectileEntity) {
+            this.getParent().invulnerableTime = 0;  // ProjectileEntity#onHit resets invulnerability every hit
+        }
+        return ret;
     }
 
     @Override
