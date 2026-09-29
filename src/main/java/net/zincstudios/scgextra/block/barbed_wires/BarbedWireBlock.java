@@ -38,6 +38,7 @@ public class BarbedWireBlock extends Block{
     @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         super.entityInside(state, level, pos, entity);
+        if(!(entity instanceof LivingEntity))return;
         if(!level.isClientSide()){
             if(level.getGameTime() % 20 == 0){
                 entity.hurt(entity.damageSources().generic(), 2);
