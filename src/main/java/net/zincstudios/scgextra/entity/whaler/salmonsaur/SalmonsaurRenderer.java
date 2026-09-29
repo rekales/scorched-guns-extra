@@ -28,6 +28,7 @@ public class SalmonsaurRenderer<T extends SalmonsaurEntity> extends BaseEntityRe
                 poseStack.popPose();
             }
         });
+        this.shadowRadius = 1F;
     }
 
 
