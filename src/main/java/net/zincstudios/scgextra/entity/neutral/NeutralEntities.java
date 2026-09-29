@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.neutral;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.entity.neutral.overworld.anomaly.AnomalyRenderer;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.WeakPointBox;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -489,7 +490,7 @@ public class NeutralEntities {
                         .noDeathTilt()
         );
         EntityRenderers.register(NeutralEntities.ANOMALY.get(), (ctx) ->
-                new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/anomaly")))
+                new AnomalyRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("neutral/anomaly")))
                         .shadowRadius(0F)
                         .hasGlowLayer()
                         .noDeathTilt()

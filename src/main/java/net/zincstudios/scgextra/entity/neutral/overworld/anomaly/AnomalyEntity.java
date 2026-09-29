@@ -5,10 +5,14 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import org.joml.Vector3f;
+
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
@@ -53,6 +57,8 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
 
     private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(AnomalyEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_BEAM_TIME = SynchedEntityData.defineId(AnomalyEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Vector3f> TARGET_POS = SynchedEntityData.defineId(AnomalyEntity.class, EntityDataSerializers.VECTOR3);
 
     private static final int MELEE_DAMAGE_DELAY = 5;
     private int hurtDelay = -1;
@@ -146,18 +152,48 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
         if (this.hurtDelay == 0) {
             LivingEntity target = this.getTarget();
             if (target != null) {
+                BlockPos start = this.blockPosition();
+         BlockPos end = this.getTarget().blockPosition();
+         double startX = start.getX() + 0.5;
+         double startY = start.getY() + 2.5;
+         double startZ = start.getZ() + 0.5;
+      
+         double endX = end.getX() + 0.5;
+         double endY = end.getY() + 0.5;
+         double endZ = end.getZ() + 0.5;
+      
+         double dx = endX - startX;
+         double dy = endY - startY;
+         double dz = endZ - startZ;
+      
+         double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+      
+         double stepX = dx / distance;
+         double stepY = dy / distance;
+         double stepZ = dz / distance;
+         for (double i = 0; i < distance; i += 0.1) {
+             double px = startX + stepX * i;
+             double py = startY + stepY * i;
+             double pz = startZ + stepZ * i;
+             if (this.level() instanceof ServerLevel serverLevel)serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, px, py, pz,3,0.3,0.3,0.3,0.1);
+         }
                 double distToEnemySqr = this.getPerceivedTargetDistanceSquareForMeleeAttack(target);
                 double reach = 64;
                 if (distToEnemySqr <= reach) {
+                    this.setTargetPos(target.position());
                     target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
                     LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(this.level());
                     lightning.moveTo(target.blockPosition(), 0, 0);
                     this.level().addFreshEntity(lightning);
-
+                    this.setBeamTime(false);
                 }else{
                     this.getNavigation().moveTo(target.getX(), target.getY()+2, target.getZ(), 0.6);
                     this.getLookControl().setLookAt(target);
+                    this.setTargetPos(Vec3.ZERO);
                 }
+            }else{
+                this.setBeamTime(false);
+                this.setTargetPos(Vec3.ZERO);
             }
         }
         List<Player> players = this.level().getEntitiesOfClass(Player.class, this.getBoundingBox().inflate(7), player -> !((Player) player).isCreative() && !player.isSpectator());
@@ -171,6 +207,8 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     public boolean hurt(DamageSource source, float amount) {
         if(source.is(DamageTypes.FALL))return false;
         if(source.is(DamageTypes.LIGHTNING_BOLT))return false;
+        if(source.is(DamageTypes.ON_FIRE))return false;
+        if(source.is(DamageTypes.IN_FIRE))return false;
         return super.hurt(source, amount);
     }
     @Override
@@ -179,6 +217,8 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
             if (this.hurtDelay > 0) return false;
             this.triggerAnim("main", "attack");
             this.hurtDelay = MELEE_DAMAGE_DELAY;
+            this.setBeamTime(true);
+            this.setTargetPos(entity.position());
         }
         return true;
     }
@@ -186,12 +226,26 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(IS_ATTACKING, false);
+        this.entityData.define(IS_BEAM_TIME, false);
+        this.entityData.define(TARGET_POS, new Vector3f());
     }
     public void setAttacking(boolean bool){
         this.entityData.set(IS_ATTACKING, bool);
     }
     public boolean isAttacking(){
         return this.entityData.get(IS_ATTACKING);
+    }
+    public void setBeamTime(boolean bool){
+        this.entityData.set(IS_BEAM_TIME, bool);
+    }
+    public boolean isBeamTime(){
+        return this.entityData.get(IS_BEAM_TIME);
+    }
+    public void setTargetPos(Vec3 pos){
+        this.entityData.set(TARGET_POS, new Vector3f((float)pos.x, (float)pos.y, (float)pos.z));
+    }
+    public Vector3f getTargetPos(){
+        return this.entityData.get(TARGET_POS);
     }
     class AnomalyEntityWanderGoal extends Goal {
         AnomalyEntityWanderGoal() {
@@ -233,5 +287,8 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
     @Override
     protected SoundEvent getDeathSound() {
         return SoundEvents.ALLAY_DEATH;
+    }
+    public Vec3 getBeamLoc(){
+        return this.isBeamTime() ? new Vec3(this.getTargetPos()) : Vec3.ZERO;
     }
 }
