@@ -29,12 +29,12 @@ public class TrenchesAnchorStructure extends Structure {
                     StructureTemplatePool.CODEC.fieldOf("start_pool").forGetter((p_227656_) -> p_227656_.startPool),
                     ResourceLocation.CODEC.optionalFieldOf("start_jigsaw_name")
                             .forGetter((p_227654_) -> p_227654_.startJigsawName),
-                    Codec.intRange(0, 14).fieldOf("size").forGetter((p_227652_) -> p_227652_.maxDepth),
+                    Codec.intRange(0, 21).fieldOf("size").forGetter((p_227652_) -> p_227652_.maxDepth),
                     HeightProvider.CODEC.fieldOf("start_height").forGetter((p_227649_) -> p_227649_.startHeight),
                     Codec.BOOL.fieldOf("use_expansion_hack").forGetter((p_227646_) -> p_227646_.useExpansionHack),
                     Types.CODEC.optionalFieldOf("project_start_to_heightmap")
                             .forGetter((p_227644_) -> p_227644_.projectStartToHeightmap),
-                    Codec.intRange(1, 1024).fieldOf("max_distance_from_center")
+                    Codec.intRange(1, 2048).fieldOf("max_distance_from_center")
                             .forGetter((p_227642_) -> p_227642_.maxDistanceFromCenter))
                     .apply(p_227640_, TrenchesAnchorStructure::new)), TrenchesAnchorStructure::verifyRange)
             .codec();
