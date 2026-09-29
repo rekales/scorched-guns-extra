@@ -1,5 +1,6 @@
 package net.zincstudios.scgextra.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,6 +39,8 @@ import top.ribs.scguns.item.HealingBandageItem;
 
 import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class ModItems {
@@ -93,7 +97,12 @@ public class ModItems {
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0)
     ));
 
-    public static final RegistryObject<Item> MEDIPACK = ITEMS.register("medipack", () -> new Item((new Item.Properties()).stacksTo(1).durability(64)));
+    public static final RegistryObject<Item> MEDIPACK = ITEMS.register("medipack", () -> new Item((new Item.Properties()).stacksTo(1).durability(64)){
+        public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+                tooltip.add(Component.translatable("item.scgextra.medipack.desc").withStyle(ChatFormatting.GREEN));
+                super.appendHoverText(stack, world, tooltip, flag);
+            }
+        });
 
     public static final RegistryObject<Item> END_SHELL = ITEMS.register("end_shell",
             () -> new Item(new Item.Properties().stacksTo(64))

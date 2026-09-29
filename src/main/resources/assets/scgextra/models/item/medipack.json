@@ -60,6 +60,7 @@
 			}
 		}
 	],
+	"gui_light": "front",
 	"display": {
 		"thirdperson_righthand": {
 			"rotation": [-180, 0, -180],
@@ -77,6 +78,10 @@
 		},
 		"ground": {
 			"translation": [0, 4, 4]
+		},
+		"gui": {
+			"rotation": [0, 45, 0],
+			"translation": [3.25, 1.25, 0]
 		},
 		"head": {
 			"translation": [0, -10.75, 14.5],
