@@ -27,7 +27,6 @@ public class ModPlacedFeatures {
     public static final ResourceKey<PlacedFeature> GRAVEL_PATCH_PLACED_KEY = registerKey("gravel_patch");
     public static final ResourceKey<PlacedFeature> GRASS_PATCH_PLACED_KEY = registerKey("grass_patch");
     public static final ResourceKey<PlacedFeature> GRASS_PATCH_TALL_PLACED_KEY = registerKey("grass_patch_tall");
-    public static final ResourceKey<PlacedFeature> CRATERS_PLACED_KEY = registerKey("craters_feature");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -54,17 +53,6 @@ public class ModPlacedFeatures {
             HeightmapPlacement.onHeightmap(Types.MOTION_BLOCKING),
             BiomeFilter.biome()
         ));
-        register(
-            context, 
-            CRATERS_PLACED_KEY, 
-            configuredFeatures.getOrThrow(ModConfiguredFeatures.CRATERS_KEY), List.of(
-                NoiseThresholdCountPlacement.of(-0.8, 0, 7),
-                RarityFilter.onAverageOnceEvery(64),
-                InSquarePlacement.spread(),
-                HeightmapPlacement.onHeightmap(Types.WORLD_SURFACE),
-                BiomeFilter.biome()
-            )
-        );
     }
 
     private static ResourceKey<PlacedFeature> registerKey(String name) {
