@@ -172,7 +172,7 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
         public void start() {
             Vec3 vec3 = this.findPos();
             if (vec3 != null) {
-                GargoyleEntity.this.navigation.moveTo(GargoyleEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1);
+                GargoyleEntity.this.navigation.moveTo(GargoyleEntity.this.navigation.createPath(BlockPos.containing(vec3), 1), 1.5);
             }
 
         }

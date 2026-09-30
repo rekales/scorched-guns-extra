@@ -32,13 +32,13 @@ public class GargoyleMoveUpGoal extends Goal{
         this.gargoyle.getLookControl().setLookAt(this.gargoyle.getTarget());
         if(!this.gargoyle.level().getBlockState(this.gargoyle.blockPosition().below(5)).isAir()){
             if(this.gargoyle.distanceToSqr(this.gargoyle.getTarget())>100){
-                this.gargoyle.getNavigation().moveTo(this.gargoyle.getTarget().getX(), this.gargoyle.getY()+5, this.gargoyle.getTarget().getZ(), 1.2);
+                this.gargoyle.getNavigation().moveTo(this.gargoyle.getTarget().getX(), this.gargoyle.getY()+5, this.gargoyle.getTarget().getZ(), 1.7);
             }else{
-                this.gargoyle.getNavigation().moveTo(this.gargoyle.getX(), this.gargoyle.getY()+5, this.gargoyle.getZ(), 1.2);
+                this.gargoyle.getNavigation().moveTo(this.gargoyle.getX(), this.gargoyle.getY()+5, this.gargoyle.getZ(), 1.7);
             }
         }else{
             if(this.gargoyle.distanceToSqr(this.gargoyle.getTarget())>100){
-                this.gargoyle.getNavigation().moveTo(this.gargoyle.getTarget().getX(), this.gargoyle.getY(), this.gargoyle.getTarget().getZ(), 1.2);
+                this.gargoyle.getNavigation().moveTo(this.gargoyle.getTarget().getX(), this.gargoyle.getY(), this.gargoyle.getTarget().getZ(), 1.7);
             }
         }
     }
