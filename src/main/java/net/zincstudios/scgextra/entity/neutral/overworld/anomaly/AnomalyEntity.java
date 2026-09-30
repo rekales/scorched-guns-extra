@@ -21,7 +21,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -153,38 +152,38 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
             LivingEntity target = this.getTarget();
             if (target != null) {
                 BlockPos start = this.blockPosition();
-         BlockPos end = this.getTarget().blockPosition();
-         double startX = start.getX() + 0.5;
-         double startY = start.getY() + 2.5;
-         double startZ = start.getZ() + 0.5;
-      
-         double endX = end.getX() + 0.5;
-         double endY = end.getY() + 0.5;
-         double endZ = end.getZ() + 0.5;
-      
-         double dx = endX - startX;
-         double dy = endY - startY;
-         double dz = endZ - startZ;
-      
-         double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
-      
-         double stepX = dx / distance;
-         double stepY = dy / distance;
-         double stepZ = dz / distance;
-         for (double i = 0; i < distance; i += 0.1) {
-             double px = startX + stepX * i;
-             double py = startY + stepY * i;
-             double pz = startZ + stepZ * i;
-             if (this.level() instanceof ServerLevel serverLevel)serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, px, py, pz,3,0.3,0.3,0.3,0.1);
-         }
+                BlockPos end = this.getTarget().blockPosition();
+                double startX = start.getX() + 0.5;
+                double startY = start.getY() + 2.5;
+                double startZ = start.getZ() + 0.5;
+            
+                double endX = end.getX() + 0.5;
+                double endY = end.getY() + 0.5;
+                double endZ = end.getZ() + 0.5;
+            
+                double dx = endX - startX;
+                double dy = endY - startY;
+                double dz = endZ - startZ;
+            
+                double distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+            
+                double stepX = dx / distance;
+                double stepY = dy / distance;
+                double stepZ = dz / distance;
+                for (double i = 0; i < distance; i += 0.1) {
+                    double px = startX + stepX * i;
+                    double py = startY + stepY * i;
+                    double pz = startZ + stepZ * i;
+                    if (this.level() instanceof ServerLevel serverLevel)serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, px, py, pz,3,0.3,0.3,0.3,0.1);
+                }
                 double distToEnemySqr = this.getPerceivedTargetDistanceSquareForMeleeAttack(target);
                 double reach = 64;
                 if (distToEnemySqr <= reach) {
                     this.setTargetPos(target.position());
                     target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 2));
-                    LightningBolt lightning = EntityType.LIGHTNING_BOLT.create(this.level());
-                    lightning.moveTo(target.blockPosition(), 0, 0);
-                    this.level().addFreshEntity(lightning);
+                    this.playSound(SoundEvents.LIGHTNING_BOLT_THUNDER, 5.0F, 1.0F);
+                    target.hurt(this.damageSources().generic(), 5);
+                    target.setSecondsOnFire(5);
                     this.setBeamTime(false);
                 }else{
                     this.getNavigation().moveTo(target.getX(), target.getY()+2, target.getZ(), 0.6);
