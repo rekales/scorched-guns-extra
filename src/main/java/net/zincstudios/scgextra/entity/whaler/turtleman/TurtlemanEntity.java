@@ -1,11 +1,16 @@
 package net.zincstudios.scgextra.entity.whaler.turtleman;
 
 import com.mojang.serialization.Dynamic;
+
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -16,6 +21,7 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
@@ -44,6 +50,8 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
             SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> STUNNED =
             SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private boolean playedStun = false;
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -163,6 +171,13 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 
         if (!this.level().isClientSide) {
             this.setStunned(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()));
+            if(this.isStunned() && !this.playedStun){
+                this.playedStun = true;
+                this.playSound(WhalerSounds.TURTLEMAN_STUN.get());
+            }
+            if(!this.isStunned()){
+                this.playedStun = false;
+            }
         }
     }
 
@@ -286,5 +301,25 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         double dz = target.z - mob.getZ();
         float targetYRot = (float)(Math.atan2(-dx, dz) * (180.0 / Math.PI));
         return Mth.wrapDegrees(targetYRot - mob.getYRot());
+    }
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.TURTLEMAN_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.TURTLE_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.TURTLEMAN_DEATH.get();
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(WhalerSounds.TURTLEMAN_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 1.5F + this.level().random.nextFloat() * 0.4F;
     }
 }
