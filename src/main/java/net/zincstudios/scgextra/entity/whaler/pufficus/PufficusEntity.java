@@ -61,7 +61,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
         return Monster.createMonsterAttributes()
                 .add(Attributes.FOLLOW_RANGE, 48.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
-                .add(Attributes.ATTACK_DAMAGE, 10.0D)
+                .add(Attributes.ATTACK_DAMAGE, 20.0D)
                 .add(Attributes.ARMOR, 4.0D)
                 .add(Attributes.MAX_HEALTH, 240.0D);
     }
