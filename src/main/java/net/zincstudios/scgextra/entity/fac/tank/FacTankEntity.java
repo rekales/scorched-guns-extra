@@ -3,8 +3,11 @@ package net.zincstudios.scgextra.entity.fac.tank;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.sounds.SoundEvent;
@@ -36,6 +39,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import top.ribs.scguns.ScorchedGuns;
 import top.ribs.scguns.common.Gun;
 import top.ribs.scguns.init.ModItems;
+
+import net.minecraft.network.chat.Component;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -70,6 +75,8 @@ public class FacTankEntity extends Monster implements GeoEntity, Gunner, CustomG
     private final SimulatedGun mainCannon;
 
     private boolean bulletSpawnLeft = false;
+
+    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS);
 
     public FacTankEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -134,6 +141,8 @@ public class FacTankEntity extends Monster implements GeoEntity, Gunner, CustomG
         super.tick();
 
         if (this.level().isClientSide) return;
+
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
 
         this.getBrain().getMemory(ModBrainMemories.ABILITY_STATE.get()).ifPresent(abilityState -> {
             if (abilityState.isSame(TankCannonFire.ABILITY_ID)) {
@@ -291,5 +300,23 @@ public class FacTankEntity extends Monster implements GeoEntity, Gunner, CustomG
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(FACSounds.FAC_TANK_WALK.get(), 0.3F, 1F);
+    }
+
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
     }
 }
