@@ -37,7 +37,7 @@
   "start_height": {
     "absolute": 0
   },
-  "project_start_to_heightmap": "WORLD_SURFACE",
+  "project_start_to_heightmap": "WORLD_SURFACE_WG",
   "step": "surface_structures",
   "terrain_adaptation": "beard_thin",
   "biomes": "scgextra:warzone_biome",
