@@ -1,11 +1,15 @@
 package net.zincstudios.scgextra.entity.whaler.armoredwhale;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -73,6 +77,9 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     public final RotatedSegmentPartEntity<ArmoredWhaleEntity> headFrontPart;
 
     private final PartEntity<?>[] subEntities;
+
+    private final ServerBossEvent bossEvent =
+            new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS);
 
     public ArmoredWhaleEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -199,6 +206,7 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     public void tick() {
         super.tick();
         this.tickSubEntities();
+        if(!this.level().isClientSide())this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
         if (!this.level().isClientSide && brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
             this.playSound(WhalerSounds.ARMORED_WHALE_BITE.get());
             this.triggerAnim("attack", "bite");
@@ -262,5 +270,27 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     protected float getSoundVolume() {
         return 5.0F;
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
     }
 }
