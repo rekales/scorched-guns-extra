@@ -5,10 +5,20 @@ import java.util.List;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.DoNothing;
+import net.minecraft.world.entity.ai.behavior.LookAtTargetSink;
+import net.minecraft.world.entity.ai.behavior.MoveToTargetSink;
+import net.minecraft.world.entity.ai.behavior.RandomStroll;
+import net.minecraft.world.entity.ai.behavior.RunOne;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromLookTarget;
+import net.minecraft.world.entity.ai.behavior.StartAttacking;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
@@ -43,8 +53,8 @@ public class PufficusAi {
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreActivity(brain);
-        BrainCommons.initIdleActivity(brain);
+        initCoreActivity(brain);
+        initIdleActivity(brain);
         initFightActivity(mob, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
@@ -73,5 +83,23 @@ public class PufficusAi {
                     200
                 )
         ), MemoryModuleType.ATTACK_TARGET);
+    }
+    public static void initCoreActivity(Brain<? extends Mob> brain) {
+        brain.addActivity(Activity.CORE, 0, ImmutableList.of(
+                new LookAtTargetSink(45, 90),
+                new MoveToTargetSink()
+        ));
+    }
+    public static void initIdleActivity(Brain<? extends PathfinderMob> brain) {
+        brain.addActivity(Activity.IDLE, 10, ImmutableList.of(
+                StartAttacking.create(BrainUtils::getHurtByNonFriendlies),
+                StartAttacking.create(BrainUtils::findNearestVisibleAttackablePlayer),
+                StartAttacking.create(BrainUtils::findNearestAttackableFactionEnemy),
+                new RunOne<>(ImmutableList.of(
+                        Pair.of(RandomStroll.stroll(1.0F, true), 2),
+                        Pair.of(SetWalkTargetFromLookTarget.create(1.0F, 3), 2),
+                        Pair.of(new DoNothing(30, 60), 1)
+                ))
+        ));
     }
 }
