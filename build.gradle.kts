@@ -47,6 +47,7 @@ dependencies {
     modRuntimeOnly("curse.maven:jei-238222:7270446")
     modRuntimeOnly("curse.maven:neat-238372:5838485")
     modRuntimeOnly("curse.maven:configured-457570:5180900")
+    modRuntimeOnly("curse.maven:debug-utils-783008:4644077")
 }
 
 legacyForge {
