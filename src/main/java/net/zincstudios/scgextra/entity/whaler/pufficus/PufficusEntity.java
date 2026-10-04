@@ -1,5 +1,7 @@
 package net.zincstudios.scgextra.entity.whaler.pufficus;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 
 import com.mojang.serialization.Dynamic;
@@ -12,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -21,10 +22,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
-import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -38,13 +36,15 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class PufficusEntity extends EquippedEntity implements GeoEntity {
     static final int MELEE_DAMAGE_DELAY = 16;
     static final int MELEE_DURATION = 33;
     static final int NET_DELAY = 14;
     static final int NET_DURATION = 25;
-    protected final WaterBoundPathNavigation waterNavigation;
-    protected final AmphibiousPathNavigation groundNavigation;
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -58,11 +58,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     public PufficusEntity(EntityType<? extends EquippedEntity> entityType, Level level) {
         super(entityType, level);
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        // this.moveControl = new AmphibiousMoveControl(this);
-        this.moveControl = new PufficusMoveControl(this);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.waterNavigation = new WaterBoundPathNavigation(this, level);
-        this.groundNavigation = new AmphibiousPathNavigation(this, level);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -160,87 +156,39 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     public boolean canDrownInFluidType(FluidType type) {
         return false;
     }
-    public boolean isPushedByFluid() {
+
+    @Override
+    public boolean isPushedByFluid(FluidType fluidType) {
         return false;
     }
 
-    public boolean canBreatheUnderwater() {
-        return true;
-    }
+    @Override
     protected PathNavigation createNavigation(Level level) {
-        return this.navigation;
+        return new AmphibiousPathNavigation(this, level);
     }
+
     @Override
     protected SoundEvent getAmbientSound() {
         return WhalerSounds.PUFFICUS_IDLE.get();
     }
+
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return WhalerSounds.PUFFICUS_HURT.get();
     }
+
     @Override
     protected SoundEvent getDeathSound() {
         return WhalerSounds.PUFFICUS_DEATH.get();
     }
+
     @Override
     protected float getSoundVolume() {
         return super.getSoundVolume() * 2f;
     }
+
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.DROWNED_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
-    public void updateSwimming() {
-        if (!this.level().isClientSide) {
-            if (this.isEffectiveAi() && this.isInWater()) {
-                this.navigation = this.waterNavigation;
-                this.setSwimming(true);
-            } else {
-                this.navigation = this.groundNavigation;
-                this.setSwimming(false);
-            }
-        }
-    }
-    static class PufficusMoveControl extends MoveControl {
-      private final PufficusEntity pufficus;
-
-      public PufficusMoveControl(PufficusEntity pufficus) {
-         super(pufficus);
-         this.pufficus = pufficus;
-      }
-
-      public void tick() {
-         LivingEntity livingentity = this.pufficus.getTarget();
-         if (this.pufficus.isInWater()) {
-            if (livingentity != null && livingentity.getY() > this.pufficus.getY()) {
-               this.pufficus.setDeltaMovement(this.pufficus.getDeltaMovement().add((double)0.0F, 0.002, (double)0.0F));
-            }
-
-            if (this.operation != Operation.MOVE_TO || this.pufficus.getNavigation().isDone()) {
-               this.pufficus.setSpeed(0.0F);
-               return;
-            }
-
-            double d0 = this.wantedX - this.pufficus.getX();
-            double d1 = this.wantedY - this.pufficus.getY();
-            double d2 = this.wantedZ - this.pufficus.getZ();
-            double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
-            d1 /= d3;
-            float f = (float)(Mth.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
-            this.pufficus.setYRot(this.rotlerp(this.pufficus.getYRot(), f, 90.0F));
-            this.pufficus.yBodyRot = this.pufficus.getYRot();
-            float f1 = (float)(this.speedModifier * this.pufficus.getAttributeValue(Attributes.MOVEMENT_SPEED));
-            float f2 = Mth.lerp(0.125F, this.pufficus.getSpeed(), f1);
-            this.pufficus.setSpeed(f2);
-            this.pufficus.setDeltaMovement(this.pufficus.getDeltaMovement().add((double)f2 * d0 * 0.005, (double)f2 * d1 * 0.1, (double)f2 * d2 * 0.005));
-         } else {
-            if (!this.pufficus.onGround()) {
-               this.pufficus.setDeltaMovement(this.pufficus.getDeltaMovement().add((double)0.0F, -0.008, (double)0.0F));
-            }
-
-            super.tick();
-         }
-
-      }
-   }
 }
