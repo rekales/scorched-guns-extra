@@ -7,10 +7,10 @@ import javax.annotation.Nullable;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,17 +27,12 @@ import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.pathfinder.AmphibiousNodeEvaluator;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.Node;
-import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraftforge.fluids.FluidType;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -54,6 +49,7 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation INK_SPLASH = RawAnimation.begin().thenPlay("ink_splash");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
 
     private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
             SynchedEntityData.defineId(TentacliatorEntity.class, EntityDataSerializers.INT);
@@ -62,20 +58,13 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
 
     public TentacliatorEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
-        this.setPathfindingMalus(BlockPathTypes.WATER, 4.0F);
-        this.setPathfindingMalus(BlockPathTypes.TRAPDOOR, -1.0F);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 1F, 1F, true);
-        this.setMaxUpStep(1.0F);
-    }
-
-    @Override
-    protected float getWaterSlowDown() {
-        return 1.0f;
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
     }
 
     @Override
     protected PathNavigation createNavigation(Level level) {
-        return new TentacliatorPathNavigation(this, level);
+        return new AmphibiousPathNavigation(this, level);
     }
 
     @Override
@@ -98,7 +87,7 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 3, state -> {
             if (state.isMoving()) {
-                state.setAndContinue(WALK);
+                state.setAndContinue(state.getAnimatable().isInWater() ? SWIM : WALK);
             } else {
                 state.setAndContinue(IDLE);
             }
@@ -214,37 +203,5 @@ public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gun
 
     protected SoundEvent getDeathSound() {
         return WhalerSounds.TENTACLIATOR_DEATH.get();
-    }
-    static class TentacliatorNodeEvaluator extends AmphibiousNodeEvaluator {
-        private final BlockPos.MutableBlockPos belowPos = new BlockPos.MutableBlockPos();
-
-        public TentacliatorNodeEvaluator(boolean p_218548_) {
-            super(p_218548_);
-        }
-
-        public Node getStart() {
-            return super.getStart();
-        }
-
-        public BlockPathTypes getBlockPathType(BlockGetter p_218551_, int p_218552_, int p_218553_, int p_218554_) {
-            this.belowPos.set(p_218552_, p_218553_ - 1, p_218554_);
-            return super.getBlockPathType(p_218551_, p_218552_, p_218553_, p_218554_);
-        }
-    }
-
-    static class TentacliatorPathNavigation extends AmphibiousPathNavigation {
-        TentacliatorPathNavigation(TentacliatorEntity mob, Level level) {
-            super(mob, level);
-        }
-
-        public boolean canCutCorner(BlockPathTypes pathType) {
-            return pathType != BlockPathTypes.WATER_BORDER && super.canCutCorner(pathType);
-        }
-
-        protected PathFinder createPathFinder(int maxVisitedNodes) {
-            this.nodeEvaluator = new TentacliatorNodeEvaluator(true);
-            this.nodeEvaluator.setCanPassDoors(true);
-            return new PathFinder(this.nodeEvaluator, maxVisitedNodes);
-        }
     }
 }
