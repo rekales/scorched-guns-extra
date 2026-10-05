@@ -7,6 +7,7 @@ import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;

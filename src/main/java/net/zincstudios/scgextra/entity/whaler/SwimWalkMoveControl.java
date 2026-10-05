@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.whaler.pufficus;
+package net.zincstudios.scgextra.entity.whaler;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;

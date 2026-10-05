@@ -13,15 +13,19 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.fluids.FluidType;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -44,6 +48,7 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
     private static final RawAnimation AIM = RawAnimation.begin().thenLoop("aim");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
@@ -54,6 +59,8 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
 
     public FishFolkEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
     }
 
     @Override
@@ -113,7 +120,7 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
             if (state.getAnimatable().isAggressive()) {
                 state.setAndContinue(AIM);
             } else if (state.isMoving()) {
-                state.setAndContinue(WALK);
+                state.setAndContinue(state.getAnimatable().isInWater() ? SWIM : WALK);
             } else {
                 state.setAndContinue(IDLE);
             }
@@ -169,6 +176,11 @@ public class FishFolkEntity extends EquippedEntity implements GeoEntity, Gunner,
     @Override
     public boolean isLeftHanded() {
         return true;
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
     
     protected SoundEvent getAmbientSound() {
