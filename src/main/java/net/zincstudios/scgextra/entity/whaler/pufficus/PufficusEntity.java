@@ -53,6 +53,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
     private static final RawAnimation ATTACK_WALKING = RawAnimation.begin().thenPlay("attack_walking");
     private static final RawAnimation NET_THROW = RawAnimation.begin().thenPlay("throw");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlay("death");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -111,7 +112,7 @@ public class PufficusEntity extends EquippedEntity implements GeoEntity {
         controllers.add(new AnimationController<>(this, "main", 2, state -> {
                     if (state.isMoving()) {
                         state.setControllerSpeed(1.5f);
-                        return state.setAndContinue(WALK);
+                        return state.setAndContinue(state.getAnimatable().isInWater() ? SWIM : WALK);
                     } else {
                         state.setControllerSpeed(0.8f);
                         return state.setAndContinue(IDLE);
