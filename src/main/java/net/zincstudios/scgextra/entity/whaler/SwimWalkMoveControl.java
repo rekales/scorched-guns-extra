@@ -1,9 +1,13 @@
 package net.zincstudios.scgextra.entity.whaler;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.SCGExtra;
 
@@ -22,7 +26,6 @@ public class SwimWalkMoveControl extends MoveControl {
     // TODO: when close to target, match y to walk target instead of wanted
     public void tick() {
         if (this.mob.isInWater()) {
-            SCGExtra.LOGGER.debug(this.operation + "");
             if (this.operation == Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
                 if (!this.applyGravity) {
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0, 0.005, 0));
@@ -44,6 +47,17 @@ public class SwimWalkMoveControl extends MoveControl {
                     ySpeed = Mth.clamp(ySpeed, -speed/2, speed/2);
                     if (yDiff < 0.5) {
                         ySpeed = ySpeed * (float)(Math.abs(yDiff) + 0.25);
+
+                        // add boost at water border
+                        PathNavigation nav = this.mob.getNavigation();
+                        Path path = nav.getPath();
+                        if (path != null) {
+                            BlockPos pos = path.getNextNodePos();
+                            if (nav.getNodeEvaluator().getBlockPathType(this.mob.level(), pos.getX(), pos.getY(), pos.getZ()) == BlockPathTypes.WALKABLE) {
+                                ySpeed += 0.15f;
+                                SCGExtra.LOGGER.debug("boost");
+                            }
+                        }
                     }
 
                     this.mob.setDeltaMovement(new Vec3(delta.x, ySpeed, delta.z));

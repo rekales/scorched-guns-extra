@@ -2,6 +2,10 @@ package net.zincstudios.scgextra.entity.whaler.turtleman;
 
 import com.mojang.serialization.Dynamic;
 
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -79,6 +83,9 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
                 new RotatedBulletProofPartEntity<>(this, new Vec3(0.3, 0.75, -0.5), 0.6f, 1.5f),
                 new RotatedBulletProofPartEntity<>(this, new Vec3(-0.3, 0.75, -0.5), 0.6f, 1.5f),
         };
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
+        this.setMaxUpStep(1.0F);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -302,6 +309,12 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
         float targetYRot = (float)(Math.atan2(-dx, dz) * (180.0 / Math.PI));
         return Mth.wrapDegrees(targetYRot - mob.getYRot());
     }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
+    }
+
     protected SoundEvent getAmbientSound() {
         return WhalerSounds.TURTLEMAN_IDLE.get();
     }
