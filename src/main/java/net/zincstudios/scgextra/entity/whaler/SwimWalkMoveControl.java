@@ -9,7 +9,6 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
-import net.zincstudios.scgextra.SCGExtra;
 
 public class SwimWalkMoveControl extends MoveControl {
 
@@ -55,7 +54,6 @@ public class SwimWalkMoveControl extends MoveControl {
                             BlockPos pos = path.getNextNodePos();
                             if (nav.getNodeEvaluator().getBlockPathType(this.mob.level(), pos.getX(), pos.getY(), pos.getZ()) == BlockPathTypes.WALKABLE) {
                                 ySpeed += 0.15f;
-                                SCGExtra.LOGGER.debug("boost");
                             }
                         }
                     }
