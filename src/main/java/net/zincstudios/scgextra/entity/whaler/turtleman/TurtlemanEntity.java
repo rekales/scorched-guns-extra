@@ -59,8 +59,10 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
     private static final RawAnimation IDLE_BACK = RawAnimation.begin().thenLoop("idle_back");
     private static final RawAnimation WALK_BACK = RawAnimation.begin().thenLoop("walk_back");
+    private static final RawAnimation SWIM_BACK = RawAnimation.begin().thenLoop("swim_back");
     private static final RawAnimation FRONT_BACK = RawAnimation.begin().thenPlayAndHold("front_back");
     private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlayAndHold("back_front");
     private static final RawAnimation STUN = RawAnimation.begin().thenLoop("stun");
@@ -231,7 +233,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
                     if (state.getAnimatable().isStunned()) {
                         state.setAnimation(STUN_BACK);
                     } else if (state.isMoving()) {
-                        state.setAnimation(WALK_BACK);
+                        state.setAnimation(state.getAnimatable().isInWater() ? SWIM_BACK : WALK_BACK);
                     } else {
                         state.setAnimation(IDLE_BACK);
                     }
@@ -239,7 +241,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
                     if (state.getAnimatable().isStunned()) {
                         state.setAnimation(STUN);
                     } else if (state.isMoving()) {
-                        state.setAnimation(WALK);
+                        state.setAnimation(state.getAnimatable().isInWater() ? SWIM : WALK);
                     } else {
                         state.setAnimation(IDLE);
                     }
