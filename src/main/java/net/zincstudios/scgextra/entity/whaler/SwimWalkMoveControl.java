@@ -9,20 +9,19 @@ import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.Path;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 
 public class SwimWalkMoveControl extends MoveControl {
 
     private final float swimSpeedMult;
     private final boolean applyGravity;
 
-    // TODO: use forge swim speed attrib
     public SwimWalkMoveControl(Mob mob, float swimSpeedMult, boolean applyGravity) {
         super(mob);
         this.swimSpeedMult = swimSpeedMult;
         this.applyGravity = applyGravity;
     }
 
-    // TODO: when close to target, match y to walk target instead of wanted
     public void tick() {
         if (this.mob.isInWater()) {
             if (this.operation == Operation.MOVE_TO && !this.mob.getNavigation().isDone()) {
@@ -30,10 +29,12 @@ public class SwimWalkMoveControl extends MoveControl {
                     this.mob.setDeltaMovement(this.mob.getDeltaMovement().add(0, 0.005, 0));
                 }
                 Vec3 delta = this.mob.getDeltaMovement();
-                float speed = (float)this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED) * this.swimSpeedMult;
+                float speed = (float)(this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED)
+                        * this.mob.getAttributeValue(ForgeMod.SWIM_SPEED.get())
+                        * this.swimSpeedMult);
 
-                // NOTE: does yya even fucking work?
-                // TODO: figure out what nullifies yya values
+                // does yya even fucking work?
+                // NOTE: figure out what nullifies yya values
                 double yDiff = this.wantedY - this.mob.position().y;
                 if (Math.abs(yDiff) > 0.1) {
                     float ySpeed = (float) delta.y;
