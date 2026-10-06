@@ -2,43 +2,46 @@
   "type": "minecraft:entity",
   "pools": [
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scguns:treated_iron_nugget",
-          "conditions": [],
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
             }
-          ]
+          ],
+          "name": "scguns:treated_iron_nugget"
         }
-      ]
+      ],
+      "rolls": 1.0
     },
     {
-      "rolls": 1,
+      "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "scguns:ancient_brass",
           "functions": [
             {
-              "function": "minecraft:set_count",
+              "add": false,
               "count": {
                 "type": "minecraft:uniform",
-                "min": 1,
-                "max": 3
-              }
+                "max": 3.0,
+                "min": 1.0
+              },
+              "function": "minecraft:set_count"
             }
-          ]
+          ],
+          "name": "scguns:ancient_brass"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
   ],
   "random_sequence": "scgextra:entities/wrecker_biker"
