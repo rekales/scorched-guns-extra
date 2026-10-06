@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": {
+      "tag": "forge:chests"
+    },
+    "I": {
+      "item": "scguns:treated_iron_block"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "M": {
+      "item": "scgextra:medkit"
+    },
+    "S": {
+      "item": "minecraft:string"
+    }
+  },
+  "pattern": [
+    "SMS",
+    "MCM",
+    "LIL"
+  ],
+  "result": {
+    "item": "scgextra:medipack"
+  },
+  "show_notification": false
+}

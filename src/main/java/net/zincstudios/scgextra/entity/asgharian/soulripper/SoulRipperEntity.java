@@ -3,10 +3,14 @@ package net.zincstudios.scgextra.entity.asgharian.soulripper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -79,6 +83,8 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
     private BlockPos boundOrigin = null;
     private int lastDeath = 0;  // tickCount timestamp
 
+    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.WHITE, BossEvent.BossBarOverlay.PROGRESS);
+
     public SoulRipperEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.subEntities = new PartEntity[] {
@@ -96,6 +102,9 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
     public void tick() {
         this.noPhysics = !this.isDeadOrDying();
         super.tick();
+        if (!this.level().isClientSide()) {
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        }
         this.noPhysics = false;
         this.setNoGravity(true);
         this.tickSubEntities();
@@ -420,6 +429,24 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
 
     protected SoundEvent getReviveSound() {
         return AsgharianSounds.SOUL_RIPPER_REVIVE.get();
+    }
+
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
     }
 
 }

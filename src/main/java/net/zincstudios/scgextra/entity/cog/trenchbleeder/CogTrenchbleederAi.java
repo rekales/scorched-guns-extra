@@ -1,0 +1,112 @@
+package net.zincstudios.scgextra.entity.cog.trenchbleeder;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.mojang.datafixers.util.Pair;
+
+import net.zincstudios.scgextra.entity.common.brain.PatchedEntityTracker;
+import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
+import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.ModBrainSensors;
+import net.zincstudios.scgextra.entity.common.brain.AimWhenNotWalking;
+import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
+import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
+import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.entity.ai.sensing.Sensor;
+import net.minecraft.world.entity.ai.sensing.SensorType;
+import net.minecraft.world.entity.schedule.Activity;
+
+import static net.zincstudios.scgextra.entity.ModBrainMemories.MIN_AIM_TICKS;
+
+public class CogTrenchbleederAi {
+    
+    protected static final ImmutableList<? extends SensorType<? extends Sensor<? super CogTrenchbleederEntity>>> SENSOR_TYPES = ImmutableList.of(
+            SensorType.NEAREST_LIVING_ENTITIES,
+            ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
+            SensorType.HURT_BY,
+            ModBrainSensors.CUSTOM_GUN.get()
+    );
+
+    protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
+            MemoryModuleType.ATTACK_TARGET,
+            MemoryModuleType.NEAREST_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+            MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+            MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.WALK_TARGET,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+            MemoryModuleType.PATH,
+            ModBrainMemories.AIM_TICKS.get(),
+            ModBrainMemories.SIMULATED_GUN.get(),
+            ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
+            ModBrainMemories.WEAPON_MAX_RANGE.get(),
+            MemoryModuleType.ATTACK_COOLING_DOWN,
+            ModBrainMemories.DELAYED_MELEE.get()
+    );
+
+    protected static Brain<?> makeBrain(CogTrenchbleederEntity mob, Brain<CogTrenchbleederEntity> brain) {
+        BrainCommons.initCoreActivity(brain);
+        BrainCommons.initIdleActivity(brain);
+        initFightActivity(mob, brain);
+        brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
+        brain.setDefaultActivity(Activity.IDLE);
+        brain.useDefaultActivity();
+        return brain;
+    }
+
+    private static void initFightActivity(CogTrenchbleederEntity mob, Brain<CogTrenchbleederEntity> brain) {
+        brain.addActivityAndRemoveMemoriesWhenStopped(Activity.FIGHT, BrainUtils.createPriorityPairs(10, ImmutableList.of(
+                StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
+                AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+                new ApproachTargetIfCannotAim(1.0F),
+                //Any better way to do this?
+                new AimWhenNotWalking(){
+                        @Override
+                        protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                                Brain<?> brain = mob.getBrain();
+                                LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+
+                                if (!brain.hasMemoryValue(MemoryModuleType.LOOK_TARGET)) {
+                                brain.setMemory(MemoryModuleType.LOOK_TARGET, new PatchedEntityTracker(target, true));
+                                }
+
+                                int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(0);
+                                if (brain.hasMemoryValue(MemoryModuleType.WALK_TARGET)) {
+                                aimTicks = 0;
+                                } else {
+                                aimTicks += mob.getSensing().hasLineOfSight(target) ? 1 : -1;
+                                aimTicks = Mth.clamp(aimTicks, MIN_AIM_TICKS, 48);
+                                }
+                                brain.setMemory(ModBrainMemories.AIM_TICKS.get(), aimTicks);
+                        }
+                },
+                new CogTrenchbleederShootTarget(16, (entity, firing) -> 1.4f, entity -> true),
+                new DelayedMeleeAttack(CogTrenchbleederEntity.MELEE_DAMAGE_DELAY, CogTrenchbleederEntity.MELEE_DURATION, 1.4f, 20)
+                )), ImmutableSet.of(
+                        Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
+                ), ImmutableSet.of(
+                        ModBrainMemories.AIM_TICKS.get()
+                )
+        );
+
+    }
+
+    public static void updateActivity(Mob mob) {
+        mob.getBrain().setActiveActivityToFirstValid(ImmutableList.of(
+                Activity.FIGHT,
+                Activity.IDLE
+        ));
+    }
+}

@@ -146,6 +146,9 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(Items.IRON_INGOT, 1, 3);
         basicLoot(WreckersEntities.WRECKER_HELICUBE.get())
                 .range(Items.IRON_NUGGET, 1, 3);
+        basicLoot(WreckersEntities.WRECKER_BIKER.get())
+                .range(ModItems.TREATED_IRON_NUGGET.get(), 1, 3)
+                .range(ModItems.ANCIENT_BRASS.get(), 1, 3);
         basicLoot(WreckersEntities.WRECKER_TURRET_GUNNER.get())
                 .range(Items.IRON_NUGGET, 1, 3)
                 .range(Items.GUNPOWDER, 1, 3)
@@ -199,6 +202,9 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         basicLoot(RRCEntities.ARC_PSYCHO.get())
                 .range(Items.REDSTONE, 1, 3)
                 .range(ModItems.SHOCK_CELL.get(), 1, 3);
+        basicLoot(RRCEntities.GARGOYLE.get())
+                .range(Items.LEATHER, 1, 3)
+                .range(ModItems.STANDARD_COPPER_ROUND.get(), 1, 3);
 
         basicLoot(AsgharianEntities.FAILED_ONE.get())
                 .range(Items.ROTTEN_FLESH, 1, 3)
@@ -259,6 +265,9 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 ), 0.3F)
                 .constant(ModItems.COG_HEART.get(), 1)
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3);
+        basicLoot(COGEntities.TRENCHBLEEDER.get())
+                .range(ModItems.ANCIENT_BRASS.get(), 1, 3)
+                .range(ModItems.SHOTGUN_SHELL.get(), 3, 6);
 
         basicLoot(NeutralEntities.INFLICTED_BOAR.get())
                 .range(Items.PORKCHOP, 1, 3)
@@ -267,6 +276,8 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
         basicLoot(NeutralEntities.INFLICTED_WOLF.get())
                 .range(Items.BONE, 1, 3)
                 .range(Items.LEATHER, 1, 3);
+        basicLoot(NeutralEntities.ANOMALY.get())
+                .constant(ModItems.EMPTY_CORE.get(), 1);
         basicLoot(NeutralEntities.AMMO_GOBLIN.get())
                 .range(Items.GUNPOWDER, 3, 6)
                 .constant(ModBlocks.SUPPLY_CRATE.get().asItem(), 1)

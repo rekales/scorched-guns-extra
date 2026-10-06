@@ -608,6 +608,34 @@
       "scgextra:rrc/arc_psycho/idle_3"
     ]
   },
+  "scgextra.rrc.gargoyle.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.idle",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_idle1",
+      "scgextra:rrc/gargoyle/gargoyle_idle2",
+      "scgextra:rrc/gargoyle/gargoyle_idle3",
+      "scgextra:rrc/gargoyle/gargoyle_idle4",
+      "scgextra:rrc/gargoyle/gargoyle_idle5"
+    ]
+  },
+  "scgextra.rrc.gargoyle.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.hurt",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_hurt1",
+      "scgextra:rrc/gargoyle/gargoyle_hurt2",
+      "scgextra:rrc/gargoyle/gargoyle_hurt3"
+    ]
+  },
+  "scgextra.rrc.gargoyle.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.gargoyle.death",
+    "sounds": [
+      "scgextra:rrc/gargoyle/gargoyle_death1",
+      "scgextra:rrc/gargoyle/gargoyle_death2"
+    ]
+  },
   "fac_bluecoat.death": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.fac_bluecoat.death",
@@ -1119,6 +1147,44 @@
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_stun_death"
     ]
   },
+  "scgextra.wreckers.wrecker_biker.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.idle",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_idle"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.idle_while_circling": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.wrecker_biker_idle_while_circling",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_idle_while_circling"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.hurt",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_hurt1",
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_hurt2"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.hit": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.hit",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_hit1",
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_hit2"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.death",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_death1",
+      "scgextra:wreckers/wrecker_biker/wrecker_biker_death2"
+    ]
+  },
   "asghar_surgeon.attack": {
     "category": "hostile",
     "subtitle": "scgextra.subtitle.asghar_surgeon.attack",
@@ -1465,6 +1531,51 @@
       "scgextra:cog/cog_juggernaut/hurt1",
       "scgextra:cog/cog_juggernaut/hurt2",
       "scgextra:cog/cog_juggernaut/hurt3"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.idle",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/idle",
+      "scgextra:fac/fac_walker/idle1",
+      "scgextra:fac/fac_walker/idle2",
+      "scgextra:fac/fac_walker/idle3"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.step": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.step",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/step1",
+      "scgextra:cog/cog_trenchbleeder/step2"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.stomp": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.stomp",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/stomp1",
+      "scgextra:cog/cog_trenchbleeder/stomp2"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.hurt",
+    "sounds": [
+      "scgextra:cog/heavy_hurt1",
+      "scgextra:cog/heavy_hurt2",
+      "scgextra:cog/heavy_hurt3",
+      "scgextra:cog/heavy_hurt4",
+      "scgextra:cog/heavy_hurt5"
+    ]
+  },
+  "scgextra.cog.cog_trenchbleeder.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.cog_trenchbleeder.death",
+    "sounds": [
+      "scgextra:cog/cog_trenchbleeder/death1",
+      "scgextra:cog/cog_trenchbleeder/death2"
     ]
   },
   "ammo_goblin.dead": {

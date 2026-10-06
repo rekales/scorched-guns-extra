@@ -24,6 +24,7 @@ import net.zincstudios.scgextra.entity.fac.trench_goblin.FacTrenchGoblinEntity;
 import net.zincstudios.scgextra.entity.fac.trench_sniper.FacTrenchSniperEntity;
 import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
 import net.zincstudios.scgextra.entity.rrc.tallman.TallmanEntity;
+import net.zincstudios.scgextra.entity.wreckers.wrecker_biker.WreckerBikerEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_green.WreckerGreenEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_jumbo.WreckerJumboEntity;
 import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTurretGunnerEntity;
@@ -31,6 +32,7 @@ import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTur
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.Animal;
@@ -133,6 +135,15 @@ public class SCGExtra
             }
             if(event.getExplosion().getDirectSourceEntity() instanceof WreckerGreenEntity){
                 event.getAffectedEntities().removeIf(entity -> entity instanceof ItemEntity);
+            }
+            //only do 10 damage
+            if(event.getExplosion().getDirectSourceEntity() instanceof WreckerBikerEntity){
+                event.getAffectedEntities().forEach(entity -> {
+                    if(entity instanceof LivingEntity le){
+                        le.hurt(event.getExplosion().getDamageSource(), 10);
+                    }
+                });
+                event.getAffectedEntities().removeIf(entity -> entity instanceof LivingEntity);
             }
         }
         @SubscribeEvent

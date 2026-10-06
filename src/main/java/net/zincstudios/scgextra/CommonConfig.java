@@ -121,6 +121,56 @@ public class CommonConfig {
             .comment("spawn weight for the warzone biome")
             .defineInRange("warzoneSpawnWeight", 10, 1, 1000);
 
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MINIMUM_TEMPERATURE = BUILDER
+            .comment("""
+                minimum spawn temperature for the warzone biome,
+                Temperature: Determines if the biome is cold or hot, -1.0(Frozen) to 1.0(HOT)
+                """)
+            .defineInRange("warzoneSpawnMinimumTemperature", -1.0, -1.0, 1.0);
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MAXIMUM_TEMPERATURE = BUILDER
+            .comment("maximum spawn temperature for the warzone biome")
+            .defineInRange("warzoneSpawnMaximumTemperature", 1.0, -1.0, 1.0);
+
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MINIMUM_HUMIDITY = BUILDER
+            .comment("""
+                minimum spawn humidity for the warzone biome
+                Humidity: WET OR DRY, -1.0(desert, snowy biomes, etc) to 1.0(jungle, swamp etc)
+                """)
+            .defineInRange("warzoneSpawnMinimumHumidity", -1.0, -1.0, 1.0);
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MAXIMUM_HUMIDITY = BUILDER
+            .comment("maximum spawn humidity for the warzone biome")
+            .defineInRange("warzoneSpawnMaximumHumidity", 1.0, -1.0, 1.0);
+
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MINIMUM_CONTINENTALNESS = BUILDER
+            .comment("""
+                minimum spawn continentalness for the warzone biome
+                Continentalness: if it is closer to(even inside) or further than the ocean, -1.0(in ocean) to 1.0(deep in land)
+                """)
+            .defineInRange("warzoneSpawnMinimumContinentalness", -0.11, -1.0, 1.0);
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MAXIMUM_CONTINENTALNESS = BUILDER
+            .comment("maximum spawn continentalness for the warzone biome")
+            .defineInRange("warzoneSpawnMaximumContinentalness", 1.0, -1.0, 1.0);
+
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MINIMUM_EROSION = BUILDER
+            .comment("""
+                minimum spawn erosion for the warzone biome
+                Erosion: flatness, -1.0(not flat) to 1.0(very flat)
+                """)
+            .defineInRange("warzoneSpawnMinimumErosion", 0.45, -1.0, 1.0);
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MAXIMUM_EROSION = BUILDER
+            .comment("maximum spawn erosion for the warzone biome")
+            .defineInRange("warzoneSpawnMaximumErosion", 1.0, -1.0, 1.0);
+
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MINIMUM_WEIRDNESS = BUILDER
+            .comment("""
+                minimum spawn weirdness for the warzone biome
+                Weirdness: how weird a biome is, -1.0(not weird) to 1.0 (very weird)
+            """)
+            .defineInRange("warzoneSpawnMinimumWeirdness", -1.0, -1.0, 1.0);
+    public static final ForgeConfigSpec.DoubleValue WARZONE_SPAWN_MAXIMUM_WEIRDNESS = BUILDER
+            .comment("maximum spawn weirdness for the warzone biome")
+            .defineInRange("warzoneSpawnMaximumWeirdness", 1.0, -1.0, 1.0);
+
 
     // Might not be possible actually
 //    private static final ForgeConfigSpec.IntValue ABILITY_WARNING_LENGTH = BUILDER

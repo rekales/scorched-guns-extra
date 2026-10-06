@@ -5,7 +5,16 @@
     {
       "weight": 1,
       "element": {
-        "location": "scgextra:fac_tower/fac_tower_bottom",
+        "location": "scgextra:fac_tower/tower_bottom",
+        "processors": "minecraft:empty",
+	      "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:fac_tower/tower_top",
         "processors": "minecraft:empty",
 	      "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

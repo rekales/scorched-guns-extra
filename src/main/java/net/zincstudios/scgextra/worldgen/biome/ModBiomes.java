@@ -59,7 +59,7 @@ public class ModBiomes {
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.WARZONE_SPRUCE_PLACED_KEY);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.GRASS_PATCH_PLACED_KEY);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, ModPlacedFeatures.GRASS_PATCH_TALL_PLACED_KEY);
-
+        
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
                 .downfall(0.8f)
@@ -70,8 +70,8 @@ public class ModBiomes {
                         .waterColor(0x685743)
                         .waterFogColor(0x685743)
                         .skyColor(0x3F403B)
-                        .grassColorOverride(0x2C3025)
-                        .foliageColorOverride(0x2C3025)
+                        .grassColorOverride(0x6D7463)
+                        .foliageColorOverride(0x6D7463)
                         .fogColor(0x72736C)
                         .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .backgroundMusic(Musics.createGameMusic(SoundEvents.AMBIENT_NETHER_WASTES_LOOP)).build())

@@ -80,16 +80,12 @@ public class WaterAvoidingStructure extends Structure{
         ChunkPos chunkpos = context.chunkPos();
         int i = this.startHeight.sample(context.random(),
                 new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor()));
-        int y = context.chunkGenerator().getFirstFreeHeight(chunkpos.getMinBlockX(), chunkpos.getMinBlockZ(), Heightmap.Types.WORLD_SURFACE, context.heightAccessor(), context.randomState() );
         BlockPos blockpos = new BlockPos(chunkpos.getMinBlockX(), i, chunkpos.getMinBlockZ());
         BlockState state = context
                 .chunkGenerator().getBaseColumn(context.chunkPos().getMinBlockX(),
                         context.chunkPos().getMinBlockZ(), context.heightAccessor(), context.randomState())
                 .getBlock(62);
         if (state.is(Blocks.WATER) || state.is(Blocks.KELP_PLANT)) {
-            return Optional.empty();
-        }
-        if (y > 70) {
             return Optional.empty();
         }
         return JigsawPlacement.addPieces(context, this.startPool, this.startJigsawName, this.maxDepth, blockpos,

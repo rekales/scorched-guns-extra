@@ -1,5 +1,6 @@
 package net.zincstudios.scgextra.item;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
@@ -30,11 +32,15 @@ import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
 import net.zincstudios.scgextra.item.armor.*;
+import net.zincstudios.scgextra.item.custom.BandageItem;
 import top.ribs.scguns.attributes.SCAttributes;
 import top.ribs.scguns.item.GunItem;
 import top.ribs.scguns.item.HealingBandageItem;
 
+import java.util.List;
 import java.util.Set;
+
+import javax.annotation.Nullable;
 
 @SuppressWarnings("unused")
 public class ModItems {
@@ -75,8 +81,13 @@ public class ModItems {
             () -> new net.zincstudios.scgextra.item.custom.WreckerTurretItem(ModBlocks.WRECKER_TURRET.get(), new Item.Properties())
     );
 
-    public static final RegistryObject<HealingBandageItem> BANDAGE = ITEMS.register("bandage", () -> new HealingBandageItem(
-            (new Item.Properties()).stacksTo(16), 4,
+    public static final RegistryObject<BandageItem> BANDAGE = ITEMS.register("bandage", () -> new BandageItem(
+            (new Item.Properties()).stacksTo(16), 4, 8,
+            List.of(
+                new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
+                new MobEffectInstance(MobEffects.ABSORPTION, 400, 0),
+                new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 2)
+            ),
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0)
     ));
 
@@ -85,6 +96,13 @@ public class ModItems {
             new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0)
     ));
+
+    public static final RegistryObject<Item> MEDIPACK = ITEMS.register("medipack", () -> new Item((new Item.Properties()).stacksTo(1).durability(64)){
+        public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flag) {
+                tooltip.add(Component.translatable("item.scgextra.medipack.desc").withStyle(ChatFormatting.GREEN));
+                super.appendHoverText(stack, world, tooltip, flag);
+            }
+        });
 
     public static final RegistryObject<Item> END_SHELL = ITEMS.register("end_shell",
             () -> new Item(new Item.Properties().stacksTo(64))
@@ -251,6 +269,7 @@ public class ModItems {
             FLAMING_HEAD_SPAWN_EGG = basicSpawnEgg(RRCEntities.FLAMING_HEAD),
             SCRAP_GUARD_SPAWN_EGG = basicSpawnEgg(RRCEntities.SCRAP_GUARD),
             ARC_PSYCHO_SPAWN_EGG = basicSpawnEgg(RRCEntities.ARC_PSYCHO),
+            GARGOYLE_SPAWN_EGG = basicSpawnEgg(RRCEntities.GARGOYLE),
 
             // FAC
             FAC_TRENCHER_SPAWN_EGG = basicSpawnEgg(FACEntities.FAC_TRENCHER),
@@ -272,6 +291,7 @@ public class ModItems {
             WRECKER_HELICUBE_SPAWN_EGG = basicSpawnEgg(WreckersEntities.WRECKER_HELICUBE),
             WRECKER_TURRET_SPAWN_EGG = basicSpawnEgg(WreckersEntities.WRECKER_TURRET_GUNNER),
             WRECKER_DOZER_SPAWN_EGG = basicSpawnEgg(WreckersEntities.WRECKER_DOZER),
+            WRECKER_BIKER_SPAWN_EGG = basicSpawnEgg(WreckersEntities.WRECKER_BIKER),
 
             // Asgharian
             FAILED_ONE_SPAWN_EGG = basicSpawnEgg(AsgharianEntities.FAILED_ONE),
@@ -289,6 +309,7 @@ public class ModItems {
             COG_VENATOR_SPAWN_EGG = basicSpawnEgg(COGEntities.VENATOR),
             COG_CENTIPEDE_SPAWN_EGG = basicSpawnEgg(COGEntities.CENTIPEDE),
             COG_JUGGERNAUT_SPAWN_EGG = basicSpawnEgg(COGEntities.JUGGERNAUT),
+            COG_TRENCHBLEEDER_SPAWN_EGG = basicSpawnEgg(COGEntities.TRENCHBLEEDER),
 
             // Neutral
             INFLICTED_BOAR_SPAWN_EGG = basicSpawnEgg(NeutralEntities.INFLICTED_BOAR),
@@ -296,6 +317,7 @@ public class ModItems {
             AMMO_GOBLIN_SPAWN_EGG = basicSpawnEgg(NeutralEntities.AMMO_GOBLIN),
             BIG_LUMP_SPAWN_EGG = basicSpawnEgg(NeutralEntities.BIG_LUMP),
             MUTANT_BAT_SPAWN_EGG = basicSpawnEgg(NeutralEntities.MUTANT_BAT),
+            ANOMALY_SPAWN_EGG = basicSpawnEgg(NeutralEntities.ANOMALY),
             NITRO_BEETLE_SPAWN_EGG = basicSpawnEgg(NeutralEntities.NITRO_BEETLE),
             HEAD_HUNTER_SPAWN_EGG = basicSpawnEgg(NeutralEntities.HEAD_HUNTER),
             NETHERITE_EATER_SPAWN_EGG = basicSpawnEgg(NeutralEntities.NETHERITE_EATER),

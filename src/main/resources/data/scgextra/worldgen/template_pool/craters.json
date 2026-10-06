@@ -1,0 +1,366 @@
+{
+  "name": "scgextra:trenches/surface/center",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_1",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -7
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_2",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -5
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_3",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -5
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_4",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -5
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_5",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -7
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_6",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -5
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_7",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -5
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_8",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -6
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_9",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_10",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_11",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_12",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_13",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_14",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_15",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_16",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_17",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_18",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -1
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_19",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_20",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_21",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_22",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_23",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:craters/crater_24",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE",
+            "offset": -2
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

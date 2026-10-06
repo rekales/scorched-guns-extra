@@ -35,5 +35,9 @@ public class ModItemTagProvider extends ItemTagsProvider {
                 .add(ModItems.MEDAL_OF_CONQUEROR.get());
         tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "belt")))
                 .add(ModItems.MEDKIT.get());
+        tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "back")))
+                .add(ModItems.MEDIPACK.get());
+        tag(ItemTags.create(ResourceLocation.fromNamespaceAndPath("curios", "body")))
+                .add(ModItems.MEDIPACK.get());
     }
 }

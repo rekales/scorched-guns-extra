@@ -5,11 +5,15 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -87,6 +91,8 @@ public class CandleFiendEntity extends Monster implements GeoEntity, Leaping {
     private int enragedTicks = 0;
     private int slamDelay = 0;
 
+    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
+
     public CandleFiendEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
@@ -94,6 +100,10 @@ public class CandleFiendEntity extends Monster implements GeoEntity, Leaping {
     @Override
     public void tick() {
         super.tick();
+
+        if (!this.level().isClientSide()) {
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+        }
 
         if (this.level().isClientSide()) {
             ClientLevel clientLevel = (ClientLevel) level();  // Dedicated Server doesn't like doing instanceof ClientLevel
@@ -358,5 +368,22 @@ public class CandleFiendEntity extends Monster implements GeoEntity, Leaping {
 
     protected void playStepSound(BlockPos pos, BlockState block) {
         this.playSound(this.getStepSound(), this.isMasked() ? 0.25F : 0.35F, 1.0F);
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
     }
 }

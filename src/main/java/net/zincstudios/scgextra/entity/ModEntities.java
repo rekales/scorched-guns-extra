@@ -1,6 +1,7 @@
 package net.zincstudios.scgextra.entity;
 
 import net.zincstudios.scgextra.item.curios.MedKitRenderer;
+import net.zincstudios.scgextra.item.curios.MediPackRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -127,5 +128,6 @@ public class ModEntities {
         EntityRenderers.register(ModEntities.LARGE_SOUL_FIREBALL.get(), SoulFireBallRenderer::new);
         EntityRenderers.register(ModEntities.TURRET_SEAT.get(), NoopRenderer::new);
         CuriosRendererRegistry.register(ModItems.MEDKIT.get(), MedKitRenderer::new);
+        CuriosRendererRegistry.register(ModItems.MEDIPACK.get(), MediPackRenderer::new);
     }
 }

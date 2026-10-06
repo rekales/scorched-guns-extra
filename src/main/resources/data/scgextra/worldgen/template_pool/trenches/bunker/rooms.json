@@ -1,0 +1,276 @@
+{
+  "name": "scgextra:trenches/bunker/rooms",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room1",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room2",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room3",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room4",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room5",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room6",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room7",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room8",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:trenches/bunker/room9",
+        "processors": [
+          {
+            "processor_type": "scgextra:warship_processor"
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

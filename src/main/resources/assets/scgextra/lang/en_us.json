@@ -17,6 +17,7 @@
   "entity.scgextra.flaming_head":  "RRC Flaming Head",
   "entity.scgextra.copper_knight":  "RRC Copper Knight",
   "entity.scgextra.scrap_guard":  "RRC Scrap Guard",
+  "entity.scgextra.gargoyle":  "RRC Gargoyle",
 
   "entity.scgextra.fac_trencher":  "FAC Trencher",
   "entity.scgextra.fac_bluecoat":  "FAC Bluecoat",
@@ -27,7 +28,7 @@
   "entity.scgextra.fac_lion":  "FAC Lion",
   "entity.scgextra.fac_commissar":  "FAC Commissar",
   "entity.scgextra.fac_walker":  "FAC Walker",
-  "entity.scgextra.fac_tank":  "FAC Siege Tank",
+  "entity.scgextra.fac_tank":  "FAC Tank",
 
   "entity.scgextra.failed_one":  "Failed One",
   "entity.scgextra.asghar_surgeon":  "Asghar Elite Surgeon",
@@ -43,6 +44,7 @@
   "entity.scgextra.wrecker_helicube": "Wrecker Helicube",
   "entity.scgextra.wrecker_turret_gunner": "Wrecker Turret",
   "entity.scgextra.wrecker_dozer": "Wrecker Dozer",
+  "entity.scgextra.wrecker_biker": "Wrecker Biker",
   "entity.scgextra.turret_seat": "Turret Seat",
 
   "entity.scgextra.cog_vulture":  "COG Vulture",
@@ -52,12 +54,14 @@
   "entity.scgextra.cog_venator": "COG Venator",
   "entity.scgextra.cog_centipede": "COG Centipede",
   "entity.scgextra.cog_juggernaut": "COG Juggernaut",
+  "entity.scgextra.cog_trenchbleeder": "COG Trenchbleeder",
 
   "entity.scgextra.inflicted_boar":  "Inflicted Boar",
   "entity.scgextra.inflicted_wolf":  "Inflicted Wolf",
   "entity.scgextra.ammo_goblin":  "Ammo Goblin",
   "entity.scgextra.big_lump":  "Big Lump",
   "entity.scgextra.mutant_bat":  "Mutant Bat",
+  "entity.scgextra.anomaly":  "Anomaly",
   "entity.scgextra.nitro_beetle":  "Nitro Beetle",
   "entity.scgextra.head_hunter":  "Head Hunter",
   "entity.scgextra.netherite_eater":  "Netherite Eater",
@@ -84,6 +88,7 @@
   "item.scgextra.scrap_guard_spawn_egg":  "RRC Scrap Guard Spawn Egg",
   "item.scgextra.arc_psycho_spawn_egg":  "RRC Arc Psycho Spawn Egg",
   "item.scgextra.copper_knight_spawn_egg":  "RRC Copper Knight Spawn Egg",
+  "item.scgextra.gargoyle_spawn_egg":  "RRC Gargoyle Spawn Egg",
 
   "item.scgextra.fac_trencher_spawn_egg":  "FAC Trencher Spawn Egg",
   "item.scgextra.fac_bluecoat_spawn_egg":  "FAC Bluecoat Spawn Egg",
@@ -110,12 +115,14 @@
   "item.scgextra.wrecker_helicube_spawn_egg": "Wrecker Helicube Spawn Egg",
   "item.scgextra.wrecker_turret_gunner_spawn_egg": "Wrecker Turret Spawn Egg",
   "item.scgextra.wrecker_dozer_spawn_egg": "Wrecker Dozer Spawn Egg",
+  "item.scgextra.wrecker_biker_spawn_egg": "Wrecker Biker Spawn Egg",
 
   "item.scgextra.inflicted_boar_spawn_egg":  "Inflicted Boar Spawn Egg",
   "item.scgextra.inflicted_wolf_spawn_egg":  "Inflicted Wolf Spawn Egg",
   "item.scgextra.ammo_goblin_spawn_egg":  "Ammo Goblin Spawn Egg",
   "item.scgextra.big_lump_spawn_egg":  "Big Lump Spawn Egg",
   "item.scgextra.mutant_bat_spawn_egg":  "Mutant Bat Spawn Egg",
+  "item.scgextra.anomaly_spawn_egg":  "Anomaly Spawn Egg",
   "item.scgextra.nitro_beetle_spawn_egg":  "Nitro Beetle Spawn Egg",
   "item.scgextra.head_hunter_spawn_egg":  "Head Hunter Spawn Egg",
   "item.scgextra.netherite_eater_spawn_egg":  "Netherite Eater Spawn Egg",
@@ -132,6 +139,7 @@
   "item.scgextra.cog_venator_spawn_egg": "COG Venator Spawn Egg",
   "item.scgextra.cog_centipede_spawn_egg": "COG Centipede Spawn Egg",
   "item.scgextra.cog_juggernaut_spawn_egg": "COG Juggernaut Spawn Egg",
+  "item.scgextra.cog_trenchbleeder_spawn_egg": "COG Trenchbleeder Spawn Egg",
 
   "item.scgextra.atlantic_mace":  "Atlantic Mace",
   "item.scgextra.cavalry_saber":  "Cavalry Saber",
@@ -142,8 +150,10 @@
 
   "item.scgextra.bandage":  "Bandage",
   "item.scgextra.medkit":  "Medkit",
+  "item.scgextra.medipack":  "Medipack",
 
   "item.scgextra.single_use_desc":  "Single Use Only",
+  "item.scgextra.medipack.desc":  "increase the effectiveness of regular bandages",
 
   "item.scgextra.medal_of_survivor":  "Medal of Survivor",
   "item.scgextra.medal_of_iron_will":  "Medal of Iron Will",
@@ -361,7 +371,9 @@
   "scgextra.subtitle.arc_psycho.idle": "Arc psycho Groans",
   "scgextra.subtitle.arc_psycho.hurt": "Arc psycho Hurts",
   "scgextra.subtitle.arc_psycho.death": "Arc psycho Dies",
-  "scgextra.subtitle.scrapguard.punch": "Scrap Guard Punches",
+  "scgextra.subtitle.gargoyle.idle": "RRC Gargoyle Groans",
+  "scgextra.subtitle.gargoyle.hurt": "RRC Gargoyle Hurts",
+  "scgextra.subtitle.gargoyle.death": "RRC Gargoyle Dies",
   
   "scgextra.subtitle.cog_devastator.idle": "Cog devastator Noises",
   "scgextra.subtitle.cog_bombardier.walk": "Cog bombardier Walking",
@@ -376,6 +388,11 @@
   "scgextra.subtitle.cog_bombardier.scan": "Cog bombardier Scans",
   "scgextra.subtitle.cog_centipede.idle": "Cog centipede Noises",
   "scgextra.subtitle.cog_juggernaut.hurt": "Cog juggernaut Hurts",
+  "scgextra.subtitle.cog_trenchbleeder.idle": "Cog Trenchbleeder Noises",
+  "scgextra.subtitle.cog_trenchbleeder.step": "Cog Trenchbleeder Noises",
+  "scgextra.subtitle.cog_trenchbleeder.stomp": "Cog Trenchbleeder Attacks",
+  "scgextra.subtitle.cog_trenchbleeder.death": "Cog Trenchbleeder Dies",
+  "scgextra.subtitle.cog_trenchbleeder.hurt": "Cog Trenchbleeder Hurts",
   
   "scgextra.subtitle.fac_lion.hurt": "Fac lion Hurts",
   "scgextra.subtitle.fac_trench_sniper.idle": "Fac trench sniper Groans",
@@ -438,6 +455,11 @@
   "scgextra.subtitle.wreckers.idle": "Wreckers Groans",
   "scgextra.subtitle.wreckers.attack": "Wreckers Attacks",
   "scgextra.subtitle.wrecking_tool.use": "Wrecking tool uses",
+  "scgextra.subtitle.wrecker_biker.idle": "Wrecker Biker Noises",
+  "scgextra.subtitle.wrecker_biker.wrecker_biker_idle_while_circling": "Wrecker Biker Circling Noises",
+  "scgextra.subtitle.wrecker_biker.hurt": "Wrecker Biker Hurts",
+  "scgextra.subtitle.wrecker_biker.hit": "Wrecker Biker Hits",
+  "scgextra.subtitle.wrecker_biker.death": "Wrecker Biker Dies",
   
   "scgextra.subtitle.asghar_flamer.idle": "Asghar flamer Groans",
   "scgextra.subtitle.asghar_worker.hurt": "Asghar worker Hurts",
@@ -495,5 +517,7 @@
   "scgextra.subtitle.netherite_eater.hurt": "Netherite eater Hurts",
   "scgextra.subtitle.ammo_goblin.idle": "Ammo goblin Groans",
   "scgextra.subtitle.mutant_bat.hurt": "Mutant bat Hurts",
-  "scgextra.subtitle.end_stone_crab.death": "End stone crab Dies"
+  "scgextra.subtitle.end_stone_crab.death": "End stone crab Dies",
+
+  "biome.scgextra.warzone_biome": "Warzone"
 }

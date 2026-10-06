@@ -7,13 +7,17 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
@@ -72,6 +76,8 @@ public class CogJuggernautEntity extends EquippedEntity implements GeoEntity, Gu
 
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
 
+    private final ServerBossEvent bossEvent = new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+
     public CogJuggernautEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
     }
@@ -81,6 +87,7 @@ public class CogJuggernautEntity extends EquippedEntity implements GeoEntity, Gu
         super.tick();
 
         if (!this.level().isClientSide()) {
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             Optional<AbilityState> optional = this.getBrain().getMemory(ModBrainMemories.ABILITY_STATE.get());
             if (optional.isPresent()) {
                 AbilityState abilityState = optional.get();
@@ -313,5 +320,22 @@ public class CogJuggernautEntity extends EquippedEntity implements GeoEntity, Gu
     @Override
     protected SoundEvent getDeathSound() {
         return COGSounds.COG_JUGGERNAUT_DEAD.get();
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
     }
 }

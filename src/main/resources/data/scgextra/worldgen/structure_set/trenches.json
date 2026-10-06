@@ -3,12 +3,16 @@
     {
       "structure": "scgextra:trenches",
       "weight": 1
+    },
+    {
+      "structure": "scgextra:bunker_trenches",
+      "weight": 1
     }
   ],
   "placement": {
     "type": "minecraft:random_spread",
-    "spacing": 10,
-    "separation": 6,
+    "spacing": 20,
+    "separation": 12,
     "spread_type": "linear",
     "salt": 4723675,
     "frequency_reduction_method": "default",

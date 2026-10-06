@@ -113,6 +113,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.WRECKER_HELICUBE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.WRECKER_TURRET_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.WRECKER_DOZER_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.WRECKER_BIKER_SPAWN_EGG.get());
 
         basicItem("spawn_egg/", ModItems.COPPER_KNIGHT_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.DRONE_SPAWN_EGG.get());
@@ -123,6 +124,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.FLAMING_HEAD_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.SCRAP_GUARD_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.ARC_PSYCHO_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.GARGOYLE_SPAWN_EGG.get());
 
         basicItem("spawn_egg/", ModItems.FAILED_ONE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.ASGHAR_SURGEON_SPAWN_EGG.get());
@@ -138,12 +140,14 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.COG_VENATOR_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.COG_CENTIPEDE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.COG_JUGGERNAUT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.COG_TRENCHBLEEDER_SPAWN_EGG.get());
 
         basicItem("spawn_egg/", ModItems.INFLICTED_BOAR_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.INFLICTED_WOLF_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.AMMO_GOBLIN_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.BIG_LUMP_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.MUTANT_BAT_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.ANOMALY_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.NITRO_BEETLE_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.HEAD_HUNTER_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.NETHERITE_EATER_SPAWN_EGG.get());

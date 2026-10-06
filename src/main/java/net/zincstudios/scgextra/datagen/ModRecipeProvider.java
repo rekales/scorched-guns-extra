@@ -55,6 +55,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_ingredient", has(top.ribs.scguns.init.ModItems.BASIC_POULTICE.get()))
                 .showNotification(false)
                 .save(writer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.MEDIPACK.get())
+                .pattern("SMS")
+                .pattern("MCM")
+                .pattern("LIL")
+                .define('M', ModItems.MEDKIT.get())
+                .define('C', Tags.Items.CHESTS)
+                .define('L', Items.LEATHER)
+                .define('S', Items.STRING)
+                .define('I', top.ribs.scguns.init.ModBlocks.TREATED_IRON_BLOCK.get())
+                .unlockedBy("has_ingredient", has(ModItems.MEDKIT.get()))
+                .showNotification(false)
+                .save(writer);
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.CAVALRY_SABER.get())
                 .pattern("I ")
                 .pattern("IN")

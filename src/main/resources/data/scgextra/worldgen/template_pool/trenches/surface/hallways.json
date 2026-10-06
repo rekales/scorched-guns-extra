@@ -1,0 +1,262 @@
+{
+  "name": "scgextra:trenches/surface/hallways",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway1",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway2",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway3",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway4",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway5",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway6",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway7",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "scgextra:trenches/surface/hallway8",
+        "processors": [
+          {
+            "processor_type": "minecraft:gravity",
+            "heightmap": "WORLD_SURFACE_WG",
+            "offset": -4
+          },
+          {
+            "processor_type": "minecraft:rule",
+            "rules": [
+              {
+                "location_predicate": {
+                  "predicate_type": "minecraft:always_true"
+                },
+                "input_predicate": {
+                  "predicate_type": "minecraft:block_match",
+                  "block": "minecraft:barrier"
+                },
+                "output_state": {
+                  "Name": "minecraft:air"
+                }
+              }
+            ]
+          }
+        ],
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

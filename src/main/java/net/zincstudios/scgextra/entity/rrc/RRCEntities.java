@@ -22,6 +22,7 @@ import net.zincstudios.scgextra.entity.rrc.copper_knight.CopperKnightEntity;
 import net.zincstudios.scgextra.entity.rrc.drone.DroneEntity;
 import net.zincstudios.scgextra.entity.rrc.flaminghead.FlamingHeadEntity;
 import net.zincstudios.scgextra.entity.rrc.flaminghead.FlamingHeadRenderer;
+import net.zincstudios.scgextra.entity.rrc.gargoyle.GargoyleEntity;
 import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
 import net.zincstudios.scgextra.entity.rrc.scout.ScoutEntity;
 import net.zincstudios.scgextra.entity.rrc.scout.ScoutRenderer;
@@ -81,6 +82,11 @@ public class RRCEntities {
                     .sized(0.8F, 2F)
                     .build("copper_knight"));
 
+    public static final RegistryObject<EntityType<GargoyleEntity>> GARGOYLE = ENTITY_TYPES
+            .register("gargoyle", () -> EntityType.Builder.of(GargoyleEntity::new, MobCategory.MONSTER)
+                    .sized(0.8F, 2F)
+                    .build("gargoyle"));
+
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(RRCEntities::registerAttributes);
         modEventBus.addListener(RRCEntities::onCommonSetup);
@@ -99,6 +105,7 @@ public class RRCEntities {
         event.put(RRCEntities.SCRAP_GUARD.get(), ScrapGuardEntity.createAttributes().build());
         event.put(RRCEntities.ARC_PSYCHO.get(), ArcPsychoEntity.createAttributes().build());
         event.put(RRCEntities.COPPER_KNIGHT.get(), CopperKnightEntity.createAttributes().build());
+        event.put(RRCEntities.GARGOYLE.get(), GargoyleEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -108,6 +115,19 @@ public class RRCEntities {
         BoundingBoxManager.registerHeadshotBox(RRCEntities.SCRAP_GUARD.get(), new OffsetRotatedHeadshotBox<>(11.0, 14.0, 40.0, 0.0F, 1.5, false, true));
         BoundingBoxManager.registerHeadshotBox(RRCEntities.SPRING_JUNKIE.get(), new OffsetRotatedHeadshotBox<>(9.0, 20.0, 34.0, 0.0F, 0, false, true));
         BoundingBoxManager.registerHeadshotBox(RRCEntities.COPPER_KNIGHT.get(), new OffsetRotatedHeadshotBox<>(8, 9.5, 28.0, 0.0F, 2.0, false, true));
+
+        BoundingBoxManager.registerHeadshotBox(
+            RRCEntities.GARGOYLE.get(), 
+            new OffsetRotatedHeadshotBox<>(
+                8, 
+                8, 
+                22.0, 
+                0.0F, 
+                6.0, 
+                false, 
+                true
+            )
+        );
 
         WeakPointBoxManager.registerWeakPointBox(RRCEntities.FLAMING_HEAD.get(), new WeakPointBox<>(new OffsetRotatedHeadshotBox<>(10.0F, 55.0, 13, -70, false, true)));
     }
@@ -153,6 +173,11 @@ public class RRCEntities {
         );
         EntityRenderers.register(RRCEntities.COPPER_KNIGHT.get(), (ctx) ->
                 new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/copper_knight")))
+                        .hasGlowLayer()
+                        .noDeathTilt()
+        );
+        EntityRenderers.register(RRCEntities.GARGOYLE.get(), (ctx) ->
+                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/gargoyle")))
                         .hasGlowLayer()
                         .noDeathTilt()
         );

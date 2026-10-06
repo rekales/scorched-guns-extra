@@ -7,6 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Climate;
+import net.minecraft.world.level.biome.Climate.Parameter;
+import net.zincstudios.scgextra.CommonConfig;
 import terrablender.api.ParameterUtils;
 import terrablender.api.Region;
 import terrablender.api.RegionType;
@@ -25,26 +27,38 @@ public ModOverworldRegion(ResourceLocation name, int weight) {
 
             new ParameterUtils.ParameterPointListBuilder()
                     .temperature(
-                        ParameterUtils.Temperature.FULL_RANGE
+                        Parameter.span(
+                            CommonConfig.WARZONE_SPAWN_MINIMUM_TEMPERATURE.get().floatValue(), 
+                            CommonConfig.WARZONE_SPAWN_MAXIMUM_TEMPERATURE.get().floatValue()
+                        )
                     )
                     .humidity(
-                        ParameterUtils.Humidity.FULL_RANGE
+                        Parameter.span(
+                            CommonConfig.WARZONE_SPAWN_MINIMUM_HUMIDITY.get().floatValue(), 
+                            CommonConfig.WARZONE_SPAWN_MAXIMUM_HUMIDITY.get().floatValue()
+                        )
                     )
                     .continentalness(
-                        ParameterUtils.Continentalness.NEAR_INLAND,
-                        ParameterUtils.Continentalness.MID_INLAND,
-                        ParameterUtils.Continentalness.FAR_INLAND
+                        Parameter.span(
+                            CommonConfig.WARZONE_SPAWN_MINIMUM_CONTINENTALNESS.get().floatValue(), 
+                            CommonConfig.WARZONE_SPAWN_MAXIMUM_CONTINENTALNESS.get().floatValue()
+                        )
                     )
                     .erosion(
-                        ParameterUtils.Erosion.EROSION_5,
-                        ParameterUtils.Erosion.EROSION_6
+                        Parameter.span(
+                            CommonConfig.WARZONE_SPAWN_MINIMUM_EROSION.get().floatValue(), 
+                            CommonConfig.WARZONE_SPAWN_MAXIMUM_EROSION.get().floatValue()
+                        )
                     )
                     .depth(
                         ParameterUtils.Depth.SURFACE, 
                         ParameterUtils.Depth.FLOOR
                     )
                     .weirdness(
-                        ParameterUtils.Weirdness.FULL_RANGE 
+                        Parameter.span(
+                            CommonConfig.WARZONE_SPAWN_MINIMUM_WEIRDNESS.get().floatValue(), 
+                            CommonConfig.WARZONE_SPAWN_MAXIMUM_WEIRDNESS.get().floatValue()
+                        )
                     )
                     .build().forEach(
                         point -> builder.add(

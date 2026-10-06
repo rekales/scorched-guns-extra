@@ -89,6 +89,14 @@ public class RRCSounds {
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("arc_psycho.hurt")));
     public static final RegistryObject<SoundEvent> RRC_ARC_PSYCHO_IDLE = SOUND_EVENTS.register("arc_psycho.idle", 
         () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("arc_psycho.idle")));
+       
+    //Gargoyle
+    public static final RegistryObject<SoundEvent> RRC_GARGOYLE_DEAD = SOUND_EVENTS.register("scgextra.rrc.gargoyle.death", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("scgextra.rrc.gargoyle.death")));
+    public static final RegistryObject<SoundEvent> RRC_GARGOYLE_HURT = SOUND_EVENTS.register("scgextra.rrc.gargoyle.hurt", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("scgextra.rrc.gargoyle.hurt")));
+    public static final RegistryObject<SoundEvent> RRC_GARGOYLE_IDLE = SOUND_EVENTS.register("scgextra.rrc.gargoyle.idle", 
+        () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("scgextra.rrc.gargoyle.idle")));
 
     public static void init() {}
 }

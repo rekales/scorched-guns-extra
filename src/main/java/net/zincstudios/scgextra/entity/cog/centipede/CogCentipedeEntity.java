@@ -64,6 +64,7 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
                 .velocityModifier(vec -> vec.scale(1/3f))
                 .projectileFactory(PlasmaCannonProjectileEntity::new)
                 .build();
+        this.setId(ENTITY_COUNTER.getAndAdd(this.subEntities.length + 1) + 1); 
     }
 
     public static AttributeSupplier.Builder createAttributes() {
