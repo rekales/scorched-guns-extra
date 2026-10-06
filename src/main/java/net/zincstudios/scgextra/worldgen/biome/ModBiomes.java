@@ -43,6 +43,7 @@ public class ModBiomes {
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FACEntities.TRENCH_SNIPER.get(), 6, 1, 2));
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(FACEntities.SHOVEL_KNIGHT.get(), 6, 1, 2));
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(NeutralEntities.INFLICTED_BOAR.get(), 1, 1, 1));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(NeutralEntities.ANOMALY.get(), 1, 1, 1));
         spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(NeutralEntities.INFLICTED_WOLF.get(), 1, 1, 2));
 
         BiomeGenerationSettings.Builder biomeBuilder =

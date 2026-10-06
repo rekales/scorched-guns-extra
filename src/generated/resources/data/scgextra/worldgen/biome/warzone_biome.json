@@ -129,6 +129,12 @@
         "weight": 1
       },
       {
+        "type": "scgextra:anomaly",
+        "maxCount": 1,
+        "minCount": 1,
+        "weight": 1
+      },
+      {
         "type": "scgextra:inflicted_wolf",
         "maxCount": 2,
         "minCount": 1,
