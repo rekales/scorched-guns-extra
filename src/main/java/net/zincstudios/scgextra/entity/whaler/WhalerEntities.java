@@ -7,7 +7,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -18,7 +17,6 @@ import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.projectile.net.NetEntity;
-import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.MountedGunProjectileEntity;
 import net.zincstudios.scgextra.entity.whaler.fishfolk.FishFolkEntity;
@@ -42,6 +40,8 @@ import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileModel;
+import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleRenderer;
 
 public class WhalerEntities {
@@ -95,12 +95,14 @@ public class WhalerEntities {
     public static final RegistryObject<EntityType<NetEntity>> NET = ENTITY_TYPES
             .register("net", () -> EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC).sized(4F, 1F).clientTrackingRange(4).updateInterval(20).build("net"));
 
+    public static final RegistryObject<EntityType<InkProjectileEntity>> INK_PROJECTILE = ENTITY_TYPES
+            .register("ink_projectile", () -> EntityType.Builder.<InkProjectileEntity>of(InkProjectileEntity::new, MobCategory.MISC).sized(0.2F, 0.2F).clientTrackingRange(4).updateInterval(20).build("ink_projectile"));
+
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);
         modEventBus.addListener(WhalerEntities::onCommonSetup);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(WhalerEntities::onClientSetup);
-            modEventBus.addListener(WhalerEntities::registerLayers);
         }
     }
 
@@ -177,12 +179,6 @@ public class WhalerEntities {
                         .noDeathTilt());
         EntityRenderers.register(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), ProjectileRenderer::new);
         EntityRenderers.register(WhalerEntities.NET.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/net"))));
+        EntityRenderers.register(WhalerEntities.INK_PROJECTILE.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new InkProjectileModel<>(SCGExtra.asResource("whaler/ink_projectile"))));
     }
-
-    @OnlyIn(value = Dist.CLIENT)
-    private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        // TODO: replace with geomodel
-        event.registerLayerDefinition(InkProjectileEntityModel.LAYER_LOCATION, InkProjectileEntityModel::createBodyLayer);
-    }
-
 }

@@ -28,7 +28,6 @@ import net.zincstudios.scgextra.entity.projectile.BigLumpProjectileEntity;
 import net.zincstudios.scgextra.entity.projectile.FireProjectile;
 import net.zincstudios.scgextra.entity.projectile.SoulFireBallRenderer;
 import net.zincstudios.scgextra.entity.projectile.SoulFireball;
-import net.zincstudios.scgextra.entity.projectile.ink_projectile.*;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.turret.TurretManningHandler;
 import net.zincstudios.scgextra.entity.turret.TurretSeatEntity;
@@ -49,9 +48,6 @@ public class ModEntities {
                     .updateInterval(1)
                     .sized(0.5F, 0.5F)
                     .build("raid_summoner"));
-
-    public static final RegistryObject<EntityType<InkProjectileEntity>> INK_PROJECTILE = ENTITY_TYPES
-            .register("ink_projectile", () -> EntityType.Builder.<InkProjectileEntity>of(InkProjectileEntity::new, MobCategory.MISC).sized(0.2F, 0.2F).clientTrackingRange(4).updateInterval(20).build("ink_projectile"));
 
     public static final RegistryObject<EntityType<ArmoredWhaleProjectileEntity>> WHALE_PROJECTILE = ENTITY_TYPES
             .register("whale_tank_projectile", () -> EntityType.Builder.of(ArmoredWhaleProjectileEntity::create, MobCategory.MISC)
@@ -124,7 +120,6 @@ public class ModEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntities.INK_PROJECTILE.get(), InkProjectileRenderer::new);
         EntityRenderers.register(ModEntities.WHALE_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.BIG_LUMP_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.FIRE_PROJECTILE.get(), EnemyProjectileRenderer::new);
