@@ -3,13 +3,14 @@ package net.zincstudios.scgextra.entity.whaler.armoredwhale;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 
-public class SummonInfantry <T extends ArmoredWhaleEntity> extends Behavior<T>{
+public class SummonInfantry <T extends Mob> extends Behavior<T>{
 
     private final int cooldownDuration;
     private final int reinforcementsN;
@@ -21,8 +22,9 @@ public class SummonInfantry <T extends ArmoredWhaleEntity> extends Behavior<T>{
         this.reinforcementsN = numberOfReinforcements;
     }
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
+    protected boolean checkExtraStartConditions(ServerLevel level, T mob) {
         if(this.cooldown > 0)this.cooldown--;
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity) mob;
         return this.cooldown <= 0 && !owner.STARTED_SLAM;
     }
     @Override

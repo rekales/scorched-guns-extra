@@ -13,7 +13,7 @@ import java.util.UUID;
 
 //Mostly copied from DelayedMeleeAttack
 @SuppressWarnings("unused")
-public class BiteAttack extends Behavior<ArmoredWhaleEntity> {
+public class BiteAttack extends Behavior<Mob> {
 
     private final int damageDelay;
     private final int meleeDuration;
@@ -42,16 +42,17 @@ public class BiteAttack extends Behavior<ArmoredWhaleEntity> {
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on hasRequiredMemories
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, ArmoredWhaleEntity mob) {
-        LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity) mob;
+        LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
 
         if (this.oldDist < 0 || this.oldTargetId != target.getUUID()) {
             this.oldTargetId = target.getUUID();
-            this.oldDist = mob.headFrontPart.distanceTo(target);
+            this.oldDist = owner.headFrontPart.distanceTo(target);
             this.accDistDelta = 0;
         }
 
-        float dist = mob.headFrontPart.distanceTo(target);
+        float dist = owner.headFrontPart.distanceTo(target);
         this.accDistDelta += dist - this.oldDist;
         this.oldDist = dist;
         if (this.accDistDelta > 0) {
@@ -60,17 +61,17 @@ public class BiteAttack extends Behavior<ArmoredWhaleEntity> {
             this.accDistDelta = Math.min(0, this.accDistDelta+0.06f);
         }
 
-        return mob.headFrontPart.position().closerThan(target.position(), mob.headFrontPart.getBbWidth()/2 + this.range - this.accDistDelta);
+        return owner.headFrontPart.position().closerThan(target.position(), owner.headFrontPart.getBbWidth()/2 + this.range - this.accDistDelta);
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, ArmoredWhaleEntity mob, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
         return mob.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && mob.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get());
     }
 
     @Override
-    protected void start(ServerLevel level, ArmoredWhaleEntity mob, long gameTime) {
+    protected void start(ServerLevel level, Mob mob, long gameTime) {
         this.oldDist = -1;
         mob.getBrain().setMemoryWithExpiry(
                 ModBrainMemories.DELAYED_MELEE.get(),
@@ -80,17 +81,18 @@ public class BiteAttack extends Behavior<ArmoredWhaleEntity> {
     }
 
     @Override
-    protected void stop(ServerLevel level, ArmoredWhaleEntity mob, long gameTime) {
+    protected void stop(ServerLevel level, Mob mob, long gameTime) {
         mob.getBrain().setMemoryWithExpiry(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.meleeCooldown);
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, ArmoredWhaleEntity mob, long gameTime) {
-        LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-        if (mob.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
-                && mob.headFrontPart.position().closerThan(target.position(), (mob.headFrontPart.getBbWidth()/2 + this.range) * 1.2)) {
-            mob.doHurtTarget(target);
+    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity) mob;
+        LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+        if (owner.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
+                && owner.headFrontPart.position().closerThan(target.position(), (owner.headFrontPart.getBbWidth()/2 + this.range) * 1.2)) {
+            owner.doHurtTarget(target);
         }
     }
 }

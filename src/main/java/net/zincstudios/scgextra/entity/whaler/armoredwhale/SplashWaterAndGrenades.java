@@ -7,6 +7,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -18,7 +19,7 @@ import net.zincstudios.scgextra.sounds.WhalerSounds;
 import top.ribs.scguns.entity.throwable.ThrowableGrenadeEntity;
 import top.ribs.scguns.init.ModEntities;
 
-public class SplashWaterAndGrenades <T extends ArmoredWhaleEntity> extends Behavior<T>{
+public class SplashWaterAndGrenades <T extends Mob> extends Behavior<T>{
 
     private int cooldown = 0;
 
@@ -29,8 +30,9 @@ public class SplashWaterAndGrenades <T extends ArmoredWhaleEntity> extends Behav
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
+    protected boolean checkExtraStartConditions(ServerLevel level, T mob) {
         if(this.cooldown>0)this.cooldown--;
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity) mob;
         return this.cooldown <= 0 && !owner.STARTED_SLAM;
     }
 
@@ -40,7 +42,8 @@ public class SplashWaterAndGrenades <T extends ArmoredWhaleEntity> extends Behav
     }
 
     @Override
-    protected void start(ServerLevel level, T entity, long gameTime) {
+    protected void start(ServerLevel level, T mob, long gameTime) {
+        ArmoredWhaleEntity entity = (ArmoredWhaleEntity) mob;
         this.cooldown = 600;
         entity.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("splash_water", gameTime, gameTime+100), 100);
         entity.triggerAnim("attack", "splash");

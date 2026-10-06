@@ -12,13 +12,14 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.player.Player;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 
-public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
+public class Slam <T extends Mob> extends Behavior<T>{
 
     private final int slamUpTicks;
     private final int airTicks;
@@ -50,18 +51,21 @@ public class Slam <T extends ArmoredWhaleEntity> extends Behavior<T>{
 
     @Override
     protected void start(ServerLevel level, T entity, long gameTime) {
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity)entity;
         this.cooldown = this.cooldownDuration;
         this.runsUntil = gameTime+this.slamUpTicks+this.airTicks+this.slamDownTicks;
-        entity.STARTED_SLAM = true;
+        owner.STARTED_SLAM = true;
     }
 
     @Override
     protected void stop(ServerLevel level, T entity, long gameTime) {
-        entity.STARTED_SLAM = false;
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity)entity;
+        owner.STARTED_SLAM = false;
     }
     
     @Override
-    protected void tick(ServerLevel level, T owner, long gameTime) {
+    protected void tick(ServerLevel level, T mob, long gameTime) {
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity)mob;
         long hasRanFor = gameTime-(runsUntil-(this.slamUpTicks+this.airTicks+this.slamDownTicks));
         if(hasRanFor == 0){
             owner.triggerAnim("attack", "slam_up");

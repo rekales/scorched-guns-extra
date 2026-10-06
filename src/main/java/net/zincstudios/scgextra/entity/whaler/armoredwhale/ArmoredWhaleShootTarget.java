@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -16,7 +17,7 @@ import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
-public class ArmoredWhaleShootTarget extends Behavior<ArmoredWhaleEntity> {
+public class ArmoredWhaleShootTarget extends Behavior<Mob> {
 
     public static final float DEFAULT_ACCURACY = 1.6F;
     public static final String DEFAULT_CONTROLLER = "controller";
@@ -59,12 +60,12 @@ public class ArmoredWhaleShootTarget extends Behavior<ArmoredWhaleEntity> {
     }
 
     @Override
-    protected void start(ServerLevel level, ArmoredWhaleEntity entity, long gameTime) {
+    protected void start(ServerLevel level, Mob entity, long gameTime) {
         entity.playSound(WhalerSounds.ARMORED_WHALE_SHOOT.get());
     }
 
     @Override
-    protected boolean canStillUse(ServerLevel level, ArmoredWhaleEntity entity, long gameTime) {
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
         Brain<?> brain = entity.getBrain();
         return brain.hasMemoryValue(MemoryModuleType.ATTACK_TARGET)
                 && brain.hasMemoryValue(ModBrainMemories.SIMULATED_GUN.get());
@@ -72,25 +73,26 @@ public class ArmoredWhaleShootTarget extends Behavior<ArmoredWhaleEntity> {
 
     @SuppressWarnings({"OptionalGetWithoutIsPresent"}) // because already handled on canStillUse
     @Override
-    protected void tick(ServerLevel level, ArmoredWhaleEntity entity, long gameTime) {
-        Brain<?> brain = entity.getBrain();
+    protected void tick(ServerLevel level, Mob entity, long gameTime) {
+        ArmoredWhaleEntity owner = (ArmoredWhaleEntity)entity;
+        Brain<?> brain = owner.getBrain();
         if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false))return;
-        if (!canShoot.test(entity)) return;
+        if (!canShoot.test(owner)) return;
 
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
         int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(-12);
         SimulatedGun simGun = brain.getMemory(ModBrainMemories.SIMULATED_GUN.get()).get();
         Vec3 targetPos = SimulatedGun.getCenterMassPos(target);
-        if(aimTicks == 1)entity.triggerAnim(this.animControllerName, this.animName);
+        if(aimTicks == 1)owner.triggerAnim(this.animControllerName, this.animName);
 
         if (aimTicks >= this.aimThreshold) {
-            if(simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, true), true)){
-                entity.getNavigation().stop();
+            if(simGun.tickFire(owner, targetPos, this.accuracyFunc.apply(owner, true), true)){
+                owner.getNavigation().stop();
             }
             brain.setMemory(ModBrainMemories.AIM_TICKS.get(), -12);
             brain.setMemoryWithExpiry(MemoryModuleType.ATTACK_COOLING_DOWN, true, this.cooldown);
         } else {
-            simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, false), false);
+            simGun.tickFire(owner, targetPos, this.accuracyFunc.apply(owner, false), false);
         }
     }
 }

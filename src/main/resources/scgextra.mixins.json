@@ -6,13 +6,11 @@
   "refmap": "scgextra.refmap.json",
   "mixins": [
     "AIGunEventMixin",
-    "EnemyProjectileEntityMixin",
     "EntityMixin",
     "GunAttackGoalAccessor",
     "GunnerMobSpawnerMixin",
     "LightningProjectileEntityMixin",
     "LivingEntityMixin",
-    "MineUnitBlockEntityMixin",
     "ModCommandsMixin",
     "OceanMonumentEntryRoomMixin",
     "ProjectileEntityMixin",
