@@ -5,10 +5,7 @@ import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.*;
 import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.renderer.GeoRenderer;
@@ -71,6 +68,9 @@ public class HeldItemGeoLayer<T extends Mob & GeoAnimatable> extends BlockAndIte
             poseStack.translate(0, 1.25F, -1/16f);
             poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
             poseStack.mulPose(Axis.YP.rotationDegrees(180.0F));
+        } else if (stack.getItem() instanceof TridentItem) {
+            poseStack.translate(0.5F, -1F, 0);
+            poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
         } else {
             poseStack.mulPose(Axis.XP.rotationDegrees(-90.0F));
         }

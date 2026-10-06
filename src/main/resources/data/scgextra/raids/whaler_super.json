@@ -42,14 +42,14 @@
     },
     {
       "entity_id": "scgextra:tentacliator"
-    },
-    {
-      "entity_id": "scgextra:glowing_tentacliator"
     }
   ],
   "miniboss" : [
     {
       "entity_id": "scgextra:pufficus"
+    },
+    {
+      "entity_id": "scgextra:lion_fish"
     }
   ],
   "boss" : [

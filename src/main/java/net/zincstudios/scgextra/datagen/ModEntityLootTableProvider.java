@@ -1,6 +1,8 @@
 package net.zincstudios.scgextra.datagen;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -9,8 +11,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootContext.EntityTarget;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -25,6 +29,9 @@ import top.ribs.scguns.init.ModBlocks;
 import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import com.google.gson.JsonPrimitive;
+
 import java.util.List;
 
 @ParametersAreNonnullByDefault
@@ -40,27 +47,23 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
         basicLoot(WhalerEntities.FISH_FOLK.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
                 .constant(Items.TROPICAL_FISH, 1);
         basicLoot(WhalerEntities.SALMONSAUR.get())
                 .constant(Items.COD, 1)
-                .chance(Items.SADDLE,  0.2f);
+                .chance(Items.SADDLE,  0.2f)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.TURTLEMAN.get())
                 .range(ModItems.SHOTBALL.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .constant(Items.SCUTE, 1);
+                .constant(Items.SCUTE, 1)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.TENTACLIATOR.get())
                 .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .range(Items.INK_SAC, 1, 3);
-        basicLoot(WhalerEntities.GLOWING_TENTACLIATOR.get())
-                .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .range(Items.GLOW_INK_SAC, 1, 3);
+                .variant(List.of(Items.INK_SAC, Items.GLOW_INK_SAC), 2, 1, 3)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
         basicLoot(WhalerEntities.PUFFICUS.get())
-                .range(ModItems.FROG_DART.get(), 1, 3)
-                .range(ModItems.ADVANCED_ROUND.get(), 1, 3)
-                .constant(Items.PUFFERFISH, 1);
+                .constant(Items.PUFFERFISH, 1)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.3f);
+                
         basicLoot(WhalerEntities.GUARDIAN_STATUE.get())
                 .altsChance(List.of(
                         net.zincstudios.scgextra.item.ModItems.LEVIATHAN_HELMET.get(),
@@ -82,6 +85,12 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(ModItems.BLUEPRINT_SCRAP.get(), 1, 2)
                 .constant(ModItems.LEVIATHAN_TOOTH.get(), 1)
                 .range(ModBlocks.SUPPLY_CRATE.get().asItem(), 3, 6);
+        basicLoot(WhalerEntities.LION_FISH.get())
+                .constant(Items.TROPICAL_FISH, 1)
+                .chance(Items.SADDLE, 0.5f)
+                .range(Items.PRISMARINE_SHARD, 1, 3)
+                .range(Items.PRISMARINE_CRYSTALS, 1, 3)
+                .chance(ModItems.OCEAN_FLARE.get(), 0.5f);
 
         basicLoot(FACEntities.FAC_TRENCHER.get())
                 .range(Items.IRON_NUGGET, 1, 3);
@@ -379,6 +388,30 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
 
             this.lootTableRef.withPool(poolBuilder);
 
+            return this;
+        }
+
+        public LootTableEntryBuilder variant(List<Item> items, int totalVariants, int min, int max) {
+            for(int i = 0; i < totalVariants; i++){
+                this.lootTableRef.withPool(
+                    LootPool.lootPool()
+                    .add(
+                        LootItem.lootTableItem(items.get(i))
+                        .when(
+                            LootItemEntityPropertyCondition.hasProperties(
+                                EntityTarget.THIS, 
+                                EntityPredicate.Builder.entity()
+                                .nbt(NbtPredicate.fromJson(new JsonPrimitive("{variant: " + (i+1) + "}")))
+                            )
+                        )
+                        .apply(
+                            SetItemCountFunction.setCount(
+                                UniformGenerator.between(min, max)
+                            )
+                        )
+                    )
+                );
+            }
             return this;
         }
     }

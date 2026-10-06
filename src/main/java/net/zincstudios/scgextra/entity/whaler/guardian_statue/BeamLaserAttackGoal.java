@@ -59,7 +59,7 @@ public class BeamLaserAttackGoal extends Goal {
             if (timer == 60 && CommonConfig.enableAbilityWarning) {
                 this.mob.triggerAnim("effects", "eye_flash");
             } else if (timer == 35 && this.mob.hasLineOfSight(target) && target.isAlive()) {
-                target.hurt(this.mob.damageSources().mobAttack(this.mob), 40F);
+                target.hurt(this.mob.damageSources().mobAttack(this.mob), 20F);
             }
         } else if (this.cooldown > 0 && this.mob.hasLineOfSight(target)) {
             this.cooldown--;
@@ -70,7 +70,7 @@ public class BeamLaserAttackGoal extends Goal {
             this.mob.level().playSound(
                 this.mob, 
                 this.mob.blockPosition(), 
-                WhalerSounds.GUARDIAN_STATUE_CHARGE.get(), 
+                WhalerSounds.GUARDIAN_STATUE_LASER.get(), 
                 SoundSource.MASTER, 
                 2.0F, 
                 1.0F

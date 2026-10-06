@@ -48,7 +48,7 @@ public class ModItems {
 
     // NOTE: custom tier or nah?
     public static final RegistryObject<AtlanticMaceItem> ATLANTIC_MACE = ITEMS.register("atlantic_mace",
-            () -> new AtlanticMaceItem(Tiers.IRON, 7, -3.2F, new Item.Properties())
+            () -> new AtlanticMaceItem(Tiers.IRON, 5, -3.2F, new Item.Properties())
     );
 
     public static final RegistryObject<CavalrySaberItem> CAVALRY_SABER = ITEMS.register("cavalry_saber",
@@ -237,9 +237,9 @@ public class ModItems {
             SALMONSAUR_SPAWN_EGG = basicSpawnEgg(WhalerEntities.SALMONSAUR),
             GUARDIAN_STATUE_SPAWN_EGG = basicSpawnEgg(WhalerEntities.GUARDIAN_STATUE),
             TENTACLIATOR_SPAWN_EGG = basicSpawnEgg(WhalerEntities.TENTACLIATOR),
-            GLOWING_TENTACLIATOR_SPAWN_EGG = basicSpawnEgg(WhalerEntities.GLOWING_TENTACLIATOR),
             PUFFICUS_SPAWN_EGG = basicSpawnEgg(WhalerEntities.PUFFICUS),
             ARMORED_WHALE_SPAWN_EGG = basicSpawnEgg(WhalerEntities.ARMORED_WHALE),
+            LION_FISH_SPAWN_EGG = basicSpawnEgg(WhalerEntities.LION_FISH),
 
             // RRC
             COPPER_KNIGHT_SPAWN_EGG = basicSpawnEgg(RRCEntities.COPPER_KNIGHT),

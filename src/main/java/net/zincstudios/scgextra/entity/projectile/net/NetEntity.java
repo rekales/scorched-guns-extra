@@ -2,7 +2,11 @@ package net.zincstudios.scgextra.entity.projectile.net;
 
 import java.util.List;
 
-import net.zincstudios.scgextra.entity.ModEntities;
+import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
+import software.bernie.geckolib.util.GeckoLibUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -16,13 +20,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
-public class NetEntity extends AbstractArrow{
+public class NetEntity extends AbstractArrow implements GeoEntity{
+    private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     public NetEntity(EntityType<? extends NetEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
     public NetEntity(LivingEntity pShooter, Level pLevel) {
-        super(ModEntities.NET.get(), pShooter, pLevel);
+        super(WhalerEntities.NET.get(), pShooter, pLevel);
     }
 
     @Override
@@ -61,5 +66,14 @@ public class NetEntity extends AbstractArrow{
     protected ItemStack getPickupItem() {
         //leaving at string item
         return new ItemStack(Items.STRING);
+    }
+
+    @Override
+    public void registerControllers(ControllerRegistrar controllers) {
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geocache;
     }
 }

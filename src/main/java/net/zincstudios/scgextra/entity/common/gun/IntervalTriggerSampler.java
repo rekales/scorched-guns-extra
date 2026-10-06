@@ -41,7 +41,7 @@ public class IntervalTriggerSampler implements TriggerStateSampler {
     @Override
     public void setState(boolean state) {
         this.state = state;
-        this.flipLength = (this.state ? this.minOffLength+this.maxOffLength : this.minOnLength+this.maxOnLength)/2;
+        this.flipLength = (this.state ? this.minOnLength+this.maxOnLength : this.minOffLength+this.maxOffLength)/2;
     }
 
     @Override

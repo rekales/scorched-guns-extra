@@ -5,6 +5,7 @@ import net.zincstudios.scgextra.worldgen.structure.structures.CampingSiteStructu
 import net.zincstudios.scgextra.worldgen.structure.structures.DestroyedMinesStructure;
 import net.zincstudios.scgextra.worldgen.structure.structures.MineTrenchStructure;
 import net.zincstudios.scgextra.worldgen.structure.structures.TrenchesAnchorStructure;
+import net.zincstudios.scgextra.worldgen.structure.structures.WaterAvoidingStructure;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.StructureType;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,6 +38,12 @@ public class ModStructures {
         STRUCTURE_TYPES.register(
             "camping_site_structure",
             () -> () -> CampingSiteStructure.CODEC
+        );
+
+    public static final RegistryObject<StructureType<WaterAvoidingStructure>> WATER_AVOIDING_STRUCTURE =
+        STRUCTURE_TYPES.register(
+            "water_avoiding_structure",
+            () -> () -> WaterAvoidingStructure.CODEC
         );
 
     public static void register(IEventBus modEventBus) {

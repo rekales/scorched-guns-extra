@@ -53,6 +53,15 @@ public class ModBrainMemories {
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES
             .register("jet_boots_cooling_down", () -> new MemoryModuleType<>(Optional.of(Codec.BOOL)));
+    public static final Supplier<MemoryModuleType<Integer>> SHOCK_CELL_COUNT = MEMORY_MODULE_TYPES
+            .register("shock_cell_count", () -> new MemoryModuleType<>(Optional.of(Codec.INT)));
+
+    public static final Supplier<MemoryModuleType<Long>> NET_TICKS = MEMORY_MODULE_TYPES
+            .register("net_ticks", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));// LEAVING CAUSE THE ENTITY ALSO USES THIS
+
+    public static final Supplier<MemoryModuleType<Long>> ATTACK_RUN_FOR = MEMORY_MODULE_TYPES
+            .register("attack_run_for", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));// LEAVING CAUSE THE ENTITY ALSO USES THIS
+
 
     public static final int MAX_AIM_TICKS = 60;
     public static final int MIN_AIM_TICKS = -20;

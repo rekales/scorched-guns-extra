@@ -4,8 +4,12 @@ import net.zincstudios.scgextra.entity.common.goal.StunnedGoal;
 
 /**
  * Interface to be paired with the use of StunnedGoal.
+ *
  * @see StunnedGoal
+ *
+ * @deprecated as of the transition to brain behaviors
  */
+@Deprecated
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public interface Stunnable {
 

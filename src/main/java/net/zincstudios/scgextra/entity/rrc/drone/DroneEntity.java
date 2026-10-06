@@ -128,6 +128,13 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
         return true;
     }
 
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
     public PartEntity<?>[] getSubEntities() {
         return this.subEntities;
     }

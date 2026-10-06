@@ -1,0 +1,257 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:advanced_round",
+          "conditions": [],
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:compact_advanced_round",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:frog_dart",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:shotball",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:anthralite_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:depleted_diamond_steel_ingot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:blueprint_scrap",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 0,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:gunpowder",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 6
+              }
+            }
+          ]
+        }
+      ],
+      "rolls": 4,
+      "functions": [],
+      "conditions": []
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:ocean_flare",
+          "functions": [
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:floundergat",
+          "conditions": [
+            {
+              "chance": 0.05,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "enchantments": [
+                "scguns:gun_rust"
+              ]
+            },
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              },
+              "conditions": []
+            },
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "uniform",
+                "min": 0.5,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:hyperbaria",
+          "conditions": [
+            {
+              "chance": 0.05,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "enchantments": [
+                "scguns:gun_rust"
+              ]
+            },
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              },
+              "conditions": []
+            },
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "uniform",
+                "min": 0.5,
+                "max": 1
+              }
+            }
+          ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:hullbreaker",
+          "conditions": [
+            {
+              "chance": 0.05,
+              "condition": "minecraft:random_chance"
+            }
+          ],
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "enchantments": [
+                "scguns:gun_rust"
+              ]
+            },
+            {
+              "function": "minecraft:limit_count",
+              "limit": {
+                "min": 0,
+                "max": 1
+              },
+              "conditions": []
+            },
+            {
+              "function": "minecraft:set_damage",
+              "damage": {
+                "type": "uniform",
+                "min": 0.5,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "scgextra:chests/scgextra_default"
+        }
+      ],
+      "rolls": 1,
+      "functions": [],
+      "conditions": []
+    }
+  ],
+  "functions": []
+}

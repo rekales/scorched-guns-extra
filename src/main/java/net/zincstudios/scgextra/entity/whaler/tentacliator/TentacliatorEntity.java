@@ -1,27 +1,39 @@
 package net.zincstudios.scgextra.entity.whaler.tentacliator;
 
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.monster.RangedAttackMob;
-import net.minecraft.world.entity.projectile.ThrownTrident;
-import net.minecraft.world.item.ItemStack;
-import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.common.EquippedEntity;
+import net.zincstudios.scgextra.entity.common.Gunner;
 
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.world.entity.*;
+import javax.annotation.Nullable;
+
+import com.mojang.serialization.Dynamic;
+
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.VariantHolder;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.fluids.FluidType;
-import net.zincstudios.scgextra.entity.common.GunnerEntity;
-import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
-import net.zincstudios.scgextra.entity.common.goal.TridentAttackGoal;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -29,23 +41,37 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import top.ribs.scguns.entity.ai.AIType;
-import top.ribs.scguns.entity.ai.GunAttackGoal;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+public class TentacliatorEntity extends EquippedEntity implements GeoEntity, Gunner, VariantHolder<Integer>{
 
-@ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-public class TentacliatorEntity extends GunnerEntity implements GeoEntity, RangedAttackMob {
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
+    private static final RawAnimation INK_SPLASH = RawAnimation.begin().thenPlay("ink_splash");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
-    public TentacliatorEntity(EntityType<? extends Monster> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel, SCGExtra.asResource("tentacliator"));
+    private static final EntityDataAccessor<Integer> TEXTURE_VARIANT =
+            SynchedEntityData.defineId(TentacliatorEntity.class, EntityDataSerializers.INT);
+
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    public TentacliatorEntity(EntityType<? extends Monster> entity, Level level) {
+        super(entity, level);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
     }
 
     @Override
-    public HumanoidArm getMainArm() {
-        return HumanoidArm.LEFT;
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @org.jetbrains.annotations.Nullable SpawnGroupData spawnData, @org.jetbrains.annotations.Nullable CompoundTag dataTag) {
+        float rand = this.getRandom().nextFloat();
+        this.setVariant(rand < 0.8f ? 1 : 2);
+        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -53,57 +79,129 @@ public class TentacliatorEntity extends GunnerEntity implements GeoEntity, Range
         .add(Attributes.FOLLOW_RANGE, 35.0D)
         .add(Attributes.MOVEMENT_SPEED, 0.23F)
         .add(Attributes.ATTACK_DAMAGE, 3.0D)
-        .add(Attributes.ARMOR, 6.0D)
-        .add(Attributes.MAX_HEALTH, 40.0D)
-        .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new GunAttackGoal<>(this, this.getMainHandItem(), 1.0F, AIType.RECKLESS, 3));
-        this.goalSelector.addGoal(2, new InkAttackGoal(this));
-        this.goalSelector.addGoal(3, new TridentAttackGoal<>(this, 1.0D, 40, 10.0F));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-
-        this.targetSelector.addGoal(1, new HurtByNonFactionGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true,
-                player -> !((Player) player).isCreative() && !player.isSpectator()));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
-                entity -> Faction.isEnemies(this, entity)));
-    }
-    
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
+        .add(Attributes.ARMOR, 8.0D)
+        .add(Attributes.MAX_HEALTH, 60.0D);
     }
 
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "controller", 2, state -> {
+        controllers.add(new AnimationController<>(this, "controller", 3, state -> {
             if (state.isMoving()) {
-                state.setAndContinue(RawAnimation.begin().thenLoop("walk"));
+                state.setAndContinue(state.getAnimatable().isInWater() ? SWIM : WALK);
             } else {
-                state.setAndContinue(RawAnimation.begin().thenLoop("idle"));
+                state.setAndContinue(IDLE);
             }
             return PlayState.CONTINUE;
         }));
+
+        controllers.add(new AnimationController<>(this, "death", 2, state -> {
+            if (state.getAnimatable().isDeadOrDying()) {
+                return state.setAndContinue(DEATH);
+            }
+            return PlayState.STOP;
+        }));
+
+        controllers.add(new AnimationController<>(this, "attack", 0, state -> {
+            return PlayState.CONTINUE;
+        })
+        .triggerableAnim("shoot", SHOOT)
+        .triggerableAnim("ink_splash", INK_SPLASH));
     }
 
-    public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        this.triggerAnim("special", "attack");
-        ThrownTrident throwntrident = new ThrownTrident(this.level(), this, new ItemStack(Items.TRIDENT));
-        double d0 = target.getX() - this.getX();
-        double d1 = target.getY(0.3333333333333333D) - throwntrident.getY();
-        double d2 = target.getZ() - this.getZ();
-        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        throwntrident.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.level().getDifficulty().getId() * 4));
-        this.playSound(SoundEvents.DROWNED_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level().addFreshEntity(throwntrident);
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
+    }
+
+    @Override
+    public void setVariant(Integer variant) {
+        this.entityData.set(TEXTURE_VARIANT, variant);
+    }
+
+    @Override
+    public Integer getVariant() {
+        return this.entityData.get(TEXTURE_VARIANT);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TEXTURE_VARIANT, 1);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        tag.putInt("variant", this.entityData.get(TEXTURE_VARIANT));
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.entityData.set(TEXTURE_VARIANT, tag.getInt("variant"));
     }
 
     @Override
     public boolean canDrownInFluidType(FluidType type) {
         return false;
+    }
+
+    @Override
+    public boolean isLeftHanded() {
+        return true;
+    }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return TentacliatorAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Brain<TentacliatorEntity> getBrain() {
+        return (Brain<TentacliatorEntity>) super.getBrain();
+    }
+
+    @Override
+    protected Brain.Provider<TentacliatorEntity> brainProvider() {
+        return TentacliatorAi.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("facBluecoatBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        BrainCommons.updateActivity(this);
+        BrainCommons.updateMaxRangeAggressive(this);
+        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+            this.setYBodyRot(this.getYHeadRot());
+        }
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
+    }
+    public boolean isGlowing(){
+        return this.getVariant() == 2;
+    }
+    public boolean isPushedByFluid() {
+        return false;
+    }
+
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    public MobType getMobType() {
+        return MobType.WATER;
+    }
+    
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.TENTACLIATOR_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.TENTACLIATOR_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.TENTACLIATOR_DEATH.get();
     }
 }

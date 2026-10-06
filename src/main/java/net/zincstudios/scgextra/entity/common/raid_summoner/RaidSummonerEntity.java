@@ -13,8 +13,12 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class RaidSummonerEntity extends Mob {
+public class RaidSummonerEntity extends Mob implements GeoEntity{
     private static final ArrayList<EntityType<?>> whalerElite = new ArrayList<>();
     private static final ArrayList<EntityType<?>> rrcElite = new ArrayList<>();
     private static final ArrayList<EntityType<?>> rrcInfantry = new ArrayList<>();
@@ -22,6 +26,7 @@ public class RaidSummonerEntity extends Mob {
 //    private static final ArrayList<EntityType<?>> facInfantry = new ArrayList<>();
     private static boolean poolsInitialized = false;
     private static long lastRaidAttempt = 0;  // minecraft day calculated by  level.gameTime / 24000L
+    private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
 
     public RaidSummonerEntity(EntityType<? extends Mob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -36,7 +41,6 @@ public class RaidSummonerEntity extends Mob {
         whalerElite.add(WhalerEntities.SALMONSAUR.get());
         whalerElite.add(WhalerEntities.TURTLEMAN.get());
         whalerElite.add(WhalerEntities.TENTACLIATOR.get());
-        whalerElite.add(WhalerEntities.GLOWING_TENTACLIATOR.get());
         whalerElite.add(WhalerEntities.PUFFICUS.get());
 
         rrcElite.add(RRCEntities.SPRING_JUNKIE.get());
@@ -125,6 +129,15 @@ public class RaidSummonerEntity extends Mob {
         for(int i = 0; i < infantryCount; i++){
             rrcInfantry.get(this.random.nextInt(rrcInfantry.size())).spawn(sLevel, this.blockPosition(), getSpawnType());
         }
+    }
+
+    @Override
+    public void registerControllers(ControllerRegistrar controllers) {
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geocache;
     }
 
 //    private void spawnFAC() {

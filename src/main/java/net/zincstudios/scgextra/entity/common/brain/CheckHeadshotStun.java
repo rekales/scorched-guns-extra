@@ -6,7 +6,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 public class CheckHeadshotStun extends Behavior<LivingEntity> {
@@ -36,10 +35,6 @@ public class CheckHeadshotStun extends Behavior<LivingEntity> {
         if (currentHeadshotCount != this.lastHeadshotCount) {
             this.headshots += Math.max(0, currentHeadshotCount - this.lastHeadshotCount);
             this.lastHeadshotCount = currentHeadshotCount;
-
-            SCGExtra.LOGGER.debug(this.headshots + "");
-            SCGExtra.LOGGER.debug(level.getGameTime() + "");
-
             return !brain.hasMemoryValue(ModBrainMemories.STUNNED_COOLING_DOWN.get())
                     && this.headshots >= this.headshotThreshold; // Only triggered when entity gets headshotted
         }
@@ -53,5 +48,6 @@ public class CheckHeadshotStun extends Behavior<LivingEntity> {
         brain.setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, this.stunDuration);
         brain.setMemoryWithExpiry(ModBrainMemories.STUNNED_COOLING_DOWN.get(), true,
                 this.stunDuration + this.stunCooldown);
+        this.headshots = 0;
     }
 }

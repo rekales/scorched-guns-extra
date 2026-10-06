@@ -3,22 +3,37 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.unknown",
+				"identifier": "geometry.turtleman",
 				"texture_width": 128,
 				"texture_height": 128,
-				"visible_bounds_width": 3,
-				"visible_bounds_height": 4.5,
-				"visible_bounds_offset": [0, 1.75, 0]
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 5,
+				"visible_bounds_offset": [0, 1.5, 0]
 			},
 			"bones": [
 				{
+					"name": "main_rotation",
+					"pivot": [0, 11, 0]
+				},
+				{
+					"name": "root",
+					"parent": "main_rotation",
+					"pivot": [0, 11, 0]
+				},
+				{
 					"name": "body",
-					"pivot": [0, 31, 0]
+					"parent": "root",
+					"pivot": [0, 13, 2],
+					"cubes": [
+						{"origin": [-9, 11, -3], "size": [18, 22, 6], "uv": [0, 35]},
+						{"origin": [-7, 12, -5], "size": [14, 20, 2], "uv": [58, 0]},
+						{"origin": [-10, 10, 2], "size": [20, 26, 9], "uv": [0, 0]}
+					]
 				},
 				{
 					"name": "head",
 					"parent": "body",
-					"pivot": [0, 33, 1],
+					"pivot": [0, 32.75, -1],
 					"cubes": [
 						{"origin": [-5, 33, -7.5], "size": [10, 7, 9], "uv": [48, 35]},
 						{"origin": [-5, 33, -7.5], "size": [10, 7, 9], "inflate": 0.1, "uv": [48, 51]},
@@ -26,8 +41,16 @@
 					]
 				},
 				{
-					"name": "right_arm",
+					"name": "tail",
 					"parent": "body",
+					"pivot": [0, 10, 4],
+					"cubes": [
+						{"origin": [-2, 5, 3], "size": [4, 8, 2], "uv": [58, 22]}
+					]
+				},
+				{
+					"name": "right_arm",
+					"parent": "root",
 					"pivot": [-9, 29, 0],
 					"cubes": [
 						{"origin": [-14, 7.5, -3], "size": [5, 24, 6], "uv": [0, 63]},
@@ -37,11 +60,11 @@
 				{
 					"name": "right_hand",
 					"parent": "right_arm",
-					"pivot": [-11.5, 9.5, -1]
+					"pivot": [-9.5, 11, 0]
 				},
 				{
 					"name": "left_arm",
-					"parent": "body",
+					"parent": "root",
 					"pivot": [9, 29, 0],
 					"cubes": [
 						{"origin": [9, 7.5, -3], "size": [5, 24, 6], "uv": [22, 63]},
@@ -50,36 +73,18 @@
 				},
 				{
 					"name": "right_leg",
-					"parent": "body",
-					"pivot": [-5, 11, 1],
+					"parent": "root",
+					"pivot": [-4.5, 11, 0.5],
 					"cubes": [
 						{"origin": [-7.5, 0, -2], "size": [6, 12, 5], "uv": [86, 22]}
 					]
 				},
 				{
 					"name": "left_leg",
-					"parent": "body",
-					"pivot": [5, 11, 1],
+					"parent": "root",
+					"pivot": [4.5, 11, 0.5],
 					"cubes": [
 						{"origin": [1.5, 0, -2], "size": [6, 12, 5], "uv": [86, 39]}
-					]
-				},
-				{
-					"name": "tail",
-					"parent": "body",
-					"pivot": [0, 11, 3],
-					"cubes": [
-						{"origin": [-2, 5, 2], "size": [4, 8, 2], "uv": [58, 22]}
-					]
-				},
-				{
-					"name": "bone",
-					"parent": "body",
-					"pivot": [0, 22, 0],
-					"cubes": [
-						{"origin": [-9, 11, -3], "size": [18, 22, 6], "uv": [0, 35]},
-						{"origin": [-7, 12, -5], "size": [14, 20, 2], "uv": [58, 0]},
-						{"origin": [-10, 10, 2], "size": [20, 26, 9], "uv": [0, 0]}
 					]
 				}
 			]

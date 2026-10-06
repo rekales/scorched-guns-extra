@@ -1,0 +1,14 @@
+{
+  "id": "scgextra:lion_fish",
+  "equipment_chance": 1.0,
+  "items": [
+    {
+      "item": "minecraft:trident",
+      "weight": 10.0,
+      "drop_chance": 0.0,
+      "min_durability": 0.2,
+      "max_durability": 1.0,
+      "slot": "mainhand"
+    }
+  ]
+}

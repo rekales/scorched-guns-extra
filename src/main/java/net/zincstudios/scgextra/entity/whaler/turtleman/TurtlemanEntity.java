@@ -1,264 +1,295 @@
 package net.zincstudios.scgextra.entity.whaler.turtleman;
 
-import net.zincstudios.scgextra.CommonConfig;
-import net.zincstudios.scgextra.entity.Faction;
+import com.mojang.serialization.Dynamic;
+
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.zincstudios.scgextra.entity.whaler.SwimWalkMoveControl;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.world.Difficulty;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
-import net.zincstudios.scgextra.entity.common.GunnerEntity;
-import net.zincstudios.scgextra.entity.common.HeadShotHandler;
-import net.zincstudios.scgextra.entity.common.Stunnable;
-import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
-import net.zincstudios.scgextra.entity.common.goal.StunnedWithVisualGoal;
-import org.jetbrains.annotations.Nullable;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.common.*;
+import net.zincstudios.scgextra.entity.common.part.RotatedBulletProofPartEntity;
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import top.ribs.scguns.entity.ai.AIType;
-import top.ribs.scguns.entity.ai.GunAttackGoal;
-import top.ribs.scguns.init.ModEffects;
+import top.ribs.scguns.entity.projectile.LightningProjectileEntity;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class TurtlemanEntity extends GunnerEntity implements GeoEntity, Stunnable, HeadShotHandler {
+public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner {
+
+    private static final int TURN_TICKS = 20;  // match with BACK_FRONT and FRONT_BACK anims
+
+    private static final EntityDataAccessor<Boolean> TURN_TARGET =  // true: turned back
+            SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STUNNED =
+            SynchedEntityData.defineId(TurtlemanEntity.class, EntityDataSerializers.BOOLEAN);
+
+    private boolean playedStun = false;
+
+    private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
+    private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
+    private static final RawAnimation SWIM = RawAnimation.begin().thenLoop("swim");
+    private static final RawAnimation IDLE_BACK = RawAnimation.begin().thenLoop("idle_back");
+    private static final RawAnimation WALK_BACK = RawAnimation.begin().thenLoop("walk_back");
+    private static final RawAnimation SWIM_BACK = RawAnimation.begin().thenLoop("swim_back");
+    private static final RawAnimation FRONT_BACK = RawAnimation.begin().thenPlayAndHold("front_back");
+    private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlayAndHold("back_front");
+    private static final RawAnimation STUN = RawAnimation.begin().thenLoop("stun");
+    private static final RawAnimation STUN_BACK = RawAnimation.begin().thenLoop("stun_back");
+    @SuppressWarnings("unused")  // TODO: later, after fixing transition issue
+    private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
+    private static final RawAnimation DEATH_BACK = RawAnimation.begin().thenPlayAndHold("death_back");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final RotatedBulletProofPartEntity<?>[] subEntities;
 
-    // Server-side only for stunnable handling
-    private boolean shouldStun = false;
-    private int headshotCounter = 0;
-    private boolean stunned = false;
+    // hopefully synced with similar logic on both sides at #tick
+    private boolean turnTo = false;
+    private int turnTick = 0;
+    private int lastShockTick = 0;
 
     public TurtlemanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.subEntities = new RotatedBulletProofPartEntity[] {
+                new RotatedBulletProofPartEntity<>(this, new Vec3(0.3, 0.75, -0.5), 0.6f, 1.5f),
+                new RotatedBulletProofPartEntity<>(this, new Vec3(-0.3, 0.75, -0.5), 0.6f, 1.5f),
+        };
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.moveControl = new SwimWalkMoveControl(this, 1.5F, false);
+        this.setMaxUpStep(1.0F);
+    }
+
+    public static AttributeSupplier.Builder createAttributes() {
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 40)
+                .add(Attributes.ARMOR, 8)
+                .add(Attributes.FOLLOW_RANGE, 48)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.80)
+                .add(Attributes.MOVEMENT_SPEED, 0.20);
     }
 
     @Override
-    public int shouldStun() {
-        if (!CommonConfig.enableAbilityWeakness) return 0;
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return TurtlemanAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
 
-        if (this.shouldStun || this.headshotCounter >= CommonConfig.abilityWeaknessHeadshots) {
-//            return CommonConfig.abilityWeaknessDuration;
-            return 100;
+    @SuppressWarnings("unchecked")
+    @Override
+    public Brain<TurtlemanEntity> getBrain() {
+        return (Brain<TurtlemanEntity>) super.getBrain();
+    }
+
+    @Override
+    protected Brain.Provider<TurtlemanEntity> brainProvider() {
+        return TurtlemanAi.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("whalerTurtlemanBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        TurtlemanAi.updateActivity(this);
+
+        if (!this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())) {
+            LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+            if (target != null) {
+                // adjust look direction towards the player when moving (direction is fucked by navigation)
+                float rotDiff = yRotDiffToTarget(this, target.position());
+                this.setYRot(this.getYRot() + Mth.clamp(rotDiff, -45, 45));
+                this.setYHeadRot(this.getYRot());
+                this.setYBodyRot(this.getYRot());
+
+                if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+                    this.setTurnTarget(false);
+                    this.setAggressive(true);
+                } else {
+                    this.setTurnTarget(true);
+                    this.setAggressive(false);
+                }
+            } else {
+                this.setTurnTarget(false);
+                this.setAggressive(false);
+            }
         }
-        return 0;
+
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
     }
 
     @Override
-    public void setStunned(boolean stunned) {
-        this.stunned = stunned;
-        if (stunned) {
-            this.triggerAnim("behaviour", "stun");
-        } else {
-            this.shouldStun = false;
-            this.headshotCounter = 0;
-        }
+    public RotatedSegmentPartEntity<?>[] getParts() {
+        return this.subEntities;
     }
 
     @Override
-    public boolean tickStunned(int ticksLeft) {
-        if (ticksLeft == 10) {
-            this.triggerAnim("behaviour", "end_stun");
-        }
-        return false;
+    public boolean isMultipartEntity() {
+        return true;
     }
 
     @Override
-    public boolean isStunned() {
-        return this.stunned;
-    }
-
-    @Override
-    public void setStunCooldown(boolean cooldown) {
-        if (cooldown) {
-            this.shouldStun = false;
-        }
-    }
-
-    @Override
-    public boolean headshot(DamageSource source, float amount) {
-        this.headshotCounter++;
-        return false;
-    }
-
-    @Override
-    protected void registerGoals() {
-        ItemStack mainHandItem = this.getMainHandItem();
-
-        // TODO: approach enemy while walking backwards behaviour goal
-        this.goalSelector.addGoal(1, new StunnedWithVisualGoal<>(this).smoking(false));
-        this.goalSelector.addGoal(2, new TurtlemanGunAttackGoal<>(this, mainHandItem, 1.0F, AIType.RECKLESS, 3, 10F));
-        this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.9));
-        this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
-
-        this.targetSelector.addGoal(2, new HurtByNonFactionGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true,
-                player -> !((Player) player).isCreative() && !player.isSpectator()));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, LivingEntity.class, true,
-                entity -> Faction.isEnemies(this, entity)));
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
     }
 
     @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
 
-        this.goalSelector.getRunningGoals()
-                .filter(wrappedGoal -> wrappedGoal.getGoal() instanceof TurtlemanGunAttackGoal<?>)
-                .findFirst()
-                .ifPresent(wrappedGoal -> {
+        if (this.turnTick == 0) {
+            if (this.turnTo != this.getTurnTarget()) {
+                this.turnTo = this.getTurnTarget();
+                this.turnTick++;
+            }
+        } else if (this.turnTick++ >= TURN_TICKS) {
+            this.turnTick = 0;
+        }
 
-                    // TODO: rewrite to put logic in the goal tick
-                    // TODO: override move control or something I dunno. I'm tired of dealing with this.
-                    if (wrappedGoal.getGoal() instanceof TurtlemanGunAttackGoal<?> goal && goal.active) {
-                        LivingEntity target = this.getTarget();
-                        if (target == null || this.isStunned()) return;
+        if (!this.level().isClientSide) {
+            this.setStunned(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()));
+            if(this.isStunned() && !this.playedStun){
+                this.playedStun = true;
+                this.playSound(WhalerSounds.TURTLEMAN_STUN.get());
+            }
+            if(!this.isStunned()){
+                this.playedStun = false;
+            }
+        }
+    }
 
-                        // Direction from turtleman to player
-                        double dx = target.getX() - this.getX();
-                        double dz = target.getZ() - this.getZ();
+    protected void tickSubEntities() {
+        float rotOffset;
+        if (this.turnTick != 0) {
+            float rot = this.turnTo ? this.turnTick : TURN_TICKS - this.turnTick;
+            rotOffset = Mth.map(rot, 0F, TURN_TICKS, -20, -180);
+        } else {
+            rotOffset = this.turnTo ? -180 : -20;
+        }
 
-                        // yaw toward player, i just copied this from chatgpt cause i can't do maths lol
-                        float yawToPlayer = (float)(Math.toDegrees(Math.atan2(-dx, dz)));
-
-                        // back faces the player
-                        float yawFromPlayer = yawToPlayer + 180f;
-
-                        // Apply rotation
-                        this.setYRot(yawFromPlayer);
-                        this.yBodyRot = yawFromPlayer;
-                        this.yHeadRot = yawFromPlayer;
-
-                        //check if the player is looking at the back of the turtleman
-                        Vec3 forward = new Vec3(this.getForward().x, 0, this.getForward().z).normalize();
-                        Vec3 toPlayer = target.position().subtract(this.position()).normalize();
-                        double dot = forward.dot(toPlayer);
-
-                        //-0.5 is basically a mid point cone so it's a average
-                        if (dot < -0.5) {
-                            Vec3 toPlayerXZ = new Vec3(toPlayer.x, 0, toPlayer.z).normalize();
-                            Vec3 awayFromPlayer = toPlayerXZ.scale(-1);
-                            Vec3 backward = awayFromPlayer.scale(-0.1);
-                            backward = new Vec3(backward.x, this.getDeltaMovement().y, backward.z);
-                            this.setDeltaMovement(backward);
-                            this.move(MoverType.SELF, backward);
-                        }
-                    }
-
-                });
+        for(RotatedSegmentPartEntity<?> partEntity : this.getParts()) {
+            partEntity.setOldPosAndRot();
+            partEntity.setPos(this.position().add(partEntity.getOffset().yRot((rotOffset-this.yBodyRot) * Mth.DEG_TO_RAD)));
+        }
     }
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (CommonConfig.enableAbilityBulletproof) {
-            Vec3 attackVector = source.getSourcePosition();
-            if (!this.isStunned() && attackVector != null) {
-                attackVector = attackVector.subtract(this.position()).normalize();
-                Vec3 lookVector = this.getLookAngle();
-
-                double dotProduct = attackVector.dot(lookVector);
-                if (dotProduct < 0) {
-                    return false;
-                }
+        if (source.getDirectEntity() instanceof LightningProjectileEntity && this.lastShockTick != this.tickCount) {
+            this.lastShockTick = this.tickCount;
+            if (this.getBrain().checkMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), MemoryStatus.REGISTERED)) {
+                int shockCellCount = this.getBrain().getMemory(ModBrainMemories.SHOCK_CELL_COUNT.get()).orElse(0);
+                this.getBrain().setMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), ++shockCellCount);
             }
         }
 
         return super.hurt(source, amount);
     }
 
+    // TODO: find a way to allow transition tick time to be 3 without jitters
     @Override
-    public boolean addEffect(MobEffectInstance effectInstance, @Nullable Entity entity) {
-        if (effectInstance.getEffect() == ModEffects.BLINDED.get()
-                || effectInstance.getEffect() == ModEffects.DEAFENED.get()) {
-            this.shouldStun = true;
-            return false;
-        }
-        return super.addEffect(effectInstance, entity);
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "main", 0, state -> {
+            if (state.getAnimatable().turnTick != 0) {
+                state.setAnimation(state.getAnimatable().turnTo ? FRONT_BACK : BACK_FRONT);
+            } else {
+                if (state.getAnimatable().isTurnedAround()) {
+                    if (state.getAnimatable().isStunned()) {
+                        state.setAnimation(STUN_BACK);
+                    } else if (state.isMoving()) {
+                        state.setAnimation(state.getAnimatable().isInWater() ? SWIM_BACK : WALK_BACK);
+                    } else {
+                        state.setAnimation(IDLE_BACK);
+                    }
+                } else {
+                    if (state.getAnimatable().isStunned()) {
+                        state.setAnimation(STUN);
+                    } else if (state.isMoving()) {
+                        state.setAnimation(state.getAnimatable().isInWater() ? SWIM : WALK);
+                    } else {
+                        state.setAnimation(IDLE);
+                    }
+                }
+            }
+            return PlayState.CONTINUE;
+        }));
+
+        controllers.add(new AnimationController<>(this, "death", 3, state -> {
+            if (state.getAnimatable().isDeadOrDying()) {
+                if (state.getAnimatable().isTurnedAround()) {
+                    state.getController().transitionLength(0);
+                    return state.setAndContinue(DEATH_BACK);
+                }
+                return state.setAndContinue(DEATH);
+            }
+            return PlayState.STOP;
+        }));
+    }
+
+    public boolean isTurnedAround() {
+        return this.turnTo && this.turnTick == 0;
+    }
+
+    private void setTurnTarget(boolean turnTarget) {
+        this.entityData.set(TURN_TARGET, turnTarget);
+    }
+
+    private boolean getTurnTarget() {
+        return this.entityData.get(TURN_TARGET);
+    }
+
+    // privated for internal use only, use memory accessor otherwise
+    private boolean isStunned() {
+        return this.entityData.get(STUNNED);
+    }
+
+    private void setStunned(boolean stunned) {
+        this.entityData.set(STUNNED, stunned);
     }
 
     @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(DefaultAnimations.genericWalkIdleController(this));
-        controllers.add(new AnimationController<>(this, "behaviour", 0, state -> PlayState.STOP)
-                .triggerableAnim("stun", RawAnimation.begin().thenPlay("transition.idle_stunned").thenLoop("misc.stunned"))
-                .triggerableAnim("end_stun", RawAnimation.begin().thenPlay("transition.stunned_idle"))
-        );
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TURN_TARGET, false);
+        this.entityData.define(STUNNED, false);
     }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.geoCache;
-    }
-
-
-    public static AttributeSupplier.Builder createAttributes() {
-        return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 30)
-                .add(Attributes.ARMOR, 12)
-                .add(Attributes.FOLLOW_RANGE, 48)
-                .add(Attributes.MOVEMENT_SPEED, 0.3);
-    }
-
-    private static class TurtlemanGunAttackGoal <T extends TurtlemanEntity> extends GunAttackGoal<T> {
-
-        private final float minApproachDist;
-        public boolean active = false;
-
-        public TurtlemanGunAttackGoal(T shooter, ItemStack gunStack, float speedModifier, AIType aiType, int difficulty, float minApproachDist) {
-            super(shooter, gunStack, speedModifier, aiType, difficulty);
-            this.minApproachDist = minApproachDist;
-        }
-
-        @Override
-        public void tick() {
-            if (this.shooter.isStunned()) {
-                return;
-            }
-
-            LivingEntity target = this.shooter.getTarget();
-            if (target == null) return;
-
-            if (!this.shooter.closerThan(target, minApproachDist)
-                    && !this.isReloading
-                    && this.aimingStabilityTimer < 10) {  // Started aiming
-
-                this.active = true;
-
-            } else {
-                active = false;
-                super.tick();
-            }
-        }
     }
 
     @Override
@@ -267,33 +298,40 @@ public class TurtlemanEntity extends GunnerEntity implements GeoEntity, Stunnabl
     }
 
     @Override
-    public boolean checkSpawnRules(LevelAccessor pLevel, MobSpawnType pSpawnReason) {
-        if(!pLevel.isClientSide()){
-            ServerLevel pServerLevel = (ServerLevel) pLevel;
-            BlockPos pPos = this.blockPosition();
-            if (!pServerLevel.getFluidState(pPos.below()).is(FluidTags.WATER)) {
-                return false;
-            } else {
-                Holder<Biome> holder = pServerLevel.getBiome(pPos);
-                boolean flag = pServerLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pServerLevel, pPos, this.random) && (pSpawnReason == MobSpawnType.SPAWNER || pServerLevel.getFluidState(pPos).is(FluidTags.WATER));
-                if (holder.is(BiomeTags.MORE_FREQUENT_DROWNED_SPAWNS)) {
-                    return this.random.nextInt(15) == 0 && flag;
-                } else {
-                    return this.random.nextInt(40) == 0 && isDeepEnoughToSpawn(pServerLevel, pPos) && flag;
-                }
-            }
-        }else{
-            return false;
-        }
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 30);
     }
 
-    @SuppressWarnings("deprecation")
-    private static boolean isDeepEnoughToSpawn(LevelAccessor pLevel, BlockPos pPos) {
-        return pPos.getY() < pLevel.getSeaLevel() - 5;
+    public static float yRotDiffToTarget(Mob mob, Vec3 target) {
+        double dx = target.x - mob.getX();
+        double dz = target.z - mob.getZ();
+        float targetYRot = (float)(Math.atan2(-dx, dz) * (180.0 / Math.PI));
+        return Mth.wrapDegrees(targetYRot - mob.getYRot());
     }
 
     @Override
-    public boolean checkSpawnObstruction(LevelReader pLevel) {
-        return pLevel.isUnobstructed(this);
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        return WhalerSounds.TURTLEMAN_IDLE.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.TURTLE_HURT;
+    }
+
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.TURTLEMAN_DEATH.get();
+    }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(WhalerSounds.TURTLEMAN_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 1.5F + this.level().random.nextFloat() * 0.4F;
     }
 }

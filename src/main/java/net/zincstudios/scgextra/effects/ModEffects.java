@@ -17,8 +17,6 @@ public final class ModEffects {
     public static final RegistryObject<InkEffect> INK_EFFECT = MOB_EFFECTS.register("ink_effect", () -> new InkEffect(MobEffectCategory.HARMFUL, 0xFF0000));
     public static final RegistryObject<GlowingInkEffect> GLOWING_INK_EFFECT = MOB_EFFECTS.register("glowing_ink_effect", () -> new GlowingInkEffect(MobEffectCategory.HARMFUL, 0xFF0000));
     
-    public static final RegistryObject<WhalerRegenEffect> WHALER_REGEN_EFFECT = MOB_EFFECTS.register("whaler_regen_effect", () -> new WhalerRegenEffect(MobEffectCategory.BENEFICIAL, 0x00FF00));
-
     public static final RegistryObject<StunnedEffect> STUNNED_EFFECT = MOB_EFFECTS.register("stunned", () -> new StunnedEffect(MobEffectCategory.HARMFUL, 0x000000));
 
     public static final RegistryObject<MobEffect> MORTAL = MOB_EFFECTS.register("mortal", () -> new MortalMobEffect(MobEffectCategory.NEUTRAL, 0x2C366D));

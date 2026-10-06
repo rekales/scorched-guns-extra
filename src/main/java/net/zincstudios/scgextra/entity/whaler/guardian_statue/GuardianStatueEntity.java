@@ -1,5 +1,6 @@
 package net.zincstudios.scgextra.entity.whaler.guardian_statue;
 
+import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.Faction;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -8,12 +9,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.Mth;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -24,10 +25,14 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidType;
 
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.sounds.WhalerSounds;
+
 import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -41,11 +46,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Supplier;
 
-// NOTE: maybe make an abstract class that automatically gives access to the target entity in client if it gets common enough
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class GuardianStatueEntity extends Monster implements GeoEntity {
@@ -63,6 +67,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     public static final RawAnimation EYE_FLASH = RawAnimation.begin().then("effect.eye_flash", Animation.LoopType.PLAY_ONCE);
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final PartEntity<?>[] subEntities;
 
     @Nonnull
     private Direction prefferedDirection = Direction.NORTH;
@@ -70,24 +75,24 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     @Nullable
     private LivingEntity clientSideCachedTarget;
 
-    private final GuardianStatuePart[] subEntities;
-
     public GuardianStatueEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.subEntities = new RotatedSegmentPartEntity[] {
+                new RotatedSegmentPartEntity<>(this, new Vec3(0, 0, 0), 3f, 2f, true),
+//                new RotatedSegmentPartEntity<>(this, new Vec3(0, 2, 0), 1.4f, 4.5f, true),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1, 4.3, 0), 1f, 0.8f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(1.7, 4.35, 0), 0.8f, 0.7f),
+                new RotatedSegmentPartEntity<>(this, new Vec3(-1.1, 4.3, 0), 1f, 0.8f),
+//                new RotatedWeakPointPartEntity<>(this, new Vec3(0, 5.55, 0.6), 0.75f, 0.6f),
+        };
         this.setPersistenceRequired();
-        GuardianStatuePart eye = new GuardianStatuePart(this, "eye", 1F, 0.5F);
-        GuardianStatuePart body = new GuardianStatuePart(this, "body", 1.6F, 4.15F);
-        GuardianStatuePart l_fin = new GuardianStatuePart(this, "l_fin", 1F, 0.8F);
-        GuardianStatuePart r_fin = new GuardianStatuePart(this, "r_fin", 1F, 0.8F);
-        GuardianStatuePart base = new GuardianStatuePart(this, "base", 3F, 2F);
-        GuardianStatuePart head = new GuardianStatuePart(this, "head", 1.3F, 1.5F);
-        this.subEntities = new GuardianStatuePart[]{ eye, body, l_fin, r_fin, base, head };
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(4, new BeamLaserAttackGoal(this, 400, 32));
         this.goalSelector.addGoal(4, new GuardianLaserAttackGoal(this));
+        this.goalSelector.addGoal(4, new SlideToTargetGoal(this, 0.02F));
 
         // Bosses will prioritize players and does not require line of sight to maintain targeting to avoid cheese
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, false,
@@ -106,7 +111,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.MAX_HEALTH, 700)
+                .add(Attributes.MAX_HEALTH, 400)
                 .add(Attributes.ARMOR, 12)
                 .add(Attributes.FOLLOW_RANGE, 36)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 1);
@@ -127,27 +132,54 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     }
 
     @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
 
         if (!this.level().isClientSide) {
-            // Centering the entity to the block
-            Vec3 oldPos = this.position();
-            Vec3 newPos = BlockPos.containing(oldPos).getCenter();
-            newPos = new Vec3(newPos.x, oldPos.y, newPos.z);
-            if (!oldPos.equals(newPos)) {
-                this.setPos(newPos);
+            // Centering the entity to the block, only first few seconds for alignment
+            if (this.tickCount < 100) {
+                Vec3 oldPos = this.position();
+                Vec3 newPos = BlockPos.containing(oldPos).getCenter();
+                newPos = new Vec3(newPos.x, oldPos.y, newPos.z);
+                if (!oldPos.equals(newPos)) {
+                    this.setPos(newPos);
+                }
             }
-            //make gaurdian statue fall faster
+
+            // Make guardian statue fall faster
             if (!this.onGround()) {
                 this.setDeltaMovement(this.getDeltaMovement().x, this.getDeltaMovement().y - 0.08 * 3, this.getDeltaMovement().z);
             }
-            //remove self if it's in ocean monument but not at the entrance
+
+            // Remove self if it's in ocean monument but not at the entrance
             if(this.tickCount%5==0){
                 checkShouldDeleteSelf();
             }
         }
-        updateSubentities();
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
     }
 
     @Override
@@ -194,6 +226,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         }
         super.setTarget(target);
         this.entityData.set(TARGET_ID, target == null ? 0 : target.getId());
+        this.playSound(WhalerSounds.GUARDIAN_STATUE_AGGRO.get());
     }
 
     @Override
@@ -280,12 +313,12 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
         return pLevel.isUnobstructed(this);
     }
 
-
     @Override
     public boolean checkSpawnRules(LevelAccessor pLevel, MobSpawnType pSpawnReason) {
-        return this.level().getEntitiesOfClass(GuardianStatueEntity.class, this.getBoundingBox().inflate(100)).isEmpty();
+        return true;
     }
 
+    // Krei, leave this as is for now, I'll probably come back to it to make it better
     private void checkShouldDeleteSelf(){
         if(
             this.getSpawnType() == MobSpawnType.SPAWN_EGG ||
@@ -322,130 +355,50 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
                 return;
             }
             triedRemove=true;
-            BlockPos temp = this.getOnPos();
-            Set<BlockState> tempStates = new HashSet<>();
-            for (int x = temp.getX() - 1; x <= temp.getX() + 1; x++) {
-                for (int z = temp.getZ() - 1; z <= temp.getZ() + 1; z++) {
-                    int y = temp.getY();
-                    BlockPos pos = new BlockPos(x, y, z);
-                    tempStates.add(level().getBlockState(pos));
+            ArrayList<BlockState> tempStates = new ArrayList<>();
+            AABB box = new AABB(
+                this.getX()-12,
+                this.getY()-2,
+                this.getZ()-12,
+                this.getX()+12,
+                this.getY()+2,
+                this.getZ()+12
+            );
+            for(double x = box.minX; x < box.maxX; x++){
+                for(double y = box.minY; y < box.maxY; y++){
+                    for(double z = box.minZ; z < box.maxZ; z++){
+                        tempStates.add(level().getBlockState(new BlockPos((int)x,(int)y,(int)z)));
+                    }
                 }
             }
-            boolean foundBricks = false;
-            boolean foundPrismarine = false;
+            int lanternCount = 0;
+            int prismarineBricksCount = 0;
             for(BlockState state : tempStates){
-                if(state.is(Blocks.PRISMARINE_BRICKS)){
-                    foundBricks = true;
-                }else if(state.is(Blocks.PRISMARINE)){
-                    foundPrismarine = true;
-                }
+                if(state.is(Blocks.SEA_LANTERN))lanternCount++;
+                if(state.is(Blocks.PRISMARINE_BRICKS))prismarineBricksCount++;
             }
-            if(!foundBricks || !foundPrismarine){
+            if(lanternCount<10){
                 this.remove(RemovalReason.DISCARDED);
                 return;
             }
+            if(prismarineBricksCount>300){
+                this.remove(RemovalReason.DISCARDED);
+            }
         }
-    }
-
-    @SuppressWarnings("unused")
-    public GuardianStatuePart[] getSubEntities() {
-        return this.subEntities;
     }
 
     @Override
-    public net.minecraftforge.entity.PartEntity<?>[] getParts() {
-        return this.subEntities;
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return WhalerSounds.GUARDIAN_STATUE_HURT.get();
     }
+
     @Override
-    public boolean isMultipartEntity() {
-        return true;
-    }
-    public void updateSubentities(){
-        for (GuardianStatuePart part : this.subEntities) {
-            part.xo = part.getX();
-            part.yo = part.getY();
-            part.zo = part.getZ();
-            part.xOld = part.getX();
-            part.yOld = part.getY();
-            part.zOld = part.getZ();
-        }
-        double x = this.getX();
-        double y = this.getY();
-        double z = this.getZ();
-        float[] offsets = new float[] { 0.6f, 0F, 0F, 0F, 0F, 0F };
-        float[] lateralOffsets = new float[] { 0F, 0F, 1.5f, -1.3F, 0F, 0F };
-        double yawRad = Math.toRadians(this.getYRot());
-        if(this.yHeadRotO!=this.yHeadRot){
-            yawRad = Math.toRadians(this.getYHeadRot());
-        }else if(this.yBodyRotO!=this.yBodyRot){
-            yawRad = Math.toRadians(this.yBodyRot);
-        }
-        for (int i = 0; i < this.subEntities.length; i++) {
-            GuardianStatuePart part = this.subEntities[i];
-            float fDistance = offsets[i];
-            float lateral = lateralOffsets[i];
-
-            double offsetX = -Math.sin(yawRad) * fDistance + Math.cos(yawRad) * lateral;
-            double offsetZ =  Math.cos(yawRad) * fDistance + Math.sin(yawRad) * lateral;
-            //eye
-            if(i==0){
-                part.setPosRaw(x + offsetX, y+5.7, z + offsetZ);
-            }
-            //body
-            else if(i == 1){
-                part.setPosRaw(x + offsetX, y+1, z + offsetZ);
-            }
-            //l_fin && r_fin
-            else if(i == 2 || i == 3){
-                part.setPosRaw(x + offsetX, y+4.33, z + offsetZ);
-            }
-            //head
-            else if(i == 5){
-                part.setPosRaw(x + offsetX, y+5, z + offsetZ);
-            }
-            else{
-                part.setPosRaw(x + offsetX, y, z + offsetZ);
-            }
-            part.setOldPosAndRot();
-            part.refreshDimensions();
-        }
+    protected SoundEvent getDeathSound() {
+        return WhalerSounds.GUARDIAN_STATUE_DEATH.get();
     }
 
-
-    // NOTE: Uses no flags, checks if there's a target instead
-    public static class ResetLookToDirection extends Goal {
-
-        protected final Mob mob;
-        protected final float turnSpeed;
-        private final Supplier<Direction> dirSupplier;
-
-        public ResetLookToDirection(Mob mob, Supplier<Direction> dirSupplier, float turnSpeed) {
-            this.mob = mob;
-            this.dirSupplier = dirSupplier;
-            this.turnSpeed = turnSpeed;
-        }
-
-        @Override
-        public boolean canUse() {
-            return this.mob.getTarget() == null;
-        }
-
-        @Override
-        public void tick() {
-            this.mob.setYRot(Mth.approachDegrees(
-                    this.mob.getYRot(),
-                    getPreferredDirection().toYRot(),
-                    this.turnSpeed
-            ));
-
-            this.mob.yHeadRot = this.mob.getYRot();
-            this.mob.yBodyRot = this.mob.getYRot();
-        }
-
-        public Direction getPreferredDirection() {
-            Direction dir = this.dirSupplier.get();
-            if (dir == Direction.UP || dir == Direction.DOWN) return Direction.NORTH;
-            return dir;
-        }
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(WhalerSounds.GUARDIAN_STATUE_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
 }
