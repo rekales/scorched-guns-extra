@@ -27,7 +27,8 @@
   ],
   "elite" : [
     {
-      "entity_id": "scgextra:turtleman"
+      "entity_id": "scgextra:turtleman",
+      "max_count": 2
     },
     {
       "entity_id": "scgextra:salmonsaur"
