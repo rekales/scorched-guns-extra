@@ -4,7 +4,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import net.zincstudios.scgextra.SCGExtra;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -21,8 +20,6 @@ public class RotatedBulletProofPartEntity<T extends LivingEntity> extends Rotate
     @Override
     public boolean hurt(DamageSource source, float amount) {
         this.playSound(SoundEvents.ANVIL_LAND, 0.65F, 1.5F + this.level().random.nextFloat() * 0.4F);
-//        SCGExtra.LOGGER.debug("sub " + source.getEntity());
-
         return false;
     }
 }

@@ -208,7 +208,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getDirectEntity() instanceof LightningProjectileEntity proj && this.lastShockTick != this.tickCount) {
+        if (source.getDirectEntity() instanceof LightningProjectileEntity && this.lastShockTick != this.tickCount) {
             this.lastShockTick = this.tickCount;
             if (this.getBrain().checkMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), MemoryStatus.REGISTERED)) {
                 int shockCellCount = this.getBrain().getMemory(ModBrainMemories.SHOCK_CELL_COUNT.get()).orElse(0);
