@@ -17,7 +17,7 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.common.client.TransformableItemHoldingMobRenderer;
-import net.zincstudios.scgextra.entity.projectile.net.NetEntityModel;
+import net.zincstudios.scgextra.entity.projectile.net.NetEntity;
 import net.zincstudios.scgextra.entity.projectile.ink_projectile.InkProjectileEntityModel;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.ArmoredWhaleEntity;
 import net.zincstudios.scgextra.entity.whaler.armoredwhale.MountedGunProjectileEntity;
@@ -34,6 +34,7 @@ import net.zincstudios.scgextra.entity.whaler.tentacliator.TentacliatorModel;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanEntity;
 import net.zincstudios.scgextra.entity.whaler.turtleman.TurtlemanRenderer;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
+import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import top.ribs.scguns.client.render.entity.ProjectileRenderer;
 import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.BasicHeadshotBox;
@@ -90,6 +91,9 @@ public class WhalerEntities {
                     .clientTrackingRange(4)
                     .updateInterval(3)
                     .build("mounted_gun_projectile"));
+
+    public static final RegistryObject<EntityType<NetEntity>> NET = ENTITY_TYPES
+            .register("net", () -> EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC).sized(4F, 1F).clientTrackingRange(4).updateInterval(20).build("net"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(WhalerEntities::registerAttributes);
@@ -172,12 +176,12 @@ public class WhalerEntities {
                         .hasGlowLayer()
                         .noDeathTilt());
         EntityRenderers.register(WhalerEntities.MOUNTED_GUN_PROJECTILE.get(), ProjectileRenderer::new);
+        EntityRenderers.register(WhalerEntities.NET.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("whaler/net"))));
     }
 
     @OnlyIn(value = Dist.CLIENT)
     private static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         // TODO: replace with geomodel
-        event.registerLayerDefinition(NetEntityModel.LAYER_LOCATION, NetEntityModel::createBodyLayer);
         event.registerLayerDefinition(InkProjectileEntityModel.LAYER_LOCATION, InkProjectileEntityModel::createBodyLayer);
     }
 

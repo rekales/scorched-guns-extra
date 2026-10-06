@@ -19,8 +19,8 @@ import net.minecraftforge.registries.RegistryObject;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.asgharian.AsgharianEntities;
 import net.zincstudios.scgextra.entity.cog.COGEntities;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.raid_summoner.RaidSummonerEntity;
-import net.zincstudios.scgextra.entity.common.raid_summoner.RaidSummonerRenderer;
 import net.zincstudios.scgextra.entity.fac.FACEntities;
 import net.zincstudios.scgextra.entity.neutral.NeutralEntities;
 import net.zincstudios.scgextra.entity.projectile.ArmoredWhaleProjectileEntity;
@@ -28,8 +28,6 @@ import net.zincstudios.scgextra.entity.projectile.BigLumpProjectileEntity;
 import net.zincstudios.scgextra.entity.projectile.FireProjectile;
 import net.zincstudios.scgextra.entity.projectile.SoulFireBallRenderer;
 import net.zincstudios.scgextra.entity.projectile.SoulFireball;
-import net.zincstudios.scgextra.entity.projectile.net.NetEntity;
-import net.zincstudios.scgextra.entity.projectile.net.NetEntityRenderer;
 import net.zincstudios.scgextra.entity.projectile.ink_projectile.*;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.turret.TurretManningHandler;
@@ -51,9 +49,6 @@ public class ModEntities {
                     .updateInterval(1)
                     .sized(0.5F, 0.5F)
                     .build("raid_summoner"));
-
-    public static final RegistryObject<EntityType<NetEntity>> NET = ENTITY_TYPES
-            .register("net", () -> EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC).sized(4F, 1F).clientTrackingRange(4).updateInterval(20).build("net"));
 
     public static final RegistryObject<EntityType<InkProjectileEntity>> INK_PROJECTILE = ENTITY_TYPES
             .register("ink_projectile", () -> EntityType.Builder.<InkProjectileEntity>of(InkProjectileEntity::new, MobCategory.MISC).sized(0.2F, 0.2F).clientTrackingRange(4).updateInterval(20).build("ink_projectile"));
@@ -129,12 +124,11 @@ public class ModEntities {
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
-        EntityRenderers.register(ModEntities.NET.get(), NetEntityRenderer::new);
         EntityRenderers.register(ModEntities.INK_PROJECTILE.get(), InkProjectileRenderer::new);
         EntityRenderers.register(ModEntities.WHALE_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.BIG_LUMP_PROJECTILE.get(), EnemyProjectileRenderer::new);
         EntityRenderers.register(ModEntities.FIRE_PROJECTILE.get(), EnemyProjectileRenderer::new);
-        EntityRenderers.register(ModEntities.RAID_SUMMONER.get(), RaidSummonerRenderer::new);
+        EntityRenderers.register(ModEntities.RAID_SUMMONER.get(), (ctx) -> new BaseEntityRenderer<>(ctx, SCGExtra.asResource("whaler/net")));
         EntityRenderers.register(ModEntities.LARGE_SOUL_FIREBALL.get(), SoulFireBallRenderer::new);
         EntityRenderers.register(ModEntities.TURRET_SEAT.get(), NoopRenderer::new);
         CuriosRendererRegistry.register(ModItems.MEDKIT.get(), MedKitRenderer::new);
