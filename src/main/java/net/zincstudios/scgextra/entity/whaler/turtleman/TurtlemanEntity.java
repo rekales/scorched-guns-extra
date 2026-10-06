@@ -67,7 +67,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     private static final RawAnimation BACK_FRONT = RawAnimation.begin().thenPlayAndHold("back_front");
     private static final RawAnimation STUN = RawAnimation.begin().thenLoop("stun");
     private static final RawAnimation STUN_BACK = RawAnimation.begin().thenLoop("stun_back");
-    @SuppressWarnings("unused")  // TODO: later
+    @SuppressWarnings("unused")  // TODO: later, after fixing transition issue
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("shoot");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
     private static final RawAnimation DEATH_BACK = RawAnimation.begin().thenPlayAndHold("death_back");
@@ -78,6 +78,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     // hopefully synced with similar logic on both sides at #tick
     private boolean turnTo = false;
     private int turnTick = 0;
+    private int lastShockTick = 0;
 
     public TurtlemanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -207,8 +208,8 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        // TODO: don't count shock bounces
-        if (source.getDirectEntity() instanceof LightningProjectileEntity) {
+        if (source.getDirectEntity() instanceof LightningProjectileEntity proj && this.lastShockTick != this.tickCount) {
+            this.lastShockTick = this.tickCount;
             if (this.getBrain().checkMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), MemoryStatus.REGISTERED)) {
                 int shockCellCount = this.getBrain().getMemory(ModBrainMemories.SHOCK_CELL_COUNT.get()).orElse(0);
                 this.getBrain().setMemory(ModBrainMemories.SHOCK_CELL_COUNT.get(), ++shockCellCount);
@@ -222,11 +223,7 @@ public class TurtlemanEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 0, state -> {
-//            AnimationController<?> ctr = state.getController();
-//            RawAnimation anim = ctr.getCurrentRawAnimation();
-
             if (state.getAnimatable().turnTick != 0) {
-//                state.getController().transitionLength(0);
                 state.setAnimation(state.getAnimatable().turnTo ? FRONT_BACK : BACK_FRONT);
             } else {
                 if (state.getAnimatable().isTurnedAround()) {
