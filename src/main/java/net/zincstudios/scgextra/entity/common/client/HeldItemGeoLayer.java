@@ -11,7 +11,9 @@ import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.renderer.GeoRenderer;
 import software.bernie.geckolib.renderer.layer.BlockAndItemGeoLayer;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 // Integrating bone checks and caching for performance
 // Edit in case there's dual wielding mobs, or an alternate geo layer
@@ -26,11 +28,19 @@ import javax.annotation.Nullable;
  */
 public class HeldItemGeoLayer<T extends Mob & GeoAnimatable> extends BlockAndItemGeoLayer<T> {
 
+    @Nullable private final Consumer<PoseStack> staticTransforms;
+
     private GeoBone cachedLeftHand = null;
     private GeoBone cachedRightHand = null;
 
     public HeldItemGeoLayer(GeoRenderer<T> renderer) {
         super(renderer);
+        this.staticTransforms = null;
+    }
+
+    public HeldItemGeoLayer(GeoRenderer<T> renderer, @Nonnull Consumer<PoseStack> staticTransforms) {
+        super(renderer);
+        this.staticTransforms = staticTransforms;
     }
 
     // NOTE: could do with better caching but good enough for now.
@@ -61,7 +71,9 @@ public class HeldItemGeoLayer<T extends Mob & GeoAnimatable> extends BlockAndIte
     @Override
     protected void renderStackForBone(PoseStack poseStack, GeoBone bone, ItemStack stack, T animatable, MultiBufferSource bufferSource, float partialTick, int packedLight, int packedOverlay) {
         poseStack.pushPose();
-        if (stack.getItem() instanceof TieredItem) {
+        if (this.staticTransforms != null) {
+            this.staticTransforms.accept(poseStack);
+        } else if (stack.getItem() instanceof TieredItem) {
             poseStack.translate(0, 0.25F, -0.3125F);
             poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
         } else if (stack.getItem() instanceof ShieldItem) {
