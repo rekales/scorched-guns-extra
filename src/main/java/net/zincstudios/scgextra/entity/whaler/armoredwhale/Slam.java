@@ -1,8 +1,6 @@
 package net.zincstudios.scgextra.entity.whaler.armoredwhale;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.google.common.collect.ImmutableMap;
 
@@ -16,7 +14,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.entity.player.Player;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 
 public class Slam <T extends Mob> extends Behavior<T>{
@@ -106,25 +103,17 @@ public class Slam <T extends Mob> extends Behavior<T>{
             }
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
-            Set<LivingEntity> entitiesHurt = new HashSet<>();
-            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(20), (e)->!e.is(owner) && ((e instanceof Player p) ? (!p.isCreative() && !p.isSpectator()) : true));
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(50), (e)->!e.is(owner) && !e.isInvulnerable());
             for(LivingEntity entity : list){
-                if(owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
-                    entity.hurt(owner.damageSources().genericKill(), 10);
-                    entitiesHurt.add(entity);
+                double distance = owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ());
+                if(distance <= 25){
+                    entity.hurt(owner.damageSources().genericKill(), 20);
                 }
-                if(owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 100){
-                    entity.hurt(owner.damageSources().genericKill(), 10);
-                    entitiesHurt.add(entity);
-                }
-            }
-            list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(20), (e)->!e.is(owner) && ! entitiesHurt.contains(e) && ((e instanceof Player p) ? (!p.isCreative() && !p.isSpectator()) : true));
-            for(LivingEntity entity : list){
-                if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 25){
+                if(distance > 25 && distance <= 100){
                     entity.hurt(owner.damageSources().genericKill(), 10);
                 }
-                if(owner.distanceToSqr(entity.getX(), owner.getY(), entity.getZ()) <= 100){
-                    entity.hurt(owner.damageSources().genericKill(), 10);
+                if(distance > 100){
+                    entity.hurt(owner.damageSources().genericKill(), owner.getRandom().nextInt(1, 6));
                 }
             }
         }

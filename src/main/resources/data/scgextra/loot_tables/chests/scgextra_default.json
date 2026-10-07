@@ -1,108 +1,96 @@
 {
-    "type": "minecraft:chest",
-    "pools": [
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
         {
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:wooden_stock"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:extended_barrel"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:light_grip"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:speed_mag"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:heavy_gun_parts"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:gun_barrel"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:heavy_gun_barrel"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:gun_magazine"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:empty_tank"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:gun_parts"
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:repair_kit"
-                }
-            ],
-            "rolls": 4,
-            "functions": [
-                {
-                    "function": "minecraft:set_count",
-                    "count": 4
-                }
-            ],
-            "conditions": []
+          "type": "minecraft:item",
+          "name": "scguns:advanced_round"
         },
         {
-            "entries": [
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:gun_grip",
-                    "functions": [
-                        {
-                            "function": "minecraft:limit_count",
-                            "limit": {
-                                "min": 0,
-                                "max": 1
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:rapid_firing_unit",
-                    "functions": [
-                        {
-                            "function": "minecraft:limit_count",
-                            "limit": {
-                                "min": 0,
-                                "max": 1
-                            }
-                        }
-                    ]
-                },
-                {
-                    "type": "minecraft:item",
-                    "name": "scguns:firing_unit",
-                    "functions": [
-                        {
-                            "function": "minecraft:limit_count",
-                            "limit": {
-                                "min": 0,
-                                "max": 1
-                            }
-                        }
-                    ]
-                }
-            ],
-            "rolls": 1,
-            "functions": [],
-            "conditions": []
+          "type": "minecraft:item",
+          "name": "scguns:compact_advanced_round"
         }
-    ],
-    "functions": []
+      ],
+      "rolls": 4,
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": 10
+        }
+      ],
+      "conditions": []
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gun_grip"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:rapid_firing_unit"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:wooden_stock"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:extended_barrel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:light_grip"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:speed_mag"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:heavy_gun_parts"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gun_barrel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:heavy_gun_barrel"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gun_magazine"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:empty_tank"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:gun_parts"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "scguns:firing_unit"
+        }
+      ],
+      "rolls": 1,
+      "functions": [],
+      "conditions": []
+    },
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "scguns:repair_kit"
+        }
+      ],
+      "rolls": 1,
+      "functions": [],
+      "conditions": []
+    }
+  ],
+  "functions": []
 }
