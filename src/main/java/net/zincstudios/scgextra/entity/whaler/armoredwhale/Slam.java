@@ -103,17 +103,17 @@ public class Slam <T extends Mob> extends Behavior<T>{
             }
         }
         if(hasRanFor == (this.slamUpTicks+this.airTicks+this.slamDownTicks)-1){
-            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(50), (e)->!e.is(owner) && !e.isInvulnerable());
+            List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.headMiddlePart.getBoundingBox().inflate(50), (e)->!e.is(owner));
             for(LivingEntity entity : list){
                 double distance = owner.headMiddlePart.distanceToSqr(entity.getX(), owner.getY(), entity.getZ());
                 if(distance <= 25){
-                    entity.hurt(owner.damageSources().genericKill(), 20);
+                    entity.hurt(owner.damageSources().generic(), 20);
                 }
                 if(distance > 25 && distance <= 100){
-                    entity.hurt(owner.damageSources().genericKill(), 10);
+                    entity.hurt(owner.damageSources().generic(), 10);
                 }
                 if(distance > 100){
-                    entity.hurt(owner.damageSources().genericKill(), owner.getRandom().nextInt(1, 6));
+                    entity.hurt(owner.damageSources().generic(), owner.getRandom().nextInt(1, 6));
                 }
             }
         }
