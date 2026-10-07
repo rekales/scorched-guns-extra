@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.FlyingMob;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -22,10 +24,15 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
 import net.zincstudios.scgextra.entity.common.Stunnable;
+import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.goal.MobHurtByNonFactionGoal;
 import net.zincstudios.scgextra.entity.common.goal.StunnedWithVisualGoal;
+import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
+import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
+import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.sounds.COGSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -43,13 +50,16 @@ import javax.annotation.ParametersAreNonnullByDefault;
 // TODO: maybe tracking mounted gun for gigantes instead.
 
 @ParametersAreNonnullByDefault
-public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable, Enemy, HeadShotHandler {
+public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable, Enemy, HeadShotHandler, BulletSpawnOffset {
+
+    public static final Vec3 MACHINE_GUN_OFFSET = new Vec3(0, 0.3, 0);
 
     private static final int STUN_DURATION = 60;
     private static final EntityDataAccessor<Boolean> FIRING =
             SynchedEntityData.defineId(CogGigantesEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
+    private final MountedGun mountedMachineGun;
 
     private final PartEntity<?>[] subEntities;
 
@@ -66,21 +76,23 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
                 new RotatedSegmentPartEntity<>(this, new Vec3(1.5, 1.4, -0.5), 20/16f, 0.5f),
                 new RotatedSegmentPartEntity<>(this, new Vec3(-1.5, 1.4, -0.5), 20/16f, 0.5f)
         };
+        this.mountedMachineGun = new HeadAttachedMountedGun(this,
+                new CustomScorchedSimGun.Builder(ModItems.PRUSH_GUN.get().getGun())
+                        .burstAmount(16)
+                        .burstInterval(2)
+                        .fireRate(70)
+                        .maxRange(15)
+                        .idealRange(10)
+                        .build(),
+                MACHINE_GUN_OFFSET,
+                BrainUtils::isNotStunned
+        );
     }
 
     @Override
     protected void registerGoals() {
         // NOTE: movement ai at CogGigantesMoveControl
         this.goalSelector.addGoal(1, new StunnedWithVisualGoal<>(this));
-//        this.goalSelector.addGoal(2, new FlyCloseToTargetGoal(this, 1, 8, 4));
-        this.goalSelector.addGoal(3, new CogGigantesMountedGunGoal(this, ModItems.PRUSH_GUN.get())
-                .burstAmount(16)
-                .burstIntervalTicks(2)
-                .maxRange(15)
-                .attackInterval(60)
-                .accuracyModifier(1.5F)
-                .spawnOffset(new Vec3(0, 0.3, 0))
-        );
         this.goalSelector.addGoal(4, new CogGigantesSummonCarriersGoal(this).cooldown(400));
         this.goalSelector.addGoal(7, new CogGigantesRandomMoveGoal(this, 100));
         this.goalSelector.addGoal(9, new RandomLookAroundGoal(this));
@@ -123,6 +135,15 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
     public void tick() {
         super.tick();
         this.tickSubEntities();
+
+        if (!this.level().isClientSide) {
+//            LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).orElse(null);
+            LivingEntity target = this.getTarget();
+            if (target != null) {
+                this.mountedMachineGun.tick(target, 0.8f);
+            }
+        }
+
     }
 
     protected void tickSubEntities() {
@@ -223,6 +244,10 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
         return this.entityData.get(FIRING);
     }
 
+    @Override
+    public Vec3 getBulletSpawnOffset(int gunIndex) {
+        return MACHINE_GUN_OFFSET.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
+    }
 
     @Override
     protected @Nullable SoundEvent getAmbientSound() {

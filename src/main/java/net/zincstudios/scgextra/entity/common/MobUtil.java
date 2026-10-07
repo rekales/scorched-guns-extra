@@ -78,13 +78,6 @@ public class MobUtil {
         );
     }
 
-    public static SoundEvent getSound(RandomSource random, SoundEvent... sounds){
-        if(sounds.length<=0){
-            return SoundEvents.ALLAY_HURT;//cause why not
-        }
-        return sounds[random.nextInt(sounds.length)];
-    }
-
     public static LevelLocation levelLocationFromEntity(LivingEntity entity) {
         return LevelLocation.create(
                 entity.level(),
