@@ -6,6 +6,7 @@
   "refmap": "scgextra.refmap.json",
   "mixins": [
     "AIGunEventMixin",
+    "MineUnitBlockEntityMixin",
     "EntityMixin",
     "GunAttackGoalAccessor",
     "GunnerMobSpawnerMixin",
