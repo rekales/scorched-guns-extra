@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.sounds.WhalerSounds;
 
 public class Slam <T extends Mob> extends Behavior<T>{
@@ -76,6 +77,15 @@ public class Slam <T extends Mob> extends Behavior<T>{
             int l = calculateLevel(blocks);
             owner.addEffect(new MobEffectInstance(MobEffects.JUMP, this.airTicks, l));
             owner.getJumpControl().jump();
+        }
+        if(hasRanFor >= this.slamUpTicks && hasRanFor <= this.slamUpTicks+this.airTicks){
+            if(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+                LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+                Vec3 startPos = new Vec3(owner.getX(), owner.getY(), owner.getZ());
+                Vec3 targetPos = new Vec3(target.getX(), owner.getY(), target.getZ());
+                Vec3 delta = targetPos.subtract(startPos);
+                owner.addDeltaMovement(delta.normalize().scale(owner.getSpeed()));
+            }
         }
         if(hasRanFor == this.slamUpTicks+this.airTicks){
             owner.setSlamming(false);
