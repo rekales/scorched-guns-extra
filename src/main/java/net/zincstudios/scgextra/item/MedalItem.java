@@ -79,13 +79,7 @@ public class MedalItem extends Item {
                 }
             }
         });
-
-        for (ItemStack stack : player.getInventory().items) {
-            if (!stack.isEmpty()) {
-                stacks.add(stack);
-            }
-        }
-
+        
         for (ItemStack stack : stacks) {
             if (!(stack.getItem() instanceof MedalItem medalItem)) continue;
 
