@@ -7,15 +7,23 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "projection": "rigid",
-        "location": "scgextra:leviathan_mining_site/leviathan_mining_site",
+        "location": "scgextra:leviathan_mining_site/leviathan_mining_site_top",
         "processors": [
           {
             "processor_type": "scgextra:warship_processor"
-          },
+          }
+        ]
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "projection": "rigid",
+        "location": "scgextra:leviathan_mining_site/leviathan_mining_site_bottom",
+        "processors": [
           {
-            "processor_type": "minecraft:gravity",
-            "heightmap": "WORLD_SURFACE_WG",
-            "offset": -6
+            "processor_type": "scgextra:warship_processor"
           }
         ]
       }
