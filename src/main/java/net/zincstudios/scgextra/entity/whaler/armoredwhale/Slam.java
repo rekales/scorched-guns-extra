@@ -38,7 +38,7 @@ public class Slam <T extends Mob> extends Behavior<T>{
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
         if(this.cooldown > 0)this.cooldown--;
-        return this.cooldown <= 0 && owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) <= 100;
+        return this.cooldown <= 0 && owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) <= 900;
     }
 
     @Override
