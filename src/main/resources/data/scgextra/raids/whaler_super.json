@@ -43,6 +43,9 @@
     },
     {
       "entity_id": "scgextra:tentacliator"
+    },
+    {
+      "entity_id": "scguns:finforcer"
     }
   ],
   "miniboss" : [
