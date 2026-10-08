@@ -21,10 +21,9 @@ import net.zincstudios.scgextra.item.ModItems;
 import top.ribs.scguns.init.ModEffects;
 import top.ribs.scguns.item.HealingBandageItem;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotResult;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-// TODO: Fix the deprecation info
-@SuppressWarnings("deprecation")
 public class BandageItem extends HealingBandageItem{
 
     private Player willBeAffected = null;
@@ -61,11 +60,9 @@ public class BandageItem extends HealingBandageItem{
         if(!level.isClientSide()){
             if(entity instanceof Player pl){
                 this.hasMedipack = false;
-                CuriosApi.getCuriosHelper().findCurios(pl, "back").forEach(res->{
-                    if(res.stack().is(ModItems.MEDIPACK.get()) && !pl.getCooldowns().isOnCooldown(res.stack().getItem()))this.hasMedipack = true;
-                });
-                CuriosApi.getCuriosHelper().findCurios(pl, "body").forEach(res->{
-                    if(res.stack().is(ModItems.MEDIPACK.get()) && !pl.getCooldowns().isOnCooldown(res.stack().getItem()))this.hasMedipack = true;
+                CuriosApi.getCuriosInventory(pl).ifPresent(itemHandler -> {
+                    cooldown(itemHandler, "back", pl);
+                    cooldown(itemHandler, "body", pl);
                 });
             }else{
                 this.hasMedipack = false;
@@ -117,24 +114,16 @@ public class BandageItem extends HealingBandageItem{
                     }
                 }
 
-                boolean hurt = false;
                 if (!player.getAbilities().instabuild) {
                     stack.shrink(1);
                     if(this.hasMedipack){
-                        for(SlotResult res : CuriosApi.getCuriosHelper().findCurios(player, "back")){
-                            if(res.stack().is(ModItems.MEDIPACK.get()) && !hurt){
-                                res.stack().hurtAndBreak(1, player, p ->p.playSound(SoundEvents.GLASS_BREAK));
-                                hurt = true;
-                                player.getCooldowns().addCooldown(res.stack().getItem(), 140);
+                        CuriosApi.getCuriosInventory(player).ifPresent(itemHandler -> {
+                            boolean hurt = false;
+                            hurt = checkAndHurt("back", itemHandler, player);
+                            if(!hurt){
+                                hurt = checkAndHurt("body", itemHandler, player);
                             }
-                        }
-                        for(SlotResult res : CuriosApi.getCuriosHelper().findCurios(player, "body")){
-                            if(res.stack().is(ModItems.MEDIPACK.get()) && !hurt){
-                                res.stack().hurtAndBreak(1, player, p ->p.playSound(SoundEvents.GLASS_BREAK));
-                                hurt = true;
-                                player.getCooldowns().addCooldown(res.stack().getItem(), 140);
-                            }
-                        }
+                        });
                     }
                 }
                 this.willBeAffected = null;
@@ -149,5 +138,31 @@ public class BandageItem extends HealingBandageItem{
             this.willBeAffected = null;
         }
         super.releaseUsing(stack, level, livingEntity, timeCharged);
+    }
+    private boolean checkAndHurt(String name, ICuriosItemHandler itemHandler, Player player){
+        boolean hurt = false;
+        if(itemHandler.getCurios().get(name) == null)return hurt;
+        IDynamicStackHandler stack = itemHandler.getCurios().get(name).getStacks();
+        for (int i = 0; i < stack.getSlots(); i++) {
+            ItemStack st = stack.getStackInSlot(i);
+            if (!st.isEmpty()) {
+                if(st.is(ModItems.MEDIPACK.get()) && !hurt){
+                    st.hurtAndBreak(1, player, p ->p.playSound(SoundEvents.GLASS_BREAK));
+                    hurt = true;
+                    player.getCooldowns().addCooldown(st.getItem(), 140);
+                }
+            }
+        }
+        return hurt;
+    }
+    private void cooldown(ICuriosItemHandler itemHandler, String name, Player pl){
+        if(itemHandler.getCurios().get(name) == null)return;
+        IDynamicStackHandler stack = itemHandler.getCurios().get(name).getStacks();
+        for (int i = 0; i < stack.getSlots(); i++) {
+            ItemStack st = stack.getStackInSlot(i);
+            if (!st.isEmpty()) {
+                if(st.is(ModItems.MEDIPACK.get()) && !pl.getCooldowns().isOnCooldown(st.getItem()))this.hasMedipack = true;
+            }
+        }
     }
 }
