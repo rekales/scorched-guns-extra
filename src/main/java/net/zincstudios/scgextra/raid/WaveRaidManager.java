@@ -171,7 +171,7 @@ public class WaveRaidManager extends SavedData {
 
     public static void giveOrDropLoot(ServerLevel level, WaveRaidState raidState) {
         List<ItemStack> loot = raidState.getWaveRaidData().rollLoot(level);
-        ServerPlayer player = WaveRaidUtil.findNearestPlayer(level, raidState.getCenter(), RAID_RADIUS);
+        ServerPlayer player = WaveRaidUtil.findNearestPlayer(level, raidState.getCenter(), RAID_RADIUS*3);
         if (player != null) {
             for (ItemStack stack : loot) {
                 player.getInventory().placeItemBackInInventory(stack);
