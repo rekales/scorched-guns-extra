@@ -44,7 +44,6 @@ import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.gun.CustomGunHolder;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
-
 @ParametersAreNonnullByDefault
 public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunHolder, Gunner, BulletSpawnOffset {
 
@@ -54,6 +53,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     static final int MELEE_DAMAGE_DELAY = 12;
 
     public boolean STARTED_SLAM = false;//server side boolean only used to stop other behaviors from hapenning
+
+    private String lastHitByEntityUUID = "";
 
     private static final EntityDataAccessor<Boolean> IS_LEFT = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_SLAMMING = SynchedEntityData.defineId(ArmoredWhaleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -246,6 +247,12 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     }
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
         if(source.getEntity()!=null && source.getEntity().is(this)){
             return false;
         }
