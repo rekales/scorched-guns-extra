@@ -45,6 +45,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         .add(Attributes.MOVEMENT_SPEED, 0.27F)
         .add(Attributes.ATTACK_DAMAGE, 3.0D)
         .add(Attributes.ARMOR, 6.0D)
+        .add(Attributes.KNOCKBACK_RESISTANCE, 0.6D)
         .add(Attributes.MAX_HEALTH, 90.0D);
     }
 

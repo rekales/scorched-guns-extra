@@ -9,6 +9,7 @@ import net.zincstudios.scgextra.entity.asgharian.AsgharianEntities;
 import net.zincstudios.scgextra.entity.cog.COGEntities;
 import net.zincstudios.scgextra.entity.fac.FACEntities;
 import net.zincstudios.scgextra.entity.neutral.NeutralEntities;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
@@ -102,6 +103,9 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(RRCEntities.COPPER_KNIGHT.get())
                 .add(RRCEntities.GARGOYLE.get());
 
+        tag(EntityTypeTags.PIGLIN)
+                .add(PiglinEntities.PIGLIN_NOB.get());
+
         tag(ModTags.Entities.CANNOT_BE_LACERATED)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
                 .add(AsgharianEntities.ASGHAR_WORKER.get())
@@ -143,7 +147,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.VENATOR.get())
                 .add(COGEntities.CENTIPEDE.get())
                 .add(COGEntities.JUGGERNAUT.get())
-                .add(COGEntities.TRENCHBLEEDER.get());
+                .add(COGEntities.TRENCHBLEEDER.get())
+                .add(PiglinEntities.PIGLIN_NOB.get());
 
         tag(ModTags.Entities.VERY_HEAVY)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
@@ -196,7 +201,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
          tag(ModTags.Entities.FIRE)
                 .add(NeutralEntities.HEAD_HUNTER.get())
                 .add(NeutralEntities.NETHERITE_EATER.get())
-                .add(NeutralEntities.NITRO_BEETLE.get());
+                .add(NeutralEntities.NITRO_BEETLE.get())
+                .add(PiglinEntities.PIGLIN_NOB.get());
 
         tag(ModTags.Entities.UNDEAD)
                 .add(NeutralEntities.BIG_LUMP.get())

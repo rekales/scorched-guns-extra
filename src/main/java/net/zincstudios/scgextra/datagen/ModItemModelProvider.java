@@ -155,6 +155,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.END_DWELLER_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.END_STONE_CRAB_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.END_SCORPION_SPAWN_EGG.get());
+        
+        basicItem("spawn_egg/", ModItems.PIGLIN_NOB_SPAWN_EGG.get());
     }
 
     public ItemModelBuilder basicItem(RegistryObject<? extends Item> item) {
