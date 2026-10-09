@@ -70,6 +70,8 @@
   "entity.scgextra.end_stone_crab":  "End Stone Crab",
   "entity.scgextra.end_scorpion":  "End Scorpion",
 
+  "entity.scgextra.piglin_nob":  "Piglin Nob",
+
   "item.scgextra.fish_folk_spawn_egg":  "Fish Folk Spawn Egg",
   "item.scgextra.turtleman_spawn_egg":  "Turtleman Spawn Egg",
   "item.scgextra.salmonsaur_spawn_egg":  "Salmon Rider Spawn Egg",
@@ -140,6 +142,8 @@
   "item.scgextra.cog_centipede_spawn_egg": "COG Centipede Spawn Egg",
   "item.scgextra.cog_juggernaut_spawn_egg": "COG Juggernaut Spawn Egg",
   "item.scgextra.cog_trenchbleeder_spawn_egg": "COG Trenchbleeder Spawn Egg",
+
+  "item.scgextra.piglin_nob_spawn_egg": "Piglin Nob Spawn Egg",
 
   "item.scgextra.atlantic_mace":  "Atlantic Mace",
   "item.scgextra.cavalry_saber":  "Cavalry Saber",

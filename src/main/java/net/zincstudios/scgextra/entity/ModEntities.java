@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity;
 
 import net.zincstudios.scgextra.item.curios.MedKitRenderer;
 import net.zincstudios.scgextra.item.curios.MediPackRenderer;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -99,6 +100,7 @@ public class ModEntities {
         AsgharianEntities.register(modEventBus);
         COGEntities.register(modEventBus);
         WreckersEntities.register(modEventBus);
+        PiglinEntities.register(modEventBus);
 
         ModBrainMemories.register(modEventBus);
         ModBrainSensors.register(modEventBus);

@@ -1,0 +1,38 @@
+{
+  "id": "scgextra:piglin_nob",
+  "equipment_chance": 1.0,
+  "items": [
+    {
+      "item": "scguns:freyr",
+      "weight": 10.0,
+      "drop_chance": 0.1,
+      "min_durability": 0.2,
+      "max_durability": 0.6,
+      "slot": "mainhand"
+    },
+    {
+      "item": "scguns:mangalitsa",
+      "weight": 10.0,
+      "drop_chance": 0.1,
+      "min_durability": 0.2,
+      "max_durability": 0.5,
+      "slot": "mainhand"
+    },
+    {
+      "item": "scguns:vulcanic_repeater",
+      "weight": 10.0,
+      "drop_chance": 0.1,
+      "min_durability": 0.2,
+      "max_durability": 0.5,
+      "slot": "mainhand"
+    },
+    {
+      "item": "scguns:trotters",
+      "weight": 10.0,
+      "drop_chance": 0.1,
+      "min_durability": 0.2,
+      "max_durability": 0.5,
+      "slot": "mainhand"
+    }
+  ]
+}

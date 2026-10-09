@@ -28,6 +28,7 @@ import net.zincstudios.scgextra.entity.cog.COGEntities;
 import net.zincstudios.scgextra.entity.asgharian.AsgharianEntities;
 import net.zincstudios.scgextra.entity.fac.FACEntities;
 import net.zincstudios.scgextra.entity.neutral.NeutralEntities;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
@@ -324,7 +325,10 @@ public class ModItems {
             END_POD_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_POD),
             END_DWELLER_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_DWELLER),
             END_STONE_CRAB_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_STONE_CRAB),
-            END_SCORPION_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_SCORPION)
+            END_SCORPION_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_SCORPION),
+            
+            //Piglin
+            PIGLIN_NOB_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_NOB)
             ;
 
     public static void register(IEventBus modEventBus) {
