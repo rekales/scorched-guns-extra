@@ -3,9 +3,14 @@ package net.zincstudios.scgextra.entity.piglin.piglin_nob;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -13,6 +18,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
@@ -127,6 +133,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         if(!this.level().isClientSide){
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
                 this.triggerAnim("attack", "aggroed");
+                this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
                 this.aggroed = true;
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
@@ -157,5 +164,20 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
             partEntity.tick();
         }
     }
-    
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_NOB_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return SoundEvents.PIGLIN_BRUTE_HURT;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(SoundEvents.PIGLIN_BRUTE_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+
 }

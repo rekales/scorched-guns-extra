@@ -1798,5 +1798,40 @@
     "sounds": [
       "scgextra:neutral/end_scorpion/sting"
     ]
+  },
+  "piglin.piglin_nob.attack": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_nob.attack",
+    "sounds": [
+      "scgextra:piglin/piglin_nob/attack_01",
+      "scgextra:piglin/piglin_nob/attack_02",
+      "scgextra:piglin/piglin_nob/attack_03",
+      "scgextra:piglin/piglin_nob/attack_04"
+    ]
+  },
+  "piglin.piglin_nob.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_nob.death",
+    "sounds": [
+      "scgextra:piglin/piglin_nob/death_01",
+      "scgextra:piglin/piglin_nob/death_02"
+    ]
+  },
+  "piglin.piglin_nob.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_nob.idle",
+    "sounds": [
+      "scgextra:piglin/piglin_nob/idle_01",
+      "scgextra:piglin/piglin_nob/idle_02",
+      "scgextra:piglin/piglin_nob/idle_03"
+    ]
+  },
+  "piglin.piglin_nob.scream": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_nob.scream",
+    "sounds": [
+      "scgextra:piglin/piglin_nob/scream_01",
+      "scgextra:piglin/piglin_nob/scream_02"
+    ]
   }
 }

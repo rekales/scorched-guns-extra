@@ -17,6 +17,7 @@ public class ModSounds {
         AsgharianSounds.init();
         COGSounds.init();
         NeutralSounds.init();
+        PiglinSounds.init();
 
         SOUND_EVENTS.register(eventbus);
     }
