@@ -1,7 +1,6 @@
 package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.entity.common.client.GunHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -19,6 +18,8 @@ import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
+
+import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
 
 public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinNobEntity>> PIGLIN_NOB = ENTITY_TYPES
@@ -44,7 +45,7 @@ public class PiglinEntities {
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(PiglinEntities.PIGLIN_NOB.get(), (ctx) ->
-            new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_nob"))).hasGlowLayer().noDeathTilt()
+            new PiglinNobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_nob"))).hasGlowLayer().noDeathTilt()
         );
     }
 }
