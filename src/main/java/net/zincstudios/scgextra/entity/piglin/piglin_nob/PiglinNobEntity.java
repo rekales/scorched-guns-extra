@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_nob;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.server.level.ServerLevel;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -35,8 +38,15 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
     private boolean aggroed = false;
 
+    private final PartEntity<?>[] subEntities;
+
     public PiglinNobEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
+        this.subEntities = new PartEntity[] {
+            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 22/16f, 15/16f), 12/16f, 14/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(15/16f, 14/16f, 0/16f), 7/16f, 22/16f),
+            new RotatedSegmentPartEntity<>(this, new Vec3(-15/16f, 14/16f, 0/16f), 7/16f, 22/16f)
+        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -112,6 +122,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
         //maybe do a better implementation?
         if(!this.level().isClientSide){
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
@@ -121,6 +132,29 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;
             }
+        }
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
         }
     }
     

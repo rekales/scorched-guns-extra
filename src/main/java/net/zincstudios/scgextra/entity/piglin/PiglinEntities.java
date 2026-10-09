@@ -16,7 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import top.ribs.scguns.common.BoundingBoxManager;
-import top.ribs.scguns.common.headshot.BasicHeadshotBox;
+import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
@@ -38,7 +38,7 @@ public class PiglinEntities {
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
-        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_NOB.get(), new BasicHeadshotBox<>(8.0, 25.0));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_NOB.get(), new RotatedHeadshotBox<>(12.0, 14.0, 22.0, 15.0, false, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
