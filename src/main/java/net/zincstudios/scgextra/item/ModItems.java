@@ -35,6 +35,7 @@ import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
 import net.zincstudios.scgextra.item.armor.*;
 import net.zincstudios.scgextra.item.custom.BandageItem;
 import top.ribs.scguns.attributes.SCAttributes;
+import top.ribs.scguns.init.ModTiers;
 import top.ribs.scguns.item.GunItem;
 import top.ribs.scguns.item.HealingBandageItem;
 
@@ -60,6 +61,10 @@ public class ModItems {
 
     public static final RegistryObject<CavalrySaberItem> CAVALRY_SABER = ITEMS.register("cavalry_saber",
             () -> new CavalrySaberItem(Tiers.IRON, 3, -2.2F, new Item.Properties())
+    );
+
+    public static final RegistryObject<NetheriteChainAxeItem> NETHERITE_CHAIN_AXE = ITEMS.register("netherite_chain_axe",
+        () -> new NetheriteChainAxeItem(ModTiers.ANTHRALITE, 11, 1F, new Item.Properties().durability(300))
     );
 
     public static final RegistryObject<SpearShovelItem> SPEAR_SHOVEL = ITEMS.register("spear_shovel",
