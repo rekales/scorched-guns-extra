@@ -99,10 +99,10 @@ public class AnomalyEntity extends Monster implements GeoEntity, FlyingAnimal{
                 .add(Attributes.FOLLOW_RANGE, 35.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.ATTACK_DAMAGE, 10.0D)
-                .add(Attributes.ARMOR, 20.0D)
+                .add(Attributes.ARMOR, 40.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.1)
                 .add(Attributes.FLYING_SPEED, 0.2)
-                .add(Attributes.MAX_HEALTH, 10.0D);
+                .add(Attributes.MAX_HEALTH, 20.0D);
     }
 
     @Override
