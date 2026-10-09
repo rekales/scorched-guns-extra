@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
@@ -31,6 +32,8 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+
+    private boolean aggroed = false;
 
     public PiglinNobEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
@@ -103,6 +106,21 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         }
         this.level().getProfiler().pop();
         super.customServerAiStep();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        //maybe do a better implementation?
+        if(!this.level().isClientSide){
+            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
+                this.triggerAnim("attack", "aggroed");
+                this.aggroed = true;
+            }
+            if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+                this.aggroed = false;
+            }
+        }
     }
     
 }
