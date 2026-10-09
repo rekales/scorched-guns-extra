@@ -49,7 +49,6 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     public PiglinNobEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
         this.subEntities = new PartEntity[] {
-            new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 22/16f, 15/16f), 12/16f, 14/16f),
             new RotatedSegmentPartEntity<>(this, new Vec3(15/16f, 14/16f, 0/16f), 7/16f, 22/16f),
             new RotatedSegmentPartEntity<>(this, new Vec3(-15/16f, 14/16f, 0/16f), 7/16f, 22/16f)
         };
