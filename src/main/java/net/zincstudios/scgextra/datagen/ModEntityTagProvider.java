@@ -104,7 +104,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(RRCEntities.GARGOYLE.get());
 
         tag(EntityTypeTags.PIGLIN)
-                .add(PiglinEntities.PIGLIN_NOB.get());
+                .add(PiglinEntities.PIGLIN_NOB.get())
+                .add(PiglinEntities.PIGLIN_STRIDER_RIDER.get());
 
         tag(ModTags.Entities.CANNOT_BE_LACERATED)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
@@ -202,7 +203,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(NeutralEntities.HEAD_HUNTER.get())
                 .add(NeutralEntities.NETHERITE_EATER.get())
                 .add(NeutralEntities.NITRO_BEETLE.get())
-                .add(PiglinEntities.PIGLIN_NOB.get());
+                .add(PiglinEntities.PIGLIN_NOB.get())
+                .add(PiglinEntities.PIGLIN_STRIDER_RIDER.get());
 
         tag(ModTags.Entities.UNDEAD)
                 .add(NeutralEntities.BIG_LUMP.get())
