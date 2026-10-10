@@ -42,8 +42,6 @@ public class PiglinNobAi {
             MemoryModuleType.PATH,
             ModBrainMemories.AIM_TICKS.get(),
             MemoryModuleType.ATTACK_COOLING_DOWN,
-            ModBrainMemories.ABILITY_STATE.get(),
-            ModBrainMemories.SIMULATED_GUN.get(),
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get(),
             ModBrainMemories.DELAYED_MELEE.get()

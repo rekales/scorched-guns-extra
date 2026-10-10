@@ -107,7 +107,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("facBluecoatBrain");
+        this.level().getProfiler().push("piglinNobBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
         BrainCommons.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
