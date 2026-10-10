@@ -22,6 +22,7 @@ import net.zincstudios.scgextra.entity.asgharian.AsgharianEntities;
 import net.zincstudios.scgextra.entity.cog.COGEntities;
 import net.zincstudios.scgextra.entity.fac.FACEntities;
 import net.zincstudios.scgextra.entity.neutral.NeutralEntities;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import net.zincstudios.scgextra.entity.rrc.RRCEntities;
 import net.zincstudios.scgextra.entity.whaler.WhalerEntities;
 import net.zincstudios.scgextra.entity.wreckers.WreckersEntities;
@@ -313,6 +314,11 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .constant(ModItems.NETHER_STAR_FRAGMENT.get(), 1)
                 .range(net.zincstudios.scgextra.item.ModItems.END_SHELL.get(), 3, 6)
                 .range(ModItems.PLASMA.get(), 3, 6);
+        
+        basicLoot(PiglinEntities.PIGLIN_NOB.get())
+                .range(ModItems.AUREOUS_SLAG.get(), 1, 3)
+                .range(ModItems.HOG_ROUND.get(), 2, 6)
+                .chance(ModItems.GOLD_FLARE.get(), 0.3f);
     }
 
     // don't use this for more complex loot tables
