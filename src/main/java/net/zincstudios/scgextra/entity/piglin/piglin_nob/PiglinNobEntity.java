@@ -46,6 +46,9 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
     private final PartEntity<?>[] subEntities;
 
+    static final int MELEE_DAMAGE_DELAY = 12;
+    static final int MELEE_DURATION = 25;
+
     public PiglinNobEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
         this.subEntities = new PartEntity[] {
@@ -130,6 +133,10 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         this.tickSubEntities();
         //maybe do a better implementation?
         if(!this.level().isClientSide){
+            if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+                this.triggerAnim("attack", "melee");
+                this.playSound(PiglinSounds.PIGLIN_NOB_ATTACK.get());
+            }
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
                 this.triggerAnim("attack", "aggroed");
                 this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());

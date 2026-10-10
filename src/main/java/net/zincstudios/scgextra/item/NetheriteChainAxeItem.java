@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
+import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -40,7 +41,16 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects{
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         this.hurtEffect(stack, target, attacker);
-        return super.hurtEnemy(stack, target, attacker);
+        target.hurt(attacker.damageSources().mobAttack(attacker), 11);
+        stack.hurtAndBreak(2, attacker, (p_41007_) -> {
+            if(p_41007_ instanceof PiglinNobEntity){
+                p_41007_.broadcastBreakEvent(EquipmentSlot.OFFHAND);
+            }
+            else{
+                p_41007_.broadcastBreakEvent(EquipmentSlot.MAINHAND);
+            }
+        });
+        return true;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class ModItems {
     );
 
     public static final RegistryObject<NetheriteChainAxeItem> NETHERITE_CHAIN_AXE = ITEMS.register("netherite_chain_axe",
-        () -> new NetheriteChainAxeItem(ModTiers.ANTHRALITE, 11, 1F, new Item.Properties().durability(300))
+        () -> new NetheriteChainAxeItem(ModTiers.ANTHRALITE, 7.5F, -3F, new Item.Properties().durability(300))
     );
 
     public static final RegistryObject<SpearShovelItem> SPEAR_SHOVEL = ITEMS.register("spear_shovel",

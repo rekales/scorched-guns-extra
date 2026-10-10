@@ -11,6 +11,10 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
@@ -41,7 +45,8 @@ public class PiglinNobAi {
             ModBrainMemories.ABILITY_STATE.get(),
             ModBrainMemories.SIMULATED_GUN.get(),
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
-            ModBrainMemories.WEAPON_MAX_RANGE.get()
+            ModBrainMemories.WEAPON_MAX_RANGE.get(),
+            ModBrainMemories.DELAYED_MELEE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -64,7 +69,16 @@ public class PiglinNobAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new PiglinNobShootTarget(40, 1.6F, "attack", "shoot", 22)
+                new PiglinNobShootTarget(37, 1.6F, "attack", "shoot", 22),
+                new DelayedMeleeAttack(PiglinNobEntity.MELEE_DAMAGE_DELAY, PiglinNobEntity.MELEE_DURATION, 3f, 20){
+                    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                        LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+                        if (mob.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
+                            && mob.position().closerThan(target.position(), (mob.getBbWidth()/2 + this.range) * 1.2)) {
+                            mob.getOffhandItem().getItem().hurtEnemy(mob.getOffhandItem(), target, mob);
+                        }
+                    }
+                }
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }
