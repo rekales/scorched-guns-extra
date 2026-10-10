@@ -1,6 +1,7 @@
 package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -16,15 +17,18 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
 import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
-
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
+import net.zincstudios.scgextra.entity.piglin.piglin_strider_rider.PiglinStriderRiderEntity;
 
 public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinNobEntity>> PIGLIN_NOB = ENTITY_TYPES
             .register("piglin_nob", () -> EntityType.Builder.of(PiglinNobEntity::new, MobCategory.MONSTER)
                     .sized(1.6F, 2.375F).build("piglin_nob"));
+    public static final RegistryObject<EntityType<PiglinStriderRiderEntity>> PIGLIN_STRIDER_RIDER = ENTITY_TYPES
+            .register("piglin_strider_rider", () -> EntityType.Builder.of(PiglinStriderRiderEntity::new, MobCategory.MONSTER)
+                    .sized(1.375F, 2.75F).build("piglin_strider_rider"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
@@ -36,16 +40,21 @@ public class PiglinEntities {
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(PiglinEntities.PIGLIN_NOB.get(), PiglinNobEntity.createAttributes().build());
+        event.put(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), PiglinStriderRiderEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_NOB.get(), new RotatedHeadshotBox<>(12.0, 14.0, 22.0, 15.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), new RotatedHeadshotBox<>(12.0, 8.0, 30.0, 0.0, false, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
     private static void onClientSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(PiglinEntities.PIGLIN_NOB.get(), (ctx) ->
             new PiglinNobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_nob"))).hasGlowLayer().noDeathTilt()
+        );
+        EntityRenderers.register(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), (ctx) ->
+            new ItemHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_strider_rider"))).hasGlowLayer().noDeathTilt()
         );
     }
 }

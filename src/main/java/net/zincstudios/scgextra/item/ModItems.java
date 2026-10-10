@@ -333,7 +333,8 @@ public class ModItems {
             END_SCORPION_SPAWN_EGG = basicSpawnEgg(NeutralEntities.END_SCORPION),
             
             //Piglin
-            PIGLIN_NOB_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_NOB)
+            PIGLIN_NOB_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_NOB),
+            PIGLIN_STRIDER_RIDER_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_STRIDER_RIDER)
             ;
 
     public static void register(IEventBus modEventBus) {
