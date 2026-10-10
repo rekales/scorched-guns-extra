@@ -78,45 +78,6 @@ public class CommonConfig {
             .comment("percent threshold before weakness exposed is allowed to be triggered")
             .defineInRange("abilityWeaknessHealthThreshold", 100, 1.0, 100);
 
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_AMMO_GOBLIN = BUILDER
-            .comment("natural spawn chance for Ammo Goblin in percent")
-            .defineInRange("spawnChanceAmmoGoblin", 5, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_BIG_LUMP = BUILDER
-            .comment("natural spawn chance for Big Lump in percent")
-            .defineInRange("spawnChanceBigLump", 5, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_MUTANT_BAT = BUILDER
-            .comment("natural spawn chance for Mutant Bat in percent")
-            .defineInRange("spawnChanceMutantBat", 100, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_NITRO_BEETLE = BUILDER
-            .comment("natural spawn chance for Nitro Beetle in percent")
-            .defineInRange("spawnChanceNitroBeetle", 20, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_NETHERITE_EATER = BUILDER
-            .comment("natural spawn chance for Netherite Eater in percent")
-            .defineInRange("spawnChanceNetheriteEater", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_HEAD_HUNTER = BUILDER
-            .comment("natural spawn chance for HeadHunter in percent")
-            .defineInRange("spawnChanceHeadHunter", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_INFLICTED_BOAR = BUILDER
-            .comment("natural spawn chance for Inflicted Boar in percent")
-            .defineInRange("spawnChanceInflictedBoar", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_INFLICTED_WOLF = BUILDER
-            .comment("natural spawn chance for Inflicted Wolf in percent")
-            .defineInRange("spawnChanceInflictedWolf", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_END_POD = BUILDER
-            .comment("natural spawn chance for End Pod in percent")
-            .defineInRange("spawnChanceEndPod", 100, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_END_DWELLER = BUILDER
-            .comment("natural spawn chance for End Dweller in percent")
-            .defineInRange("spawnChanceEndDweller", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_END_STONE_CRAB = BUILDER
-            .comment("natural spawn chance for End Stone Crab in percent")
-            .defineInRange("spawnChanceEndStoneCrab", 50, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_END_SCORPION = BUILDER
-            .comment("natural spawn chance for End Scorpion in percent")
-            .defineInRange("spawnChanceEndScorpion", 30, 0, 100);
-    private static final ForgeConfigSpec.IntValue SPAWN_CHANCE_HEAD_HUNTER_FORTRESS_REPLACE = BUILDER
-            .comment("chance to replace wither skeleton with HeadHunter in fortress, in percent")
-            .defineInRange("spawnChanceHeadHunterFortressReplace", 10, 0, 100);
     public static final ForgeConfigSpec.IntValue WARZONE_SPAWN_WEIGHT = BUILDER
             .comment("spawn weight for the warzone biome")
             .defineInRange("warzoneSpawnWeight", 10, 1, 1000);
@@ -199,20 +160,17 @@ public class CommonConfig {
     public static int abilityWeaknessHeadshots;
     public static double abilityWeaknessDamageMult;
     public static double abilityWeaknessMinHealth;
-    public static int spawnChanceAmmoGoblin;
-    public static int spawnChanceBigLump;
-    public static int spawnChanceMutantBat;
-    public static int spawnChanceNitroBeetle;
-    public static int spawnChanceNetheriteEater;
-    public static int spawnChanceHeadHunter;
-    public static int spawnChanceInflictedBoar;
-    public static int spawnChanceInflictedWolf;
-    public static int spawnChanceEndPod;
-    public static int spawnChanceEndDweller;
-    public static int spawnChanceEndStoneCrab;
-    public static int spawnChanceEndScorpion;
-    public static int spawnChanceHeadHunterFortressReplace;
     public static int warzoneSpawnWeight;
+    public static double warzoneSpawnMaxTemp;
+    public static double warzoneSpawnMinTemp;
+    public static double warzoneSpawnMaxHumidity;
+    public static double warzoneSpawnMinHumidity;
+    public static double warzoneSpawnMaxContinentalness;
+    public static double warzoneSpawnMinContinentalness;
+    public static double warzoneSpawnMaxErosion;
+    public static double warzoneSpawnMinErosion;
+    public static double warzoneSpawnMaxWeirdness;
+    public static double warzoneSpawnMinWeirdness;
 
     private static void updateConfigs() {
         enableAbilityAlert = ENABLE_ABILITY_ALERT.get();
@@ -235,20 +193,17 @@ public class CommonConfig {
         abilityWeaknessDamageMult = ABILITY_WEAKNESS_DAMAGE_MULT.get();
         abilityWeaknessMinHealth = ABILITY_WEAKNESS_MIN.get();
 
-        spawnChanceAmmoGoblin = SPAWN_CHANCE_AMMO_GOBLIN.get();
-        spawnChanceBigLump = SPAWN_CHANCE_BIG_LUMP.get();
-        spawnChanceMutantBat = SPAWN_CHANCE_MUTANT_BAT.get();
-        spawnChanceNitroBeetle = SPAWN_CHANCE_NITRO_BEETLE.get();
-        spawnChanceNetheriteEater = SPAWN_CHANCE_NETHERITE_EATER.get();
-        spawnChanceHeadHunter = SPAWN_CHANCE_HEAD_HUNTER.get();
-        spawnChanceInflictedBoar = SPAWN_CHANCE_INFLICTED_BOAR.get();
-        spawnChanceInflictedWolf = SPAWN_CHANCE_INFLICTED_WOLF.get();
-        spawnChanceEndPod = SPAWN_CHANCE_END_POD.get();
-        spawnChanceEndDweller = SPAWN_CHANCE_END_DWELLER.get();
-        spawnChanceEndStoneCrab = SPAWN_CHANCE_END_STONE_CRAB.get();
-        spawnChanceEndScorpion = SPAWN_CHANCE_END_SCORPION.get();
-        spawnChanceHeadHunterFortressReplace = SPAWN_CHANCE_HEAD_HUNTER_FORTRESS_REPLACE.get();
         warzoneSpawnWeight = WARZONE_SPAWN_WEIGHT.get();
+        warzoneSpawnMaxTemp = WARZONE_SPAWN_MAXIMUM_TEMPERATURE.get();
+        warzoneSpawnMinTemp = WARZONE_SPAWN_MINIMUM_TEMPERATURE.get();
+        warzoneSpawnMaxHumidity = WARZONE_SPAWN_MAXIMUM_HUMIDITY.get();
+        warzoneSpawnMinHumidity = WARZONE_SPAWN_MINIMUM_HUMIDITY.get();
+        warzoneSpawnMaxContinentalness = WARZONE_SPAWN_MAXIMUM_CONTINENTALNESS.get();
+        warzoneSpawnMinContinentalness = WARZONE_SPAWN_MINIMUM_CONTINENTALNESS.get();
+        warzoneSpawnMaxErosion = WARZONE_SPAWN_MAXIMUM_EROSION.get();
+        warzoneSpawnMinErosion = WARZONE_SPAWN_MINIMUM_EROSION.get();
+        warzoneSpawnMaxWeirdness = WARZONE_SPAWN_MAXIMUM_WEIRDNESS.get();
+        warzoneSpawnMinWeirdness = WARZONE_SPAWN_MINIMUM_WEIRDNESS.get();
     }
 
     static void onLoad(final ModConfigEvent.Loading event) {

@@ -28,26 +28,26 @@ public ModOverworldRegion(ResourceLocation name, int weight) {
             new ParameterUtils.ParameterPointListBuilder()
                     .temperature(
                         Parameter.span(
-                            CommonConfig.WARZONE_SPAWN_MINIMUM_TEMPERATURE.get().floatValue(), 
-                            CommonConfig.WARZONE_SPAWN_MAXIMUM_TEMPERATURE.get().floatValue()
+                            (float)CommonConfig.warzoneSpawnMaxTemp, 
+                            (float)CommonConfig.warzoneSpawnMinTemp
                         )
                     )
                     .humidity(
                         Parameter.span(
-                            CommonConfig.WARZONE_SPAWN_MINIMUM_HUMIDITY.get().floatValue(), 
-                            CommonConfig.WARZONE_SPAWN_MAXIMUM_HUMIDITY.get().floatValue()
+                            (float)CommonConfig.warzoneSpawnMaxHumidity, 
+                            (float)CommonConfig.warzoneSpawnMinHumidity
                         )
                     )
                     .continentalness(
                         Parameter.span(
-                            CommonConfig.WARZONE_SPAWN_MINIMUM_CONTINENTALNESS.get().floatValue(), 
-                            CommonConfig.WARZONE_SPAWN_MAXIMUM_CONTINENTALNESS.get().floatValue()
+                            (float)CommonConfig.warzoneSpawnMinContinentalness, 
+                            (float)CommonConfig.warzoneSpawnMinContinentalness
                         )
                     )
                     .erosion(
                         Parameter.span(
-                            CommonConfig.WARZONE_SPAWN_MINIMUM_EROSION.get().floatValue(), 
-                            CommonConfig.WARZONE_SPAWN_MAXIMUM_EROSION.get().floatValue()
+                            (float)CommonConfig.warzoneSpawnMinErosion, 
+                            (float)CommonConfig.warzoneSpawnMinErosion
                         )
                     )
                     .depth(
@@ -56,8 +56,8 @@ public ModOverworldRegion(ResourceLocation name, int weight) {
                     )
                     .weirdness(
                         Parameter.span(
-                            CommonConfig.WARZONE_SPAWN_MINIMUM_WEIRDNESS.get().floatValue(), 
-                            CommonConfig.WARZONE_SPAWN_MAXIMUM_WEIRDNESS.get().floatValue()
+                            (float)CommonConfig.warzoneSpawnMinWeirdness, 
+                            (float)CommonConfig.warzoneSpawnMinWeirdness
                         )
                     )
                     .build().forEach(
