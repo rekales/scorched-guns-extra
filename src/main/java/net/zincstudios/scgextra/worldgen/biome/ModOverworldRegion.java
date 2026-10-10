@@ -28,26 +28,26 @@ public ModOverworldRegion(ResourceLocation name, int weight) {
             new ParameterUtils.ParameterPointListBuilder()
                     .temperature(
                         Parameter.span(
-                            (float)CommonConfig.warzoneSpawnMaxTemp, 
-                            (float)CommonConfig.warzoneSpawnMinTemp
+                            (float)CommonConfig.warzoneSpawnMinTemp,
+                            (float)CommonConfig.warzoneSpawnMaxTemp 
                         )
                     )
                     .humidity(
                         Parameter.span(
-                            (float)CommonConfig.warzoneSpawnMaxHumidity, 
-                            (float)CommonConfig.warzoneSpawnMinHumidity
+                            (float)CommonConfig.warzoneSpawnMinHumidity,
+                            (float)CommonConfig.warzoneSpawnMaxHumidity 
                         )
                     )
                     .continentalness(
                         Parameter.span(
-                            (float)CommonConfig.warzoneSpawnMinContinentalness, 
-                            (float)CommonConfig.warzoneSpawnMinContinentalness
+                            (float)CommonConfig.warzoneSpawnMinContinentalness,
+                            (float)CommonConfig.warzoneSpawnMaxContinentalness 
                         )
                     )
                     .erosion(
                         Parameter.span(
-                            (float)CommonConfig.warzoneSpawnMinErosion, 
-                            (float)CommonConfig.warzoneSpawnMinErosion
+                            (float)CommonConfig.warzoneSpawnMinErosion,
+                            (float)CommonConfig.warzoneSpawnMaxErosion 
                         )
                     )
                     .depth(
@@ -56,8 +56,8 @@ public ModOverworldRegion(ResourceLocation name, int weight) {
                     )
                     .weirdness(
                         Parameter.span(
-                            (float)CommonConfig.warzoneSpawnMinWeirdness, 
-                            (float)CommonConfig.warzoneSpawnMinWeirdness
+                            (float)CommonConfig.warzoneSpawnMinWeirdness,
+                            (float)CommonConfig.warzoneSpawnMaxWeirdness 
                         )
                     )
                     .build().forEach(
