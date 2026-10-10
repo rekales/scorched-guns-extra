@@ -150,6 +150,15 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     }
 
     @Override
+    protected void playHurtSound(DamageSource source) {
+        this.ambientSoundTime = -this.getAmbientSoundInterval();
+        SoundEvent soundevent = this.getHurtSound(source);
+        if (soundevent != null) {
+            this.playSound(soundevent, this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.02F + 0.2F);
+        }
+    }
+
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.PIGLIN_BRUTE_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
