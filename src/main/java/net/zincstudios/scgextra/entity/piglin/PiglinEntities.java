@@ -24,7 +24,7 @@ import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
 public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinNobEntity>> PIGLIN_NOB = ENTITY_TYPES
             .register("piglin_nob", () -> EntityType.Builder.of(PiglinNobEntity::new, MobCategory.MONSTER)
-                    .sized(1.125F, 2.375F).build("piglin_nob"));
+                    .sized(1.6F, 2.375F).build("piglin_nob"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
