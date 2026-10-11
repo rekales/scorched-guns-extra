@@ -17,8 +17,11 @@ import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.navigation.AmphibiousPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -47,6 +50,15 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
 
     public PiglinStriderRiderEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
+        this.moveControl = new LavaWalkMoveControl(this, 2f, false);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 0.0F);
+    }
+
+    @Override
+    protected PathNavigation createNavigation(Level level) {
+        return new AmphibiousPathNavigation(this, level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
