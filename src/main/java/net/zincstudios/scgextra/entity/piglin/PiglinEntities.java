@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
+import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -19,6 +20,7 @@ import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_strider_rider.PiglinStriderRiderEntity;
 
@@ -29,6 +31,9 @@ public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinStriderRiderEntity>> PIGLIN_STRIDER_RIDER = ENTITY_TYPES
             .register("piglin_strider_rider", () -> EntityType.Builder.of(PiglinStriderRiderEntity::new, MobCategory.MONSTER)
                     .sized(1.375F, 2.75F).build("piglin_strider_rider"));
+    public static final RegistryObject<EntityType<PiglinHogRiderEntity>> PIGLIN_HOG_RIDER = ENTITY_TYPES
+            .register("piglin_hog_rider", () -> EntityType.Builder.of(PiglinHogRiderEntity::new, MobCategory.MONSTER)
+                    .sized(2.8125F, 4F).build("piglin_hog_rider"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
@@ -41,6 +46,7 @@ public class PiglinEntities {
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(PiglinEntities.PIGLIN_NOB.get(), PiglinNobEntity.createAttributes().build());
         event.put(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), PiglinStriderRiderEntity.createAttributes().build());
+        event.put(PiglinEntities.PIGLIN_HOG_RIDER.get(), PiglinHogRiderEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -55,6 +61,9 @@ public class PiglinEntities {
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), (ctx) ->
             new ItemHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_strider_rider"))).hasGlowLayer().noDeathTilt()
+        );
+        EntityRenderers.register(PiglinEntities.PIGLIN_HOG_RIDER.get(), (ctx) ->
+            new PiglinHogRiderRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_hog_rider"))).hasGlowLayer().noDeathTilt()
         );
     }
 }
