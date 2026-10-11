@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -54,7 +55,7 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
         .add(Attributes.MOVEMENT_SPEED, 0.32F)
         .add(Attributes.ATTACK_DAMAGE, 10.0D)
         .add(Attributes.ARMOR, 0.0D)
-        .add(Attributes.JUMP_STRENGTH, 6.0D)
+        .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 6.0D)
         .add(Attributes.MAX_HEALTH, 60.0D);
     }
 
