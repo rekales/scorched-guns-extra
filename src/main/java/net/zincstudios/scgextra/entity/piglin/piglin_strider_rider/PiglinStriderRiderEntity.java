@@ -4,10 +4,12 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -152,6 +154,7 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
                 this.setRunning(false);
             }
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+                this.playSound(PiglinSounds.PIGLIN_STRIDER_RIDER_ATTACK.get());
                 this.triggerAnim("attack", "bite");
             }
         }
@@ -168,5 +171,14 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
     }
     public void setRunning(boolean bool){
         this.entityData.set(SHOULD_RUN, bool);
+    }
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_STRIDER_RIDER_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGLIN_STRIDER_RIDER_IDLE.get();
     }
 }

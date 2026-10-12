@@ -1862,5 +1862,31 @@
       "scgextra:piglin/piglin_hog_rider/stun_02",
       "scgextra:piglin/piglin_hog_rider/stun_03"
     ]
+  },
+  "piglin.piglin_strider_rider.attack": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_strider_rider.attack",
+    "sounds": [
+      "scgextra:piglin/piglin_strider_rider/attack_01",
+      "scgextra:piglin/piglin_strider_rider/attack_02",
+      "scgextra:piglin/piglin_strider_rider/attack_03",
+      "scgextra:piglin/piglin_strider_rider/attack_04"
+    ]
+  },
+  "piglin.piglin_strider_rider.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_strider_rider.idle",
+    "sounds": [
+      "scgextra:piglin/piglin_strider_rider/idle_01",
+      "scgextra:piglin/piglin_strider_rider/idle_02",
+      "scgextra:piglin/piglin_strider_rider/idle_03"
+    ]
+  },
+  "piglin.piglin_strider_rider.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_strider_rider.death",
+    "sounds": [
+      "scgextra:piglin/piglin_strider_rider/death_01"
+    ]
   }
 }
