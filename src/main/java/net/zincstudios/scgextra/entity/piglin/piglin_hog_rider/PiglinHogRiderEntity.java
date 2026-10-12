@@ -278,4 +278,10 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.HOGLIN_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
     }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
+        return super.hurt(source, amount);
+    }
 }
