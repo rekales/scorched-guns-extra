@@ -1833,5 +1833,34 @@
       "scgextra:piglin/piglin_nob/scream_01",
       "scgextra:piglin/piglin_nob/scream_02"
     ]
+  },
+  "piglin.piglin_hog_rider.attack": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_hog_rider.attack",
+    "sounds": [
+      "scgextra:piglin/piglin_hog_rider/attack_01",
+      "scgextra:piglin/piglin_hog_rider/attack_02",
+      "scgextra:piglin/piglin_hog_rider/attack_03",
+      "scgextra:piglin/piglin_hog_rider/attack_04"
+    ]
+  },
+  "piglin.piglin_hog_rider.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_hog_rider.idle",
+    "sounds": [
+      "scgextra:piglin/piglin_hog_rider/idle_01",
+      "scgextra:piglin/piglin_hog_rider/idle_02",
+      "scgextra:piglin/piglin_hog_rider/idle_03",
+      "scgextra:piglin/piglin_hog_rider/idle_04"
+    ]
+  },
+  "piglin.piglin_hog_rider.stun": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_hog_rider.stun",
+    "sounds": [
+      "scgextra:piglin/piglin_hog_rider/stun_01",
+      "scgextra:piglin/piglin_hog_rider/stun_02",
+      "scgextra:piglin/piglin_hog_rider/stun_03"
+    ]
   }
 }

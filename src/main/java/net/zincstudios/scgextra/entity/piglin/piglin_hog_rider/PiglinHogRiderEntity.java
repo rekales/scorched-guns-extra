@@ -2,12 +2,14 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.VariantHolder;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -64,6 +67,8 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     static final int STUN_END_DURATION = 20;
 
     static final int CHARGE_ANIM_START = 35;
+
+    private boolean aggroed = false;
 
     public PiglinHogRiderEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -222,6 +227,15 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             }
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
+                this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ATTACK.get());
+            }
+            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
+                this.triggerAnim("attack", "aggro");
+                this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+                this.aggroed = true;
+            }
+            if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+                this.aggroed = false;
             }
         }
     }
@@ -236,5 +250,10 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200));
         }
         return hurt;
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_HOG_RIDER_IDLE.get();
     }
 }

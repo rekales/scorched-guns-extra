@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 
 import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -72,6 +73,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
                 brain.setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.STUN_DURATION);
                 if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(-1);
                 this.endTime = gameTime;
+                owner.playSound(PiglinSounds.PIGLIN_HOG_RIDER_STUN.get());
             }
         }
     }
