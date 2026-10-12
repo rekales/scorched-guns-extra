@@ -73,6 +73,7 @@
   "entity.scgextra.piglin_nob":  "Piglin Nob",
   "entity.scgextra.piglin_strider_rider":  "Piglin Strider Rider",
   "entity.scgextra.piglin_hog_rider":  "Piglin Hog Rider",
+  "entity.scgextra.piglin_blaze_kopter":  "Piglin Blaze Kopter",
 
   "item.scgextra.fish_folk_spawn_egg":  "Fish Folk Spawn Egg",
   "item.scgextra.turtleman_spawn_egg":  "Turtleman Spawn Egg",
@@ -148,6 +149,7 @@
   "item.scgextra.piglin_nob_spawn_egg": "Piglin Nob Spawn Egg",
   "item.scgextra.piglin_strider_rider_spawn_egg": "Piglin Strider Rider Spawn Egg",
   "item.scgextra.piglin_hog_rider_spawn_egg": "Piglin Hog Rider Spawn Egg",
+  "item.scgextra.piglin_blaze_kopter_spawn_egg": "Piglin Blaze Kopter Spawn Egg",
 
   "item.scgextra.atlantic_mace":  "Atlantic Mace",
   "item.scgextra.cavalry_saber":  "Cavalry Saber",

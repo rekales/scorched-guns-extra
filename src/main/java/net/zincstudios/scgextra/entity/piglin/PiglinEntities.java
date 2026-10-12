@@ -1,7 +1,9 @@
 package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
+import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
@@ -34,6 +36,9 @@ public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinHogRiderEntity>> PIGLIN_HOG_RIDER = ENTITY_TYPES
             .register("piglin_hog_rider", () -> EntityType.Builder.of(PiglinHogRiderEntity::new, MobCategory.MONSTER)
                     .sized(2.8125F, 4F).build("piglin_hog_rider"));
+    public static final RegistryObject<EntityType<PiglinBlazeKopterEntity>> PIGLIN_BLAZE_KOPTER = ENTITY_TYPES
+            .register("piglin_blaze_kopter", () -> EntityType.Builder.of(PiglinBlazeKopterEntity::new, MobCategory.MONSTER)
+                    .sized(2.37500F, 1.6875F).build("piglin_blaze_kopter"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
@@ -47,6 +52,7 @@ public class PiglinEntities {
         event.put(PiglinEntities.PIGLIN_NOB.get(), PiglinNobEntity.createAttributes().build());
         event.put(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), PiglinStriderRiderEntity.createAttributes().build());
         event.put(PiglinEntities.PIGLIN_HOG_RIDER.get(), PiglinHogRiderEntity.createAttributes().build());
+        event.put(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), PiglinBlazeKopterEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -64,6 +70,9 @@ public class PiglinEntities {
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_HOG_RIDER.get(), (ctx) ->
             new PiglinHogRiderRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_hog_rider"))).hasGlowLayer().noDeathTilt()
+        );
+        EntityRenderers.register(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), (ctx) ->
+            new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_blaze_kopter"))).hasGlowLayer().noDeathTilt()
         );
     }
 }
