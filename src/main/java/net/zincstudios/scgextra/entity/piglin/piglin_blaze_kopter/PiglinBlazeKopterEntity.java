@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -45,6 +46,8 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     private static final EntityDataAccessor<Boolean> IS_SHOOTING = SynchedEntityData.defineId(PiglinBlazeKopterEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final SimulatedGun customGun;
+
+    public Vec3 bulletOffset = new Vec3(0, -7.2174/16f, -29.3119/16f * -1);
 
     public PiglinBlazeKopterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -106,7 +109,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
-        return Vec3.ZERO;
+        return this.bulletOffset.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
     }
 
     @Override

@@ -65,7 +65,8 @@ public class PiglinBlazeKopterAi {
                         StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                         AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                         new ApproachTargetIfCannotAim(1F),
-                        new AimWhenNotWalking()
+                        new AimWhenNotWalking(),
+                        new PiglinBlazeKopterShootTarget(0, 1.6F)
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 ), ImmutableSet.of(
