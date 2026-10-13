@@ -1,7 +1,6 @@
 package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
-import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderEntity;
@@ -22,6 +21,7 @@ import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_strider_rider.PiglinStriderRiderEntity;
@@ -72,7 +72,7 @@ public class PiglinEntities {
             new PiglinHogRiderRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_hog_rider"))).hasGlowLayer().noDeathTilt()
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), (ctx) ->
-            new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_blaze_kopter"))).hasGlowLayer().noDeathTilt()
+            new PiglinBlazeKopterRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_blaze_kopter"))).hasGlowLayer().noDeathTilt()
         );
     }
 }

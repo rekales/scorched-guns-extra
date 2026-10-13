@@ -8,11 +8,15 @@ import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
+import net.zincstudios.scgextra.network.GunFlashMessage;
+import net.zincstudios.scgextra.network.SCGEPacketHandler;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -32,6 +36,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.ScorchedGuns;
+import top.ribs.scguns.common.Gun;
 import top.ribs.scguns.init.ModItems;
 
 public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunner, CustomGunHolder, BulletSpawnOffset{
@@ -49,6 +55,8 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     public Vec3 bulletOffset = new Vec3(0, -7.2174/16f, -29.3119/16f * -1);
 
+    private boolean bulletSpawnLeft = false;
+
     public PiglinBlazeKopterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
@@ -59,6 +67,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
             .idealRange(16)
             .ammoCapacity(10)
             .reloadTime(120)
+            .noGunFlash()
             .build();
     }
 
@@ -168,5 +177,17 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 this.addDeltaMovement(new Vec3(0,0.1,0));
             }
         }
+    }
+
+    @Override
+    public void onGunFire(SimulatedGun gun, Vec3 targetPos) {
+        this.bulletSpawnLeft = !this.bulletSpawnLeft;
+
+        Gun.Display.Flash flash = ModItems.BIRDFEEDER.get().getGun().getDisplay().getFlash();
+        if (flash == null) return;
+        ResourceLocation flashTexture = ResourceLocation.fromNamespaceAndPath(ScorchedGuns.MODID,
+                "textures/effect/" + flash.getTextureLocation() + ".png");
+        SCGEPacketHandler.sendToNearbyPlayers(() -> MobUtil.levelLocationFromEntity(this),
+                new GunFlashMessage(this.getId(), this.bulletSpawnLeft ? 0 : 1, flashTexture, false, 1.2F));
     }
 }
