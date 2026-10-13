@@ -336,7 +336,8 @@ public class ModItems {
             PIGLIN_NOB_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_NOB),
             PIGLIN_STRIDER_RIDER_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_STRIDER_RIDER),
             PIGLIN_HOG_RIDER_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_HOG_RIDER),
-            PIGLIN_BLAZE_KOPTER_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_BLAZE_KOPTER)
+            PIGLIN_BLAZE_KOPTER_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGLIN_BLAZE_KOPTER),
+            PIGKAN_SPAWN_EGG = basicSpawnEgg(PiglinEntities.PIGKAN)
             ;
 
     public static void register(IEventBus modEventBus) {

@@ -160,7 +160,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("piglinNobBrain");
+        this.level().getProfiler().push("piglinBlazeKopterBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
         BrainCommons.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
