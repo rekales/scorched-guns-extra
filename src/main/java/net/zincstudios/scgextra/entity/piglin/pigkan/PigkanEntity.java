@@ -5,7 +5,11 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,6 +22,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.init.ModEffects;
 
 public class PigkanEntity extends Monster implements GeoEntity{
 
@@ -31,6 +36,12 @@ public class PigkanEntity extends Monster implements GeoEntity{
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("claw_attack");
 
     static int STUN_DURATION = 100;
+
+    static int CLAW_DURATION = 100;
+    static int CLAW_DELAY = 23;
+
+    static int SAW_DURATION = 100;
+    static int SAW_DELAY = 17;
 
     private boolean stunAnimPlaying = false;
 
@@ -109,6 +120,15 @@ public class PigkanEntity extends Monster implements GeoEntity{
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            if (brain.hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()) && brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())) {
+                String name = brain.getMemory(ModBrainMemories.ABILITY_STATE.get()).get().abilityId();
+                if(name.equals("claw")){
+                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==CLAW_DURATION)this.triggerAnim("attack", "claw_attack");
+                }
+                if(name.equals("saw")){
+                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==SAW_DURATION)this.triggerAnim("attack", "saw_attack");
+                }
+            }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
                 if(!this.stunAnimPlaying){
                     this.stunAnimPlaying = true;
@@ -118,5 +138,22 @@ public class PigkanEntity extends Monster implements GeoEntity{
                 this.stunAnimPlaying = false;
             }
         }
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        if(!this.level().isClientSide()){
+            if(brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get()) && entity instanceof LivingEntity le){
+                le.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 200));
+                String name = brain.getMemory(ModBrainMemories.ABILITY_STATE.get()).get().abilityId();
+                if(name.equals("claw")){
+                    le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200));
+                }
+                if(name.equals("saw")){
+                    le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200));
+                }
+            }
+        }
+        return super.doHurtTarget(entity);
     }
 }

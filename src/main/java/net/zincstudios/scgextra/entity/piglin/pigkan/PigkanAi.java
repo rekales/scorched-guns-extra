@@ -23,7 +23,7 @@ import net.minecraft.world.entity.schedule.Activity;
 public class PigkanAi {
     static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
+            ModBrainSensors.VERY_LONG_RANGE_PLAYER.get(),
             SensorType.HURT_BY
     );
 
@@ -40,7 +40,9 @@ public class PigkanAi {
             ModBrainMemories.STUNNED.get(),
             ModBrainMemories.STUNNED_COOLING_DOWN.get(),
             ModBrainMemories.HEADSHOT_COUNT.get(),
-            ModBrainMemories.DELAYED_MELEE.get()
+            ModBrainMemories.DELAYED_MELEE.get(),
+            ModBrainMemories.ABILITY_STATE.get(),
+            ModBrainMemories.WEAPON_MAX_RANGE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -62,7 +64,8 @@ public class PigkanAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F)
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
+                new PigkanDelayedMeleeAttack(4f, 20)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 
