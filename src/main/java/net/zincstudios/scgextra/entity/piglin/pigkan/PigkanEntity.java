@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -155,5 +156,11 @@ public class PigkanEntity extends Monster implements GeoEntity{
             }
         }
         return super.doHurtTarget(entity);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
+        return super.hurt(source, amount);
     }
 }
