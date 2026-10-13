@@ -1888,5 +1888,26 @@
     "sounds": [
       "scgextra:piglin/piglin_strider_rider/death_01"
     ]
+  },
+  "piglin.piglin_blaze_kopter.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_blaze_kopter.death",
+    "sounds": [
+      "scgextra:piglin/piglin_blaze_kopter/death"
+    ]
+  },
+  "piglin.piglin_blaze_kopter.gun": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_blaze_kopter.gun",
+    "sounds": [
+      "scgextra:piglin/piglin_blaze_kopter/gun"
+    ]
+  },
+  "piglin.piglin_blaze_kopter.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_blaze_kopter.idle",
+    "sounds": [
+      "scgextra:piglin/piglin_blaze_kopter/idle"
+    ]
   }
 }

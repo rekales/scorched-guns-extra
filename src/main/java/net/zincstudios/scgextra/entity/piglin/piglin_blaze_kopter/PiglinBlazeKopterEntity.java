@@ -11,6 +11,7 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.network.GunFlashMessage;
 import net.zincstudios.scgextra.network.SCGEPacketHandler;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -18,6 +19,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -65,7 +67,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
             .fireRate(2)
             .maxRange(20)
             .idealRange(16)
-            .ammoCapacity(10)
+            .ammoCapacity(6)
             .reloadTime(120)
             .noGunFlash()
             .build();
@@ -189,5 +191,20 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 "textures/effect/" + flash.getTextureLocation() + ".png");
         SCGEPacketHandler.sendToNearbyPlayers(() -> MobUtil.levelLocationFromEntity(this),
                 new GunFlashMessage(this.getId(), this.bulletSpawnLeft ? 0 : 1, flashTexture, false, 1.2F));
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_BLAZE_KOPTER_IDLE.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 280;
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGLIN_BLAZE_KOPTER_DEATH.get();
     }
 }

@@ -15,6 +15,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.gun.MarkovTriggerSampler;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import net.zincstudios.scgextra.entity.common.gun.TriggerStateSampler;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
@@ -26,6 +27,7 @@ public class PiglinBlazeKopterShootTarget extends Behavior<Mob> {
     private final BiFunction<LivingEntity, Boolean, Float> accuracyFunc;
     private final Predicate<Mob> canShoot;
     private final TriggerStateSampler triggerSampler;
+    private boolean played = false;
 
     public PiglinBlazeKopterShootTarget(int aimThreshold) {
         this(aimThreshold, DEFAULT_ACCURACY);
@@ -71,9 +73,14 @@ public class PiglinBlazeKopterShootTarget extends Behavior<Mob> {
         Vec3 targetPos = SimulatedGun.getCenterMassPos(target);
 
         if (aimTicks >= this.aimThreshold && this.triggerSampler.next(entity.getRandom())) {
+            if(!this.played){
+                entity.playSound(PiglinSounds.PIGLIN_BLAZE_KOPTER_GUN.get());
+                this.played = true;
+            }
             simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, true), true);
             if(entity instanceof PiglinBlazeKopterEntity pbke)pbke.setShooting(true);
         } else {
+            this.played = false;
             simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, false), false);
             if(entity instanceof PiglinBlazeKopterEntity pbke)pbke.setShooting(false);
         }
