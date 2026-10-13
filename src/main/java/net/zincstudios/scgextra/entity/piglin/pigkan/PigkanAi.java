@@ -3,12 +3,14 @@ package net.zincstudios.scgextra.entity.piglin.pigkan;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -36,13 +38,16 @@ public class PigkanAi {
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.STUNNED.get(),
+            ModBrainMemories.STUNNED_COOLING_DOWN.get(),
+            ModBrainMemories.HEADSHOT_COUNT.get(),
             ModBrainMemories.DELAYED_MELEE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreActivity(brain);
+        BrainCommons.initCoreWithStunActivity(brain, PigkanEntity.STUN_DURATION);
         BrainCommons.initIdleActivity(brain);
         initFightActivity(mob, brain);
+        BrainCommons.initStunnedActivity(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -59,5 +64,21 @@ public class PigkanAi {
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F)
         ), MemoryModuleType.ATTACK_TARGET);
+    }
+
+    public static void updateActivity(PigkanEntity mob) {
+        Brain<PigkanEntity> brain = mob.getBrain();
+        Activity oldActivity = brain.getActiveNonCoreActivity().orElse(null);
+        brain.setActiveActivityToFirstValid(ImmutableList.of(
+                ModBrainActivities.STUNNED.get(),
+                Activity.FIGHT,
+                Activity.IDLE
+        ));
+
+        Activity newActivity = brain.getActiveNonCoreActivity().orElse(null);
+        if (oldActivity != newActivity && newActivity == ModBrainActivities.STUNNED.get()) {
+            brain.stopAll((ServerLevel) mob.level(), mob);
+            mob.getNavigation().stop();
+        }
     }
 }

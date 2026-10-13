@@ -30,6 +30,9 @@ public class PigkanEntity extends Monster implements GeoEntity{
     private static final RawAnimation STUN_FULL = RawAnimation.begin().thenPlay("stun_full");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("claw_attack");
 
+    static int STUN_DURATION = 100;
+
+    private boolean stunAnimPlaying = false;
 
     public PigkanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -96,10 +99,24 @@ public class PigkanEntity extends Monster implements GeoEntity{
     protected void customServerAiStep() {
         this.level().getProfiler().push("pigkanBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
-        BrainCommons.updateActivity(this);
+        PigkanAi.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
-    
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(!this.level().isClientSide()){
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
+                if(!this.stunAnimPlaying){
+                    this.stunAnimPlaying = true;
+                    this.triggerAnim("main", "stun");
+                }
+            }else{
+                this.stunAnimPlaying = false;
+            }
+        }
+    }
 }
