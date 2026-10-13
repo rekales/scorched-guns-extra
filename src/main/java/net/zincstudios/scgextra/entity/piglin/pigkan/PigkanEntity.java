@@ -4,7 +4,10 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.sounds.AsgharianSounds;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -124,9 +127,11 @@ public class PigkanEntity extends Monster implements GeoEntity{
             if (brain.hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()) && brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())) {
                 String name = brain.getMemory(ModBrainMemories.ABILITY_STATE.get()).get().abilityId();
                 if(name.equals("claw")){
+                    this.playSound(AsgharianSounds.ASGHAR_WORKER_CLAW.get());
                     if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==CLAW_DURATION)this.triggerAnim("attack", "claw_attack");
                 }
                 if(name.equals("saw")){
+                    this.playSound(AsgharianSounds.ASGHAR_WORKER_SAW.get());
                     if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==SAW_DURATION)this.triggerAnim("attack", "saw_attack");
                 }
             }
@@ -162,5 +167,10 @@ public class PigkanEntity extends Monster implements GeoEntity{
     public boolean hurt(DamageSource source, float amount) {
         if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
         return super.hurt(source, amount);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGKAN_IDLE.get();
     }
 }

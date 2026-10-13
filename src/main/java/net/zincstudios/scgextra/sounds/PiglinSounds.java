@@ -51,6 +51,10 @@ public class PiglinSounds {
     public static final RegistryObject<SoundEvent> PIGLIN_BLAZE_KOPTER_DEATH = SOUND_EVENTS.register("piglin.piglin_blaze_kopter.death",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_blaze_kopter.death")));
 
+    //PIGKAN
+    public static final RegistryObject<SoundEvent> PIGKAN_IDLE = SOUND_EVENTS.register("piglin.pigkan.idle",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigkan.idle")));
+
     public static void init() {}
 
 }

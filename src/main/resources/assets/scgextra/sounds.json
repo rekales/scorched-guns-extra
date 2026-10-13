@@ -1909,5 +1909,15 @@
     "sounds": [
       "scgextra:piglin/piglin_blaze_kopter/idle"
     ]
+  },
+  "piglin.pigkan.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigkan.idle",
+    "sounds": [
+      "scgextra:piglin/pigkan/idle_01",
+      "scgextra:piglin/pigkan/idle_02",
+      "scgextra:piglin/pigkan/idle_03",
+      "scgextra:piglin/pigkan/idle_04"
+    ]
   }
 }
