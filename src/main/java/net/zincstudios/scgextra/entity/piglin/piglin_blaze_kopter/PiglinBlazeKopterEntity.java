@@ -62,7 +62,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     public PiglinBlazeKopterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.customGun = new CustomScorchedSimGun.Builder(ModItems.BIRDFEEDER.get().getGun())
+        this.customGun = new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
             .projectileDamage(3f)
             .fireRate(2)
             .maxRange(20)
