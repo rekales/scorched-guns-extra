@@ -17,6 +17,7 @@ import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
@@ -69,6 +70,7 @@ public class PiglinKilnHogAi {
             ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenNotWalking(),
                 new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6),

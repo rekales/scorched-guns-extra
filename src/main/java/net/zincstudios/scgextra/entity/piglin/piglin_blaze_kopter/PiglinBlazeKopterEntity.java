@@ -11,7 +11,7 @@ import java.util.function.BiFunction;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.brain.AccuracyBuildup;
-import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
+import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.network.GunFlashMessage;
 import net.zincstudios.scgextra.network.SCGEPacketHandler;
@@ -72,7 +72,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     public PiglinBlazeKopterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.mountedMachineGun1 = new HeadAttachedMountedGun(this,
+        this.mountedMachineGun1 = new AttachedMountedGun(this,
             new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
                 .projectileDamage(3f)
                 .fireRate(1)
@@ -86,7 +86,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
             bulletOffsetL,
             (a) -> true
         );
-        this.mountedMachineGun2 = new HeadAttachedMountedGun(this,
+        this.mountedMachineGun2 = new AttachedMountedGun(this,
             new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
                 .projectileDamage(3f)
                 .fireRate(1)
