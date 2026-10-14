@@ -47,7 +47,8 @@ public class PiglinKilnHogAi {
         ModBrainMemories.WEAPON_MAX_RANGE.get(),
         ModBrainMemories.STUNNED.get(),
         ModBrainMemories.STUNNED_COOLING_DOWN.get(),
-        ModBrainMemories.DELAYED_MELEE.get()
+        ModBrainMemories.DELAYED_MELEE.get(),
+        ModBrainMemories.ABILITY_STATE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -74,7 +75,8 @@ public class PiglinKilnHogAi {
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenNotWalking(),
                 new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6),
-                new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 2f, 20)
+                new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 2f, 20),
+                new BellyCannonShoot(40, 27)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
