@@ -1,12 +1,17 @@
 package net.zincstudios.scgextra.entity.projectile.piglin_kiln_hog_magma_ball;
 
 import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
+
+import java.util.List;
+
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -39,8 +44,18 @@ public class PiglinKilnHogMagmaBall extends AbstractArrow implements GeoEntity{
     }
 
     @Override
-    protected void onHitBlock(BlockHitResult result) {
-        super.onHitBlock(result);
-        this.discard();
+    protected void onHit(HitResult result) {
+        super.onHit(result);
+        if(!this.level().isClientSide()){
+            List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(3));
+            for(LivingEntity le : list){
+                le.setSecondsOnFire(3);
+                le.hurt(this.damageSources().lava(), 30);
+            }
+            EntityType.MAGMA_CUBE.spawn((ServerLevel)this.level(), this.blockPosition(), MobSpawnType.MOB_SUMMONED).setSize(2, true);
+            EntityType.MAGMA_CUBE.spawn((ServerLevel)this.level(), this.blockPosition(), MobSpawnType.MOB_SUMMONED).setSize(2, true);
+            EntityType.MAGMA_CUBE.spawn((ServerLevel)this.level(), this.blockPosition(), MobSpawnType.MOB_SUMMONED).setSize(2, true);
+            this.discard();
+        }
     }
 }

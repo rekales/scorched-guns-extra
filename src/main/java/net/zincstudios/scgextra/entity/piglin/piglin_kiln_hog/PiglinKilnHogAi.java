@@ -76,7 +76,7 @@ public class PiglinKilnHogAi {
                 new AimWhenNotWalking(),
                 new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6),
                 new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 2f, 20),
-                new BellyCannonShoot(40, 27)
+                new BellyCannonShoot(300, 27)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
