@@ -11,7 +11,6 @@ import java.util.function.BiFunction;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.brain.AccuracyBuildup;
-import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.network.GunFlashMessage;
@@ -82,9 +81,10 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 .ammoCapacity(6)
                 .reloadTime(120)
                 .noGunFlash()
+                .gunIndex(0)
                 .build(),
             bulletOffsetL,
-            BrainUtils::isNotStunned
+            (a) -> true
         );
         this.mountedMachineGun2 = new HeadAttachedMountedGun(this,
             new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
@@ -95,9 +95,10 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 .ammoCapacity(6)
                 .reloadTime(120)
                 .noGunFlash()
+                .gunIndex(1)
                 .build(),
             bulletOffsetR,
-            BrainUtils::isNotStunned
+            (a) -> true
         );
     }
 
@@ -148,7 +149,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
-        return switch(gunIndex){
+        return switch (gunIndex) {
             case 0 -> this.bulletOffsetL.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
             case 1 -> this.bulletOffsetR.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
             default -> Vec3.ZERO;

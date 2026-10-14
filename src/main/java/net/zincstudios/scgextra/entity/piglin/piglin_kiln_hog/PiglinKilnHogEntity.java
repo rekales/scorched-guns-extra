@@ -1,10 +1,25 @@
 package net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog;
 
+import com.mojang.serialization.Dynamic;
+
+import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
+import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
+import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
+import net.zincstudios.scgextra.entity.common.Gunner;
+import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -12,8 +27,9 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.init.ModItems;
 
-public class PiglinKilnHogEntity extends Monster implements GeoEntity{
+public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, BulletSpawnOffset {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -26,8 +42,44 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity{
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
+    public final MountedGun mountedShotGunLeft;
+    public final MountedGun mountedShotGunRight;
+
+    public Vec3 bulletOffsetL = new Vec3(-28/16f, 32/16f, -40/16f * -1);
+    public Vec3 bulletOffsetR = new Vec3(28/16f, 32/16f, -40/16f * -1);
+
+    private boolean aggroed = false;
+
+    public static int STUN_DURATION = 100;
+
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.mountedShotGunLeft = new HeadAttachedMountedGun(
+            this, 
+            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+                .projectileDamage(15f)
+                .fireRate(1)
+                .maxRange(20)
+                .idealRange(16)
+                .noGunFlash()
+                .gunIndex(0)
+                .build(), 
+            bulletOffsetL, 
+            (a) -> true
+        );
+        this.mountedShotGunRight = new HeadAttachedMountedGun(
+            this, 
+            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+                .projectileDamage(15f)
+                .fireRate(1)
+                .maxRange(20)
+                .idealRange(16)
+                .noGunFlash()
+                .gunIndex(1)
+                .build(), 
+            bulletOffsetR, 
+            (a) -> true
+        );
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -76,5 +128,57 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity{
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return this.geoCache;
     }
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return PiglinKilnHogAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Brain<PiglinKilnHogEntity> getBrain() {
+        return (Brain<PiglinKilnHogEntity>) super.getBrain();
+    }
+
+    @Override
+    protected Brain.Provider<PiglinKilnHogEntity> brainProvider() {
+        return PiglinKilnHogAi.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("piglinBlazeKopterBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        BrainCommons.updateActivity(this);
+        BrainCommons.updateMaxRangeAggressive(this);
+        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+            this.setYBodyRot(this.getYHeadRot());
+        }
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
+    }
+
+    @Override
+    public Vec3 getBulletSpawnOffset(int gunIndex) {
+        SCGExtra.LOGGER.info("GUN INDEX: "+gunIndex);
+        return switch (gunIndex) {
+            case 0 -> this.bulletOffsetL.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
+            case 1 -> this.bulletOffsetR.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
+            default -> Vec3.ZERO;
+        };
+    }
     
+    @Override
+    public void tick() {
+        super.tick();
+        if(!this.level().isClientSide()){
+            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
+                this.triggerAnim("behavior", "aggro");
+                this.aggroed = true;
+            }
+            if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+                this.aggroed = false;
+            }
+        }
+    }
 }
