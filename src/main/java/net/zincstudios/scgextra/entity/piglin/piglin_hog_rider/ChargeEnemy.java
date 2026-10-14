@@ -35,7 +35,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
 
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
-        return level.getGameTime() > endTime+cooldown && !owner.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()) && owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) <= 36;
+        return level.getGameTime() > endTime+cooldown && !owner.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()) && owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) <= 225;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
         owner.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("chargeTicks", gameTime, gameTime+startAnimTime), this.startAnimTime);
         this.chargeEndedAt = 0;
         if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(1);
-        owner.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get(), 3.0f, 0));
+        owner.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get(), 2.0f, 0));
     }
 
     @SuppressWarnings("unchecked")
