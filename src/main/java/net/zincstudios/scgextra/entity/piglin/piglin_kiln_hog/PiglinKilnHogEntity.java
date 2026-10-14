@@ -44,10 +44,12 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity{
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 4, state -> {
-            if (state.isMoving()) {
-                state.setAnimation(WALK);
-            } else {
-                state.setAnimation(IDLE);
+            if(!state.isCurrentAnimation(AGGRO)){
+                if (state.isMoving()) {
+                    state.setAnimation(WALK);
+                } else {
+                    state.setAnimation(IDLE);
+                }
             }
             return PlayState.CONTINUE;
         }));

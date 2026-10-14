@@ -13,8 +13,8 @@ public class PiglinBlazeKopterRenderer<T extends PiglinBlazeKopterEntity> extend
     public PiglinBlazeKopterRenderer(Context context, GeoModel<T> model) {
         super(context, model);
         this.addRenderLayer(new BoneGunFlashGeoLayer<>(this, Map.of(
-                0, "flash",
-                1, "flash"
+                0, "flash_left",
+                1, "flash_right"
         )));
     }
     

@@ -115,10 +115,12 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
                     state.setAndContinue(STUN_END);
                 }
             }
-            else if (state.isMoving()) {
-                state.setAndContinue(WALK);
-            } else {
-                state.setAndContinue(IDLE);
+            else if(!state.isCurrentAnimation(AGGROED)){
+                if (state.isMoving()) {
+                    state.setAndContinue(WALK);
+                } else {
+                    state.setAndContinue(IDLE);
+                }   
             }
             return PlayState.CONTINUE;
         }));

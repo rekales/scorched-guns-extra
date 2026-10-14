@@ -150,6 +150,16 @@
 					]
 				},
 				{
+					"name": "flash_right",
+					"parent": "gun",
+					"pivot": [-3.5, 4.5237, -34.63658]
+				},
+				{
+					"name": "flash_left",
+					"parent": "gun",
+					"pivot": [3.5, 4.5237, -34.63658]
+				},
+				{
 					"name": "piglin",
 					"parent": "blaze_kopter",
 					"pivot": [0, 8, 4.25]
@@ -204,7 +214,11 @@
 				},
 				{
 					"name": "flash",
-					"pivot": [-2, -7.2174, -29.3119]
+					"pivot": [-2.75, -5.4674, -22.8119]
+				},
+				{
+					"name": "flash2",
+					"pivot": [2.75, -5.4674, -22.8119]
 				}
 			]
 		}

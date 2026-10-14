@@ -2,12 +2,17 @@ package net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter;
 
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
-import net.zincstudios.scgextra.entity.common.gun.CustomGunHolder;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
+import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+
+import java.util.function.BiFunction;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.brain.AccuracyBuildup;
+import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.network.GunFlashMessage;
 import net.zincstudios.scgextra.network.SCGEPacketHandler;
@@ -22,10 +27,12 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.monster.Monster;
@@ -42,7 +49,7 @@ import top.ribs.scguns.ScorchedGuns;
 import top.ribs.scguns.common.Gun;
 import top.ribs.scguns.init.ModItems;
 
-public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunner, CustomGunHolder, BulletSpawnOffset{
+public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunner, BulletSpawnOffset{
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
@@ -53,24 +60,45 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     private static final EntityDataAccessor<Boolean> IS_SHOOTING = SynchedEntityData.defineId(PiglinBlazeKopterEntity.class, EntityDataSerializers.BOOLEAN);
 
-    private final SimulatedGun customGun;
+    private final MountedGun mountedMachineGun1;
+    private final MountedGun mountedMachineGun2;
 
-    public Vec3 bulletOffset = new Vec3(0, -7.2174/16f, -29.3119/16f * -1);
+    public Vec3 bulletOffsetL = new Vec3(2.75/16f, -5.4674/16f, -22.8119/16f * -1);
+    public Vec3 bulletOffsetR = new Vec3(-2.75/16f, -5.4674/16f, -22.8119/16f * -1);
 
     private boolean bulletSpawnLeft = false;
+
+    private final BiFunction<LivingEntity, Boolean, Float> accuracyFunc = new AccuracyBuildup(0.0f, 2.4f, 0.05f);
 
     public PiglinBlazeKopterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.customGun = new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
-            .projectileDamage(3f)
-            .fireRate(2)
-            .maxRange(20)
-            .idealRange(16)
-            .ammoCapacity(6)
-            .reloadTime(120)
-            .noGunFlash()
-            .build();
+        this.mountedMachineGun1 = new HeadAttachedMountedGun(this,
+            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+                .projectileDamage(3f)
+                .fireRate(1)
+                .maxRange(20)
+                .idealRange(16)
+                .ammoCapacity(6)
+                .reloadTime(120)
+                .noGunFlash()
+                .build(),
+            bulletOffsetL,
+            BrainUtils::isNotStunned
+        );
+        this.mountedMachineGun2 = new HeadAttachedMountedGun(this,
+            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+                .projectileDamage(3f)
+                .fireRate(1)
+                .maxRange(20)
+                .idealRange(16)
+                .ammoCapacity(6)
+                .reloadTime(120)
+                .noGunFlash()
+                .build(),
+            bulletOffsetR,
+            BrainUtils::isNotStunned
+        );
     }
 
     protected PathNavigation createNavigation(Level p_level) {
@@ -120,12 +148,11 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
 
     @Override
     public Vec3 getBulletSpawnOffset(int gunIndex) {
-        return this.bulletOffset.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
-    }
-
-    @Override
-    public SimulatedGun getCustomGun() {
-        return this.customGun;
+        return switch(gunIndex){
+            case 0 -> this.bulletOffsetL.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
+            case 1 -> this.bulletOffsetR.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
+            default -> Vec3.ZERO;
+        };
     }
 
     @Override
@@ -174,8 +201,25 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     @Override
     public void tick() {
         super.tick();
+        if(this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
+            LivingEntity target = this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+            if (!this.level().isClientSide) {
+                if (target != null) {
+                    if(this.level().getGameTime()%10 == 0){
+                        this.setShooting(this.mountedMachineGun1.tick(target, this.accuracyFunc.apply(this, true)));
+                        this.setShooting(this.mountedMachineGun2.tick(target, this.accuracyFunc.apply(this, true)));
+                    }
+                }
+            } else {
+                if (target != null) {
+                    this.getLookControl().setLookAt(target, 90.0F, 90.0F);
+                }
+            }
+        }else{
+            if (!this.level().isClientSide)this.setShooting(false);
+        }
         if(!this.level().isClientSide()){
-            if(!this.level().getBlockState(this.blockPosition().below(5)).isAir()){
+            if(!this.level().getBlockState(this.blockPosition().below(3)).isAir()){
                 this.addDeltaMovement(new Vec3(0,0.1,0));
             }
         }

@@ -61,10 +61,12 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 3, state -> {
-            if (state.isMoving()) {
-                state.setAndContinue(WALK);
-            } else {
-                state.setAndContinue(IDLE);
+            if(!state.isCurrentAnimation(AGGROED)){
+                if (state.isMoving()) {
+                    state.setAndContinue(WALK);
+                } else {
+                    state.setAndContinue(IDLE);
+                }
             }
             return PlayState.CONTINUE;
         }));

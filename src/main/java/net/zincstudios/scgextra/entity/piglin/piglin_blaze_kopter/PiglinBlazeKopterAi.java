@@ -25,8 +25,7 @@ public class PiglinBlazeKopterAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             ModBrainSensors.VERY_LONG_RANGE_PLAYER.get(),
-            SensorType.HURT_BY,
-            ModBrainSensors.CUSTOM_GUN.get()
+            SensorType.HURT_BY
     );
 
     private static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
@@ -40,7 +39,6 @@ public class PiglinBlazeKopterAi {
             MemoryModuleType.PATH,
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.AIM_TICKS.get(),
-            ModBrainMemories.SIMULATED_GUN.get(),
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get()
     );
@@ -65,8 +63,7 @@ public class PiglinBlazeKopterAi {
                         StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                         AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                         new ApproachTargetIfCannotAim(1F),
-                        new AimWhenNotWalking(),
-                        new PiglinBlazeKopterShootTarget(0, 1.6F)
+                        new AimWhenNotWalking()
                 )), ImmutableSet.of(
                         Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
                 ), ImmutableSet.of(
