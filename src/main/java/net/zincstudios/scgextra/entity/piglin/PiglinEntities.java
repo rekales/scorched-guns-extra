@@ -45,9 +45,9 @@ public class PiglinEntities {
     public static final RegistryObject<EntityType<PigkanEntity>> PIGKAN = ENTITY_TYPES
             .register("pigkan", () -> EntityType.Builder.of(PigkanEntity::new, MobCategory.MONSTER)
                     .sized(2.5F, 2.9375F).build("pigkan"));
-    public static final RegistryObject<EntityType<PiglinKilnHogEntity>> PIGLIN_KLIN_HOG = ENTITY_TYPES
-            .register("piglin_klin_hog", () -> EntityType.Builder.of(PiglinKilnHogEntity::new, MobCategory.MONSTER)
-                    .sized(5F, 5F).build("piglin_klin_hog"));
+    public static final RegistryObject<EntityType<PiglinKilnHogEntity>> PIGLIN_KILN_HOG = ENTITY_TYPES
+            .register("piglin_kiln_hog", () -> EntityType.Builder.of(PiglinKilnHogEntity::new, MobCategory.MONSTER)
+                    .sized(5F, 5F).build("piglin_kiln_hog"));
 
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
@@ -63,7 +63,7 @@ public class PiglinEntities {
         event.put(PiglinEntities.PIGLIN_HOG_RIDER.get(), PiglinHogRiderEntity.createAttributes().build());
         event.put(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), PiglinBlazeKopterEntity.createAttributes().build());
         event.put(PiglinEntities.PIGKAN.get(), PigkanEntity.createAttributes().build());
-        event.put(PiglinEntities.PIGLIN_KLIN_HOG.get(), PiglinKilnHogEntity.createAttributes().build());
+        event.put(PiglinEntities.PIGLIN_KILN_HOG.get(), PiglinKilnHogEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -89,7 +89,7 @@ public class PiglinEntities {
         EntityRenderers.register(PiglinEntities.PIGKAN.get(), (ctx) ->
             new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/pigkan"))).hasGlowLayer().noDeathTilt()
         );
-        EntityRenderers.register(PiglinEntities.PIGLIN_KLIN_HOG.get(), (ctx) ->
+        EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG.get(), (ctx) ->
             new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog"))).hasGlowLayer().noDeathTilt()
         );
     }
