@@ -13,6 +13,7 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
+import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
@@ -25,26 +26,27 @@ import net.minecraft.world.entity.schedule.Activity;
 
 public class PiglinKilnHogAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
-            SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.VERY_LONG_RANGE_PLAYER.get(),
-            SensorType.HURT_BY
+        SensorType.NEAREST_LIVING_ENTITIES,
+        ModBrainSensors.VERY_LONG_RANGE_PLAYER.get(),
+        SensorType.HURT_BY
     );
 
     private static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
-            MemoryModuleType.ATTACK_TARGET,
-            MemoryModuleType.NEAREST_LIVING_ENTITIES,
-            MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
-            MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
-            MemoryModuleType.LOOK_TARGET,
-            MemoryModuleType.WALK_TARGET,
-            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
-            MemoryModuleType.PATH,
-            MemoryModuleType.ATTACK_COOLING_DOWN,
-            ModBrainMemories.AIM_TICKS.get(),
-            ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
-            ModBrainMemories.WEAPON_MAX_RANGE.get(),
-            ModBrainMemories.STUNNED.get(),
-            ModBrainMemories.STUNNED_COOLING_DOWN.get()
+        MemoryModuleType.ATTACK_TARGET,
+        MemoryModuleType.NEAREST_LIVING_ENTITIES,
+        MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
+        MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
+        MemoryModuleType.LOOK_TARGET,
+        MemoryModuleType.WALK_TARGET,
+        MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
+        MemoryModuleType.PATH,
+        MemoryModuleType.ATTACK_COOLING_DOWN,
+        ModBrainMemories.AIM_TICKS.get(),
+        ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
+        ModBrainMemories.WEAPON_MAX_RANGE.get(),
+        ModBrainMemories.STUNNED.get(),
+        ModBrainMemories.STUNNED_COOLING_DOWN.get(),
+        ModBrainMemories.DELAYED_MELEE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -65,15 +67,16 @@ public class PiglinKilnHogAi {
     public static <T extends PathfinderMob> void initFightActivity(T mob, Brain<T> brain) {
         brain.addActivityAndRemoveMemoriesWhenStopped(Activity.FIGHT, BrainUtils.createPriorityPairs(10,
             ImmutableList.of(
-                    StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
-                    AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                    new ApproachTargetIfCannotAim(1F),
-                    new AimWhenNotWalking(),
-                    new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6)
+                StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
+                AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                new ApproachTargetIfCannotAim(1F),
+                new AimWhenNotWalking(),
+                new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6),
+                new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 2f, 20)
             )), ImmutableSet.of(
-                    Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
+                Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
-                    ModBrainMemories.AIM_TICKS.get()
+                ModBrainMemories.AIM_TICKS.get()
             )
         );
     }
@@ -82,10 +85,10 @@ public class PiglinKilnHogAi {
         Brain<PiglinKilnHogEntity> brain = mob.getBrain();
         Activity oldActivity = brain.getActiveNonCoreActivity().orElse(null);
         brain.setActiveActivityToFirstValid(ImmutableList.of(
-                ModBrainActivities.STUNNED.get(),
-                Activity.AVOID,
-                Activity.FIGHT,
-                Activity.IDLE
+            ModBrainActivities.STUNNED.get(),
+            Activity.AVOID,
+            Activity.FIGHT,
+            Activity.IDLE
         ));
 
         Activity newActivity = brain.getActiveNonCoreActivity().orElse(null);

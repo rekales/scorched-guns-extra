@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
 
 public class PiglinKilnHogMountedShotgunGunShoot extends Behavior<Mob>{
 
@@ -31,12 +32,12 @@ public class PiglinKilnHogMountedShotgunGunShoot extends Behavior<Mob>{
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
         if(this.cooldown>0)this.cooldown--;
-        return this.cooldown <= 0;
+        return this.cooldown <= 0 && !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get());
     }
 
     @Override
     protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
-        return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+        return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && !entity.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get());
     }
 
     @Override

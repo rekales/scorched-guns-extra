@@ -1466,6 +1466,7 @@
 		},
 		"melee": {
 			"animation_length": 1.5,
+			"override_previous_animation": true,
 			"bones": {
 				"arm_left": {
 					"rotation": {
@@ -1798,6 +1799,7 @@
 		},
 		"big_cannon": {
 			"animation_length": 3,
+			"override_previous_animation": true,
 			"bones": {
 				"all": {
 					"position": {
@@ -2489,6 +2491,7 @@
 		},
 		"small_cannon": {
 			"animation_length": 3,
+			"override_previous_animation": true,
 			"bones": {
 				"all": {
 					"position": {
@@ -4151,6 +4154,7 @@
 		},
 		"stun_full": {
 			"animation_length": 5,
+			"override_previous_animation": true,
 			"bones": {
 				"arm_left": {
 					"rotation": {
@@ -5236,6 +5240,7 @@
 		},
 		"death": {
 			"animation_length": 2,
+			"override_previous_animation": true,
 			"bones": {
 				"arm_left": {
 					"rotation": {

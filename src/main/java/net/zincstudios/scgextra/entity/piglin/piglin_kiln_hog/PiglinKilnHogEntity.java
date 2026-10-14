@@ -3,7 +3,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
-import net.zincstudios.scgextra.entity.common.gun.HeadAttachedMountedGun;
+import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -52,9 +52,12 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     public static int STUN_DURATION = 100;
 
+    static int MELEE_DELAY = 18;
+    static int MELEE_DURATION = 30;
+
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.mountedShotGunLeft = new HeadAttachedMountedGun(
+        this.mountedShotGunLeft = new AttachedMountedGun(
             this, 
             new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
                 .projectileDamage(15f)
@@ -67,7 +70,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             bulletOffsetL, 
             (a) -> true
         );
-        this.mountedShotGunRight = new HeadAttachedMountedGun(
+        this.mountedShotGunRight = new AttachedMountedGun(
             this, 
             new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
                 .projectileDamage(15f)
@@ -172,6 +175,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+                this.triggerAnim("behavior", "melee");
+            }
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
                 this.triggerAnim("behavior", "aggro");
                 this.aggroed = true;
