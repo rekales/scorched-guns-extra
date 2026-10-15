@@ -49,7 +49,7 @@ public class PiglinEntities {
                     .sized(2.5F, 2.9375F).build("pigkan"));
     public static final RegistryObject<EntityType<PiglinKilnHogEntity>> PIGLIN_KILN_HOG = ENTITY_TYPES
             .register("piglin_kiln_hog", () -> EntityType.Builder.of(PiglinKilnHogEntity::new, MobCategory.MONSTER)
-                    .sized(5F, 5F).build("piglin_kiln_hog"));
+                    .sized(3.9F, 5F).build("piglin_kiln_hog"));
     public static final RegistryObject<EntityType<PiglinKilnHogMagmaBall>> PIGLIN_KILN_HOG_MAGMA_BALL = ENTITY_TYPES
             .register("piglin_kiln_hog_magma_ball", () -> EntityType.Builder.<PiglinKilnHogMagmaBall>of(PiglinKilnHogMagmaBall::new, MobCategory.MISC).sized(1F, 1F).clientTrackingRange(4).updateInterval(20).build("piglin_kiln_hog_magma_ball"));
 

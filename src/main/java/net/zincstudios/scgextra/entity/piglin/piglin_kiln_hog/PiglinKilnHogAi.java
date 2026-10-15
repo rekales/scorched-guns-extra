@@ -47,6 +47,7 @@ public class PiglinKilnHogAi {
         ModBrainMemories.WEAPON_MAX_RANGE.get(),
         ModBrainMemories.STUNNED.get(),
         ModBrainMemories.STUNNED_COOLING_DOWN.get(),
+        ModBrainMemories.HEADSHOT_COUNT.get(),
         ModBrainMemories.DELAYED_MELEE.get(),
         ModBrainMemories.ABILITY_STATE.get()
     );

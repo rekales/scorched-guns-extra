@@ -55,6 +55,8 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     static int MELEE_DELAY = 18;
     static int MELEE_DURATION = 30;
 
+    private boolean stunAnimPlaying = false;
+
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.mountedShotGunLeft = new AttachedMountedGun(
@@ -152,7 +154,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     protected void customServerAiStep() {
         this.level().getProfiler().push("piglinBlazeKopterBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
-        BrainCommons.updateActivity(this);
+        PiglinKilnHogAi.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
         if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
             this.setYBodyRot(this.getYHeadRot());
@@ -184,6 +186,14 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;
+            }
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
+                if(!this.stunAnimPlaying){
+                    this.stunAnimPlaying = true;
+                    this.triggerAnim("behavior", "stun");
+                }
+            }else{
+                this.stunAnimPlaying = false;
             }
         }
     }
