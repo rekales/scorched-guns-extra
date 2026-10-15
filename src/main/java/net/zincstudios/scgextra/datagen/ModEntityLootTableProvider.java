@@ -338,6 +338,12 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(ModItems.VEHEMENT_COAL.get(), 1, 3)
                 .range(ModItems.BLUEPRINT_SCRAP.get(), 1, 2)
                 .chance(ModItems.GOLD_FLARE.get(), 0.5f);
+        
+        basicLoot(PiglinEntities.PIGLIN_KILN_HOG.get())
+                .range(ModItems.HOG_ROUND.get(), 2, 6)
+                .chance(ModItems.VEHEMENT_COAL.get(), 0.5f)
+                .constant(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE, 1)
+                .range(ModItems.GOLD_FLARE.get(), 1, 2);
     }
 
     // don't use this for more complex loot tables
