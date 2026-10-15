@@ -37,7 +37,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
     private static final RawAnimation SAW_ATTACK = RawAnimation.begin().thenPlay("saw_attack");
     private static final RawAnimation CLAW_ATTACK = RawAnimation.begin().thenPlay("claw_attack");
     private static final RawAnimation STUN_FULL = RawAnimation.begin().thenPlay("stun_full");
-    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("claw_attack");
+    private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     static int STUN_DURATION = 100;
 
