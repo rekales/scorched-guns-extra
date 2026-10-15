@@ -73,7 +73,10 @@ public class PiglinEntities {
     private static void onCommonSetup(FMLCommonSetupEvent event) {
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_NOB.get(), new RotatedHeadshotBox<>(12.0, 14.0, 22.0, 15.0, false, true));
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_STRIDER_RIDER.get(), new RotatedHeadshotBox<>(12.0, 8.0, 30.0, 0.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_HOG_RIDER.get(), new RotatedHeadshotBox<>(14.0, 14.0, 42.0, 8, false, true));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), new RotatedHeadshotBox<>(10.0, 8.0, 18.0, 0.0, false, true));
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGKAN.get(), new RotatedHeadshotBox<>(8.0, 7.0, 18.0, 12.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_KILN_HOG.get(), new RotatedHeadshotBox<>(20.0, 22.0, 49.0, 20.0, false, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
