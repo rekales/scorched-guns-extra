@@ -7,6 +7,7 @@ import net.zincstudios.scgextra.entity.piglin.pigkan.PigkanEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog.PiglinKilnHogEntity;
+import net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog.PiglinKilnHogRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
@@ -97,7 +98,7 @@ public class PiglinEntities {
             new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/pigkan"))).hasGlowLayer().noDeathTilt()
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG.get(), (ctx) ->
-            new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog"))).hasGlowLayer().noDeathTilt()
+            new PiglinKilnHogRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog"))).hasGlowLayer().noDeathTilt()
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG_MAGMA_BALL.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog_magma_ball"))));
     }

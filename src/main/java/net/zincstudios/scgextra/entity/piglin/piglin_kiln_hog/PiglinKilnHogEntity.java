@@ -10,6 +10,9 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -56,6 +59,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     static int MELEE_DURATION = 30;
 
     private boolean stunAnimPlaying = false;
+
+    //to whom ever it may concern, I am sorry for such janky solution for this lava anim
+    private static final EntityDataAccessor<Integer> PHASE = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.INT);
 
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -121,12 +127,12 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         controllers.add(new AnimationController<>(this, "behavior", 0, state -> {
             return PlayState.CONTINUE;
         })
-        .triggerableAnim("aggro", AGGRO)
-        .triggerableAnim("melee", MELEE)
-        .triggerableAnim("small_canon", SMALL_CANON)
-        .triggerableAnim("big_canon", BIG_CANON)
-        .triggerableAnim("stun", STUN)
-    );
+            .triggerableAnim("aggro", AGGRO)
+            .triggerableAnim("melee", MELEE)
+            .triggerableAnim("small_canon", SMALL_CANON)
+            .triggerableAnim("big_canon", BIG_CANON)
+            .triggerableAnim("stun", STUN)
+        );
     }
 
     @Override
@@ -177,6 +183,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            this.updateLavaPhase();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("behavior", "melee");
             }
@@ -195,6 +202,24 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             }else{
                 this.stunAnimPlaying = false;
             }
+        }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(PHASE, 1);
+    }
+
+    public int getLavaPhase(){
+        return this.entityData.get(PHASE);
+    }
+
+    public void updateLavaPhase(){
+        if(this.getLavaPhase() < 20){
+            this.entityData.set(PHASE, this.getLavaPhase()+1);
+        }else if(this.getLavaPhase() >= 20){
+            this.entityData.set(PHASE, 1);
         }
     }
 }
