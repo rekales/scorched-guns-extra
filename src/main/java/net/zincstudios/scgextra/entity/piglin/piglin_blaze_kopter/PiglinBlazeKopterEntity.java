@@ -82,6 +82,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 .reloadTime(120)
                 .noGunFlash()
                 .gunIndex(0)
+                .projectileFactory(PiglinBlazeKopterProjectile::new)
                 .build(),
             bulletOffsetL,
             (a) -> true
@@ -96,6 +97,7 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
                 .reloadTime(120)
                 .noGunFlash()
                 .gunIndex(1)
+                .projectileFactory(PiglinBlazeKopterProjectile::new)
                 .build(),
             bulletOffsetR,
             (a) -> true

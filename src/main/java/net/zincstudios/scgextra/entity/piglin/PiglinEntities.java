@@ -5,6 +5,7 @@ import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.pigkan.PigkanEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterEntity;
+import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterProjectile;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog.PiglinKilnHogEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog.PiglinKilnHogRenderer;
@@ -14,6 +15,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -22,6 +24,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.registries.RegistryObject;
+import top.ribs.scguns.client.render.entity.ProjectileRenderer;
 import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
@@ -54,6 +57,13 @@ public class PiglinEntities {
     public static final RegistryObject<EntityType<PiglinKilnHogMagmaBall>> PIGLIN_KILN_HOG_MAGMA_BALL = ENTITY_TYPES
             .register("piglin_kiln_hog_magma_ball", () -> EntityType.Builder.<PiglinKilnHogMagmaBall>of(PiglinKilnHogMagmaBall::new, MobCategory.MISC).sized(1F, 1F).clientTrackingRange(4).updateInterval(20).build("piglin_kiln_hog_magma_ball"));
 
+    public static final RegistryObject<EntityType<PiglinBlazeKopterProjectile>> PIGLIN_BLAZE_HOPTER_PROJECTILE = ENTITY_TYPES
+            .register("piglin_blaze_hopter_projectile", () -> EntityType.Builder.of(
+                            (EntityType<PiglinBlazeKopterProjectile> type, Level level) -> new PiglinBlazeKopterProjectile(type, level), MobCategory.MISC)
+                    .sized(0.25F, 0.25F)
+                    .clientTrackingRange(4)
+                    .updateInterval(3)
+                    .build("piglin_blaze_hopter_projectile"));
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
         modEventBus.addListener(PiglinEntities::onCommonSetup);
@@ -101,5 +111,7 @@ public class PiglinEntities {
             new PiglinKilnHogRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog"))).hasGlowLayer().noDeathTilt()
         );
         EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG_MAGMA_BALL.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog_magma_ball"))));
+        
+        EntityRenderers.register(PiglinEntities.PIGLIN_BLAZE_HOPTER_PROJECTILE.get(), ProjectileRenderer::new);
     }
 }
