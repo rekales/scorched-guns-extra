@@ -31,6 +31,7 @@ import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
 
+import net.zincstudios.scgextra.entity.piglin.piglin_warboss.PiglinWarbossEntity;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_hog_rider.PiglinHogRiderRenderer;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobRenderer;
@@ -61,6 +62,9 @@ public class PiglinEntities {
     public static final RegistryObject<EntityType<PigdreadEntity>> PIGDREAD = ENTITY_TYPES
             .register("pigdread", () -> EntityType.Builder.of(PigdreadEntity::new, MobCategory.MONSTER)
                 .sized(3F, 4.3125F).build("pigdread"));
+    public static final RegistryObject<EntityType<PiglinWarbossEntity>> PIGLIN_WARBOSS = ENTITY_TYPES
+            .register("piglin_warboss", () -> EntityType.Builder.of(PiglinWarbossEntity::new, MobCategory.MONSTER)
+                .sized(2.75F, 3.625F).build("piglin_warboss"));
 
     public static final RegistryObject<EntityType<PiglinBlazeKopterProjectile>> PIGLIN_BLAZE_KOPTER_PROJECTILE = ENTITY_TYPES
             .register("piglin_blaze_kopter_projectile", () -> EntityType.Builder.of(
@@ -85,6 +89,7 @@ public class PiglinEntities {
         event.put(PiglinEntities.PIGKAN.get(), PigkanEntity.createAttributes().build());
         event.put(PiglinEntities.PIGLIN_KILN_HOG.get(), PiglinKilnHogEntity.createAttributes().build());
         event.put(PiglinEntities.PIGDREAD.get(), PigdreadEntity.createAttributes().build());
+        event.put(PiglinEntities.PIGLIN_WARBOSS.get(), PiglinWarbossEntity.createAttributes().build());
     }
 
     private static void onCommonSetup(FMLCommonSetupEvent event) {
@@ -105,6 +110,7 @@ public class PiglinEntities {
             true,
             true
         ));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_WARBOSS.get(), new RotatedHeadshotBox<>(14.0, 15.0, 30.0, 11.0, false, true));
     }
 
     @OnlyIn(value = Dist.CLIENT)
@@ -129,6 +135,10 @@ public class PiglinEntities {
         );
         EntityRenderers.register(PiglinEntities.PIGDREAD.get(), (ctx) ->
             new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/pigdread"))).hasGlowLayer().noDeathTilt()
+        );
+
+        EntityRenderers.register(PiglinEntities.PIGLIN_WARBOSS.get(), (ctx) ->
+            new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_warboss"))).hasGlowLayer().noDeathTilt()
         );
 
         EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG_MAGMA_BALL.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog_magma_ball"))));
