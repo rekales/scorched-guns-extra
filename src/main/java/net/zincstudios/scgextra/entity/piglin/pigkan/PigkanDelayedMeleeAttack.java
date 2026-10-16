@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.google.common.collect.ImmutableMap;
 
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -100,6 +101,13 @@ public class PigkanDelayedMeleeAttack extends Behavior<Mob>{
         if (mob.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
                 && mob.position().closerThan(target.position(), (mob.getBbWidth()/2 + this.range) * 1.2)) {
             mob.doHurtTarget(target);
+            String name = mob.getBrain().getMemory(ModBrainMemories.ABILITY_STATE.get()).get().abilityId();
+            if(name.equals("claw")){
+                mob.playSound(PiglinSounds.GENERAL_CLAW.get());
+            }
+            if(name.equals("saw")){
+                mob.playSound(PiglinSounds.GENERAL_SAW.get());
+            }
         }
     }
 }

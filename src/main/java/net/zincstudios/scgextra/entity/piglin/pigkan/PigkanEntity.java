@@ -4,8 +4,8 @@ import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.zincstudios.scgextra.sounds.AsgharianSounds;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,6 +19,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -127,12 +128,14 @@ public class PigkanEntity extends Monster implements GeoEntity{
             if (brain.hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()) && brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())) {
                 String name = brain.getMemory(ModBrainMemories.ABILITY_STATE.get()).get().abilityId();
                 if(name.equals("claw")){
-                    this.playSound(AsgharianSounds.ASGHAR_WORKER_CLAW.get());
-                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==CLAW_DURATION)this.triggerAnim("attack", "claw_attack");
+                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==CLAW_DURATION){
+                        this.triggerAnim("attack", "claw_attack");
+                    }
                 }
                 if(name.equals("saw")){
-                    this.playSound(AsgharianSounds.ASGHAR_WORKER_SAW.get());
-                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==SAW_DURATION)this.triggerAnim("attack", "saw_attack");
+                    if(brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get())==SAW_DURATION){
+                        this.triggerAnim("attack", "saw_attack");
+                    }
                 }
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
@@ -172,5 +175,19 @@ public class PigkanEntity extends Monster implements GeoEntity{
     @Override
     protected SoundEvent getAmbientSound() {
         return PiglinSounds.PIGKAN_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return PiglinSounds.GENERAL_HURT.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGDREAD_DEATH.get();
     }
 }

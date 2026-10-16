@@ -5,16 +5,20 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -190,6 +195,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
                 this.triggerAnim("behavior", "aggro");
                 this.aggroed = true;
+                this.playSound(PiglinSounds.PIGLIN_KILN_HOG_GROWL.get());
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;
@@ -221,5 +227,25 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         }else if(this.getLavaPhase() >= 20){
             this.entityData.set(PHASE, 1);
         }
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return PiglinSounds.GENERAL_HURT.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGLIN_KILN_HOG_DEFEAT.get();
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_KILN_HOG_IDLE.get();
     }
 }

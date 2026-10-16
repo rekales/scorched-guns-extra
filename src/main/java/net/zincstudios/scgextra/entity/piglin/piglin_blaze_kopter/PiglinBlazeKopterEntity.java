@@ -25,6 +25,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -253,5 +254,10 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     @Override
     protected SoundEvent getDeathSound() {
         return PiglinSounds.PIGLIN_BLAZE_KOPTER_DEATH.get();
+    }
+    
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return PiglinSounds.GENERAL_HURT.get();
     }
 }

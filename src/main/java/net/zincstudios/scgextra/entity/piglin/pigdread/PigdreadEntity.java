@@ -4,19 +4,24 @@ import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterProjectile;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
@@ -165,5 +170,24 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
                 this.stunAnimPlaying = false;
             }
         }
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGDREAD_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return PiglinSounds.GENERAL_HURT.get();
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(PiglinSounds.PIGDREAD_WALK.get(), this.getSoundVolume() * 0.15F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.3F);
+    }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGDREAD_DEATH.get();
     }
 }

@@ -17,7 +17,6 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttackWithEffects;
 import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import top.ribs.scguns.init.ModEffects;
 import net.minecraft.core.BlockPos;

@@ -1919,5 +1919,103 @@
       "scgextra:piglin/pigkan/idle_03",
       "scgextra:piglin/pigkan/idle_04"
     ]
+  },
+  "piglin.general.claw": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.general.claw",
+    "sounds": [
+      "scgextra:piglin/general/claw_01",
+      "scgextra:piglin/general/claw_02"
+    ]
+  },
+  "piglin.general.hurt": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.general.hurt",
+    "sounds": [
+      "scgextra:piglin/general/hurt_01",
+      "scgextra:piglin/general/hurt_02",
+      "scgextra:piglin/general/hurt_03",
+      "scgextra:piglin/general/hurt_04",
+      "scgextra:piglin/general/hurt_05",
+      "scgextra:piglin/general/hurt_06",
+      "scgextra:piglin/general/hurt_07",
+      "scgextra:piglin/general/hurt_08",
+      "scgextra:piglin/general/hurt_09",
+      "scgextra:piglin/general/hurt_10"
+    ]
+  },
+  "piglin.general.run": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.general.run",
+    "sounds": [
+      "scgextra:piglin/general/run_01",
+      "scgextra:piglin/general/run_02"
+    ]
+  },
+  "piglin.general.saw": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.general.saw",
+    "sounds": [
+      "scgextra:piglin/general/saw_01",
+      "scgextra:piglin/general/saw_02"
+    ]
+  },
+  "piglin.general.walk": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.general.walk",
+    "sounds": [
+      "scgextra:piglin/general/walk_01",
+      "scgextra:piglin/general/walk_02"
+    ]
+  },
+  "piglin.pigdread.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigdread.idle",
+    "sounds": [
+      "scgextra:piglin/pigdread/idle_01",
+      "scgextra:piglin/pigdread/idle_02",
+      "scgextra:piglin/pigdread/idle_03",
+      "scgextra:piglin/pigdread/idle_04",
+      "scgextra:piglin/pigdread/idle_05",
+      "scgextra:piglin/pigdread/idle_06",
+      "scgextra:piglin/pigdread/idle_07"
+    ]
+  },
+  "piglin.pigdread.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigdread.death",
+    "sounds": [
+      "scgextra:piglin/pigdread/death_01",
+      "scgextra:piglin/pigdread/death_02",
+      "scgextra:piglin/pigdread/death_03"
+    ]
+  },
+  "piglin.pigdread.walk": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigdread.walk",
+    "sounds": [
+      "scgextra:piglin/pigdread/walk_01"
+    ]
+  },
+  "piglin.piglin_kiln_hog.defeat": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.defeat",
+    "sounds": [
+      "scgextra:piglin/pigdread/defeat"
+    ]
+  },
+  "piglin.piglin_kiln_hog.growl": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.growl",
+    "sounds": [
+      "scgextra:piglin/pigdread/growl"
+    ]
+  },
+  "piglin.piglin_kiln_hog.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.idle",
+    "sounds": [
+      "scgextra:piglin/pigdread/idle"
+    ]
   }
 }

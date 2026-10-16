@@ -55,6 +55,34 @@ public class PiglinSounds {
     public static final RegistryObject<SoundEvent> PIGKAN_IDLE = SOUND_EVENTS.register("piglin.pigkan.idle",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigkan.idle")));
 
+    //PIGDREAD
+    public static final RegistryObject<SoundEvent> PIGDREAD_IDLE = SOUND_EVENTS.register("piglin.pigdread.idle",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.idle")));
+    public static final RegistryObject<SoundEvent> PIGDREAD_DEATH = SOUND_EVENTS.register("piglin.pigdread.death",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.death")));
+    public static final RegistryObject<SoundEvent> PIGDREAD_WALK = SOUND_EVENTS.register("piglin.pigdread.walk",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.walk")));
+
+    //GENERAL FOR ALL PIGLIN MOBS
+    public static final RegistryObject<SoundEvent> GENERAL_CLAW = SOUND_EVENTS.register("piglin.general.claw",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.general.claw")));
+    public static final RegistryObject<SoundEvent> GENERAL_HURT = SOUND_EVENTS.register("piglin.general.hurt",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.general.hurt")));
+    public static final RegistryObject<SoundEvent> GENERAL_RUN = SOUND_EVENTS.register("piglin.general.run",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.general.run")));
+    public static final RegistryObject<SoundEvent> GENERAL_SAW = SOUND_EVENTS.register("piglin.general.saw",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.general.saw")));
+    public static final RegistryObject<SoundEvent> GENERAL_WALK = SOUND_EVENTS.register("piglin.general.walk",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.general.walk")));
+
+    //PIGLIN KILN HOG
+    public static final RegistryObject<SoundEvent> PIGLIN_KILN_HOG_IDLE = SOUND_EVENTS.register("piglin.piglin_kiln_hog.idle",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_kiln_hog.idle")));
+    public static final RegistryObject<SoundEvent> PIGLIN_KILN_HOG_GROWL = SOUND_EVENTS.register("piglin.piglin_kiln_hog.growl",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_kiln_hog.growl")));
+    public static final RegistryObject<SoundEvent> PIGLIN_KILN_HOG_DEFEAT = SOUND_EVENTS.register("piglin.piglin_kiln_hog.defeat",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_kiln_hog.defeat")));
+
     public static void init() {}
 
 }

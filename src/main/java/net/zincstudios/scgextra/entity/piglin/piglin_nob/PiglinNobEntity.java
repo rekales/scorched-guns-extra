@@ -148,7 +148,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return SoundEvents.PIGLIN_BRUTE_HURT;
+        return this.getRandom().nextFloat() < 0.5f ? SoundEvents.PIGLIN_BRUTE_HURT : PiglinSounds.GENERAL_HURT.get();
     }
 
     @Override
