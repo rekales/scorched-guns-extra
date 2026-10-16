@@ -1,6 +1,17 @@
 package net.zincstudios.scgextra.entity.piglin.pigdread;
 
+import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
+import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
+import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterProjectile;
+
+import com.mojang.serialization.Dynamic;
+
+import net.zincstudios.scgextra.entity.ModBrainMemories;
+import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.EntityType;
@@ -16,6 +27,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.init.ModItems;
 
 public class PigdreadEntity extends Monster implements GeoEntity, Gunner, BulletSpawnOffset{
 
@@ -30,8 +42,33 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
 
     private static Vec3 offset = new Vec3(-38/16, 33/16, -39/16*-1);
 
+    public final MountedGun mountedShotGun;
+
+    public static int STUN_DURATION = 100;
+
+    static int MELEE_DELAY = 18;
+    static int MELEE_DURATION = 30;
+
+    private boolean stunAnimPlaying = false;
+
     public PigdreadEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.mountedShotGun = new AttachedMountedGun(
+            this, 
+            new CustomScorchedSimGun.Builder(ModItems.HANDCANNON.get().getGun())
+                .projectileDamage(3f)
+                .fireRate(1)
+                .maxRange(20)
+                .idealRange(16)
+                .noGunFlash()
+                .burstAmount(2)
+                .burstInterval(1)
+                .gunIndex(0)
+                .projectileFactory(PiglinBlazeKopterProjectile::new)
+                .build(), 
+            offset, 
+            (a) -> true
+        );
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -80,5 +117,51 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     public Vec3 getBulletSpawnOffset(int gunIndex) {
         return offset.yRot(-this.yHeadRot * Mth.DEG_TO_RAD);
     }
-    
+
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return PigdreadAi.makeBrain(this, this.brainProvider().makeBrain(dynamic));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Brain<PigdreadEntity> getBrain() {
+        return (Brain<PigdreadEntity>) super.getBrain();
+    }
+
+    @Override
+    protected Brain.Provider<PigdreadEntity> brainProvider() {
+        return PigdreadAi.brainProvider();
+    }
+
+    @Override
+    protected void customServerAiStep() {
+        this.level().getProfiler().push("piglinBlazeKopterBrain");
+        this.getBrain().tick((ServerLevel)this.level(), this);
+        PigdreadAi.updateActivity(this);
+        BrainCommons.updateMaxRangeAggressive(this);
+        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
+            this.setYBodyRot(this.getYHeadRot());
+        }
+        this.level().getProfiler().pop();
+        super.customServerAiStep();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if(!this.level().isClientSide()){
+            if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+                this.triggerAnim("behavior", "melee");
+            }
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
+                if(!this.stunAnimPlaying){
+                    this.stunAnimPlaying = true;
+                    this.triggerAnim("behavior", "stun");
+                }
+            }else{
+                this.stunAnimPlaying = false;
+            }
+        }
+    }
 }

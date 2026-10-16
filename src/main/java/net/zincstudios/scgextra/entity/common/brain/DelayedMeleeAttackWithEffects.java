@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.common.brain;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.server.level.ServerLevel;
@@ -15,10 +16,18 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 public class DelayedMeleeAttackWithEffects extends DelayedMeleeAttack {
 
     private final List<MobEffect> EFFECTS;
+    private final List<Integer> TIMERS;
 
     public DelayedMeleeAttackWithEffects(int damageDelay, int meleeDuration, float range, int meleeCooldown, List<MobEffect> effects) {
         super(damageDelay, meleeDuration, range, meleeCooldown);
         this.EFFECTS = effects;
+        this.TIMERS = Collections.nCopies(effects.size(), 100);
+    }
+
+    public DelayedMeleeAttackWithEffects(int damageDelay, int meleeDuration, float range, int meleeCooldown, List<MobEffect> effects, List<Integer> timers) {
+        super(damageDelay, meleeDuration, range, meleeCooldown);
+        this.EFFECTS = effects;
+        this.TIMERS = timers;
     }
 
     @SuppressWarnings("OptionalGetWithoutIsPresent")  // because already handled on canStillUse
@@ -28,8 +37,8 @@ public class DelayedMeleeAttackWithEffects extends DelayedMeleeAttack {
         if (mob.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
                 && mob.position().closerThan(target.position(), (mob.getBbWidth()/2 + this.range) * 1.2)) {
             mob.doHurtTarget(target);
-            for(MobEffect effect : this.EFFECTS){
-                target.addEffect(new MobEffectInstance(effect, 100));
+            for(int i = 0; i < this.EFFECTS.size(); i++){
+                target.addEffect(new MobEffectInstance(this.EFFECTS.get(i), this.TIMERS.get(i)));
             }
         }
     }
