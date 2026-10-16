@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.pigkan;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
@@ -189,5 +190,9 @@ public class PigkanEntity extends Monster implements GeoEntity{
     @Override
     protected SoundEvent getDeathSound() {
         return PiglinSounds.PIGDREAD_DEATH.get();
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 40);
     }
 }

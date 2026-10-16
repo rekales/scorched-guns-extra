@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_strider_rider;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
@@ -192,5 +193,9 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.STRIDER_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 9);
     }
 }

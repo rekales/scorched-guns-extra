@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_nob;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
@@ -163,6 +164,10 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.PIGLIN_BRUTE_STEP, this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 25);
     }
 
 }

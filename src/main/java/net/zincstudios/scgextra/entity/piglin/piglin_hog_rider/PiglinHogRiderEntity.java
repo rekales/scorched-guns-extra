@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.minecraft.core.BlockPos;
@@ -285,5 +286,9 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     public boolean hurt(DamageSource source, float amount) {
         if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
         return super.hurt(source, amount);
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 30);
     }
 }

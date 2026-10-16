@@ -8,6 +8,7 @@ import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.core.BlockPos;
@@ -219,5 +220,9 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     @Override
     public boolean removeWhenFarAway(double distance) {
         return false;
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 40);
     }
 }

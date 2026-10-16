@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
@@ -277,5 +278,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     @Override
     public boolean removeWhenFarAway(double distance) {
         return false;
+    }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 40);
     }
 }

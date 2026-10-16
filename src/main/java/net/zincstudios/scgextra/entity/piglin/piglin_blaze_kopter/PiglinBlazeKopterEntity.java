@@ -260,4 +260,8 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return PiglinSounds.GENERAL_HURT.get();
     }
+    @Override
+    protected void tickDeath() {
+        MobUtil.tickDeath(this, 15);
+    }
 }
