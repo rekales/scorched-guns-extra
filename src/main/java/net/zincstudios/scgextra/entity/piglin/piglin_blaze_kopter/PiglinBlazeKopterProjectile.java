@@ -30,11 +30,11 @@ private boolean trailSpawned;
     }
     
     public PiglinBlazeKopterProjectile(Level worldIn, LivingEntity shooter, ItemStack weapon, GunItem item, Gun modifiedGun) {
-        this(PiglinEntities.PIGLIN_BLAZE_HOPTER_PROJECTILE.get(), worldIn, shooter, weapon, item, modifiedGun);
+        this(PiglinEntities.PIGLIN_BLAZE_KOPTER_PROJECTILE.get(), worldIn, shooter, weapon, item, modifiedGun);
     }
 
     public PiglinBlazeKopterProjectile(Level worldIn, LivingEntity shooter, Gun gun) {
-        this(PiglinEntities.PIGLIN_BLAZE_HOPTER_PROJECTILE.get(), worldIn, shooter, new ItemStack(ModItems.PLACEHOLDER_GUN.get()), ModItems.PLACEHOLDER_GUN.get(), gun);
+        this(PiglinEntities.PIGLIN_BLAZE_KOPTER_PROJECTILE.get(), worldIn, shooter, new ItemStack(ModItems.PLACEHOLDER_GUN.get()), ModItems.PLACEHOLDER_GUN.get(), gun);
     }
 
     @Override

@@ -62,13 +62,13 @@ public class PiglinEntities {
             .register("pigdread", () -> EntityType.Builder.of(PigdreadEntity::new, MobCategory.MONSTER)
                 .sized(3F, 4.3125F).build("pigdread"));
 
-    public static final RegistryObject<EntityType<PiglinBlazeKopterProjectile>> PIGLIN_BLAZE_HOPTER_PROJECTILE = ENTITY_TYPES
-            .register("piglin_blaze_hopter_projectile", () -> EntityType.Builder.of(
+    public static final RegistryObject<EntityType<PiglinBlazeKopterProjectile>> PIGLIN_BLAZE_KOPTER_PROJECTILE = ENTITY_TYPES
+            .register("piglin_blaze_kopter_projectile", () -> EntityType.Builder.of(
                             (EntityType<PiglinBlazeKopterProjectile> type, Level level) -> new PiglinBlazeKopterProjectile(type, level), MobCategory.MISC)
                     .sized(0.25F, 0.25F)
                     .clientTrackingRange(4)
                     .updateInterval(3)
-                    .build("piglin_blaze_hopter_projectile"));
+                    .build("piglin_blaze_kopter_projectile"));
     public static void register(IEventBus modEventBus) {
         modEventBus.addListener(PiglinEntities::registerAttributes);
         modEventBus.addListener(PiglinEntities::onCommonSetup);
@@ -133,6 +133,6 @@ public class PiglinEntities {
 
         EntityRenderers.register(PiglinEntities.PIGLIN_KILN_HOG_MAGMA_BALL.get(), (ctx) -> new GeoEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("piglin/piglin_kiln_hog_magma_ball"))));
         
-        EntityRenderers.register(PiglinEntities.PIGLIN_BLAZE_HOPTER_PROJECTILE.get(), ProjectileRenderer::new);
+        EntityRenderers.register(PiglinEntities.PIGLIN_BLAZE_KOPTER_PROJECTILE.get(), ProjectileRenderer::new);
     }
 }

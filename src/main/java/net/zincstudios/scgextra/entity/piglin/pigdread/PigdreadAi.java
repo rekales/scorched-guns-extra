@@ -17,6 +17,7 @@ import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttackWithEffects;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import top.ribs.scguns.init.ModEffects;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffects;
@@ -89,7 +90,12 @@ public class PigdreadAi {
                     200,
                     200
                 )),
-                new MountedShotgunShoot(120,13,8)
+                new MountedShotgunShoot(120,13,8),
+                new SpeedBuff(300,60),
+                new Summon<>(800, List.of(
+                    PiglinEntities.PIGKAN.get(),
+                    PiglinEntities.PIGLIN_BLAZE_KOPTER.get()
+                ))
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(

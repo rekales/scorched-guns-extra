@@ -18,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -55,7 +56,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         super(entityType, level);
         this.mountedShotGun = new AttachedMountedGun(
             this, 
-            new CustomScorchedSimGun.Builder(ModItems.HANDCANNON.get().getGun())
+            new CustomScorchedSimGun.Builder(ModItems.DRILL_CONVERSION.get().getGun())
                 .projectileDamage(3f)
                 .fireRate(1)
                 .maxRange(20)
@@ -78,6 +79,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         .add(Attributes.ATTACK_DAMAGE, 35.0D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
         .add(Attributes.ARMOR, 8.0D)
+        .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2.0D)
         .add(Attributes.MAX_HEALTH, 600.0D);
     }
 
