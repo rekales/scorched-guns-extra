@@ -109,7 +109,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(PiglinEntities.PIGLIN_HOG_RIDER.get())
                 .add(PiglinEntities.PIGLIN_BLAZE_KOPTER.get())
                 .add(PiglinEntities.PIGKAN.get())
-                .add(PiglinEntities.PIGLIN_KILN_HOG.get());
+                .add(PiglinEntities.PIGLIN_KILN_HOG.get())
+                .add(PiglinEntities.PIGDREAD.get());
 
         tag(ModTags.Entities.CANNOT_BE_LACERATED)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
@@ -128,7 +129,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.CENTIPEDE.get())
                 .add(COGEntities.JUGGERNAUT.get())
                 .add(COGEntities.TRENCHBLEEDER.get())
-                .add(PiglinEntities.PIGKAN.get());
+                .add(PiglinEntities.PIGKAN.get())
+                .add(PiglinEntities.PIGDREAD.get());
 
         tag(ModTags.Entities.WATER)
                 .add(WhalerEntities.FISH_FOLK.get())
@@ -158,7 +160,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(PiglinEntities.PIGLIN_HOG_RIDER.get())
                 .add(PiglinEntities.PIGLIN_BLAZE_KOPTER.get())
                 .add(PiglinEntities.PIGKAN.get())
-                .add(PiglinEntities.PIGLIN_KILN_HOG.get());
+                .add(PiglinEntities.PIGLIN_KILN_HOG.get())
+                .add(PiglinEntities.PIGDREAD.get());
 
         tag(ModTags.Entities.VERY_HEAVY)
                 .add(WhalerEntities.GUARDIAN_STATUE.get())
@@ -181,7 +184,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(COGEntities.CENTIPEDE.get())
                 .add(COGEntities.JUGGERNAUT.get())
                 .add(COGEntities.TRENCHBLEEDER.get())
-                .add(PiglinEntities.PIGKAN.get());
+                .add(PiglinEntities.PIGKAN.get())
+                .add(PiglinEntities.PIGDREAD.get());
 
         tag(ModTags.Entities.WHITE_BLOOD)
                 .add(WhalerEntities.GUARDIAN_STATUE.get());
@@ -218,7 +222,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(PiglinEntities.PIGLIN_HOG_RIDER.get())
                 .add(PiglinEntities.PIGLIN_BLAZE_KOPTER.get())
                 .add(PiglinEntities.PIGKAN.get())
-                .add(PiglinEntities.PIGLIN_KILN_HOG.get());
+                .add(PiglinEntities.PIGLIN_KILN_HOG.get())
+                .add(PiglinEntities.PIGDREAD.get());
 
         tag(ModTags.Entities.UNDEAD)
                 .add(NeutralEntities.BIG_LUMP.get())
