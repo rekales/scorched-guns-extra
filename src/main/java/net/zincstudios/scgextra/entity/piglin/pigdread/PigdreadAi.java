@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
+import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -19,7 +20,9 @@ import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttackWithEffects;
 import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import top.ribs.scguns.init.ModEffects;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
@@ -30,6 +33,8 @@ import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class PigdreadAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
@@ -95,7 +100,8 @@ public class PigdreadAi {
                 new Summon<>(800, List.of(
                     PiglinEntities.PIGKAN.get(),
                     PiglinEntities.PIGLIN_BLAZE_KOPTER.get()
-                ))
+                )),
+                new BreakBlocksToTarget(PigdreadAi::canBreakWithShovel, 20)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
@@ -121,5 +127,16 @@ public class PigdreadAi {
             brain.stopAll((ServerLevel) mob.level(), mob);
             mob.getNavigation().stop();
         }
+    }
+    private static boolean canBreakWithShovel(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.isAir()) return false;
+
+        float hardness = state.getDestroySpeed(level, pos);
+        if (hardness < 0) return false;  // Unbreakable
+        if (hardness >= 5) return false;  // Ex. Iron Block: 5, Stone: 1.5
+
+        return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.LEAVES))
+                && !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
     }
 }
