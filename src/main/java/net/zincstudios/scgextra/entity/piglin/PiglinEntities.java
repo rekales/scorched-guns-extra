@@ -1,6 +1,7 @@
 package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.OffsetRotatedHeadshotBox;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.pigdread.PigdreadEntity;
@@ -93,7 +94,17 @@ public class PiglinEntities {
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_BLAZE_KOPTER.get(), new RotatedHeadshotBox<>(10.0, 8.0, 18.0, 0.0, false, true));
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGKAN.get(), new RotatedHeadshotBox<>(8.0, 7.0, 18.0, 12.0, false, true));
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_KILN_HOG.get(), new RotatedHeadshotBox<>(20.0, 22.0, 49.0, 20.0, false, true));
-        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGDREAD.get(), new RotatedHeadshotBox<>(4.0, 4.0, 46.5, 21.0, false, true));
+        BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGDREAD.get(), new OffsetRotatedHeadshotBox<>(
+            4.0, 
+            4.0, 
+            46.5, 
+            0, 
+            21.0, 
+            -10.0,
+            false, 
+            true,
+            true
+        ));
     }
 
     @OnlyIn(value = Dist.CLIENT)
