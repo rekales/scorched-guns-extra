@@ -11,12 +11,16 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
@@ -56,6 +60,9 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     static int MELEE_DURATION = 30;
 
     private boolean stunAnimPlaying = false;
+
+    private final ServerBossEvent bossEvent =
+            new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
     public PigdreadEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -158,6 +165,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("behavior", "melee");
             }
@@ -189,5 +197,27 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     @Override
     protected SoundEvent getDeathSound() {
         return PiglinSounds.PIGDREAD_DEATH.get();
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
     }
 }

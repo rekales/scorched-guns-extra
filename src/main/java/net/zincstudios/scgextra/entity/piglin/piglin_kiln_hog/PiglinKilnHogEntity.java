@@ -12,12 +12,16 @@ import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -67,6 +71,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     //to whom ever it may concern, I am sorry for such janky solution for this lava anim
     private static final EntityDataAccessor<Integer> PHASE = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.INT);
+
+    private final ServerBossEvent bossEvent =
+            new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -188,6 +195,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             this.updateLavaPhase();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("behavior", "melee");
@@ -247,5 +255,27 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     @Override
     protected SoundEvent getAmbientSound() {
         return PiglinSounds.PIGLIN_KILN_HOG_IDLE.get();
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
     }
 }
