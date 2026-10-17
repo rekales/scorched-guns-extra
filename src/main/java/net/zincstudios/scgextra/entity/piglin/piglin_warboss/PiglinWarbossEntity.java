@@ -23,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.MobUtil;
@@ -109,6 +110,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         .add(Attributes.ATTACK_DAMAGE, 35.0D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
         .add(Attributes.ARMOR, 6.0D)
+        .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2)
         .add(Attributes.MAX_HEALTH, 600.0D);
     }
 

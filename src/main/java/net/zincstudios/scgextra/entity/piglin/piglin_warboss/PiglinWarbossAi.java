@@ -6,7 +6,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import net.zincstudios.scgextra.entity.piglin.pigdread.DelayedMeleeAttackWithEffects;
+import net.zincstudios.scgextra.entity.piglin.pigdread.Summon;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -93,7 +95,12 @@ public class PiglinWarbossAi {
                     200
                 )),
                 new BreakBlocksToTarget(PiglinWarbossAi::canBreakWithShovel, 20),
-                new MountedShotgunShoot(240,13,4)
+                new MountedShotgunShoot(240,13,4),
+                new Summon<>(600, List.of(
+                    PiglinEntities.PIGLIN_NOB.get(),
+                    PiglinEntities.PIGLIN_NOB.get(),
+                    PiglinEntities.PIGLIN_NOB.get()
+                ))
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
