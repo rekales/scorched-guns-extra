@@ -1,9 +1,12 @@
 package net.zincstudios.scgextra.entity.piglin.piglin_warboss;
 
+import java.util.List;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
 
+import net.zincstudios.scgextra.entity.piglin.pigdread.DelayedMeleeAttackWithEffects;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -14,10 +17,11 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import top.ribs.scguns.init.ModEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -80,7 +84,14 @@ public class PiglinWarbossAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenNotWalking(),
-                new DelayedMeleeAttack(PiglinWarbossEntity.MELEE_DELAY, PiglinWarbossEntity.MELEE_DURATION, 3f, 20),
+                new DelayedMeleeAttackWithEffects(PiglinWarbossEntity.MELEE_DELAY, PiglinWarbossEntity.MELEE_DURATION, 4f, 20, List.of(
+                    ModEffects.LACERATED.get(),
+                    MobEffects.MOVEMENT_SLOWDOWN
+                ),
+                List.of(
+                    200,
+                    200
+                )),
                 new BreakBlocksToTarget(PiglinWarbossAi::canBreakWithShovel, 20),
                 new MountedShotgunShoot(240,13,4)
             )), ImmutableSet.of(
