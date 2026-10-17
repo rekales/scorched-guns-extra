@@ -2,11 +2,15 @@ package net.zincstudios.scgextra.entity.piglin.pigkan;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,10 +42,10 @@ public class PigkanEntity extends Monster implements GeoEntity{
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation SAW_ATTACK = RawAnimation.begin().thenPlay("saw_attack");
     private static final RawAnimation CLAW_ATTACK = RawAnimation.begin().thenPlay("claw_attack");
-    private static final RawAnimation STUN_FULL = RawAnimation.begin().thenPlay("stun_full");
+    private static final RawAnimation STUN_START = RawAnimation.begin().thenPlay("stun_start");
+    private static final RawAnimation STUN_MIDDLE = RawAnimation.begin().thenLoop("stun_middle");
+    private static final RawAnimation STUN_END = RawAnimation.begin().thenPlay("stun_end");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
-
-    static int STUN_DURATION = 100;
 
     static int CLAW_DURATION = 100;
     static int CLAW_DELAY = 23;
@@ -49,7 +53,13 @@ public class PigkanEntity extends Monster implements GeoEntity{
     static int SAW_DURATION = 100;
     static int SAW_DELAY = 17;
 
-    private boolean stunAnimPlaying = false;
+    public static final StunnableHog instance = new StunnableHog(
+        40, 
+        120, 
+        40
+    );
+
+    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PigkanEntity.class, EntityDataSerializers.LONG);
 
     public PigkanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -58,13 +68,23 @@ public class PigkanEntity extends Monster implements GeoEntity{
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 4, state -> {
-            if (state.isMoving()) {
-                state.setAnimation(WALK);
-            } else {
-                state.setAnimation(IDLE);
+            if(state.getAnimatable().isStunned()){
+                if(PigkanEntity.instance.isStart(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_START);
+                }else if(PigkanEntity.instance.isMiddle(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_MIDDLE);
+                }else if(PigkanEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_END);
+                }
+            }else{
+                if (state.isMoving()) {
+                    state.setAnimation(WALK);
+                } else {
+                    state.setAnimation(IDLE);
+                }
             }
             return PlayState.CONTINUE;
-        }).triggerableAnim("stun", STUN_FULL));
+        }));
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
@@ -140,12 +160,9 @@ public class PigkanEntity extends Monster implements GeoEntity{
                 }
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
-                if(!this.stunAnimPlaying){
-                    this.stunAnimPlaying = true;
-                    this.triggerAnim("main", "stun");
-                }
+                this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
             }else{
-                this.stunAnimPlaying = false;
+                this.setTicksRemaining(Long.valueOf(-1));
             }
         }
     }
@@ -194,5 +211,22 @@ public class PigkanEntity extends Monster implements GeoEntity{
     @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 40);
+    }
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
+    }
+
+    public boolean isStunned(){
+        return this.entityData.get(TICKS_REMAINING) > 0;
+    }
+
+    public long getTicksRemaining(){
+        return this.entityData.get(TICKS_REMAINING);
+    }
+
+    public void setTicksRemaining(long l){
+        this.entityData.set(TICKS_REMAINING, l);
     }
 }
