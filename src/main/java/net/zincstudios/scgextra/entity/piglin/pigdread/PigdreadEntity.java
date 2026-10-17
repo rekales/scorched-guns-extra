@@ -258,4 +258,10 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     public void setTicksRemaining(long l){
         this.entityData.set(TICKS_REMAINING, l);
     }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
+        return super.hurt(source, amount);
+    }
 }
