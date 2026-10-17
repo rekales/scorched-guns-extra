@@ -16,7 +16,6 @@ import net.zincstudios.scgextra.entity.common.brain.ApproachTargetIfCannotAim;
 import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
-import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import top.ribs.scguns.init.ModEffects;
 import net.minecraft.core.BlockPos;
@@ -85,7 +84,6 @@ public class PigdreadAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenNotWalking(),
-                new DelayedMeleeAttack(PigdreadEntity.MELEE_DELAY, PigdreadEntity.MELEE_DURATION, 3f, 20),
                 new DelayedMeleeAttackWithEffects(PigdreadEntity.MELEE_DELAY, PigdreadEntity.MELEE_DURATION, 4f, 20, List.of(
                     ModEffects.LACERATED.get(),
                     MobEffects.MOVEMENT_SLOWDOWN
