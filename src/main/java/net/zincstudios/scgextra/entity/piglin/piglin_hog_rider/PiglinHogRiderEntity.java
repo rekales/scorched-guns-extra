@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -47,8 +48,6 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> CHARGE_PHASE =
             SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Integer> STUNNED_TICKS =
-            SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.INT);
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -67,13 +66,18 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     static final int MELEE_DAMAGE_DELAY = 13;
     static final int MELEE_DURATION = 20;
 
-    static final int STUN_DURATION = 100;
-    static final int STUN_START_DURATION = 10;
-    static final int STUN_END_DURATION = 20;
-
     static final int CHARGE_ANIM_START = 35;
 
     private boolean aggroed = false;
+
+    public static final StunnableHog instance = new StunnableHog(
+        10, 
+        80, 
+        20
+    );
+
+    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.LONG);
+
 
     public PiglinHogRiderEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -107,16 +111,15 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
                         break;
                 }
             }
-            else if(state.getAnimatable().getStunnedTicks()!=-1){
-                if(state.getAnimatable().getStunnedTicks()<10){
-                    state.setAndContinue(STUN_START);
-                }else if(state.getAnimatable().getStunnedTicks()>=10 && state.getAnimatable().getStunnedTicks()<=(STUN_DURATION-10-20)){
-                    state.setAndContinue(STUN_MIDDLE);
-                }else{
-                    state.setAndContinue(STUN_END);
+            else if(state.getAnimatable().isStunned()){
+                if(PiglinHogRiderEntity.instance.isStart(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_START);
+                }else if(PiglinHogRiderEntity.instance.isMiddle(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_MIDDLE);
+                }else if(PiglinHogRiderEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_END);
                 }
-            }
-            else if(!state.isCurrentAnimation(AGGROED)){
+            }else if (!state.isCurrentAnimation(AGGROED)){
                 if (state.isMoving()) {
                     state.setAndContinue(WALK);
                 } else {
@@ -163,19 +166,12 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.entityData.set(CHARGE_PHASE, i);
     }
 
-    public Integer getStunnedTicks(){
-        return this.entityData.get(STUNNED_TICKS);
-    }
-    public void setStunnedTicks(int i){
-        this.entityData.set(STUNNED_TICKS, i);
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(MODEL_VARIANT, 1);
         this.entityData.define(CHARGE_PHASE, -1);
-        this.entityData.define(STUNNED_TICKS, -1);
+        this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
     }
 
     @Override
@@ -227,11 +223,6 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     public void tick() {
         super.tick();
         if(!this.level().isClientSide){
-            if(brain.hasMemoryValue(ModBrainMemories.STUNNED.get())){
-                this.setStunnedTicks(this.getStunnedTicks()+1);
-            }else{
-                this.setStunnedTicks(-1);
-            }
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ATTACK.get());
@@ -243,6 +234,11 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;
+            }
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
+                this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
+            }else{
+                this.setTicksRemaining(Long.valueOf(-1));
             }
         }
     }
@@ -290,5 +286,17 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 30);
+    }
+
+    public boolean isStunned(){
+        return this.entityData.get(TICKS_REMAINING) > 0;
+    }
+
+    public long getTicksRemaining(){
+        return this.entityData.get(TICKS_REMAINING);
+    }
+
+    public void setTicksRemaining(long l){
+        this.entityData.set(TICKS_REMAINING, l);
     }
 }

@@ -45,7 +45,7 @@ public class PiglinHogRiderAi {
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreWithStunActivity(brain, PiglinHogRiderEntity.STUN_DURATION);
+        BrainCommons.initCoreWithStunActivity(brain, PiglinHogRiderEntity.instance.getStunDuration());
         BrainCommons.initIdleActivity(brain);
         BrainCommons.initStunnedActivity(brain);
         PiglinHogRiderAi.initFightActivity(mob, brain);

@@ -63,7 +63,7 @@ public class PigdreadAi {
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
-        BrainCommons.initCoreWithStunActivity(brain, PigdreadEntity.STUN_DURATION);
+        BrainCommons.initCoreWithStunActivity(brain, PigdreadEntity.instance.getStunDuration());
         BrainCommons.initIdleActivity(brain);
         BrainCommons.initStunnedActivity(brain);
         initFightActivity(mob, brain);

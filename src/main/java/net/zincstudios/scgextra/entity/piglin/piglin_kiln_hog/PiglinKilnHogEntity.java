@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_kiln_hog;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
@@ -50,7 +51,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     private static final RawAnimation MELEE = RawAnimation.begin().thenPlay("melee");
     private static final RawAnimation SMALL_CANON = RawAnimation.begin().thenPlay("small_cannon");
     private static final RawAnimation BIG_CANON = RawAnimation.begin().thenPlay("big_cannon");
-    private static final RawAnimation STUN = RawAnimation.begin().thenPlay("stun_full");
+    private static final RawAnimation STUN_START = RawAnimation.begin().thenPlay("stun_start");
+    private static final RawAnimation STUN_MIDDLE = RawAnimation.begin().thenLoop("stun_middle");
+    private static final RawAnimation STUN_END = RawAnimation.begin().thenPlay("stun_end");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
@@ -63,12 +66,17 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     private boolean aggroed = false;
 
-    public static int STUN_DURATION = 100;
-
     static int MELEE_DELAY = 18;
     static int MELEE_DURATION = 30;
 
-    private boolean stunAnimPlaying = false;
+    public static final StunnableHog instance = new StunnableHog(
+        20, 
+        20, 
+        20
+    );
+
+    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.LONG);
+
 
     //to whom ever it may concern, I am sorry for such janky solution for this lava anim
     private static final EntityDataAccessor<Integer> PHASE = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.INT);
@@ -120,11 +128,21 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 4, state -> {
-            if(!state.isCurrentAnimation(AGGRO)){
-                if (state.isMoving()) {
-                    state.setAnimation(WALK);
-                } else {
-                    state.setAnimation(IDLE);
+            if(state.getAnimatable().isStunned()){
+                if(PiglinKilnHogEntity.instance.isStart(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_START);
+                }else if(PiglinKilnHogEntity.instance.isMiddle(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_MIDDLE);
+                }else if(PiglinKilnHogEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_END);
+                }
+            }else{
+                if(!state.isCurrentAnimation(AGGRO)){
+                    if (state.isMoving()) {
+                        state.setAnimation(WALK);
+                    } else {
+                        state.setAnimation(IDLE);
+                    }
                 }
             }
             return PlayState.CONTINUE;
@@ -144,7 +162,6 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             .triggerableAnim("melee", MELEE)
             .triggerableAnim("small_canon", SMALL_CANON)
             .triggerableAnim("big_canon", BIG_CANON)
-            .triggerableAnim("stun", STUN)
         );
     }
 
@@ -210,12 +227,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
                 this.aggroed = false;
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
-                if(!this.stunAnimPlaying){
-                    this.stunAnimPlaying = true;
-                    this.triggerAnim("behavior", "stun");
-                }
+                this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
             }else{
-                this.stunAnimPlaying = false;
+                this.setTicksRemaining(Long.valueOf(-1));
             }
         }
     }
@@ -224,6 +238,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(PHASE, 1);
+        this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
     }
 
     public int getLavaPhase(){
@@ -282,5 +297,17 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 40);
+    }
+    
+    public boolean isStunned(){
+        return this.entityData.get(TICKS_REMAINING) > 0;
+    }
+
+    public long getTicksRemaining(){
+        return this.entityData.get(TICKS_REMAINING);
+    }
+
+    public void setTicksRemaining(long l){
+        this.entityData.set(TICKS_REMAINING, l);
     }
 }

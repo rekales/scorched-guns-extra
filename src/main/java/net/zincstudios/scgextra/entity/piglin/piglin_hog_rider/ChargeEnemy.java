@@ -71,7 +71,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
                 owner.doHurtTarget(target);
                 Vec3 ramDirection = target.position().subtract(owner.position()).normalize();
                 target.knockback(3, ramDirection.x, ramDirection.z);
-                brain.setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.STUN_DURATION);
+                brain.setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.instance.getStunDuration());
                 if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(-1);
                 this.endTime = gameTime;
                 owner.playSound(PiglinSounds.PIGLIN_HOG_RIDER_STUN.get());

@@ -8,11 +8,15 @@ import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -48,19 +52,25 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     private static final RawAnimation SHOOT = RawAnimation.begin().thenPlay("attack_ranged");
-    private static final RawAnimation STUN = RawAnimation.begin().thenPlay("stun_full");
+    private static final RawAnimation STUN_START = RawAnimation.begin().thenPlay("stun_start");
+    private static final RawAnimation STUN_MIDDLE = RawAnimation.begin().thenLoop("stun_middle");
+    private static final RawAnimation STUN_END = RawAnimation.begin().thenPlay("stun_end");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private static Vec3 offset = new Vec3(-38/16, 33/16, -39/16*-1);
 
     public final MountedGun mountedShotGun;
 
-    public static int STUN_DURATION = 100;
-
     static int MELEE_DELAY = 18;
     static int MELEE_DURATION = 30;
 
-    private boolean stunAnimPlaying = false;
+    public static final StunnableHog instance = new StunnableHog(
+        15, 
+        20, 
+        20
+    );
+
+    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PigdreadEntity.class, EntityDataSerializers.LONG);
 
     private final ServerBossEvent bossEvent =
             new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
@@ -99,10 +109,20 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "main", 4, state -> {
-            if (state.isMoving()) {
-                state.setAnimation(WALK);
-            } else {
-                state.setAnimation(IDLE);
+            if(state.getAnimatable().isStunned()){
+                if(PigdreadEntity.instance.isStart(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_START);
+                }else if(PigdreadEntity.instance.isMiddle(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_MIDDLE);
+                }else if(PigdreadEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
+                    state.setAnimation(STUN_END);
+                }
+            }else{
+                if (state.isMoving()) {
+                    state.setAnimation(WALK);
+                } else {
+                    state.setAnimation(IDLE);
+                }
             }
             return PlayState.CONTINUE;
         }));
@@ -119,7 +139,6 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         })
             .triggerableAnim("melee", ATTACK)
             .triggerableAnim("shoot", SHOOT)
-            .triggerableAnim("stun", STUN)
         );
     }
 
@@ -171,12 +190,9 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
                 this.triggerAnim("behavior", "melee");
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
-                if(!this.stunAnimPlaying){
-                    this.stunAnimPlaying = true;
-                    this.triggerAnim("behavior", "stun");
-                }
+                this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
             }else{
-                this.stunAnimPlaying = false;
+                this.setTicksRemaining(Long.valueOf(-1));
             }
         }
     }
@@ -224,5 +240,22 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 40);
+    }
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
+    }
+
+    public boolean isStunned(){
+        return this.entityData.get(TICKS_REMAINING) > 0;
+    }
+
+    public long getTicksRemaining(){
+        return this.entityData.get(TICKS_REMAINING);
+    }
+
+    public void setTicksRemaining(long l){
+        this.entityData.set(TICKS_REMAINING, l);
     }
 }

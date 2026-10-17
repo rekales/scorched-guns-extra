@@ -55,7 +55,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
 
     public static final StunnableHog instance = new StunnableHog(
         40, 
-        120, 
+        40, 
         40
     );
 
