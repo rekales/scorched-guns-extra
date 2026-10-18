@@ -3308,6 +3308,7 @@
 		},
 		"charge_start": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"root": {
 					"rotation": {
@@ -3777,6 +3778,7 @@
 		"charge_middle": {
 			"loop": true,
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"root": {
 					"rotation": {
@@ -4288,6 +4290,7 @@
 		},
 		"charge_end": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"root": {
 					"rotation": {

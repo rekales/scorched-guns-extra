@@ -24,6 +24,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -93,14 +94,43 @@ public class PiglinWarbossAi {
                 List.of(
                     200,
                     200
-                )),
+                )){
+                    @Override
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+
+                    @Override
+                    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+                        return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+                },
                 new BreakBlocksToTarget(PiglinWarbossAi::canBreakWithShovel, 20),
-                new MountedShotgunShoot(240,13,4),
-                new Summon<>(600, List.of(
+                new MountedShotgunShoot(240,13,4){
+                    @Override
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
+                        return super.checkExtraStartConditions(level, entity) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+                    @Override
+                    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+                        return super.canStillUse(level, entity, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+                },
+                new Summon(600, List.of(
                     PiglinEntities.PIGLIN_NOB.get(),
                     PiglinEntities.PIGLIN_NOB.get(),
                     PiglinEntities.PIGLIN_NOB.get()
-                ))
+                )){
+                    @Override
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
+                        return super.checkExtraStartConditions(level, owner) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+                    @Override
+                    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+                        return super.canStillUse(level, entity, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                    }
+                },
+                new ChargeAtTarget(240, 400)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(

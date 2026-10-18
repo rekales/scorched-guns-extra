@@ -69,8 +69,15 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         25
     );
 
+    static int CHARGE_START_DURATION = 20;
+    static int CHARGE_MIDDLE_DURATION = 400;
+    static int CHARGE_END_DURATION = 20;
+    static int CHARGE_DURATION = CHARGE_START_DURATION+CHARGE_MIDDLE_DURATION+CHARGE_END_DURATION;
+
     private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinWarbossEntity.class, EntityDataSerializers.LONG);
 
+    private static final EntityDataAccessor<Long> CHARGE_TICKS = SynchedEntityData.defineId(PiglinWarbossEntity.class, EntityDataSerializers.LONG);
+    
     public PiglinWarbossEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.BarrelRight = new AttachedMountedGun(this,
@@ -125,7 +132,16 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
                 }else if(PiglinWarbossEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
                     state.setAnimation(STUN_END);
                 }
-            }else if(!state.isCurrentAnimation(SCREAM)){
+            }else if(state.getAnimatable().isCharging()){
+                if(state.getAnimatable().isStart(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_START);
+                }else if(state.getAnimatable().isMiddle(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_MIDDLE);
+                }else if(state.getAnimatable().isEnd(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_END);
+                }
+            }
+            else if(!state.isCurrentAnimation(SCREAM)){
                 if (state.isMoving()) {
                     state.setAnimation(WALK);
                 } else {
@@ -217,6 +233,11 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())){
+                this.setChargeTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.ABILITY_STATE.get()));
+            }else{
+                this.setChargeTicksRemaining(Long.valueOf(-1));
+            }
         }
     }
 
@@ -224,10 +245,15 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
+        this.entityData.define(CHARGE_TICKS, Long.valueOf(0));
     }
 
     public boolean isStunned(){
         return this.entityData.get(TICKS_REMAINING) > 0;
+    }
+
+    public boolean isCharging(){
+        return this.entityData.get(CHARGE_TICKS) > 0;
     }
 
     public long getTicksRemaining(){
@@ -238,9 +264,29 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         this.entityData.set(TICKS_REMAINING, l);
     }
 
+    public long getChargeTicksRemaining(){
+        return this.entityData.get(CHARGE_TICKS);
+    }
+
+    public void setChargeTicksRemaining(long l){
+        this.entityData.set(CHARGE_TICKS, l);
+    }
+
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
         return super.hurt(source, amount);
+    }
+
+    public boolean isStart(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < CHARGE_START_DURATION;
+    }
+
+    public boolean isMiddle(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < (CHARGE_START_DURATION + CHARGE_MIDDLE_DURATION);
+    }
+
+    public boolean isEnd(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < (CHARGE_START_DURATION + CHARGE_MIDDLE_DURATION + CHARGE_START_DURATION + CHARGE_END_DURATION);
     }
 }

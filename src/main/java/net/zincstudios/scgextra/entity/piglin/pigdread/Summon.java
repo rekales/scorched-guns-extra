@@ -11,10 +11,8 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.entity.monster.Monster;
-import software.bernie.geckolib.animatable.GeoEntity;
 
-public class Summon <T extends Monster & GeoEntity> extends Behavior<Mob>{
+public class Summon extends Behavior<Mob>{
 
     private final List<EntityType<?>> ENTITES;
     private int cooldown = 0;

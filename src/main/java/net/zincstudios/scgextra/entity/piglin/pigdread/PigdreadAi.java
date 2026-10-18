@@ -94,7 +94,7 @@ public class PigdreadAi {
                 )),
                 new MountedShotgunShoot(120,13,8),
                 new SpeedBuff(300,60),
-                new Summon<>(800, List.of(
+                new Summon(800, List.of(
                     PiglinEntities.PIGKAN.get(),
                     PiglinEntities.PIGLIN_BLAZE_KOPTER.get()
                 )),
