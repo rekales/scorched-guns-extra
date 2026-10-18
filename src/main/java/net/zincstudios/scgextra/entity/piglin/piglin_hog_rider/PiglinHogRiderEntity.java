@@ -66,7 +66,13 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     static final int MELEE_DAMAGE_DELAY = 13;
     static final int MELEE_DURATION = 20;
 
-    static final int CHARGE_ANIM_START = 35;
+    static int CHARGE_START_DURATION = 35;
+    static int CHARGE_MIDDLE_DURATION = 400;
+    static int CHARGE_END_DURATION = 20;
+    static int CHARGE_DURATION = CHARGE_START_DURATION+CHARGE_MIDDLE_DURATION+CHARGE_END_DURATION;
+
+    private static final EntityDataAccessor<Long> CHARGE_TICKS = SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.LONG);
+
 
     private boolean aggroed = false;
 
@@ -96,28 +102,21 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "controller", 3, state -> {
-            if(state.getAnimatable().getChargePhase()!=-1){
-                switch (state.getAnimatable().getChargePhase()) {
-                    case 1:
-                        state.setAndContinue(CHARGE_START);
-                        break;
-                    case 2:
-                        state.setAndContinue(CHARGE_END);
-                        break;
-                    case 3:
-                        state.setAndContinue(CHARGE_MIDDLE);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else if(state.getAnimatable().isStunned()){
+            if(state.getAnimatable().isStunned()){
                 if(PiglinHogRiderEntity.instance.isStart(state.getAnimatable().getTicksRemaining())){
                     state.setAnimation(STUN_START);
                 }else if(PiglinHogRiderEntity.instance.isMiddle(state.getAnimatable().getTicksRemaining())){
                     state.setAnimation(STUN_MIDDLE);
                 }else if(PiglinHogRiderEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
                     state.setAnimation(STUN_END);
+                }
+            }else if(state.getAnimatable().isCharging()){
+                if(state.getAnimatable().isStart(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_START);
+                }else if(state.getAnimatable().isMiddle(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_MIDDLE);
+                }else if(state.getAnimatable().isEnd(state.getAnimatable().getChargeTicksRemaining())){
+                    state.setAnimation(CHARGE_END);
                 }
             }else if (!state.isCurrentAnimation(AGGROED)){
                 if (state.isMoving()) {
@@ -172,6 +171,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.entityData.define(MODEL_VARIANT, 1);
         this.entityData.define(CHARGE_PHASE, -1);
         this.entityData.define(TICKS_REMAINING, Long.valueOf(0));
+        this.entityData.define(CHARGE_TICKS, Long.valueOf(0));
     }
 
     @Override
@@ -240,6 +240,11 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
+            if(this.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())){
+                this.setChargeTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.ABILITY_STATE.get()));
+            }else{
+                this.setChargeTicksRemaining(Long.valueOf(-1));
+            }
         }
     }
 
@@ -298,5 +303,27 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
 
     public void setTicksRemaining(long l){
         this.entityData.set(TICKS_REMAINING, l);
+    }
+    public boolean isStart(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < CHARGE_START_DURATION;
+    }
+
+    public boolean isMiddle(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < (CHARGE_START_DURATION + CHARGE_MIDDLE_DURATION);
+    }
+
+    public boolean isEnd(long ticksRemaining){
+        return (CHARGE_DURATION - ticksRemaining) < (CHARGE_START_DURATION + CHARGE_MIDDLE_DURATION + CHARGE_START_DURATION + CHARGE_END_DURATION);
+    }
+    
+    public long getChargeTicksRemaining(){
+        return this.entityData.get(CHARGE_TICKS);
+    }
+
+    public void setChargeTicksRemaining(long l){
+        this.entityData.set(CHARGE_TICKS, l);
+    }
+    public boolean isCharging(){
+        return this.entityData.get(CHARGE_TICKS) > 0;
     }
 }

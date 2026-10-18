@@ -639,6 +639,7 @@
 		},
 		"aggroed": {
 			"animation_length": 2,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -1118,6 +1119,7 @@
 		},
 		"melee": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -1339,6 +1341,7 @@
 		},
 		"charge_start": {
 			"animation_length": 1.75,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -1853,6 +1856,7 @@
 		"charge_middle": {
 			"loop": true,
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -2334,6 +2338,7 @@
 		},
 		"charge_end": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -2743,6 +2748,7 @@
 		},
 		"stun_start": {
 			"animation_length": 0.5,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -3165,6 +3171,7 @@
 		"stun_middle": {
 			"loop": true,
 			"animation_length": 2,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -3530,6 +3537,7 @@
 		},
 		"stun_end": {
 			"animation_length": 1,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {

@@ -74,7 +74,7 @@ public class PiglinHogRiderAi {
                         return super.canStillUse(level, mob, gameTime) && !mob.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get());
                     }
                 },
-                new ChargeEnemy<>(200, PiglinHogRiderEntity.CHARGE_ANIM_START)
+                new ChargeEnemy<>(240, 400)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 

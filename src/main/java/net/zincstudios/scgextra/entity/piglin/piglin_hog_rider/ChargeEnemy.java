@@ -4,78 +4,74 @@ import com.google.common.collect.ImmutableMap;
 
 import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
-import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 
-//TODO: REDO
 public class ChargeEnemy <T extends Mob> extends Behavior<T>{
 
-    private final int cooldown;
-    private long endTime = 0;
-    private final int startAnimTime;
-    private long chargeEndedAt = 0;
+    private final int cooldownDuration;
+    private final int maxDistance;
+    private int cooldown = 0;
+    private Vec3 ramDirection = Vec3.ZERO;
+    private boolean charged = false;
 
-    public ChargeEnemy(int cooldown, int startAnimTime) {
+    public ChargeEnemy(int cooldownDuration, int maxDistance) {
         super(ImmutableMap.of(
-                MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
-                ModBrainMemories.STUNNED.get(), MemoryStatus.REGISTERED,
-                ModBrainMemories.ABILITY_STATE.get(), MemoryStatus.REGISTERED
-        ), 800);
-        this.cooldown = cooldown;
-        this.startAnimTime = startAnimTime;
+            MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
+            ModBrainMemories.ABILITY_STATE.get(), MemoryStatus.REGISTERED
+        ), 500);
+        this.cooldownDuration = cooldownDuration;
+        this.maxDistance = maxDistance;
     }
 
     @Override
-    protected boolean checkExtraStartConditions(ServerLevel level, T owner) {
-        return level.getGameTime() > endTime+cooldown && !owner.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()) && owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) <= 225;
-    }
-
-    @Override
-    protected boolean canStillUse(ServerLevel level, T owner, long gameTime) {
-        return !owner.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()) && owner.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && ((owner instanceof PiglinHogRiderEntity pe) ? (pe.getChargePhase()!=-1) : true);
-    }
-
-    @Override
-    protected void start(ServerLevel level, T owner, long gameTime) {
-        owner.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("chargeTicks", gameTime, gameTime+startAnimTime), this.startAnimTime);
-        this.chargeEndedAt = 0;
-        if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(1);
-        owner.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get(), 2.0f, 0));
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void tick(ServerLevel level, T owner, long gameTime) {
-        LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-        owner.getBrain().setMemory(MemoryModuleType.WALK_TARGET, new WalkTarget(target, 3.0f, 0));
-        Brain<PiglinHogRiderEntity> brain = (Brain<PiglinHogRiderEntity>)owner.getBrain();
-        if(!(owner.distanceToSqr(target)<=16)){
-            if(
-                !brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())
-            ){
-                if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(3);
-            }
-        }else{
-            if(this.chargeEndedAt == 0){
-                if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(2);
-                this.chargeEndedAt = gameTime;
-            }else if(!brain.hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())){
-                owner.doHurtTarget(target);
-                Vec3 ramDirection = target.position().subtract(owner.position()).normalize();
-                target.knockback(3, ramDirection.x, ramDirection.z);
-                brain.setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.instance.getStunDuration());
-                if(owner instanceof PiglinHogRiderEntity pe)pe.setChargePhase(-1);
-                this.endTime = gameTime;
-                owner.playSound(PiglinSounds.PIGLIN_HOG_RIDER_STUN.get());
-            }
+    protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
+        if(this.cooldown>0)this.cooldown--;
+        if(owner.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
+            return owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) < this.maxDistance && this.cooldown<=0;
         }
+        return false;
+    }
+
+    @Override
+    protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
+        return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && !this.charged;
+    }
+
+    @Override
+    protected void start(ServerLevel level, Mob entity, long gameTime) {
+        this.cooldown = this.cooldownDuration;
+        this.charged = false;
+    }
+    
+    @Override
+    protected void tick(ServerLevel level, Mob owner, long gameTime) {
+        if(!owner.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())){
+            owner.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("charge_state", gameTime, gameTime+400), 400);
+        }
+        LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+        owner.getLookControl().setLookAt(target, 30.0F, 30.0F);
+        Vec3 direction = target.position().subtract(owner.position());
+        this.ramDirection = new Vec3(direction.x, 0.0D, direction.z).normalize();
+        owner.setDeltaMovement(
+            this.ramDirection.x * 0.3f,
+            owner.getDeltaMovement().y,
+            this.ramDirection.z * 0.3f
+        );
+        if(owner.distanceToSqr(target)<=6){
+            target.knockback(3, owner.getX() - target.getX(), owner.getZ() - target.getZ());
+            owner.doHurtTarget(target);
+            this.charged = true;
+            owner.getBrain().setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.instance.getStunDuration());
+        }
+    }
+    @Override
+    protected void stop(ServerLevel level, Mob entity, long gameTime) {
+        entity.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("charge_state", gameTime, gameTime+PiglinHogRiderEntity.CHARGE_END_DURATION), PiglinHogRiderEntity.CHARGE_END_DURATION);
     }
 }
