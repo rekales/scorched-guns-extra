@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "scguns:blueprint_scrap"
+    },
+    "F": {
+      "item": "scguns:gold_flare"
+    }
+  },
+  "pattern": [
+    "FBF",
+    "BFB",
+    "FBF"
+  ],
+  "result": {
+    "item": "scgextra:gold_super_flare"
+  },
+  "show_notification": false
+}
