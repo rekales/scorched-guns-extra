@@ -137,7 +137,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
                 this.triggerAnim("attack", "aggroed");
                 this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
                 this.aggroed = true;
-                this.aggroTicks = 40;
+                this.aggroTicks = 50;
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;

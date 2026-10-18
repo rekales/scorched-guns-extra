@@ -63,7 +63,7 @@ public class PiglinHogRiderAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.2F),
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1F),
                 new DelayedMeleeAttack(PiglinHogRiderEntity.MELEE_DAMAGE_DELAY, PiglinHogRiderEntity.MELEE_DURATION, 4f, 20){
                     @Override
                     protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {

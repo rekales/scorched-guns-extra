@@ -75,6 +75,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
 
 
     private boolean aggroed = false;
+    public int aggroTicks = 0;
 
     public static final StunnableHog instance = new StunnableHog(
         10, 
@@ -223,6 +224,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     public void tick() {
         super.tick();
         if(!this.level().isClientSide){
+            if(this.aggroTicks>0)this.aggroTicks--;
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ATTACK.get());
@@ -230,6 +232,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
                 this.triggerAnim("attack", "aggro");
                 this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+                this.aggroTicks = 50;
                 this.aggroed = true;
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
