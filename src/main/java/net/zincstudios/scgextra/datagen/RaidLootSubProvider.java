@@ -42,6 +42,10 @@ public class RaidLootSubProvider implements LootTableSubProvider {
                 SCGExtra.asResource("raid/asgharian_super"),
                 single(ModItems.MEDAL_OF_CRUELTY.get())
         );
+        output.accept(
+                SCGExtra.asResource("raid/piglin_super"),
+                single(ModItems.MEDAL_OF_FIERY_RAGE.get())
+        );
     }
 
     private LootTable.Builder single(Item item) {

@@ -129,8 +129,8 @@ public class ModItems {
                     new SuperRaidFlareItem(new Item.Properties().stacksTo(16), "diamond_steel_super", "diamond_steel")),
             TREATED_BRASS_SUPER_FLARE = ITEMS.register("treated_brass_super_flare", () ->
                     new SuperRaidFlareItem(new Item.Properties().stacksTo(16), "treated_brass_super", "treated_brass")),
-        //     GOLD_SUPER_FLARE = ITEMS.register("gold_super_flare", () ->
-        //             new SuperRaidFlareItem(new Item.Properties().stacksTo(16), "piglin_super", "piglin")),
+            GOLD_SUPER_FLARE = ITEMS.register("gold_super_flare", () ->
+                    new SuperRaidFlareItem(new Item.Properties().stacksTo(16), "piglin_super", "piglin")),
         //     SCULK_SUPER_FLARE = ITEMS.register("sculk_super_flare", () ->
         //             new SuperRaidFlareItem(new Item.Properties().stacksTo(16), "sculk_super", "sculk")),
             OCEAN_SUPER_FLARE = ITEMS.register("ocean_super_flare", () ->

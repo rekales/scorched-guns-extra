@@ -1,0 +1,72 @@
+{
+  "raid_id" : "piglin",
+  "flare_raid_id" : "piglin_super",
+  "finish_loot" : "scgextra:raid/piglin_super",
+
+  "waves" : [
+    {
+      "infantry": 10
+    },
+    {
+      "infantry": 10,
+      "elite": 3
+    },
+    {
+      "infantry": 12,
+      "elite": 4,
+      "miniboss": 1
+    },
+    {
+      "infantry": 10,
+      "elite": 6,
+      "miniboss": 3
+    },
+    {
+      "infantry": 6,
+      "elite": 2,
+      "boss": 2
+    }
+  ],
+
+  "infantry" : [
+    {
+      "entity_id": "scguns:hornlin"
+    },
+    {
+      "entity_id": "minecraft:piglin"
+    },
+    {
+      "entity_id": "minecraft:piglin_brute"
+    },
+    {
+      "entity_id": "scgextra:piglin_strider_rider"
+    }
+  ],
+  "elite" : [
+    {
+      "entity_id": "scgextra:piglin_nob"
+    },
+    {
+      "entity_id": "scguns:mother_ghast"
+    },
+    {
+      "entity_id": "scgextra:piglin_blaze_kopter"
+    }
+  ],
+  "miniboss" : [
+    {
+      "entity_id": "scgextra:piglin_hog_rider"
+    },
+    {
+      "entity_id": "scgextra:pigkan"
+    }
+  ],
+  "boss" : [
+    {
+      "entity_id": "scgextra:pigdread"
+    },
+    {
+      "entity_id": "scgextra:piglin_warboss"
+    }
+  ]
+}
