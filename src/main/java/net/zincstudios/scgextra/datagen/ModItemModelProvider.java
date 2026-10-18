@@ -163,6 +163,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         basicItem("spawn_egg/", ModItems.PIGKAN_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.PIGLIN_KILN_HOG_SPAWN_EGG.get());
         basicItem("spawn_egg/", ModItems.PIGDREAD_SPAWN_EGG.get());
+        basicItem("spawn_egg/", ModItems.PIGLIN_WARBOSS_SPAWN_EGG.get());
     }
 
     public ItemModelBuilder basicItem(RegistryObject<? extends Item> item) {
