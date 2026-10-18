@@ -2017,5 +2017,49 @@
     "sounds": [
       "scgextra:piglin/pigdread/idle"
     ]
+  },
+  "piglin.piglin_warboss.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_warboss.death",
+    "sounds": [
+      "scgextra:piglin/piglin_warboss/death_01",
+      "scgextra:piglin/piglin_warboss/death_02"
+    ]
+  },
+  "piglin.piglin_warboss.idle": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_warboss.idle",
+    "sounds": [
+      "scgextra:piglin/piglin_warboss/idle_01",
+      "scgextra:piglin/piglin_warboss/idle_02",
+      "scgextra:piglin/piglin_warboss/idle_03",
+      "scgextra:piglin/piglin_warboss/idle_04"
+    ]
+  },
+  "piglin.piglin_warboss.melee": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_warboss.melee",
+    "sounds": [
+      "scgextra:piglin/piglin_warboss/melee_01",
+      "scgextra:piglin/piglin_warboss/melee_02"
+    ]
+  },
+  "piglin.piglin_warboss.scream": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_warboss.scream",
+    "sounds": [
+      "scgextra:piglin/piglin_warboss/scream"
+    ]
+  },
+  "piglin.piglin_warboss.stun": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_warboss.stun",
+    "sounds": [
+      "scgextra:piglin/piglin_warboss/stun_01",
+      "scgextra:piglin/piglin_warboss/stun_02",
+      "scgextra:piglin/piglin_warboss/stun_03",
+      "scgextra:piglin/piglin_warboss/stun_04",
+      "scgextra:piglin/piglin_warboss/stun_05"
+    ]
   }
 }

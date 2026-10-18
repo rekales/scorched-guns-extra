@@ -4,16 +4,20 @@ import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.piglin.StunnableHog;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +26,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
@@ -226,6 +231,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         super.tick();
         if(!this.level().isClientSide()){
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
+                this.playSound(PiglinSounds.PIGLIN_WARBOSS_MELEE.get());
                 this.triggerAnim("behavior", "melee");
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
@@ -234,6 +240,9 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
                 this.setTicksRemaining(Long.valueOf(-1));
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get())){
+                if(this.getBrain().getTimeUntilExpiry(ModBrainMemories.ABILITY_STATE.get()) == PiglinWarbossEntity.instance.getStunDuration()){
+                    this.playSound(PiglinSounds.PIGLIN_WARBOSS_STUN.get());
+                }
                 this.setChargeTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.ABILITY_STATE.get()));
             }else{
                 this.setChargeTicksRemaining(Long.valueOf(-1));
@@ -288,5 +297,25 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
 
     public boolean isEnd(long ticksRemaining){
         return (CHARGE_DURATION - ticksRemaining) < (CHARGE_START_DURATION + CHARGE_MIDDLE_DURATION + CHARGE_START_DURATION + CHARGE_END_DURATION);
+    }
+
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return PiglinSounds.PIGLIN_WARBOSS_IDLE.get();
+    }
+
+    @Override
+    protected SoundEvent getDeathSound() {
+        return PiglinSounds.PIGLIN_WARBOSS_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent getHurtSound(DamageSource damageSource) {
+        return this.getRandom().nextFloat() > 0.8f ? PiglinSounds.GENERAL_HURT.get() : SoundEvents.PIGLIN_BRUTE_HURT;
+    }
+
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
+        this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.15F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.3F);
     }
 }

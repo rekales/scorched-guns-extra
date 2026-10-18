@@ -83,6 +83,18 @@ public class PiglinSounds {
     public static final RegistryObject<SoundEvent> PIGLIN_KILN_HOG_DEFEAT = SOUND_EVENTS.register("piglin.piglin_kiln_hog.defeat",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_kiln_hog.defeat")));
 
+    //PIGLIN WARBOSS
+    public static final RegistryObject<SoundEvent> PIGLIN_WARBOSS_IDLE = SOUND_EVENTS.register("piglin.piglin_warboss.idle",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_warboss.idle")));
+    public static final RegistryObject<SoundEvent> PIGLIN_WARBOSS_SCREAM = SOUND_EVENTS.register("piglin.piglin_warboss.scream",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_warboss.scream")));
+    public static final RegistryObject<SoundEvent> PIGLIN_WARBOSS_DEATH = SOUND_EVENTS.register("piglin.piglin_warboss.death",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_warboss.death")));
+    public static final RegistryObject<SoundEvent> PIGLIN_WARBOSS_STUN = SOUND_EVENTS.register("piglin.piglin_warboss.stun",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_warboss.stun")));
+    public static final RegistryObject<SoundEvent> PIGLIN_WARBOSS_MELEE = SOUND_EVENTS.register("piglin.piglin_warboss.melee",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_warboss.melee")));
+
     public static void init() {}
 
 }

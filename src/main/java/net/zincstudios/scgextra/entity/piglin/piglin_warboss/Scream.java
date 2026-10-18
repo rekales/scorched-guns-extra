@@ -12,11 +12,13 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 public class Scream extends Behavior<Mob>{
 
     private final int cooldownDuration;
     private int cooldown = 0;
+    private int ticks = 0;
 
     public Scream(int cooldownDuration) {
         super(ImmutableMap.of(
@@ -35,10 +37,12 @@ public class Scream extends Behavior<Mob>{
     protected void start(ServerLevel level, Mob entity, long gameTime) {
         this.cooldown = this.cooldownDuration;
         if(entity instanceof PiglinWarbossEntity pe)pe.triggerAnim("behavior", "scream");
+        this.ticks = 0;
     }
 
     @Override
     protected void tick(ServerLevel level, Mob owner, long gameTime) {
+        this.ticks++;
         owner.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         owner.getNavigation().stop();
         List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(8));
@@ -46,6 +50,9 @@ public class Scream extends Behavior<Mob>{
             en.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 2));
             en.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
             en.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1));
+        }
+        if(this.ticks == 25){
+            owner.playSound(PiglinSounds.PIGLIN_WARBOSS_SCREAM.get());
         }
     }
 

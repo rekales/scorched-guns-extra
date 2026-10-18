@@ -78,6 +78,7 @@
   "entity.scgextra.piglin_kiln_hog":  "Piglin Kiln Hog",
   "entity.scgextra.piglin_kiln_hog_magma_ball":  "Piglin Kiln Hog Magma Ball",
   "entity.scgextra.pigdread":  "Pigdread",
+  "entity.scgextra.piglin_warboss":  "Piglin Warboss",
 
   "item.scgextra.fish_folk_spawn_egg":  "Fish Folk Spawn Egg",
   "item.scgextra.turtleman_spawn_egg":  "Turtleman Spawn Egg",
@@ -157,6 +158,7 @@
   "item.scgextra.pigkan_spawn_egg": "Pigkan Spawn Egg",
   "item.scgextra.piglin_kiln_hog_spawn_egg": "Piglin Kiln Hog Spawn Egg",
   "item.scgextra.pigdread_spawn_egg": "Pigdread Spawn Egg",
+  "item.scgextra.piglin_warboss_spawn_egg": "Piglin Warboss Spawn Egg",
 
   "item.scgextra.atlantic_mace":  "Atlantic Mace",
   "item.scgextra.cavalry_saber":  "Cavalry Saber",
