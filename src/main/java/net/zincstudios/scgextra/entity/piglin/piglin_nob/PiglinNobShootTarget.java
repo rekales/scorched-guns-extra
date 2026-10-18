@@ -10,6 +10,7 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.phys.Vec3;
+import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -49,6 +50,7 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
         super(ImmutableMap.of(
                 MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT,
                 ModBrainMemories.AIM_TICKS.get(), MemoryStatus.REGISTERED,
+                ModBrainMemories.ABILITY_STATE.get(), MemoryStatus.REGISTERED,
                 ModBrainMemories.SIMULATED_GUN.get(), MemoryStatus.VALUE_PRESENT
         ));
         this.aimThreshold = aimThreshold;
@@ -77,12 +79,13 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
         Brain<?> brain = entity.getBrain();
         int aimTicks = brain.getMemory(ModBrainMemories.AIM_TICKS.get()).orElse(-12);
         LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
-        if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false))return;
-        if (!canShoot.test(entity)) return;
+        if(brain.getMemory(MemoryModuleType.ATTACK_COOLING_DOWN).orElse(false)){brain.eraseMemory(ModBrainMemories.ABILITY_STATE.get());return;}
+        if (!canShoot.test(entity))return;
         
         SimulatedGun simGun = brain.getMemory(ModBrainMemories.SIMULATED_GUN.get()).get();
         Vec3 targetPos = SimulatedGun.getCenterMassPos(target);
         if(aimTicks == 21 || aimTicks == 22)if(entity instanceof GeoEntity ge)ge.triggerAnim(this.animControllerName, this.animName);
+        brain.setMemory(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("isShooting", gameTime, gameTime+10));
         
         if (aimTicks >= this.aimThreshold) {
             simGun.tickFire(entity, targetPos, this.accuracyFunc.apply(entity, true), true);

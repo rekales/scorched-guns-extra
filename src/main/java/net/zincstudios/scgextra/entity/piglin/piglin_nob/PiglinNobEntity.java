@@ -41,6 +41,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     private boolean aggroed = false;
+    public int aggroTicks = 0;
 
     static final int MELEE_DAMAGE_DELAY = 12;
     static final int MELEE_DURATION = 25;
@@ -127,6 +128,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         // this.tickSubEntities();
         //maybe do a better implementation?
         if(!this.level().isClientSide){
+            if(this.aggroTicks>0)this.aggroTicks--;
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_NOB_ATTACK.get());
@@ -135,6 +137,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
                 this.triggerAnim("attack", "aggroed");
                 this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
                 this.aggroed = true;
+                this.aggroTicks = 40;
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;

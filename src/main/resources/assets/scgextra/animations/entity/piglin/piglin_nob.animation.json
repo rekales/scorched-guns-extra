@@ -505,6 +505,7 @@
 		},
 		"aggroed": {
 			"animation_length": 2,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -984,6 +985,7 @@
 		},
 		"melee": {
 			"animation_length": 1.25,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {
@@ -1137,6 +1139,7 @@
 		},
 		"ranged_attack": {
 			"animation_length": 1.25,
+			"override_previous_animation": true,
 			"bones": {
 				"head": {
 					"rotation": {

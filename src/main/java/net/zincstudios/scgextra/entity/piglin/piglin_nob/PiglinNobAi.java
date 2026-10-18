@@ -17,12 +17,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
 import net.minecraft.world.entity.ai.behavior.StopAttackingIfTargetInvalid;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 
+@SuppressWarnings("unused")
 public class PiglinNobAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
@@ -44,7 +46,8 @@ public class PiglinNobAi {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.WEAPON_IDEAL_RANGE.get(),
             ModBrainMemories.WEAPON_MAX_RANGE.get(),
-            ModBrainMemories.DELAYED_MELEE.get()
+            ModBrainMemories.DELAYED_MELEE.get(),
+            ModBrainMemories.ABILITY_STATE.get()
     );
 
     public static <T extends PathfinderMob> Brain<?> makeBrain(T mob, Brain<T> brain) {
@@ -65,10 +68,21 @@ public class PiglinNobAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1f),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new PiglinNobShootTarget(37, 1.6F, "attack", "shoot", 22),
-                new DelayedMeleeAttack(PiglinNobEntity.MELEE_DAMAGE_DELAY, PiglinNobEntity.MELEE_DURATION, 3f, 20){
+                new PiglinNobShootTarget(37, 1.6F, "attack", "shoot", 50){
+                    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
+                        return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true);
+                    };
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true);
+                    };
+                },
+                new DelayedMeleeAttack(PiglinNobEntity.MELEE_DAMAGE_DELAY, PiglinNobEntity.MELEE_DURATION, 4f, 10){
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true) && !mob.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get());
+                    };
                     protected void tick(ServerLevel level, Mob mob, long gameTime) {
                         LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
                         if (mob.getBrain().getMemory(ModBrainMemories.DELAYED_MELEE.get()).get() == gameTime
