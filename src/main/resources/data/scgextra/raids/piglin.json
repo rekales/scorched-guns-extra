@@ -1,0 +1,64 @@
+{
+  "raid_id" : "piglin",
+  "flare_raid_id" : "gold",
+
+  "waves" : [
+    {
+      "infantry": 8
+    },
+    {
+      "infantry": 8,
+      "elite": 4
+    },
+    {
+      "infantry": 4,
+      "elite": 6,
+      "miniboss": 1
+    },
+    {
+      "boss": 1
+    }
+  ],
+
+  "infantry" : [
+    {
+      "entity_id": "scguns:hornlin"
+    },
+    {
+      "entity_id": "minecraft:piglin"
+    },
+    {
+      "entity_id": "minecraft:piglin_brute"
+    },
+    {
+      "entity_id": "scgextra:piglin_strider_rider"
+    }
+  ],
+  "elite" : [
+    {
+      "entity_id": "scgextra:piglin_nob"
+    },
+    {
+      "entity_id": "scguns:mother_ghast"
+    },
+    {
+      "entity_id": "scgextra:piglin_blaze_kopter"
+    }
+  ],
+  "miniboss" : [
+    {
+      "entity_id": "scgextra:piglin_hog_rider"
+    },
+    {
+      "entity_id": "scgextra:pigkan"
+    }
+  ],
+  "boss" : [
+    {
+      "entity_id": "scgextra:pigdread"
+    },
+    {
+      "entity_id": "scgextra:piglin_warboss"
+    }
+  ]
+}
