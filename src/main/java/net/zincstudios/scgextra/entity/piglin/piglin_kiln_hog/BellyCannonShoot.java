@@ -54,6 +54,7 @@ public class BellyCannonShoot extends Behavior<Mob>{
     protected void tick(ServerLevel level, Mob owner, long gameTime) {
         this.ticks++;
         LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+        owner.getLookControl().setLookAt(target);
         if(this.ticks>this.startAnimDuration && this.ticks<this.startAnimDuration+2){
             AbstractArrow ball = new PiglinKilnHogMagmaBall(owner, level);
             Vec3 vec = owner.position().add(new Vec3(0D/16D, 41D/16D, 26D/16D*-1f).yRot(-owner.yBodyRot * Mth.DEG_TO_RAD));

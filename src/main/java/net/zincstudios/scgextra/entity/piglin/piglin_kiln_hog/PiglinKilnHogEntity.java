@@ -77,7 +77,6 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.LONG);
 
-
     //to whom ever it may concern, I am sorry for such janky solution for this lava anim
     private static final EntityDataAccessor<Integer> PHASE = SynchedEntityData.defineId(PiglinKilnHogEntity.class, EntityDataSerializers.INT);
 

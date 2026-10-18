@@ -15,6 +15,8 @@ import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.SetWalkTargetFromAttackTargetIfTargetOutOfReach;
@@ -75,8 +77,15 @@ public class PiglinKilnHogAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
                 new ApproachTargetIfCannotAim(1F),
                 new AimWhenNotWalking(),
-                new PiglinKilnHogMountedShotgunGunShoot(20, 23, 6),
-                new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 3f, 20),
+                new PiglinKilnHogMountedShotgunGunShoot(30, 23, 6),
+                new DelayedMeleeAttack(PiglinKilnHogEntity.MELEE_DELAY, PiglinKilnHogEntity.MELEE_DURATION, 4f, 20){
+                    @Override
+                    protected void tick(ServerLevel level, Mob mob, long gameTime) {
+                        LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+                        mob.getLookControl().setLookAt(target);
+                        super.tick(level, mob, gameTime);
+                    }
+                },
                 new BellyCannonShoot(300, 27)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)

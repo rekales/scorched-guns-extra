@@ -54,10 +54,11 @@ public class PiglinKilnHogMountedShotgunGunShoot extends Behavior<Mob>{
         this.ticks++;
         if(this.numberOfShots>=4)return;
         if(entity instanceof PiglinKilnHogEntity owner){
+            LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+            owner.getLookControl().setLookAt(target);
             if(this.ticks>this.startAnimDuration){
                 if(this.timer>0)this.timer--;
                 if(this.timer <= 0){
-                    LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
                     this.numberOfShots++;
                     this.timer = this.shootEvery;
                     owner.mountedShotGunLeft.tick(target, 1f);
