@@ -130,7 +130,8 @@ public class PiglinWarbossAi {
                         return super.canStillUse(level, entity, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
                     }
                 },
-                new ChargeAtTarget(240, 400)
+                new ChargeAtTarget(240, 400),
+                new Scream(500)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
