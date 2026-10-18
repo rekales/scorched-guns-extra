@@ -64,7 +64,7 @@ public class ChargeAtTarget extends Behavior<Mob>{
             this.ramDirection.z * 0.3f
         );
         if(owner.distanceToSqr(target)<=6){
-            owner.doHurtTarget(target);
+            target.hurt(owner.damageSources().mobAttack(owner), 20);
             this.charged = true;
         }
     }
