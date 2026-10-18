@@ -6,6 +6,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -13,9 +14,14 @@ import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.zincstudios.scgextra.SCGExtra;
+import top.ribs.scguns.entity.monster.HornlinEntity;
+import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -165,6 +171,10 @@ public class WaveRaidState {
                             level.getCurrentDifficultyAt(BlockPos.containing(pos)),
                             MobSpawnType.EVENT, null, null
                     );
+                }
+                //add RESPIRATOR to piglin infantry
+                if(mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute){
+                    mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
                 }
                 level.addFreshEntity(mob);
                 this.addRaider(mob);
