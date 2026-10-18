@@ -12,13 +12,17 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.Brain;
@@ -83,6 +87,9 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
 
     private static final EntityDataAccessor<Long> CHARGE_TICKS = SynchedEntityData.defineId(PiglinWarbossEntity.class, EntityDataSerializers.LONG);
     
+    private final ServerBossEvent bossEvent =
+        new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+
     public PiglinWarbossEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.BarrelRight = new AttachedMountedGun(this,
@@ -230,6 +237,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
     public void tick() {
         super.tick();
         if(!this.level().isClientSide()){
+            this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.playSound(PiglinSounds.PIGLIN_WARBOSS_MELEE.get());
                 this.triggerAnim("behavior", "melee");
@@ -317,5 +325,27 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.15F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 0.3F);
+    }
+    @Override
+    public void startSeenByPlayer(ServerPlayer player) {
+        super.startSeenByPlayer(player);
+        this.bossEvent.addPlayer(player);
+    }
+
+    @Override
+    public void stopSeenByPlayer(ServerPlayer player) {
+        super.stopSeenByPlayer(player);
+        this.bossEvent.removePlayer(player);
+    }
+
+    @Override
+    public void setCustomName(Component name) {
+        super.setCustomName(name);
+        this.bossEvent.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
     }
 }
