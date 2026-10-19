@@ -32,7 +32,13 @@ public class PiglinNobRenderer <T extends Mob & GeoEntity> extends BaseEntityRen
                             packedLight, packedOverlay, animatable.getId());
                     poseStack.popPose();
                 }else{
-                    super.renderStackForBone(poseStack, bone, stack, animatable, bufferSource, partialTick, packedLight, packedOverlay);
+                    poseStack.pushPose();
+                    poseStack.translate(0, -0.5F, 0.2125F);
+                    poseStack.mulPose(Axis.ZP.rotationDegrees(180.0F));
+                    Minecraft.getInstance().getItemRenderer().renderStatic(animatable, stack,
+                            getTransformTypeForStack(bone, stack, animatable), false, poseStack, bufferSource, animatable.level(),
+                            packedLight, packedOverlay, animatable.getId());
+                    poseStack.popPose();
                 }
             }
         });

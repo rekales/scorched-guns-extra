@@ -71,14 +71,7 @@ public class PiglinNobAi {
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1f),
                 new ApproachTargetIfCannotAim(1.0F),
                 new AimWhenNotWalking(),
-                new PiglinNobShootTarget(37, 1.6F, "attack", "shoot", 50){
-                    protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
-                        return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true);
-                    };
-                    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
-                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true);
-                    };
-                },
+                new PiglinNobShootTarget(13, 1.6F, "attack", "shoot", 50),
                 new DelayedMeleeAttack(PiglinNobEntity.MELEE_DAMAGE_DELAY, PiglinNobEntity.MELEE_DURATION, 4f, 10){
                     protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
                         return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinNobEntity pne) ? pne.aggroTicks <= 0 : true) && !mob.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get());
