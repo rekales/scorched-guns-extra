@@ -21,6 +21,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.entity.monster.HornlinEntity;
+import top.ribs.scguns.entity.monster.MotherGhastEntity;
 import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
@@ -151,13 +152,14 @@ public class WaveRaidState {
                     continue;
                 }
                 Vec3 pos = WaveRaidUtil.findMobSpawnPos(level, waveCenter, waveSpawnRadius);
-                mob.setPos(pos);
+
+                mob.setPos(mob instanceof MotherGhastEntity ? pos.add(0, 20, 0) : pos);
 
                 if (mob.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.REGISTERED) && target != null) {
                     mob.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
                     if (mob.getBrain().checkMemory(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED)) {
                         mob.getBrain().setMemoryWithExpiry(MemoryModuleType.WALK_TARGET, new WalkTarget(
-                                new EntityTracker(target, false), 1.2f, 16
+                            new EntityTracker(target, false), 1.2f, 16
                         ), 200);
                     }
                 } else {
