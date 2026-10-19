@@ -1,11 +1,27 @@
 package net.zincstudios.scgextra.item;
 
 import java.util.UUID;
+import java.util.function.Consumer;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 
+import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
+import net.zincstudios.scgextra.sounds.AsgharianSounds;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.model.DefaultedItemGeoModel;
+import software.bernie.geckolib.renderer.GeoItemRenderer;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,17 +29,22 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ForgeMod;
 import top.ribs.scguns.init.ModEffects;
 import top.ribs.scguns.init.ModTags;
 
-public class NetheriteChainAxeItem extends AxeItem implements HurtEffects{
+public class NetheriteChainAxeItem extends AxeItem implements HurtEffects, GeoItem{
     private final float attackDamageBaseline;
-   private final Multimap<Attribute, AttributeModifier> defaultModifiers;
+    private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final Multimap<Attribute, AttributeModifier> defaultModifiers;
 
    protected static final UUID BLOCK_REACH_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C0F433DB5CF");
 
@@ -36,10 +57,17 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects{
         builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Tool modifier", (double)attackSpeedModifier, Operation.ADDITION));
         builder.put(ForgeMod.ENTITY_REACH.get(), new AttributeModifier(BLOCK_REACH_UUID, "Tool modifier", (double)-2.0, Operation.ADDITION));
         this.defaultModifiers = builder.build();
+        SingletonGeoAnimatable.registerSyncedAnimatable(this);
     }
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if(attacker instanceof Player p){
+            if(p.level() instanceof ServerLevel sl){
+                sl.playSound(null, p.getX(), p.getY(), p.getZ(), AsgharianSounds.ASGHAR_WORKER_SAW.get(), SoundSource.MASTER, 0.5f, 1.0f);
+                this.triggerAnim(p, GeoItem.getOrAssignId(p.getItemInHand(InteractionHand.MAIN_HAND), sl), "saw", "saw");
+            }
+        }
         this.hurtEffect(stack, target, attacker);
         target.hurt(attacker.damageSources().mobAttack(attacker), 11);
         stack.hurtAndBreak(2, attacker, (p_41007_) -> {
@@ -66,6 +94,27 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects{
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
         return equipmentSlot == EquipmentSlot.MAINHAND ? this.defaultModifiers : super.getDefaultAttributeModifiers(equipmentSlot);
+    }
+
+    @Override
+    public void registerControllers(ControllerRegistrar controllers) {
+        controllers.add(new AnimationController<>(this, "saw", state->{
+            state.setAnimation(RawAnimation.begin().thenLoop("idle"));
+            return PlayState.CONTINUE;
+        }).triggerableAnim("saw", RawAnimation.begin().thenPlay("saw")));
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.geoCache;
+    }
+
+    @OnlyIn(value = Dist.CLIENT)
+    @Override
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new SimpleCustomRenderer(new GeoItemRenderer<>(
+                new DefaultedItemGeoModel<>(SCGExtra.asResource("netherite_chain_axe"))
+        )));
     }
     
 }
