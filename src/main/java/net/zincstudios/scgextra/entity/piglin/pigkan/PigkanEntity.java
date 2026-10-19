@@ -88,6 +88,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
+                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;

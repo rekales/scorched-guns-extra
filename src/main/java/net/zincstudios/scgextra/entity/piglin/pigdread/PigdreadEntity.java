@@ -132,6 +132,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
+                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
@@ -140,12 +141,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         controllers.add(new ExpandedAnimationController<>(this, "behavior", 0, state -> {
             return PlayState.CONTINUE;
         })
-            .triggerableAnim("melee", (ctr) -> {
-                if(!(this.deathTime > 0 && this.deathTime <= deathAnimTime)){
-                    return ATTACK;
-                }
-                return RawAnimation.begin();
-            })
+            .triggerableAnim("melee", ATTACK)
             .triggerableAnim("shoot", SHOOT)
         );
     }

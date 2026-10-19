@@ -169,6 +169,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
+                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
@@ -177,12 +178,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         controllers.add(new ExpandedAnimationController<>(this, "behavior", 0, state -> {
             return PlayState.CONTINUE;
         })
-            .triggerableAnim("melee", (ctr) -> {
-                if(!(this.deathTime > 0 && this.deathTime <= deathAnimTime)){
-                    return ATTACK;
-                }
-                return RawAnimation.begin();
-            })
+            .triggerableAnim("melee", ATTACK)
             .triggerableAnim("scream", SCREAM)
             .triggerableAnim("shoot", (ctr)->{
                 if (((this.getX() - this.xo)*(this.getX() - this.xo))+((this.getZ() - this.zo)*(this.getZ() - this.zo))>0.0002) {
