@@ -82,7 +82,7 @@ public class PiglinKilnHogAi {
                     @Override
                     protected void tick(ServerLevel level, Mob mob, long gameTime) {
                         LivingEntity target = mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-                        mob.getLookControl().setLookAt(target);
+                        mob.lookAt(target, 20, 20);
                         super.tick(level, mob, gameTime);
                     }
                 },
