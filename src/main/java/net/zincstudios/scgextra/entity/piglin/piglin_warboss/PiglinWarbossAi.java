@@ -166,7 +166,6 @@ public class PiglinWarbossAi {
         if (hardness < 0) return false;  // Unbreakable
         if (hardness >= 8) return false;  // Ex. Iron Block: 5, Stone: 1.5
 
-        return (state.is(BlockTags.MINEABLE_WITH_SHOVEL) || state.is(BlockTags.MINEABLE_WITH_HOE) || state.is(BlockTags.LEAVES) || state.is(BlockTags.MINEABLE_WITH_PICKAXE) || state.is(BlockTags.MINEABLE_WITH_AXE))
-                && !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
+        return !state.is(BlockTags.NEEDS_DIAMOND_TOOL);
     }
 }

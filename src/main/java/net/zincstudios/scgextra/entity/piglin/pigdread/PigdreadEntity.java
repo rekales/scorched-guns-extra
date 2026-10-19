@@ -12,6 +12,7 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -69,6 +70,8 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         20, 
         20
     );
+
+    static int deathAnimTime = 40;
 
     private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PigdreadEntity.class, EntityDataSerializers.LONG);
 
@@ -134,10 +137,15 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
             return PlayState.STOP;
         }));
 
-        controllers.add(new AnimationController<>(this, "behavior", 0, state -> {
+        controllers.add(new ExpandedAnimationController<>(this, "behavior", 0, state -> {
             return PlayState.CONTINUE;
         })
-            .triggerableAnim("melee", ATTACK)
+            .triggerableAnim("melee", (ctr) -> {
+                if(!(this.deathTime > 0 && this.deathTime <= deathAnimTime)){
+                    return ATTACK;
+                }
+                return RawAnimation.begin();
+            })
             .triggerableAnim("shoot", SHOOT)
         );
     }
@@ -239,7 +247,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     }
     @Override
     protected void tickDeath() {
-        MobUtil.tickDeath(this, 40);
+        MobUtil.tickDeath(this, deathAnimTime);
     }
     @Override
     protected void defineSynchedData() {

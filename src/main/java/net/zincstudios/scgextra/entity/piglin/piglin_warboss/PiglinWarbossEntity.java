@@ -92,6 +92,8 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
 
     public boolean isScreaming = false;
 
+    static int deathAnimTime = 40;
+
     public PiglinWarbossEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.BarrelRight = new AttachedMountedGun(this,
@@ -175,7 +177,12 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
         controllers.add(new ExpandedAnimationController<>(this, "behavior", 0, state -> {
             return PlayState.CONTINUE;
         })
-            .triggerableAnim("melee", ATTACK)
+            .triggerableAnim("melee", (ctr) -> {
+                if(!(this.deathTime > 0 && this.deathTime <= deathAnimTime)){
+                    return ATTACK;
+                }
+                return RawAnimation.begin();
+            })
             .triggerableAnim("scream", SCREAM)
             .triggerableAnim("shoot", (ctr)->{
                 if (((this.getX() - this.xo)*(this.getX() - this.xo))+((this.getZ() - this.zo)*(this.getZ() - this.zo))>0.0002) {
@@ -203,7 +210,7 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
 
     @Override
     protected void tickDeath() {
-        MobUtil.tickDeath(this, 40);
+        MobUtil.tickDeath(this, deathAnimTime);
     }
 
     @Override

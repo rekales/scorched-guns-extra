@@ -12,6 +12,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 public class Scream extends Behavior<Mob>{
@@ -51,6 +52,7 @@ public class Scream extends Behavior<Mob>{
         this.ticks++;
         owner.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         owner.getNavigation().stop();
+        owner.setDeltaMovement(Vec3.ZERO);
         List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(8));
         for(LivingEntity en : list){
             en.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 2));

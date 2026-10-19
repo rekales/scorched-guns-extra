@@ -55,7 +55,7 @@ public class ChargeAtTarget extends Behavior<Mob>{
             owner.getBrain().setMemoryWithExpiry(ModBrainMemories.ABILITY_STATE.get(), new AbilityState("charge_state", gameTime, gameTime+400), 400);
         }
         LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-        owner.getLookControl().setLookAt(target, 30.0F, 30.0F);
+        owner.lookAt(target, 30.0F, 30.0F);
         Vec3 direction = target.position().subtract(owner.position());
         this.ramDirection = new Vec3(direction.x, 0.0D, direction.z).normalize();
         owner.setDeltaMovement(
