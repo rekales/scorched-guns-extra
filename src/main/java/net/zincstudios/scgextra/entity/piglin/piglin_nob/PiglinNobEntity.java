@@ -6,6 +6,7 @@ import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.entity.piglin.AggroableMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -29,7 +30,7 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner{
+public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner, AggroableMob{
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -126,20 +127,13 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
     public void tick() {
         super.tick();
         // this.tickSubEntities();
-        //maybe do a better implementation?
         if(!this.level().isClientSide){
-            if(this.aggroTicks>0)this.aggroTicks--;
+            this.updateAggroTicks();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_NOB_ATTACK.get());
             }
-            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
-                this.triggerAnim("attack", "aggroed");
-                this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
-                this.aggroed = true;
-                this.aggroTicks = 50;
-            }
-            if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+            if(!this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
                 this.aggroed = false;
             }
         }
@@ -173,4 +167,26 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         MobUtil.tickDeath(this, 25);
     }
 
+    @Override
+    public int getAggroTicks() {
+        return this.aggroTicks;
+    }
+
+    @Override
+    public boolean isAggro() {
+        return this.aggroed;
+    }
+
+    @Override
+    public void updateAggroTicks() {
+        if(this.aggroTicks>0)this.aggroTicks--;
+    }
+
+    @Override
+    public void setAggro(int ticks) {
+        this.aggroed = true;
+        this.aggroTicks = 50;
+        this.triggerAnim("attack", "aggroed");
+        this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+    }
 }

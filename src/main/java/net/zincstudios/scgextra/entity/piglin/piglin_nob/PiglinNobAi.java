@@ -12,6 +12,7 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import net.zincstudios.scgextra.entity.piglin.Aggro;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -83,7 +84,8 @@ public class PiglinNobAi {
                             mob.getOffhandItem().getItem().hurtEnemy(mob.getOffhandItem(), target, mob);
                         }
                     }
-                }
+                },
+                new Aggro(50)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }
