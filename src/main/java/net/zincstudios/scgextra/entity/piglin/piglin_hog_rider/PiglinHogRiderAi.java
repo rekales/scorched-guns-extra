@@ -42,6 +42,8 @@ public class PiglinHogRiderAi {
             MemoryModuleType.ATTACK_COOLING_DOWN,
             ModBrainMemories.DELAYED_MELEE.get(),
             ModBrainMemories.STUNNED.get(),
+            ModBrainMemories.STUNNED_COOLING_DOWN.get(),
+            ModBrainMemories.HEADSHOT_COUNT.get(),
             ModBrainMemories.ABILITY_STATE.get()
     );
 

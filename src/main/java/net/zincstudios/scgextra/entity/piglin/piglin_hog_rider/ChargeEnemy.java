@@ -67,7 +67,6 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
             target.knockback(3, owner.getX() - target.getX(), owner.getZ() - target.getZ());
             owner.doHurtTarget(target);
             this.charged = true;
-            owner.getBrain().setMemoryWithExpiry(ModBrainMemories.STUNNED.get(), true, PiglinHogRiderEntity.instance.getStunDuration());
         }
     }
     @Override
