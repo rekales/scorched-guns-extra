@@ -56,6 +56,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
         }
         LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
         owner.getLookControl().setLookAt(target, 30.0F, 30.0F);
+        owner.getNavigation().moveTo(target, 1.0f);//navigation while adding delta movement makes it un-stuck itself most of the time
         Vec3 direction = target.position().subtract(owner.position());
         this.ramDirection = new Vec3(direction.x, 0.0D, direction.z).normalize();
         owner.setDeltaMovement(
