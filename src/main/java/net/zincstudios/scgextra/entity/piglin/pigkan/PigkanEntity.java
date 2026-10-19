@@ -2,10 +2,10 @@ package net.zincstudios.scgextra.entity.piglin.pigkan;
 
 import com.mojang.serialization.Dynamic;
 
-import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
+import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;

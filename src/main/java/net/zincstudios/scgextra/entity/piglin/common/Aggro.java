@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.piglin;
+package net.zincstudios.scgextra.entity.piglin.common;
 
 import com.google.common.collect.ImmutableMap;
 

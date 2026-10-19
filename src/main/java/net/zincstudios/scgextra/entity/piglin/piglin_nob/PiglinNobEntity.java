@@ -6,7 +6,7 @@ import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.zincstudios.scgextra.entity.piglin.AggroableMob;
+import net.zincstudios.scgextra.entity.piglin.common.AggroableMob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;

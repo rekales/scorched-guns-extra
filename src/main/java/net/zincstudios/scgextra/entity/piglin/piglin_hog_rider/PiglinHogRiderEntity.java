@@ -2,8 +2,8 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 
 import com.mojang.serialization.Dynamic;
 
-import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
+import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.minecraft.core.BlockPos;

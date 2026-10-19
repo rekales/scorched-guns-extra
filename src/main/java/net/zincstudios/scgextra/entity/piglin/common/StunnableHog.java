@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.piglin;
+package net.zincstudios.scgextra.entity.piglin.common;
 
 //MAYBE MAKE BETTER?
 /**

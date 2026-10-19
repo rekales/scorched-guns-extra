@@ -1,9 +1,9 @@
 package net.zincstudios.scgextra.entity.piglin.piglin_warboss;
 
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
-import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;

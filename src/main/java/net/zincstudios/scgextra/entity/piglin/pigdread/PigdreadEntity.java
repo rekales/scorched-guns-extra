@@ -3,12 +3,12 @@ package net.zincstudios.scgextra.entity.piglin.pigdread;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.MountedGun;
+import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.entity.piglin.piglin_blaze_kopter.PiglinBlazeKopterProjectile;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 import com.mojang.serialization.Dynamic;
 
-import net.zincstudios.scgextra.entity.piglin.StunnableHog;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;

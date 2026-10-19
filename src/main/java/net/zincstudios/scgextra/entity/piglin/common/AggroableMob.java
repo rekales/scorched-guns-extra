@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.piglin;
+package net.zincstudios.scgextra.entity.piglin.common;
 
 //interface to keep track of mobs
 public interface AggroableMob {
