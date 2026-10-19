@@ -7,6 +7,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.minecraft.world.phys.Vec3;
+
 
 public class Aggro extends Behavior<Mob>{
     private final int ticks;
@@ -39,5 +41,6 @@ public class Aggro extends Behavior<Mob>{
     protected void tick(ServerLevel level, Mob owner, long gameTime) {
         owner.getBrain().eraseMemory(MemoryModuleType.WALK_TARGET);
         owner.getNavigation().stop();
+        owner.setDeltaMovement(Vec3.ZERO);
     }
 }

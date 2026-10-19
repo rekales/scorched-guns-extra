@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.MobUtil;
+import net.zincstudios.scgextra.entity.piglin.common.AggroableMob;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -42,7 +43,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import top.ribs.scguns.init.ModEffects;
 import top.ribs.scguns.init.ModTags;
 
-public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantHolder<Integer>{
+public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantHolder<Integer>, AggroableMob{
 
     private static final EntityDataAccessor<Integer> MODEL_VARIANT =
             SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.INT);
@@ -111,7 +112,8 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
                 }else if(PiglinHogRiderEntity.instance.isEnd(state.getAnimatable().getTicksRemaining())){
                     state.setAnimation(STUN_END);
                 }
-            }else if(state.getAnimatable().isCharging()){
+            }else if (state.isCurrentAnimation(AGGROED)){}
+            else if(state.getAnimatable().isCharging()){
                 if(state.getAnimatable().isStart(state.getAnimatable().getChargeTicksRemaining())){
                     state.setAnimation(CHARGE_START);
                 }else if(state.getAnimatable().isMiddle(state.getAnimatable().getChargeTicksRemaining())){
@@ -119,13 +121,11 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
                 }else if(state.getAnimatable().isEnd(state.getAnimatable().getChargeTicksRemaining())){
                     state.setAnimation(CHARGE_END);
                 }
-            }else if (!state.isCurrentAnimation(AGGROED)){
-                if (state.isMoving()) {
-                    state.setAndContinue(WALK);
-                } else {
-                    state.setAndContinue(IDLE);
-                }   
-            }
+            }else if (state.isMoving()) {
+                state.setAndContinue(WALK);
+            } else {
+                state.setAndContinue(IDLE);
+            }   
             return PlayState.CONTINUE;
         }));
 
@@ -224,16 +224,10 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     public void tick() {
         super.tick();
         if(!this.level().isClientSide){
-            if(this.aggroTicks>0)this.aggroTicks--;
+            this.updateAggroTicks();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ATTACK.get());
-            }
-            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
-                this.triggerAnim("attack", "aggro");
-                this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
-                this.aggroTicks = 50;
-                this.aggroed = true;
             }
             if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
                 this.aggroed = false;
@@ -328,5 +322,28 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     }
     public boolean isCharging(){
         return this.entityData.get(CHARGE_TICKS) > 0;
+    }
+
+    @Override
+    public int getAggroTicks() {
+        return this.aggroTicks;
+    }
+
+    @Override
+    public boolean isAggro() {
+        return this.aggroed;
+    }
+
+    @Override
+    public void updateAggroTicks() {
+        if(this.aggroTicks>0)this.aggroTicks--;
+    }
+
+    @Override
+    public void setAggro(int ticks) {
+        this.aggroed = true;
+        this.aggroTicks = ticks;
+        this.triggerAnim("attack", "aggro");
+        this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
     }
 }

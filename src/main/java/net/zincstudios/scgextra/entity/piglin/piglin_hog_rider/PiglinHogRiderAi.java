@@ -11,6 +11,7 @@ import net.zincstudios.scgextra.entity.common.brain.AttackLastHurtIfNear;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
+import net.zincstudios.scgextra.entity.piglin.common.Aggro;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
@@ -74,7 +75,8 @@ public class PiglinHogRiderAi {
                         return super.canStillUse(level, mob, gameTime) && !mob.getBrain().hasMemoryValue(ModBrainMemories.ABILITY_STATE.get());
                     }
                 },
-                new ChargeEnemy<>(240, 400)
+                new ChargeEnemy<>(240, 400),
+                new Aggro(40)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 
