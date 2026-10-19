@@ -91,6 +91,49 @@
 					]
 				},
 				{
+					"name": "bone",
+					"parent": "hog head",
+					"pivot": [-7.25, 29, 14]
+				},
+				{
+					"name": "bone2",
+					"parent": "bone",
+					"pivot": [-7.25, 29, 14],
+					"cubes": [
+						{
+							"origin": [-8.25, 23, -32],
+							"size": [0, 15, 9],
+							"uv": {
+								"north": {"uv": [212, 90], "uv_size": [2, 77]},
+								"east": {"uv": [202, 179], "uv_size": [53, 77]},
+								"south": {"uv": [243, 99], "uv_size": [2, 77]},
+								"west": {"uv": [202, 179], "uv_size": [53, 77]},
+								"up": {"uv": [233, 129], "uv_size": [2, 46]},
+								"down": {"uv": [224, 175], "uv_size": [2, -46]}
+							}
+						}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "bone",
+					"pivot": [9.25, 29, 14],
+					"cubes": [
+						{
+							"origin": [8.25, 23, -32],
+							"size": [0, 15, 9],
+							"uv": {
+								"north": {"uv": [212, 90], "uv_size": [2, 77]},
+								"east": {"uv": [202, 179], "uv_size": [53, 77]},
+								"south": {"uv": [243, 99], "uv_size": [2, 77]},
+								"west": {"uv": [202, 179], "uv_size": [53, 77]},
+								"up": {"uv": [233, 129], "uv_size": [2, 46]},
+								"down": {"uv": [224, 175], "uv_size": [2, -46]}
+							}
+						}
+					]
+				},
+				{
 					"name": "nob",
 					"parent": "hog body",
 					"pivot": [0, 61, -6]
