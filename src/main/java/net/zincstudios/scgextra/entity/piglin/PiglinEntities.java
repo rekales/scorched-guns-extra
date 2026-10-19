@@ -47,7 +47,7 @@ public class PiglinEntities {
                     .sized(1.375F, 2.75F).build("piglin_strider_rider"));
     public static final RegistryObject<EntityType<PiglinHogRiderEntity>> PIGLIN_HOG_RIDER = ENTITY_TYPES
             .register("piglin_hog_rider", () -> EntityType.Builder.of(PiglinHogRiderEntity::new, MobCategory.MONSTER)
-                    .sized(2.8125F, 4F).build("piglin_hog_rider"));
+                    .sized(2F, 3.6875F).build("piglin_hog_rider"));
     public static final RegistryObject<EntityType<PiglinBlazeKopterEntity>> PIGLIN_BLAZE_KOPTER = ENTITY_TYPES
             .register("piglin_blaze_kopter", () -> EntityType.Builder.of(PiglinBlazeKopterEntity::new, MobCategory.MONSTER)
                     .sized(2.37500F, 1.6875F).build("piglin_blaze_kopter"));

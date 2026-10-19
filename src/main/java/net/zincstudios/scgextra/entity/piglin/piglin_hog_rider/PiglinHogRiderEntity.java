@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 
 import com.mojang.serialization.Dynamic;
 
+import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.piglin.common.AggroableMob;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
@@ -33,6 +34,8 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -84,11 +87,15 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         20
     );
 
-    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.LONG);
+    private final PartEntity<?>[] subEntities;
 
+    private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.LONG);
 
     public PiglinHogRiderEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.subEntities = new PartEntity[] {
+           new RotatedSegmentPartEntity<>(this, new Vec3(0/16f, 12/16f, -30/16f * -1f), 22/16f, 22/16f)
+        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -223,6 +230,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
     @Override
     public void tick() {
         super.tick();
+        this.tickSubEntities();
         if(!this.level().isClientSide){
             this.updateAggroTicks();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
@@ -345,5 +353,27 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.aggroTicks = ticks;
         this.triggerAnim("attack", "aggro");
         this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subEntities;
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return true;
+    }
+
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
+            this.subEntities[i].setId(id + i + 1);
+    }
+    protected void tickSubEntities() {
+        for(PartEntity<?> partEntity : this.getParts()) {
+            partEntity.tick();
+        }
     }
 }
