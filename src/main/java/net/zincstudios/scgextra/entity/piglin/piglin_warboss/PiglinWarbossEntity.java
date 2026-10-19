@@ -90,6 +90,8 @@ public class PiglinWarbossEntity extends Monster implements GeoEntity, Gunner, B
     private final ServerBossEvent bossEvent =
         new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
 
+    public boolean isScreaming = false;
+
     public PiglinWarbossEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
         this.BarrelRight = new AttachedMountedGun(this,

@@ -38,6 +38,12 @@ public class Scream extends Behavior<Mob>{
         this.cooldown = this.cooldownDuration;
         if(entity instanceof PiglinWarbossEntity pe)pe.triggerAnim("behavior", "scream");
         this.ticks = 0;
+        if(entity instanceof PiglinWarbossEntity pe){pe.isScreaming = true;};
+    }
+
+    @Override
+    protected void stop(ServerLevel level, Mob entity, long gameTime) {
+        if(entity instanceof PiglinWarbossEntity pe){pe.isScreaming = false;};
     }
 
     @Override

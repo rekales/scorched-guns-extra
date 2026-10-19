@@ -97,23 +97,23 @@ public class PiglinWarbossAi {
                 )){
                     @Override
                     protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
-                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                        return super.checkExtraStartConditions(level, mob) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() && !pe.isScreaming : true);
                     }
 
                     @Override
                     protected boolean canStillUse(ServerLevel level, Mob mob, long gameTime) {
-                        return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                        return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() && !pe.isScreaming : true);
                     }
                 },
                 new BreakBlocksToTarget(PiglinWarbossAi::canBreakWithShovel, 20),
                 new MountedShotgunShoot(240,13,4){
                     @Override
                     protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
-                        return super.checkExtraStartConditions(level, entity) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                        return super.checkExtraStartConditions(level, entity) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() && !pe.isScreaming : true);
                     }
                     @Override
                     protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
-                        return super.canStillUse(level, entity, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() : true);
+                        return super.canStillUse(level, entity, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() && !pe.isScreaming : true);
                     }
                 },
                 new Summon(600, List.of(

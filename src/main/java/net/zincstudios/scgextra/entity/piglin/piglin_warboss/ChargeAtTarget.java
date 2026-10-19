@@ -33,7 +33,7 @@ public class ChargeAtTarget extends Behavior<Mob>{
     protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
         if(this.cooldown>0)this.cooldown--;
         if(owner.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
-            return owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) < this.maxDistance && this.cooldown<=0;
+            return owner.distanceToSqr(owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get()) < this.maxDistance && this.cooldown<=0 && ((owner instanceof PiglinWarbossEntity pe) ? !pe.isScreaming : true);
         }
         return false;
     }

@@ -65,7 +65,7 @@ public class PigkanAi {
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
                 SetWalkTargetFromAttackTargetIfTargetOutOfReach.create(1.0F),
-                new PigkanDelayedMeleeAttack(4f, 20)
+                new PigkanDelayedMeleeAttack(4f, 10)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 
