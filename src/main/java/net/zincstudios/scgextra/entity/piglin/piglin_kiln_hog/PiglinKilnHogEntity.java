@@ -86,7 +86,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         super(entityType, level);
         this.mountedShotGunLeft = new AttachedMountedGun(
             this, 
-            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+            new CustomScorchedSimGun.Builder(ModItems.SPITFIRE.get().getGun())
                 .projectileDamage(15f)
                 .fireRate(1)
                 .maxRange(20)
@@ -99,7 +99,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         );
         this.mountedShotGunRight = new AttachedMountedGun(
             this, 
-            new CustomScorchedSimGun.Builder(ModItems.BLASPHEMY.get().getGun())
+            new CustomScorchedSimGun.Builder(ModItems.SPITFIRE.get().getGun())
                 .projectileDamage(15f)
                 .fireRate(1)
                 .maxRange(20)
