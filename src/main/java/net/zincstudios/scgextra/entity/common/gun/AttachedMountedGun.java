@@ -8,8 +8,11 @@ import java.util.function.Predicate;
 
 public class AttachedMountedGun extends MountedGun{
 
+    public final SimulatedGun gun;
+
     public AttachedMountedGun(LivingEntity parent, SimulatedGun gun, Vec3 gunPosition, Predicate<LivingEntity> canShoot) {
         super(parent, gun, gunPosition, canShoot);
+        this.gun = gun;
     }
 
     @Override

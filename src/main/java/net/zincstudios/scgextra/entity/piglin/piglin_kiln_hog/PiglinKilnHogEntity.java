@@ -5,7 +5,6 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
-import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.SCGExtra;
@@ -58,8 +57,8 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
-    public final MountedGun mountedShotGunLeft;
-    public final MountedGun mountedShotGunRight;
+    public final AttachedMountedGun mountedShotGunLeft;
+    public final AttachedMountedGun mountedShotGunRight;
 
     public Vec3 bulletOffsetL = new Vec3(-28/16f, 32/16f, -40/16f * -1);
     public Vec3 bulletOffsetR = new Vec3(28/16f, 32/16f, -40/16f * -1);
