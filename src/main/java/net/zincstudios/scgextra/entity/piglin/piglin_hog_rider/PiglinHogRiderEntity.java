@@ -138,7 +138,6 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
-                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
@@ -376,5 +375,10 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         for(PartEntity<?> partEntity : this.getParts()) {
             partEntity.tick();
         }
+    }
+    @Override
+    public void die(DamageSource damageSource) {
+        this.stopTriggeredAnimation("attack", null);
+        super.die(damageSource);
     }
 }

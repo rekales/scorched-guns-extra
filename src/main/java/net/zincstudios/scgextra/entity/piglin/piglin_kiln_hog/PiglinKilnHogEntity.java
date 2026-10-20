@@ -148,7 +148,6 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
-                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
@@ -313,5 +312,10 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public boolean hurt(DamageSource source, float amount) {
         if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
         return super.hurt(source, amount);
+    }
+    @Override
+    public void die(DamageSource damageSource) {
+        this.stopTriggeredAnimation("behavior", null);
+        super.die(damageSource);
     }
 }

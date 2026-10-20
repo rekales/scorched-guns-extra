@@ -76,7 +76,6 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
         controllers.add(new AnimationController<>(this, "death", 2, state -> {
             if (state.getAnimatable().isDeadOrDying()) {
-                if(!state.isCurrentAnimation(DEATH))state.getController().stop();
                 return state.setAndContinue(DEATH);
             }
             return PlayState.STOP;
@@ -189,5 +188,10 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         this.aggroTicks = ticks;
         this.triggerAnim("attack", "aggroed");
         this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+    }
+    @Override
+    public void die(DamageSource damageSource) {
+        this.stopTriggeredAnimation("attack", null);
+        super.die(damageSource);
     }
 }
