@@ -5,6 +5,7 @@ import com.mojang.serialization.Dynamic;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
 import net.zincstudios.scgextra.entity.common.gun.AttachedMountedGun;
+import net.zincstudios.scgextra.entity.piglin.common.AggroableMob;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.zincstudios.scgextra.SCGExtra;
@@ -42,7 +43,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import top.ribs.scguns.init.ModItems;
 
-public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, BulletSpawnOffset {
+public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, BulletSpawnOffset, AggroableMob{
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -64,6 +65,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public Vec3 bulletOffsetR = new Vec3(28/16f, 32/16f, -40/16f * -1);
 
     private boolean aggroed = false;
+    public int aggroTicks = 0;
 
     static int MELEE_DELAY = 18;
     static int MELEE_DURATION = 30;
@@ -212,16 +214,12 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         super.tick();
         if(!this.level().isClientSide()){
             this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+            this.updateAggroTicks();
             this.updateLavaPhase();
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("behavior", "melee");
             }
-            if(this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent() && !this.aggroed){
-                this.triggerAnim("behavior", "aggro");
-                this.aggroed = true;
-                this.playSound(PiglinSounds.PIGLIN_KILN_HOG_GROWL.get());
-            }
-            if(!this.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).isPresent()){
+            if(!this.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
                 this.aggroed = false;
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
@@ -317,5 +315,28 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
     public void die(DamageSource damageSource) {
         this.stopTriggeredAnimation("behavior", null);
         super.die(damageSource);
+    }
+
+    @Override
+    public int getAggroTicks() {
+        return this.aggroTicks;
+    }
+
+    @Override
+    public boolean isAggro() {
+        return this.aggroed;
+    }
+
+    @Override
+    public void updateAggroTicks() {
+        if(this.aggroTicks>0)this.aggroTicks--;
+    }
+
+    @Override
+    public void setAggro(int ticks) {
+        this.aggroed = true;
+        this.aggroTicks = ticks;
+        this.triggerAnim("behavior", "aggro");
+        this.playSound(PiglinSounds.PIGLIN_KILN_HOG_GROWL.get(), 2.0f, this.getVoicePitch());
     }
 }

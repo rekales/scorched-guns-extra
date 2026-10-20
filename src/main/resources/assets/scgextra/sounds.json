@@ -2015,21 +2015,21 @@
     "category": "neutral",
     "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.defeat",
     "sounds": [
-      "scgextra:piglin/pigdread/defeat"
+      "scgextra:piglin/piglin_kiln_hog/defeat"
     ]
   },
   "piglin.piglin_kiln_hog.growl": {
     "category": "neutral",
     "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.growl",
     "sounds": [
-      "scgextra:piglin/pigdread/growl"
+      "scgextra:piglin/piglin_kiln_hog/growl"
     ]
   },
   "piglin.piglin_kiln_hog.idle": {
     "category": "neutral",
     "subtitle": "scgextra.subtitle.piglin.piglin_kiln_hog.idle",
     "sounds": [
-      "scgextra:piglin/pigdread/idle"
+      "scgextra:piglin/piglin_kiln_hog/idle"
     ]
   },
   "piglin.piglin_warboss.death": {

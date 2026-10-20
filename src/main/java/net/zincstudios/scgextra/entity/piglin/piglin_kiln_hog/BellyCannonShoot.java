@@ -34,12 +34,12 @@ public class BellyCannonShoot extends Behavior<Mob>{
     @Override
     protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
         if(this.cooldown>0)this.cooldown--;
-        return this.cooldown <= 0 && !owner.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()) && owner.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+        return this.cooldown <= 0 && !owner.getBrain().hasMemoryValue(ModBrainMemories.DELAYED_MELEE.get()) && owner.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && ((owner instanceof PiglinKilnHogEntity pke) ? pke.aggroTicks <= 0 : true);
     }
 
     @Override
     protected boolean canStillUse(ServerLevel level, Mob entity, long gameTime) {
-        return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET);
+        return entity.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET) && ((entity instanceof PiglinKilnHogEntity pke) ? pke.aggroTicks <= 0 : true);
     }
 
     @Override
