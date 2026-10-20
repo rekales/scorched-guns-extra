@@ -53,14 +53,14 @@ public class Scream extends Behavior<Mob>{
         owner.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
         owner.getNavigation().stop();
         owner.setDeltaMovement(Vec3.ZERO);
-        List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(8));
+        List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, owner.getBoundingBox().inflate(16));
         for(LivingEntity en : list){
             en.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 2));
             en.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 1));
             en.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1));
         }
         if(this.ticks == 25){
-            owner.playSound(PiglinSounds.PIGLIN_WARBOSS_SCREAM.get());
+            owner.playSound(PiglinSounds.PIGLIN_WARBOSS_SCREAM.get(), 1.5f, owner.getVoicePitch());
         }
     }
 
