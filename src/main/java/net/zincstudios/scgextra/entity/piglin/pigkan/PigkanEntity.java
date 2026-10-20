@@ -104,7 +104,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
             .add(Attributes.FOLLOW_RANGE, 128.0D)
-            .add(Attributes.MOVEMENT_SPEED, 0.31F)
+            .add(Attributes.MOVEMENT_SPEED, 0.32F)
             .add(Attributes.ATTACK_DAMAGE, 30.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.9D)
             .add(Attributes.ARMOR, 6.0D)
@@ -202,7 +202,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
 
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
-        this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+        this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.35F, this.getVoicePitch());
     }
     @Override
     protected SoundEvent getDeathSound() {
