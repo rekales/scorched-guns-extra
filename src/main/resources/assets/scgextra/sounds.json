@@ -1863,6 +1863,13 @@
       "scgextra:piglin/piglin_hog_rider/stun_03"
     ]
   },
+  "piglin.piglin_hog_rider.roar": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.piglin_hog_rider.roar",
+    "sounds": [
+      "scgextra:piglin/piglin_hog_rider/roar"
+    ]
+  },
   "piglin.piglin_strider_rider.attack": {
     "category": "neutral",
     "subtitle": "scgextra.subtitle.piglin.piglin_strider_rider.attack",

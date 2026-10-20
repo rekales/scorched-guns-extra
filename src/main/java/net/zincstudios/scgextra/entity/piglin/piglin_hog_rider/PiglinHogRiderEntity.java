@@ -242,6 +242,9 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
                 this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
+                if(this.getTicksRemaining() == PiglinHogRiderEntity.instance.getStunDuration()){
+                    this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_STUN.get());
+                }
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
@@ -353,6 +356,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.aggroTicks = ticks;
         this.triggerAnim("attack", "aggro");
         this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+        this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ROAR.get());
     }
 
     @Override

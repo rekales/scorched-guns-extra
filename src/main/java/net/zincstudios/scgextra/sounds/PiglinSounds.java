@@ -30,6 +30,9 @@ public class PiglinSounds {
 
     public static final RegistryObject<SoundEvent> PIGLIN_HOG_RIDER_STUN = SOUND_EVENTS.register("piglin.piglin_hog_rider.stun",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_hog_rider.stun")));
+
+    public static final RegistryObject<SoundEvent> PIGLIN_HOG_RIDER_ROAR = SOUND_EVENTS.register("piglin.piglin_hog_rider.roar",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.piglin_hog_rider.roar")));
     
     //PIGLIN STRIDER RIDER
     public static final RegistryObject<SoundEvent> PIGLIN_STRIDER_RIDER_ATTACK = SOUND_EVENTS.register("piglin.piglin_strider_rider.attack",
