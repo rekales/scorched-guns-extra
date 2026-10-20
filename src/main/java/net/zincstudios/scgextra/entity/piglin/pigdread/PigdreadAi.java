@@ -92,7 +92,7 @@ public class PigdreadAi {
                     200,
                     200
                 )),
-                new MountedShotgunShoot(120,13,8),
+                new MountedShotgunShoot(60,13,8),
                 new SpeedBuff(300,60),
                 new Summon(800, List.of(
                     PiglinEntities.PIGKAN.get(),

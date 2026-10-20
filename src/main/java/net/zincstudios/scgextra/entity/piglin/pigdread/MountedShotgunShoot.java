@@ -59,10 +59,19 @@ public class MountedShotgunShoot extends Behavior<Mob>{
         this.ticks++;
         if(this.numberOfShots>=2)return;
         if(entity instanceof PigdreadEntity owner){
+            LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
+            double dX = target.getX() - owner.getX();
+            double dY = target.getEyeY() - owner.getEyeY();
+            double dZ = target.getZ() - owner.getZ();
+            double dist = Math.sqrt(dX * dX + dZ * dZ);
+            float yaw = (float) (Math.atan2(dZ, dX) * (180D / Math.PI)) - 90.0F;
+            float pitch = (float) -(Math.atan2(dY, dist) * (180D / Math.PI));
+            owner.setYRot(yaw);
+            owner.setXRot(pitch);
+            owner.setYHeadRot(yaw);
             if(this.ticks>this.startAnimDuration){
                 if(this.timer>0)this.timer--;
                 if(this.timer <= 0){
-                    LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
                     this.numberOfShots++;
                     this.timer = this.shootEvery;
                     owner.mountedShotGun.tick(target, this.accuracyFunc.apply(entity, true));

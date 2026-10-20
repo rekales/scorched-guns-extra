@@ -58,7 +58,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     private static final RawAnimation STUN_END = RawAnimation.begin().thenPlay("stun_end");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
-    private static Vec3 offset = new Vec3(-38/16, 33/16, -39/16*-1);
+    private static Vec3 offset = new Vec3(38/16, 33/16, -39/16*-1);
 
     public final MountedGun mountedShotGun;
 
@@ -177,9 +177,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         this.getBrain().tick((ServerLevel)this.level(), this);
         PigdreadAi.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
-        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
-            this.setYBodyRot(this.getYHeadRot());
-        }
+        this.setYBodyRot(this.getYHeadRot());
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
