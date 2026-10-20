@@ -1927,6 +1927,13 @@
       "scgextra:piglin/pigkan/idle_04"
     ]
   },
+  "piglin.pigkan.death": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigkan.death",
+    "sounds": [
+      "scgextra:piglin/pigkan/death"
+    ]
+  },
   "piglin.general.claw": {
     "category": "neutral",
     "subtitle": "scgextra.subtitle.piglin.general.claw",

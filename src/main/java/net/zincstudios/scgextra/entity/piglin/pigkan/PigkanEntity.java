@@ -6,6 +6,7 @@ import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
+import net.zincstudios.scgextra.sounds.FACSounds;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -163,6 +164,10 @@ public class PigkanEntity extends Monster implements GeoEntity{
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
                 this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
+                if(this.getTicksRemaining() == PigkanEntity.instance.getStunDuration()){
+                    this.playSound(FACSounds.FAC_TANK_STUN.get());
+                    this.stopTriggeredAnimation("attack", null);
+                }
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
@@ -207,12 +212,11 @@ public class PigkanEntity extends Monster implements GeoEntity{
         this.playSound(PiglinSounds.GENERAL_WALK.get(), this.getSoundVolume() * 0.35F, this.getVoicePitch());
     }
     @Override
-    protected SoundEvent getDeathSound() {
-        return PiglinSounds.PIGDREAD_DEATH.get();
-    }
-    @Override
     protected void tickDeath() {
         MobUtil.tickDeath(this, 40);
+        if(this.deathTime == 20){
+            this.playSound(PiglinSounds.PIGKAN_DEATH.get());
+        }
     }
     @Override
     protected void defineSynchedData() {
