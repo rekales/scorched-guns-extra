@@ -105,7 +105,7 @@ public class PiglinWarbossAi {
                         return super.canStillUse(level, mob, gameTime) && ((mob instanceof PiglinWarbossEntity pe) ? !pe.isCharging() && !pe.isScreaming : true);
                     }
                 },
-                new BreakBlocksToTarget(PiglinWarbossAi::canBreakWithShovel, 20),
+                new BreakBlocksToTarget(PiglinWarbossAi::canBreak, 20),
                 new MountedShotgunShoot(240,13,4){
                     @Override
                     protected boolean checkExtraStartConditions(ServerLevel level, Mob entity) {
@@ -158,7 +158,7 @@ public class PiglinWarbossAi {
             mob.getNavigation().stop();
         }
     }
-    private static boolean canBreakWithShovel(Level level, BlockPos pos) {
+    private static boolean canBreak(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) return false;
 

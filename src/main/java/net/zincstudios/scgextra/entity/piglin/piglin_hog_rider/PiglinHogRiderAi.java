@@ -84,7 +84,7 @@ public class PiglinHogRiderAi {
                 },
                 new ChargeEnemy<>(240, 400),
                 new Aggro(40),
-                new BreakBlocksToTarget(PiglinHogRiderAi::canBreakWithShovel, 20)
+                new BreakBlocksToTarget(PiglinHogRiderAi::canBreak, 20)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 
@@ -107,15 +107,11 @@ public class PiglinHogRiderAi {
         }
     }
 
-    private static boolean canBreakWithShovel(Level level, BlockPos pos) {
+    private static boolean canBreak(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) return false;
 
-        float hardness = state.getDestroySpeed(level, pos);
-        if (hardness < 0) return false;  // Unbreakable
-        if (hardness >= 8) return false;  // Ex. Iron Block: 5, Stone: 1.5
-
-        return !state.is(BlockTags.NEEDS_IRON_TOOL);
+        return state.is(BlockTags.LOGS) || state.is(BlockTags.DIRT) || state.is(BlockTags.SAND);
     }
 
 }

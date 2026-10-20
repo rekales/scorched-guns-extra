@@ -98,7 +98,7 @@ public class PigdreadAi {
                     PiglinEntities.PIGKAN.get(),
                     PiglinEntities.PIGLIN_BLAZE_KOPTER.get()
                 )),
-                new BreakBlocksToTarget(PigdreadAi::canBreakWithShovel, 20)
+                new BreakBlocksToTarget(PigdreadAi::canBreak, 20)
             )), ImmutableSet.of(
                 Pair.of(MemoryModuleType.ATTACK_TARGET, MemoryStatus.VALUE_PRESENT)
             ), ImmutableSet.of(
@@ -125,7 +125,7 @@ public class PigdreadAi {
             mob.getNavigation().stop();
         }
     }
-    private static boolean canBreakWithShovel(Level level, BlockPos pos) {
+    private static boolean canBreak(Level level, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         if (state.isAir()) return false;
 
