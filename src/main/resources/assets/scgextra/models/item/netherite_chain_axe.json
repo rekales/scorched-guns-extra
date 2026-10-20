@@ -18,8 +18,19 @@
 			"rotation": [-108, 90, 53],
 			"translation": [0, -4.25, 2]
 		},
+		"ground": {
+			"scale": [
+				0.45,
+				0.45,
+				0.45
+			]
+		},
 		"gui": {
-			"translation": [0, 0, 0]
+			"translation": [
+				-8,
+				-8,
+				0
+			]
 		}
 	},
 	"textures": {
