@@ -177,7 +177,6 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         this.getBrain().tick((ServerLevel)this.level(), this);
         PigdreadAi.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
-        this.setYBodyRot(this.getYHeadRot());
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
@@ -205,7 +204,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
 
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return PiglinSounds.GENERAL_HURT.get();
+        return PiglinSounds.PIGDREAD_HURT.get();
     }
 
     @Override

@@ -2001,7 +2001,8 @@
     "sounds": [
       "scgextra:piglin/pigdread/death_01",
       "scgextra:piglin/pigdread/death_02",
-      "scgextra:piglin/pigdread/death_03"
+      "scgextra:piglin/pigdread/death_03",
+      "scgextra:piglin/pigdread/death_04"
     ]
   },
   "piglin.pigdread.walk": {
@@ -2009,6 +2010,22 @@
     "subtitle": "scgextra.subtitle.piglin.pigdread.walk",
     "sounds": [
       "scgextra:piglin/pigdread/walk_01"
+    ]
+  },
+  "piglin.pigdread.speed": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigdread.speed",
+    "sounds": [
+      "scgextra:piglin/pigdread/speed"
+    ]
+  },
+  "piglin.pigdread.hurt": {
+    "category": "neutral",
+    "subtitle": "scgextra.subtitle.piglin.pigdread.hurt",
+    "sounds": [
+      "scgextra:piglin/pigdread/hurt_01",
+      "scgextra:piglin/pigdread/hurt_02",
+      "scgextra:piglin/pigdread/hurt_03"
     ]
   },
   "piglin.piglin_kiln_hog.defeat": {

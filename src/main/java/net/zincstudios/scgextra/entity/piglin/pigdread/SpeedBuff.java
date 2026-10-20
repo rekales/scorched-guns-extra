@@ -9,6 +9,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
+import net.zincstudios.scgextra.sounds.PiglinSounds;
 
 public class SpeedBuff extends Behavior<Mob>{
 
@@ -35,5 +36,6 @@ public class SpeedBuff extends Behavior<Mob>{
         super.start(level, entity, gameTime);
         this.cooldown = this.cooldownDuration;
         entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, speedDuration, 1, false, false));
+        entity.playSound(PiglinSounds.PIGDREAD_SPEED.get());
     }
 }

@@ -68,6 +68,10 @@ public class PiglinSounds {
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.death")));
     public static final RegistryObject<SoundEvent> PIGDREAD_WALK = SOUND_EVENTS.register("piglin.pigdread.walk",
             () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.walk")));
+    public static final RegistryObject<SoundEvent> PIGDREAD_HURT = SOUND_EVENTS.register("piglin.pigdread.hurt",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.hurt")));
+    public static final RegistryObject<SoundEvent> PIGDREAD_SPEED = SOUND_EVENTS.register("piglin.pigdread.speed",
+            () -> SoundEvent.createVariableRangeEvent(SCGExtra.asResource("piglin.pigdread.speed")));
 
     //GENERAL FOR ALL PIGLIN MOBS
     public static final RegistryObject<SoundEvent> GENERAL_CLAW = SOUND_EVENTS.register("piglin.general.claw",
