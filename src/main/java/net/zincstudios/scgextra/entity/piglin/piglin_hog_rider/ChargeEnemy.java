@@ -5,19 +5,19 @@ import com.google.common.collect.ImmutableMap;
 import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
-import net.minecraft.world.phys.Vec3;
 
 public class ChargeEnemy <T extends Mob> extends Behavior<T>{
 
     private final int cooldownDuration;
     private final int maxDistance;
     private int cooldown = 0;
-    private Vec3 ramDirection = Vec3.ZERO;
     private boolean charged = false;
 
     public ChargeEnemy(int cooldownDuration, int maxDistance) {
@@ -56,15 +56,8 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
         }
         LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
         owner.getLookControl().setLookAt(target, 30.0F, 30.0F);
-        owner.getNavigation().moveTo(target, 1.0f);//navigation while adding delta movement makes it un-stuck itself most of the time
-        Vec3 direction = target.position().subtract(owner.position());
-        this.ramDirection = new Vec3(direction.x, 0.0D, direction.z).normalize();
-        owner.setDeltaMovement(
-            this.ramDirection.x * 0.3f,
-            owner.getDeltaMovement().y,
-            this.ramDirection.z * 0.3f
-        );
-        if(owner.distanceToSqr(target)<=6){
+        owner.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 2, true, false));
+        if(owner.distanceToSqr(target)<=16){
             target.knockback(3, owner.getX() - target.getX(), owner.getZ() - target.getZ());
             owner.doHurtTarget(target);
             this.charged = true;
