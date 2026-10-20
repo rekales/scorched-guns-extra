@@ -192,9 +192,6 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         this.getBrain().tick((ServerLevel)this.level(), this);
         PiglinKilnHogAi.updateActivity(this);
         BrainCommons.updateMaxRangeAggressive(this);
-        if (this.getBrain().getMemory(ModBrainMemories.AIM_TICKS.get()).filter(aim -> aim > 5).isPresent()) {
-            this.setYBodyRot(this.getYHeadRot());
-        }
         this.level().getProfiler().pop();
         super.customServerAiStep();
     }
@@ -224,6 +221,9 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             }
             if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get())){
                 this.setTicksRemaining(this.getBrain().getTimeUntilExpiry(ModBrainMemories.STUNNED.get()));
+                if(this.getTicksRemaining() == PiglinKilnHogEntity.instance.getStunDuration()){
+                    this.stopTriggeredAnimation("behavior", null);
+                }
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }

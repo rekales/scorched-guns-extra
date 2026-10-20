@@ -55,7 +55,14 @@ public class PiglinKilnHogMountedShotgunGunShoot extends Behavior<Mob>{
         if(this.numberOfShots>=4)return;
         if(entity instanceof PiglinKilnHogEntity owner){
             LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
-            owner.lookAt(entity, 30, 30);
+            double dx = target.getX() - entity.getX();
+            double dz = target.getZ() - entity.getZ();
+            double dist = Math.sqrt(dx * dx + dz * dz);
+            float yaw = (float) (Math.atan2(dz, dx) * (180D / Math.PI)) - 90.0F;
+            float pitch = (float) -(Math.atan2(target.getEyeY() - entity.getEyeY(), dist) * (180D / Math.PI));
+            entity.setYRot(yaw);
+            entity.setXRot(pitch);
+            entity.setYHeadRot(yaw);
             if(this.ticks>this.startAnimDuration){
                 if(this.timer>0)this.timer--;
                 if(this.timer <= 0){
