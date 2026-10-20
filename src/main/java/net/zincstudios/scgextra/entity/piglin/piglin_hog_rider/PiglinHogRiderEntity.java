@@ -35,6 +35,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.entity.PartEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -105,6 +106,7 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         .add(Attributes.ATTACK_DAMAGE, 30.0D)
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
         .add(Attributes.ARMOR, 12.0D)
+        .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.8D)
         .add(Attributes.MAX_HEALTH, 200.0D);
     }
 

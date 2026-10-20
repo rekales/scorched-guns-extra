@@ -25,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeMod;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar;
@@ -108,6 +109,7 @@ public class PigkanEntity extends Monster implements GeoEntity{
             .add(Attributes.ATTACK_DAMAGE, 30.0D)
             .add(Attributes.KNOCKBACK_RESISTANCE, 0.9D)
             .add(Attributes.ARMOR, 6.0D)
+            .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 0.8D)
             .add(Attributes.MAX_HEALTH, 200.0D);
     }
 

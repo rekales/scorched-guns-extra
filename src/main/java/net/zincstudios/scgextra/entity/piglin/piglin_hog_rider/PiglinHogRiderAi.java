@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import net.zincstudios.scgextra.entity.common.brain.BreakBlocksToTarget;
 import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
@@ -12,7 +13,9 @@ import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.brain.BrainUtils;
 import net.zincstudios.scgextra.entity.common.brain.DelayedMeleeAttack;
 import net.zincstudios.scgextra.entity.piglin.common.Aggro;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.Brain;
@@ -22,6 +25,8 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class PiglinHogRiderAi {
         private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
@@ -78,7 +83,8 @@ public class PiglinHogRiderAi {
                     }
                 },
                 new ChargeEnemy<>(240, 400),
-                new Aggro(40)
+                new Aggro(40),
+                new BreakBlocksToTarget(PiglinHogRiderAi::canBreakWithShovel, 20)
         ), MemoryModuleType.ATTACK_TARGET);
     }
 
@@ -99,6 +105,17 @@ public class PiglinHogRiderAi {
             brain.stopAll((ServerLevel) mob.level(), mob);
             mob.getNavigation().stop();
         }
+    }
+
+    private static boolean canBreakWithShovel(Level level, BlockPos pos) {
+        BlockState state = level.getBlockState(pos);
+        if (state.isAir()) return false;
+
+        float hardness = state.getDestroySpeed(level, pos);
+        if (hardness < 0) return false;  // Unbreakable
+        if (hardness >= 8) return false;  // Ex. Iron Block: 5, Stone: 1.5
+
+        return !state.is(BlockTags.NEEDS_IRON_TOOL);
     }
 
 }
