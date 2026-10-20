@@ -2,7 +2,8 @@ package net.zincstudios.scgextra.entity.piglin.piglin_strider_rider;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -17,8 +18,9 @@ public class LavaWalkMoveControl extends MoveControl {
 
     private final float swimSpeedMult;
     private final boolean applyGravity;
+    private int ticks = 12;
 
-    public LavaWalkMoveControl(Mob mob, float swimSpeedMult, boolean applyGravity) {
+    public LavaWalkMoveControl(PiglinStriderRiderEntity mob, float swimSpeedMult, boolean applyGravity) {
         super(mob);
         this.swimSpeedMult = swimSpeedMult;
         this.applyGravity = applyGravity;
@@ -90,6 +92,15 @@ public class LavaWalkMoveControl extends MoveControl {
             }
         } else {
             super.tick();
+            if(this.mob.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
+                this.mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 2, true, false));
+                this.ticks++;
+                if(this.ticks>=12 && this.mob.onGround()){
+                    this.ticks = 0;
+                    Vec3 delta = this.mob.getDeltaMovement();
+                    this.mob.setDeltaMovement(new Vec3(delta.x, delta.y+0.6, delta.z));
+                }
+            }
         }
     }
 }

@@ -43,7 +43,7 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
-    private static final RawAnimation RUN = RawAnimation.begin().thenLoop("run");
+    private static final RawAnimation RUN = RawAnimation.begin().thenLoop("run_no_jump");
     private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay("attack");
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
