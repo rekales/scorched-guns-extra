@@ -9,11 +9,13 @@ import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
 import net.zincstudios.scgextra.sounds.FACSounds;
 import net.zincstudios.scgextra.sounds.PiglinSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -26,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -62,6 +65,9 @@ public class PigkanEntity extends Monster implements GeoEntity{
     );
 
     private static final EntityDataAccessor<Long> TICKS_REMAINING = SynchedEntityData.defineId(PigkanEntity.class, EntityDataSerializers.LONG);
+
+    static final Vec3 EXHAUST_1 = new Vec3(-8/16f, 48.25/16f, 21.75/16f*-1f);
+    static final Vec3 EXHAUST_2 = new Vec3(8/16f, 48.25/16f, 21.75/16f*-1f);
 
     public PigkanEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -171,6 +177,12 @@ public class PigkanEntity extends Monster implements GeoEntity{
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
+        }
+        if(this.tickCount%10==0){
+            Vec3 ex_pos_1 = this.position().add(PigkanEntity.EXHAUST_1.yRot(-this.yBodyRot * Mth.DEG_TO_RAD));
+            Vec3 ex_pos_2 = this.position().add(PigkanEntity.EXHAUST_2.yRot(-this.yBodyRot * Mth.DEG_TO_RAD));
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos_1.x, ex_pos_1.y, ex_pos_1.z, 0, 0.2, 0);
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos_2.x, ex_pos_2.y, ex_pos_2.z, 0, 0.2, 0);
         }
     }
 

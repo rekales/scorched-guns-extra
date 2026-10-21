@@ -14,6 +14,7 @@ import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.client.ExpandedAnimationController;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -59,6 +60,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
     private static final RawAnimation DEATH = RawAnimation.begin().thenPlayAndHold("death");
 
     private static Vec3 offset = new Vec3(38/16, 33/16, -39/16*-1);
+    static final Vec3 EXHAUST = new Vec3(0/16f, 71/16f, 20/16f*-1f);
 
     public final MountedGun mountedShotGun;
 
@@ -194,6 +196,10 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
+        }
+        if(this.tickCount%10==0){
+            Vec3 ex_pos = this.position().add(PigdreadEntity.EXHAUST.yRot(-this.yBodyRot * Mth.DEG_TO_RAD));
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos.x, ex_pos.y, ex_pos.z, 0, 0.2, 0);
         }
     }
 

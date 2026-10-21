@@ -14,6 +14,7 @@ import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -83,6 +84,8 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
 
     private final ServerBossEvent bossEvent =
             new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.YELLOW, BossEvent.BossBarOverlay.PROGRESS);
+
+    static final Vec3 EXHAUST = new Vec3(0/16f, 69/16f, 18/16f*-1f);
 
     public PiglinKilnHogEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -227,6 +230,12 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
             }else{
                 this.setTicksRemaining(Long.valueOf(-1));
             }
+        }
+        if(this.tickCount%10==0){
+            Vec3 ex_pos = this.position().add(PiglinKilnHogEntity.EXHAUST.yRot(-this.yBodyRot * Mth.DEG_TO_RAD));
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos.x, ex_pos.y, ex_pos.z, 0.1, 0.2, 0.1);
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos.x, ex_pos.y, ex_pos.z, 0.1, 0.2, 0.1);
+            this.level().addAlwaysVisibleParticle(ParticleTypes.CAMPFIRE_COSY_SMOKE, ex_pos.x, ex_pos.y, ex_pos.z, 0.1, 0.2, 0.1);
         }
     }
 
