@@ -108,7 +108,7 @@ public class PigdreadEntity extends Monster implements GeoEntity, Gunner, Bullet
         .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
         .add(Attributes.ARMOR, 8.0D)
         .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 2.0D)
-        .add(Attributes.MAX_HEALTH, 600.0D);
+        .add(Attributes.MAX_HEALTH, 800.0D);
     }
 
     @Override
