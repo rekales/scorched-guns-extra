@@ -23,8 +23,7 @@ public class PiglinStriderRiderAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
             ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
-            SensorType.HURT_BY,
-            ModBrainSensors.HELD_GUN.get()
+            SensorType.HURT_BY
     );
 
     private static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(

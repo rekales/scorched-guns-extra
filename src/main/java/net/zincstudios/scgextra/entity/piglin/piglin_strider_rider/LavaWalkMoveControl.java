@@ -91,15 +91,18 @@ public class LavaWalkMoveControl extends MoveControl {
                 }
             }
         } else {
-            super.tick();
             if(this.mob.getBrain().hasMemoryValue(MemoryModuleType.ATTACK_TARGET)){
-                this.mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 2, true, false));
+                this.mob.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 5, true, false));
+                super.tick();
+                this.mob.lookAt(this.mob.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get(), MAX_TURN, MAX_TURN);
                 this.ticks++;
                 if(this.ticks>=12 && this.mob.onGround()){
                     this.ticks = 0;
-                    Vec3 delta = this.mob.getDeltaMovement();
-                    this.mob.setDeltaMovement(new Vec3(delta.x, delta.y+0.6, delta.z));
+                    this.mob.getJumpControl().jump();
+                    this.mob.hasImpulse = true;
                 }
+            }else{
+                super.tick();
             }
         }
     }
