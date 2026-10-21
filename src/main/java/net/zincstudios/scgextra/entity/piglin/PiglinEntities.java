@@ -2,6 +2,8 @@ package net.zincstudios.scgextra.entity.piglin;
 
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.common.OffsetRotatedHeadshotBox;
+import net.zincstudios.scgextra.entity.common.WeakPointBox;
+import net.zincstudios.scgextra.entity.common.WeakPointBoxManager;
 import net.zincstudios.scgextra.entity.common.client.BaseEntityRenderer;
 import net.zincstudios.scgextra.entity.common.client.ItemHoldingMobRenderer;
 import net.zincstudios.scgextra.entity.piglin.pigdread.PigdreadEntity;
@@ -110,6 +112,112 @@ public class PiglinEntities {
             true,
             true
         ));
+        WeakPointBoxManager.registerWeakPointBox(PiglinEntities.PIGDREAD.get(), 
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    49, 
+                    0, 
+                    16, 
+                    8.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    49, 
+                    0, 
+                    16, 
+                    6.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    49, 
+                    0, 
+                    16, 
+                    4.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    49, 
+                    0, 
+                    16, 
+                    2.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    49, 
+                    0, 
+                    16, 
+                    0.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    44, 
+                    0, 
+                    17, 
+                    0,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    44, 
+                    0, 
+                    17, 
+                    4.5,
+                    false, 
+                    true,
+                    true
+                )
+            ),
+            new WeakPointBox<>(
+                new OffsetRotatedHeadshotBox<>(
+                    2.0, 
+                    2.0, 
+                    44, 
+                    0, 
+                    17, 
+                    9,
+                    false, 
+                    true,
+                    true
+                )
+            )
+        );
         BoundingBoxManager.registerHeadshotBox(PiglinEntities.PIGLIN_WARBOSS.get(), new RotatedHeadshotBox<>(14.0, 15.0, 30.0, 11.0, false, true));
     }
 
