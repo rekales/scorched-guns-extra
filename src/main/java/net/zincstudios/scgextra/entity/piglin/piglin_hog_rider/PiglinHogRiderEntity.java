@@ -235,6 +235,10 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.tickSubEntities();
         if(!this.level().isClientSide){
             this.updateAggroTicks();
+            if(this.getAggroTicks()==20){
+                this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
+                this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ROAR.get());
+            }
             if (brain.getTimeUntilExpiry(ModBrainMemories.DELAYED_MELEE.get()) == MELEE_DURATION) {
                 this.triggerAnim("attack", "melee");
                 this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ATTACK.get());
@@ -357,8 +361,6 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.aggroed = true;
         this.aggroTicks = ticks;
         this.triggerAnim("attack", "aggro");
-        this.playSound(PiglinSounds.PIGLIN_NOB_SCREAM.get());
-        this.playSound(PiglinSounds.PIGLIN_HOG_RIDER_ROAR.get());
     }
 
     @Override
