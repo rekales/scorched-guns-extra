@@ -2,8 +2,8 @@
 	"format_version": "1.8.0",
 	"animations": {
 		"saw": {
-			"loop": "hold_on_last_frame",
-			"animation_length": 0.6667,
+			"loop": true,
+			"animation_length": 0.7083,
 			"bones": {
 				"1": {
 					"scale": {
@@ -48,7 +48,8 @@
 				"2": {
 					"scale": {
 						"0.0": {
-							"vector": [1, 1, 1]
+							"pre": [1, 1, 1],
+							"post": [0, 0, 0]
 						},
 						"0.0833": {
 							"pre": [0, 0, 0],

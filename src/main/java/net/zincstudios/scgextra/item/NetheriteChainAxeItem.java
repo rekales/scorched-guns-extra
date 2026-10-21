@@ -48,6 +48,8 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects, GeoIt
 
    protected static final UUID BLOCK_REACH_UUID = UUID.fromString("CB3F55D3-645C-4F38-A497-9C0F433DB5CF");
 
+   private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("saw");
+
     public NetheriteChainAxeItem(Tier tier, float attackDamageModifier, float attackSpeedModifier,
             Properties properties) {
         super(tier, attackDamageModifier, attackSpeedModifier, properties);
@@ -62,12 +64,6 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects, GeoIt
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if(attacker instanceof Player p){
-            if(p.level() instanceof ServerLevel sl){
-                sl.playSound(null, p.getX(), p.getY(), p.getZ(), AsgharianSounds.ASGHAR_WORKER_SAW.get(), SoundSource.MASTER, 0.5f, 1.0f);
-                this.triggerAnim(p, GeoItem.getOrAssignId(p.getItemInHand(InteractionHand.MAIN_HAND), sl), "saw", "saw");
-            }
-        }
         this.hurtEffect(stack, target, attacker);
         target.hurt(attacker.damageSources().mobAttack(attacker), 11);
         stack.hurtAndBreak(2, attacker, (p_41007_) -> {
@@ -99,9 +95,9 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects, GeoIt
     @Override
     public void registerControllers(ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "saw", state->{
-            state.setAnimation(RawAnimation.begin().thenLoop("idle"));
+            state.setAnimation(IDLE);
             return PlayState.CONTINUE;
-        }).triggerableAnim("saw", RawAnimation.begin().thenPlay("saw")));
+        }));
     }
 
     @Override
