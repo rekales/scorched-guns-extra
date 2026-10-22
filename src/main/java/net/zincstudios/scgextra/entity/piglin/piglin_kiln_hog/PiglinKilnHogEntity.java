@@ -348,4 +348,8 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
         this.triggerAnim("behavior", "aggro");
         this.playSound(PiglinSounds.PIGLIN_KILN_HOG_GROWL.get(), 2.0f, this.getVoicePitch());
     }
+    @Override
+    public boolean fireImmune() {
+        return true;
+    }
 }
