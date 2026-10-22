@@ -7,7 +7,7 @@
       "element": {
         "location": "scgextra:piglin/blaze_kopter",
         "processors": "minecraft:empty",
-	    "projection": "rigid",
+	      "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     }

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:jigsaw",
+  "biomes": [
+    "minecraft:nether_wastes",
+    "minecraft:crimson_forest",
+    "minecraft:warped_forest"
+  ],
+  "max_distance_from_center": 80,
+  "size": 2,
+  "spawn_overrides": {},
+  "start_height": {
+    "absolute": 70
+  },
+  "start_pool": "scgextra:piglin/piglin_ghast_station",
+  "step": "surface_structures",
+  "use_expansion_hack": false,
+  "terrain_adaptation": "beard_thin"
+}
