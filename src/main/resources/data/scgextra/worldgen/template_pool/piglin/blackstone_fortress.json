@@ -1,0 +1,15 @@
+{
+  "name": "scgextra:piglin/blackstone_fortress",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:piglin/blackstone_fortress",
+        "processors": "minecraft:empty",
+	    "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

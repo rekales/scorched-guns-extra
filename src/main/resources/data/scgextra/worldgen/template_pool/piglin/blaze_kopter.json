@@ -1,0 +1,15 @@
+{
+  "name": "scgextra:piglin/blaze_kopter",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "scgextra:piglin/blaze_kopter",
+        "processors": "minecraft:empty",
+	    "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

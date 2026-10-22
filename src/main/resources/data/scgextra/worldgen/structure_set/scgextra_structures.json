@@ -75,6 +75,10 @@
     {
       "structure": "scgextra:leviathan_prismarine_gate",
       "weight": 2
+    },
+    {
+      "structure": "scgextra:blackstone_fortress",
+      "weight": 2
     }
   ],
   "placement": {
