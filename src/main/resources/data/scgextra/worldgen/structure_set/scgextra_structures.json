@@ -102,7 +102,7 @@
     "frequency_reduction_method": "default",
     "frequency": 1,
     "exclusion_zone": {
-      "other_set": "scgextra:trenches",
+      "other_set": "scguns:aboveground_medium",
       "chunk_count": 4
     }
   }
