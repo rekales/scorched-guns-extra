@@ -29,8 +29,14 @@ public class PiglinHogRiderRenderer <T extends PiglinHogRiderEntity> extends Bas
 
     @Override
     public void renderRecursively(PoseStack poseStack, T animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-        if(!toHide.get(animatable.getVariant()).contains(bone.getName())){
-            super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+        if(animatable.level()==null || animatable.tickCount == 0){
+            if(!toHide.get(1).contains(bone.getName())){
+                super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+            }
+        }else{
+            if(!toHide.get(animatable.getVariant()).contains(bone.getName())){
+                super.renderRecursively(poseStack, animatable, bone, renderType, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+            }
         }
     }
 }
