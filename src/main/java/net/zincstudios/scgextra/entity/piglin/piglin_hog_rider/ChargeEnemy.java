@@ -56,7 +56,7 @@ public class ChargeEnemy <T extends Mob> extends Behavior<T>{
         }
         LivingEntity target = owner.getBrain().getMemory(MemoryModuleType.ATTACK_TARGET).get();
         owner.getLookControl().setLookAt(target, 30.0F, 30.0F);
-        owner.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 3, true, false));
+        owner.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 4, true, false));
         if(owner.distanceToSqr(target)<=16){
             target.knockback(3, owner.getX() - target.getX(), owner.getZ() - target.getZ());
             owner.doHurtTarget(target);

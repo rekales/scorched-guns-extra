@@ -36,7 +36,7 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
     public PiglinNobShootTarget(int waitFor, float accuracy, String animControllerName, String animName, int cooldown) {
         this(
                 waitFor,
-                (a,b)->1.6f,
+                (a,b)->2f,
                 animControllerName,
                 animName,
                 cooldown
