@@ -32,6 +32,8 @@ public class ModBrainSensors {
             .register("long_range_player", () -> new SensorType<>(() -> new VarRangePlayerSensor(40, 32)));
     public static final Supplier<SensorType<VarRangePlayerSensor>> VERY_LONG_RANGE_PLAYER = SENSOR_TYPES
             .register("very_long_range_player", () -> new SensorType<>(() -> new VarRangePlayerSensor(50, 48)));
+    public static final Supplier<SensorType<VarRangePlayerSensor>> EXTREMELY_LONG_RANGE_PLAYER = SENSOR_TYPES
+            .register("extremely_long_range_player", () -> new SensorType<>(() -> new VarRangePlayerSensor(60, 128)));
 
     public static void register(IEventBus modEventBus) {
         SENSOR_TYPES.register(modEventBus);
