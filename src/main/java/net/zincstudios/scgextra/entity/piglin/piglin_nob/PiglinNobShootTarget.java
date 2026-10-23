@@ -27,7 +27,6 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
     private final String animName;
     private final int cooldownDuration;
     private int cooldown;
-    private final BiFunction<LivingEntity, Boolean, Float> accuracyFunc;
 
     public PiglinNobShootTarget(int waitFor) {
         this(waitFor, DEFAULT_ACCURACY, DEFAULT_CONTROLLER, DEFAULT_ANIM, DEFAULT_COOLDOWN);
@@ -51,7 +50,6 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
                 ModBrainMemories.SIMULATED_GUN.get(), MemoryStatus.VALUE_PRESENT
         ), waitFor+10);
         this.waitFor = waitFor;
-        this.accuracyFunc = accuracyFunc;
         this.animControllerName = animControllerName;
         this.animName = animName;
         this.cooldownDuration = cooldown;
@@ -74,12 +72,13 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
     @Override
     protected void tick(ServerLevel level, LivingEntity entity, long gameTime) {
         this.ticks++;
+        Brain<?> brain = entity.getBrain();
+        LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
+        SimulatedGun simGun = brain.getMemory(ModBrainMemories.SIMULATED_GUN.get()).get();
         if(this.ticks==this.waitFor){
-            Brain<?> brain = entity.getBrain();
-            LivingEntity target = brain.getMemory(MemoryModuleType.ATTACK_TARGET).get();
-            SimulatedGun simGun = brain.getMemory(ModBrainMemories.SIMULATED_GUN.get()).get();
-            //blank fires the first 2 shots for some reason
-            simGun.tickFire(entity, target.position(), accuracyFunc.apply(target, true), true);
+            simGun.tickFire(entity, target.position(), 2f, true);
+        }else{
+            simGun.tickFire(entity, target.position(), 2f, false);
         }
     }
 

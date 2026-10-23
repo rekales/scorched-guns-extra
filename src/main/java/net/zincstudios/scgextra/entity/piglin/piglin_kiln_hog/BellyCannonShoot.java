@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMap;
 import net.zincstudios.scgextra.entity.AbilityState;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.projectile.piglin_kiln_hog_magma_ball.PiglinKilnHogMagmaBall;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -77,7 +76,6 @@ public class BellyCannonShoot extends Behavior<Mob>{
             double d2 = target.getZ() - vec.z;
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
             double distance = ball.distanceToSqr(target);
-            target.sendSystemMessage(Component.literal("VEL: "+(1+(distance*0.0005))));
             ball.shoot(d0, d1 + d3 * (double)0.2F, d2, (1F+(float)(distance*0.0005)), (float)(14 - level.getDifficulty().getId() * 4));
             level.addFreshEntity(ball);
         }

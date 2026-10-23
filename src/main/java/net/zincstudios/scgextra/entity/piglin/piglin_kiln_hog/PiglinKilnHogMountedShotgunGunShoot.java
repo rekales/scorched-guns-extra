@@ -71,6 +71,9 @@ public class PiglinKilnHogMountedShotgunGunShoot extends Behavior<Mob>{
                     owner.mountedShotGunLeft.gun.tickFire(owner, target.position(), 1.0f, true);
                     owner.mountedShotGunRight.gun.tickFire(owner, target.position(), 1.0f, true);
                 }
+            }else{
+                owner.mountedShotGunLeft.gun.tickFire(owner, target.position(), 1.0f, false);
+                owner.mountedShotGunRight.gun.tickFire(owner, target.position(), 1.0f, false);
             }
         }
     }
