@@ -98,6 +98,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
                 .idealRange(16)
                 .noGunFlash()
                 .gunIndex(0)
+                .projectileSpeed(3)
                 .build(), 
             bulletOffsetL, 
             (a) -> true
@@ -111,6 +112,7 @@ public class PiglinKilnHogEntity extends Monster implements GeoEntity, Gunner, B
                 .idealRange(16)
                 .noGunFlash()
                 .gunIndex(1)
+                .projectileSpeed(3)
                 .build(), 
             bulletOffsetR, 
             (a) -> true
