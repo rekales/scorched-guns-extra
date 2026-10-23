@@ -2,7 +2,6 @@ package net.zincstudios.scgextra.entity.piglin.piglin_nob;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.zincstudios.scgextra.entity.common.brain.AccuracyBuildup;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
@@ -37,7 +36,7 @@ public class PiglinNobShootTarget extends Behavior<LivingEntity> {
     public PiglinNobShootTarget(int waitFor, float accuracy, String animControllerName, String animName, int cooldown) {
         this(
                 waitFor,
-                new AccuracyBuildup(0.0f, 2.4f, 0.05f),
+                (a,b)->1.6f,
                 animControllerName,
                 animName,
                 cooldown

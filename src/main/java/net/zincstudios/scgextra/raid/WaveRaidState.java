@@ -22,6 +22,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.entity.monster.HornlinEntity;
 import top.ribs.scguns.entity.monster.MotherGhastEntity;
+import top.ribs.scguns.init.ModEntities;
 import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
@@ -142,6 +143,19 @@ public class WaveRaidState {
     public void spawnCurrentWaveMobs(Vec3 waveCenter, float waveSpawnRadius, @Nullable LivingEntity target) {
         WaveRaidData raidData = this.getWaveRaidData();
         List<WaveRaidData.RaiderEntry> spawnList = raidData.generateRaiders(this.getCurrentWave(), level.getRandom());
+
+        int ghastCount = 2;
+        while(ghastCount > 1){
+            ghastCount = 0;
+            for(WaveRaidData.RaiderEntry entry : List.copyOf(spawnList)){
+                if(entry.entityType() == ModEntities.MOTHER_GHAST.get()){
+                    ghastCount++;
+                }
+            };
+            if(ghastCount>1){
+                spawnList = raidData.generateRaiders(this.getCurrentWave(), level.getRandom());
+            }
+        }
 
         int failedAttemptsLeft = spawnList.size()/2 + 5;
         while (!spawnList.isEmpty() && failedAttemptsLeft > 0) {
