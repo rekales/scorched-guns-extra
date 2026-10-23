@@ -19,7 +19,8 @@ public class PiglinMixin {
         if (
             ((Object)this instanceof Mob mob) && 
             (mob.getSpawnType() != null) && 
-            (mob.getSpawnType() == MobSpawnType.EVENT)
+            (mob.getSpawnType() == MobSpawnType.EVENT) &&
+            slot == EquipmentSlot.HEAD
         )ci.cancel();
     }
 }
