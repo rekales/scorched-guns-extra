@@ -8,6 +8,7 @@ import com.google.common.collect.Multimap;
 
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.entity.piglin.piglin_nob.PiglinNobEntity;
+import net.zincstudios.scgextra.sounds.AsgharianSounds;
 import software.bernie.geckolib.animatable.GeoItem;
 import software.bernie.geckolib.animatable.SingletonGeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -18,6 +19,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.model.DefaultedItemGeoModel;
 import software.bernie.geckolib.renderer.GeoItemRenderer;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -59,6 +61,9 @@ public class NetheriteChainAxeItem extends AxeItem implements HurtEffects, GeoIt
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        if(!attacker.level().isClientSide()){
+            attacker.level().playSound(null, attacker.getX(), attacker.getY(), attacker.getZ(), AsgharianSounds.ASGHAR_WORKER_SAW.get(), SoundSource.NEUTRAL, 1F, 1F);
+        }
         this.hurtEffect(stack, target, attacker);
         target.hurt(attacker.damageSources().mobAttack(attacker), 11);
         stack.hurtAndBreak(2, attacker, (p_41007_) -> {

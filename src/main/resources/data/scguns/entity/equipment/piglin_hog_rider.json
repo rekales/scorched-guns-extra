@@ -1,0 +1,14 @@
+{
+  "id": "scgextra:piglin_hog_rider",
+  "equipment_chance": 1.0,
+  "items": [
+    {
+      "item": "scgextra:netherite_chain_axe",
+      "weight": 10.0,
+      "drop_chance": 0.1,
+      "min_durability": 0.2,
+      "max_durability": 0.5,
+      "slot": "mainhand"
+    }
+  ]
+}

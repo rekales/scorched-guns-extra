@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.piglin.piglin_hog_rider;
 import com.mojang.serialization.Dynamic;
 
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
+import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.MobUtil;
 import net.zincstudios.scgextra.entity.piglin.common.AggroableMob;
 import net.zincstudios.scgextra.entity.piglin.common.StunnableHog;
@@ -47,7 +48,7 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 import top.ribs.scguns.init.ModEffects;
 import top.ribs.scguns.init.ModTags;
 
-public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantHolder<Integer>, AggroableMob{
+public class PiglinHogRiderEntity extends EquippedEntity implements GeoEntity, VariantHolder<Integer>, AggroableMob{
 
     private static final EntityDataAccessor<Integer> MODEL_VARIANT =
             SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.INT);
@@ -196,7 +197,6 @@ public class PiglinHogRiderEntity extends Monster implements GeoEntity, VariantH
         this.entityData.set(MODEL_VARIANT, tag.getInt("variant"));
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason,
             SpawnGroupData spawnData, CompoundTag dataTag) {
