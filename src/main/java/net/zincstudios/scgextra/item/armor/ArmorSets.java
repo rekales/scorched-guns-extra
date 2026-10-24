@@ -14,7 +14,7 @@ import top.ribs.scguns.init.ModEffects;
 public final class ArmorSets {
 
     public static final ArmorSet OPPRESSOR = new ArmorSet(SCGExtra.asResource("oppressor"), new ArmorSet.Traits()
-            .modifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_set_knockback_res", 1, AttributeModifier.Operation.ADDITION))
+            .modifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_set_knockback_res", 2, AttributeModifier.Operation.ADDITION))
     );
 
     public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits()
@@ -52,6 +52,10 @@ public final class ArmorSets {
 
         if (ArmorSet.getArmorSet(hurter) == WRECKER) {
             entity.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
+        }
+        
+        if (ArmorSet.getArmorSet(hurter) == OPPRESSOR) {
+            entity.hurt(event.getSource(), (float)(event.getAmount()*0.1));
         }
 
         if (ArmorSet.getArmorSet(entity) == WRECKER) {

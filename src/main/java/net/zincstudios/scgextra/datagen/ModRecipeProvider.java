@@ -1,13 +1,17 @@
 package net.zincstudios.scgextra.datagen;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.item.ModItems;
 import top.ribs.scguns.init.ModBlocks;
 
@@ -23,6 +27,8 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> writer) {
+
+        TagKey<Item> OXIDIZED_COPPER_TAG = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SCGExtra.MOD_ID, "oxidized_copper"));
 
 //        superFlare(writer, ModItems.ANTIQUE_SUPER_FLARE.get(), top.ribs.scguns.init.ModItems.ANTIQUE_FLARE.get());
 //        superFlare(writer, ModItems.FRONTIER_SUPER_FLARE.get(), top.ribs.scguns.init.ModItems.FRONTIER_FLARE.get());
@@ -82,7 +88,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" C ")
                 .pattern("CMC")
                 .pattern("L L")
-                .define('C', Items.OXIDIZED_COPPER)
+                .define('C', OXIDIZED_COPPER_TAG)
                 .define('M', top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get())
                 .define('L', Items.LEATHER)
                 .unlockedBy("has_armor_ingredient", has(top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get()))
@@ -92,7 +98,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("C C")
                 .pattern("CMC")
                 .pattern("LLL")
-                .define('C', Items.OXIDIZED_COPPER)
+                .define('C', OXIDIZED_COPPER_TAG)
                 .define('M', top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get())
                 .define('L', Items.LEATHER)
                 .unlockedBy("has_armor_ingredient", has(top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get()))
@@ -111,7 +117,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.OPPRESSOR_BOOTS.get())
                 .pattern("LML")
                 .pattern("C C")
-                .define('C', Items.OXIDIZED_COPPER)
+                .define('C', OXIDIZED_COPPER_TAG)
                 .define('M', top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get())
                 .define('L', Items.LEATHER)
                 .unlockedBy("has_armor_ingredient", has(top.ribs.scguns.init.ModItems.RUSTY_MEDAL.get()))

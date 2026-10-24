@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "C": {
-      "item": "minecraft:oxidized_copper"
+      "tag": "scgextra:oxidized_copper"
     },
     "L": {
       "item": "minecraft:leather"
