@@ -35,7 +35,7 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             () -> Ingredient.of(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.OXIDIZED_COPPER)
     ),
     COMMISSAR("commissar",
-            40,
+            50,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
             map -> {
                 map.put(ArmorItem.Type.HELMET, 3);
