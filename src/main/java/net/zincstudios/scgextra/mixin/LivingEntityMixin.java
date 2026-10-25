@@ -2,11 +2,13 @@ package net.zincstudios.scgextra.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
@@ -25,6 +27,11 @@ public class LivingEntityMixin {
                 && !damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)
                 && (Object)this instanceof Player player) {
             float damageMult = (float) player.getAttributeValue(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get());
+            return original.call(damageSource, damageAmount * damageMult);
+        }
+
+        if(damageSource.getDirectEntity() instanceof Player p && (Object)this instanceof Monster){
+            float damageMult = (float) p.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
             return original.call(damageSource, damageAmount * damageMult);
         }
 
