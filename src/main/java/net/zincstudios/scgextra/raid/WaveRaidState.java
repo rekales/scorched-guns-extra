@@ -18,6 +18,7 @@ import net.minecraft.world.entity.ai.memory.WalkTarget;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.zincstudios.scgextra.SCGExtra;
+import top.ribs.scguns.entity.monster.MotherGhastEntity;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -147,6 +148,8 @@ public class WaveRaidState {
                     continue;
                 }
                 Vec3 pos = WaveRaidUtil.findMobSpawnPos(level, waveCenter, waveSpawnRadius);
+
+                mob.setPos(mob instanceof MotherGhastEntity ? pos.add(0, 20, 0) : pos);
 
                 if (mob.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.REGISTERED) && target != null) {
                     mob.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
