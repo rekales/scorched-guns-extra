@@ -69,7 +69,7 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-        .add(Attributes.FOLLOW_RANGE, 64.0D)
+        .add(Attributes.FOLLOW_RANGE, 128.0D)
         .add(Attributes.MOVEMENT_SPEED, 0.32F)
         .add(Attributes.ATTACK_DAMAGE, 10.0D)
         .add(Attributes.ARMOR, 0.0D)

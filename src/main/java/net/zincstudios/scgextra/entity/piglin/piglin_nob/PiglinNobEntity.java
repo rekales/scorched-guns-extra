@@ -53,7 +53,7 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-        .add(Attributes.FOLLOW_RANGE, 35.0D)
+        .add(Attributes.FOLLOW_RANGE, 128.0D)
         .add(Attributes.MOVEMENT_SPEED, 0.27F)
         .add(Attributes.ATTACK_DAMAGE, 3.0D)
         .add(Attributes.ARMOR, 6.0D)
