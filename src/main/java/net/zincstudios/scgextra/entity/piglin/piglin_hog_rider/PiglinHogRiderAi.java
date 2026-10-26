@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class PiglinHogRiderAi {
         private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
+            ModBrainSensors.EXTREMELY_LONG_RANGE_PLAYER.get(),
             SensorType.HURT_BY
     );
 

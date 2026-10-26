@@ -22,7 +22,7 @@ import net.minecraft.world.entity.schedule.Activity;
 public class PiglinStriderRiderAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
+            ModBrainSensors.EXTREMELY_LONG_RANGE_PLAYER.get(),
             SensorType.HURT_BY
     );
 

@@ -25,7 +25,7 @@ import net.minecraft.world.entity.schedule.Activity;
 public class PiglinBlazeKopterAi {
     private static final ImmutableList<? extends SensorType<? extends Sensor<? super PathfinderMob>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.VERY_LONG_RANGE_PLAYER.get(),
+            ModBrainSensors.EXTREMELY_LONG_RANGE_PLAYER.get(),
             SensorType.HURT_BY
     );
 
