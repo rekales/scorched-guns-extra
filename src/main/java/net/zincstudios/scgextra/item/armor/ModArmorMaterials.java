@@ -50,28 +50,28 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             () -> Ingredient.of(Items.IRON_INGOT)
     ),
     WRECKER("wrecker",
-            30,
+            40,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
                     map -> {
-                        map.put(ArmorItem.Type.HELMET, 5);
-                        map.put(ArmorItem.Type.CHESTPLATE, 9);
-                        map.put(ArmorItem.Type.LEGGINGS, 7);
-                        map.put(ArmorItem.Type.BOOTS, 4);
+                        map.put(ArmorItem.Type.HELMET, 4);
+                        map.put(ArmorItem.Type.CHESTPLATE, 8);
+                        map.put(ArmorItem.Type.LEGGINGS, 6);
+                        map.put(ArmorItem.Type.BOOTS, 3);
                     }),
             10,
             SoundEvents.ARMOR_EQUIP_IRON,
-            1.0F,
+            3.0F,
             0.2F,
             () -> Ingredient.of(ModItems.TREATED_IRON_INGOT.get())
     ),
     LEVIATHAN("leviathan",
-            40,
+            60,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
                     map -> {
-                        map.put(ArmorItem.Type.HELMET, 7);
-                        map.put(ArmorItem.Type.CHESTPLATE, 8);
-                        map.put(ArmorItem.Type.LEGGINGS, 4);
-                        map.put(ArmorItem.Type.BOOTS, 3);
+                        map.put(ArmorItem.Type.HELMET, 10);
+                        map.put(ArmorItem.Type.CHESTPLATE, 9);
+                        map.put(ArmorItem.Type.LEGGINGS, 5);
+                        map.put(ArmorItem.Type.BOOTS, 4);
                     }),
             16,
             SoundEvents.ARMOR_EQUIP_TURTLE,
@@ -80,13 +80,13 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             () -> Ingredient.of(Items.PRISMARINE, Items.PRISMARINE_BRICKS)
     ),
     GOLDEN_IDOL("golden_idol",
-            30,
+            50,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
                     map -> {
-                        map.put(ArmorItem.Type.HELMET, 4);
-                        map.put(ArmorItem.Type.CHESTPLATE, 7);
-                        map.put(ArmorItem.Type.LEGGINGS, 5);
-                        map.put(ArmorItem.Type.BOOTS, 3);
+                        map.put(ArmorItem.Type.HELMET, 5);
+                        map.put(ArmorItem.Type.CHESTPLATE, 9);
+                        map.put(ArmorItem.Type.LEGGINGS, 7);
+                        map.put(ArmorItem.Type.BOOTS, 5);
                     }),
             24,
             SoundEvents.ARMOR_EQUIP_GOLD,

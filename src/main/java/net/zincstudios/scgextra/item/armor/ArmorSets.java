@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
+import top.ribs.scguns.attributes.SCAttributes;
 import top.ribs.scguns.init.ModEffects;
 
 // Maybe use registries?
@@ -20,9 +21,13 @@ public final class ArmorSets {
 
     public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits()
             .modifier(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_set_bullet_damage_taken", -0.1, AttributeModifier.Operation.ADDITION))
+            .modifier(SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_set_reload_speed", 1.2, AttributeModifier.Operation.MULTIPLY_TOTAL))
     );
 
-    public static final ArmorSet WRECKER = new ArmorSet(SCGExtra.asResource("wrecker"), new ArmorSet.Traits());
+    public static final ArmorSet WRECKER = new ArmorSet(SCGExtra.asResource("wrecker"), new ArmorSet.Traits()
+        .modifier(SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_set_bullet_damage", 0.2, AttributeModifier.Operation.ADDITION))
+        .modifier(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_set_bullet_damage_taken", -0.2, AttributeModifier.Operation.ADDITION))
+    );
 
     public static final ArmorSet LEVIATHAN = new ArmorSet(SCGExtra.asResource("leviathan"), new ArmorSet.Traits()
             .effect(MobEffects.WATER_BREATHING, 0)
