@@ -16,7 +16,6 @@ public final class ArmorSets {
 
     public static final ArmorSet OPPRESSOR = new ArmorSet(SCGExtra.asResource("oppressor"), new ArmorSet.Traits()
             .modifier(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_set_knockback_res", 1, AttributeModifier.Operation.ADDITION))
-            .modifier(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_set_undead_damage", 0.1, AttributeModifier.Operation.ADDITION))
     );
 
     public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits()

@@ -40,6 +40,7 @@ import top.ribs.scguns.item.GunItem;
 import top.ribs.scguns.item.HealingBandageItem;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nullable;
@@ -174,13 +175,30 @@ public class ModItems {
 
     public static final RegistryObject<ArmorSetPartItem>
             OPPRESSOR_HELMET = ITEMS.register("oppressor_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR, 
+                        Map.of(
+                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )
+                ),
             OPPRESSOR_CHESTPLATE = ITEMS.register("oppressor_chestplate", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR, 
+                        Map.of(
+                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             OPPRESSOR_LEGGINGS = ITEMS.register("oppressor_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR, 
+                        Map.of(
+                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             OPPRESSOR_BOOTS = ITEMS.register("oppressor_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR, 
+                        Map.of(
+                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             COMMISSAR_HELMET = ITEMS.register("commissar_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.HELMET, ArmorSets.COMMISSAR)),
