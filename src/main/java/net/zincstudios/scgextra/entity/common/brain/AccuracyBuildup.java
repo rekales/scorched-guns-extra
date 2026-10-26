@@ -1,7 +1,6 @@
 package net.zincstudios.scgextra.entity.common.brain;
 
 import net.minecraft.world.entity.LivingEntity;
-import net.zincstudios.scgextra.SCGExtra;
 
 import java.util.function.BiFunction;
 
@@ -33,7 +32,6 @@ public final class AccuracyBuildup implements BiFunction<LivingEntity, Boolean, 
             this.currentAcc = Math.min(this.currentAcc+this.accPerTick, this.maxAcc);
         }
         this.lastFire = entity.level().getGameTime();
-        SCGExtra.LOGGER.debug(this.currentAcc+"");
         return this.currentAcc;
     }
 }
