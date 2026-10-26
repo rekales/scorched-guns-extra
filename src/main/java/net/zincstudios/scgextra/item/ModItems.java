@@ -241,7 +241,7 @@ public class ModItems {
                         )
                     )),
             WRECKER_CHESTPLATE = ITEMS.register("wrecker_chestplate", () ->
-                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER,
+                    new WreckerChestplateItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER,
                         Map.of(
                             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_chestplate_set_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_chestplate_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
