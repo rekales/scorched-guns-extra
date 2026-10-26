@@ -24,9 +24,13 @@ public final class SCGEAttributes {
     public static final RegistryObject<Attribute> BULLET_GRAVITY_MULT = ATTRIBUTES.register("bullet_gravity_multiplier",
             () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> UNDEAD_DAMAGE_MULT = ATTRIBUTES.register("undead_damage_multiplier",
-            () -> (new RangedAttribute("attribute.scgextra.undead_damage_multiplier", 1.0F, 0.0001, 100.0F)).setSyncable(true));
+            () -> (new RangedAttribute("attribute.scgextra.undead_damage_multiplier", 1.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> MAGIC_DAMAGE_REDUCTION = ATTRIBUTES.register("magic_damage_reduction",
-            () -> (new RangedAttribute("attribute.scgextra.magic_damage_reduction", 1.0F, 0.0001, 100.0F)).setSyncable(true));
+            () -> (new RangedAttribute("attribute.scgextra.magic_damage_reduction", 1.0F, -100, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> BUFF_ZONE = ATTRIBUTES.register("buff_zone",
+            () -> (new RangedAttribute("attribute.scgextra.buff_zone", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> DEBUFF_ZONE = ATTRIBUTES.register("debuff_zone",
+            () -> (new RangedAttribute("attribute.scgextra.debuff_zone", 0F, 0, 100.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
