@@ -6,24 +6,20 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.behavior.EntityTracker;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.MemoryStatus;
 import net.minecraft.world.entity.ai.memory.WalkTarget;
-import net.minecraft.world.entity.monster.piglin.Piglin;
-import net.minecraft.world.entity.monster.piglin.PiglinBrute;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.zincstudios.scgextra.SCGExtra;
-import top.ribs.scguns.entity.monster.HornlinEntity;
 import top.ribs.scguns.entity.monster.MotherGhastEntity;
 import top.ribs.scguns.init.ModEntities;
-import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -151,7 +147,7 @@ public class WaveRaidState {
                 if(entry.entityType() == ModEntities.MOTHER_GHAST.get()){
                     ghastCount++;
                 }
-            };
+            }
             if(ghastCount>1){
                 spawnList = raidData.generateRaiders(this.getCurrentWave(), level.getRandom());
             }
@@ -179,6 +175,12 @@ public class WaveRaidState {
                 } else {
                     mob.setTarget(target);
                 }
+
+                AttributeInstance attr = mob.getAttribute(Attributes.FOLLOW_RANGE);
+                if (attr != null && attr.getValue() < 64) {
+                    attr.setBaseValue(64.0);
+                }
+
                 mob.setPersistenceRequired();
                 boolean finalize = raidData.handleRaiderEdgeCase(mob);
                 if (finalize) {
@@ -187,10 +189,6 @@ public class WaveRaidState {
                             level.getCurrentDifficultyAt(BlockPos.containing(pos)),
                             MobSpawnType.EVENT, null, null
                     );
-                }
-                //add RESPIRATOR to piglin infantry
-                if(mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute){
-                    mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
                 }
                 level.addFreshEntity(mob);
                 this.addRaider(mob);

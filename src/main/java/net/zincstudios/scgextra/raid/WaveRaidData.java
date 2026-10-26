@@ -7,16 +7,21 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.piglin.Piglin;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.entity.monster.DissidentEntity;
+import top.ribs.scguns.entity.monster.HornlinEntity;
+import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -27,7 +32,7 @@ import java.util.*;
  * <br/>
  * Deprecated fields are not intended to be accessed directly outside the class unless actually needed.
  */
-// @SuppressWarnings({"unused", "deprecation"})
+ @SuppressWarnings({"unused", "deprecation"})
 @ParametersAreNonnullByDefault
 @FieldsAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -184,10 +189,13 @@ public record WaveRaidData(
         return Component.translatable(SCGExtra.MOD_ID+".raid.announcement."+this.id);
     }
 
-    @SuppressWarnings("RedundantIfStatement")
     public boolean handleRaiderEdgeCase(Mob mob) {
         if (mob instanceof DissidentEntity) {
             return false;
+        }
+        //add RESPIRATOR to piglin infantry
+        if (mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute) {
+            mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
         }
 
         return true;
