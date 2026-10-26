@@ -3,15 +3,18 @@ package net.zincstudios.scgextra.item.armor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.zincstudios.scgextra.attributes.SCGEAttributes;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -93,6 +96,23 @@ public class ArmorSet {
         Player player = event.player;
 
         if (event.player.tickCount % TICK_INTERVAL != 0) return;
+
+        if(player.getAttribute(SCGEAttributes.BUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue()!=0.0){
+            double area = player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue();
+            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(area),  e->!(e instanceof Enemy));
+            for(LivingEntity le : list){
+                le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
+                le.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100));
+            }
+        }
+        if(player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get()).getValue()!=0.0){
+            double area = player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get()).getValue();
+            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(area), e->e instanceof Enemy);
+            for(LivingEntity le : list){
+                le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
+                le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
+            }
+        }
 
         ArmorSet armorSet = getArmorSet(player);
         if (armorSet == null) return;

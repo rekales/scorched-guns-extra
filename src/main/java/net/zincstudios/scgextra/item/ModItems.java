@@ -288,13 +288,37 @@ public class ModItems {
                     )),
 
             GOLDEN_IDOL_HELMET = ITEMS.register("golden_idol_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.HELMET, ArmorSets.GOLDEN_IDOL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.HELMET, ArmorSets.GOLDEN_IDOL,
+                        Map.of(
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_set_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_set_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_helmet_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             GOLDEN_IDOL_CHESTPLATE = ITEMS.register("golden_idol_chestplate", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.CHESTPLATE, ArmorSets.GOLDEN_IDOL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.CHESTPLATE, ArmorSets.GOLDEN_IDOL,
+                        Map.of(
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_set_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_set_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_chestplate_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             GOLDEN_IDOL_LEGGINGS = ITEMS.register("golden_idol_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.LEGGINGS, ArmorSets.GOLDEN_IDOL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.LEGGINGS, ArmorSets.GOLDEN_IDOL,
+                        Map.of(
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_set_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_set_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_leggings_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             GOLDEN_IDOL_BOOTS = ITEMS.register("golden_idol_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.BOOTS, ArmorSets.GOLDEN_IDOL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.BOOTS, ArmorSets.GOLDEN_IDOL,
+                        Map.of(
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_set_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_set_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_boots_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             ENLIGHTENED_HELMET = ITEMS.register("enlightened_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.ENLIGHTENED, ArmorItem.Type.HELMET, ArmorSets.ENLIGHTENED)),

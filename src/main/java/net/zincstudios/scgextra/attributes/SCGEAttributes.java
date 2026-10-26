@@ -44,5 +44,7 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, BULLET_GRAVITY_MULT.get());
         event.add(EntityType.PLAYER, UNDEAD_DAMAGE_MULT.get());
         event.add(EntityType.PLAYER, MAGIC_DAMAGE_REDUCTION.get());
+        event.add(EntityType.PLAYER, BUFF_ZONE.get());
+        event.add(EntityType.PLAYER, DEBUFF_ZONE.get());
     }
 }
