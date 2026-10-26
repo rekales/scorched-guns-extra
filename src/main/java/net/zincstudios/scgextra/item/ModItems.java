@@ -177,46 +177,90 @@ public class ModItems {
             OPPRESSOR_HELMET = ITEMS.register("oppressor_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR, 
                         Map.of(
-                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_helmet_set_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )
                 ),
             OPPRESSOR_CHESTPLATE = ITEMS.register("oppressor_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR, 
                         Map.of(
-                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_chestplate_set_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_LEGGINGS = ITEMS.register("oppressor_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_leggings_set_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_BOOTS = ITEMS.register("oppressor_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                                SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_set_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_boots_set_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
             COMMISSAR_HELMET = ITEMS.register("commissar_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.HELMET, ArmorSets.COMMISSAR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.HELMET, ArmorSets.COMMISSAR,
+                        Map.of(
+                            SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_helmet_set_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_helmet_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             COMMISSAR_CHESTPLATE = ITEMS.register("commissar_chestplate", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.CHESTPLATE, ArmorSets.COMMISSAR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.CHESTPLATE, ArmorSets.COMMISSAR,
+                        Map.of(
+                            SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_chestplate_set_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_chestplate_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             COMMISSAR_LEGGINGS = ITEMS.register("commissar_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.LEGGINGS, ArmorSets.COMMISSAR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.LEGGINGS, ArmorSets.COMMISSAR,
+                        Map.of(
+                            SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_leggings_set_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_leggings_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             COMMISSAR_BOOTS = ITEMS.register("commissar_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.BOOTS, ArmorSets.COMMISSAR)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.BOOTS, ArmorSets.COMMISSAR,
+                        Map.of(
+                            SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_boots_set_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_boots_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             WRECKER_HELMET = ITEMS.register("wrecker_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.WRECKER, ArmorItem.Type.HELMET, ArmorSets.WRECKER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.HELMET, ArmorSets.WRECKER,
+                        Map.of(
+                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_helmet_set_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_helmet_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             WRECKER_CHESTPLATE = ITEMS.register("wrecker_chestplate", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER,
+                        Map.of(
+                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_chestplate_set_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_chestplate_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             WRECKER_LEGGINGS = ITEMS.register("wrecker_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.WRECKER, ArmorItem.Type.LEGGINGS, ArmorSets.WRECKER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.LEGGINGS, ArmorSets.WRECKER,
+                        Map.of(
+                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_leggings_set_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_leggings_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             WRECKER_BOOTS = ITEMS.register("wrecker_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.WRECKER, ArmorItem.Type.BOOTS, ArmorSets.WRECKER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.BOOTS, ArmorSets.WRECKER,
+                        Map.of(
+                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_boots_set_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_boots_set_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             LEVIATHAN_HELMET = ITEMS.register("leviathan_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN)),
