@@ -147,13 +147,13 @@ public class WaveRaidState {
                     continue;
                 }
                 Vec3 pos = WaveRaidUtil.findMobSpawnPos(level, waveCenter, waveSpawnRadius);
+                mob.setPos(pos);
 
                 if (mob.getBrain().checkMemory(MemoryModuleType.ATTACK_TARGET, MemoryStatus.REGISTERED) && target != null) {
                     mob.getBrain().setMemory(MemoryModuleType.ATTACK_TARGET, target);
                     if (mob.getBrain().checkMemory(MemoryModuleType.WALK_TARGET, MemoryStatus.REGISTERED)) {
                         mob.getBrain().setMemoryWithExpiry(MemoryModuleType.WALK_TARGET, new WalkTarget(
-                            new EntityTracker(target, false), 1.2f, 16
-                        ), 200);
+                                new EntityTracker(target, false), 1.2f, 16), 200);
                     }
                 } else {
                     mob.setTarget(target);
