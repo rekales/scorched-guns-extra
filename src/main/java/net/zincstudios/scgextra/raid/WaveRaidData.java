@@ -21,6 +21,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.entity.monster.DissidentEntity;
 import top.ribs.scguns.entity.monster.HornlinEntity;
+import top.ribs.scguns.entity.monster.MotherGhastEntity;
 import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.Nullable;
@@ -193,9 +194,14 @@ public record WaveRaidData(
         if (mob instanceof DissidentEntity) {
             return false;
         }
+
         //add RESPIRATOR to piglin infantry
         if (mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute) {
             mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
+        }
+
+        if (mob instanceof MotherGhastEntity) {
+            mob.setPos(mob.position().add(0, 20, 0));
         }
 
         return true;
