@@ -263,13 +263,29 @@ public class ModItems {
                     )),
 
             LEVIATHAN_HELMET = ITEMS.register("leviathan_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN)),
+                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN,
+                        Map.of(
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_helmet_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             LEVIATHAN_CHESTPLATE = ITEMS.register("leviathan_chestplate", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.CHESTPLATE, ArmorSets.LEVIATHAN)),
+                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.CHESTPLATE, ArmorSets.LEVIATHAN,
+                        Map.of(
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_chestplate_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             LEVIATHAN_LEGGINGS = ITEMS.register("leviathan_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.LEGGINGS, ArmorSets.LEVIATHAN)),
+                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.LEGGINGS, ArmorSets.LEVIATHAN,
+                        Map.of(
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_leggings_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             LEVIATHAN_BOOTS = ITEMS.register("leviathan_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.BOOTS, ArmorSets.LEVIATHAN)),
+                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.BOOTS, ArmorSets.LEVIATHAN,
+                        Map.of(
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_boots_set_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             GOLDEN_IDOL_HELMET = ITEMS.register("golden_idol_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.HELMET, ArmorSets.GOLDEN_IDOL)),

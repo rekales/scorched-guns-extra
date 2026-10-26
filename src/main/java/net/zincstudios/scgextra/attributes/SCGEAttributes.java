@@ -25,6 +25,8 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> UNDEAD_DAMAGE_MULT = ATTRIBUTES.register("undead_damage_multiplier",
             () -> (new RangedAttribute("attribute.scgextra.undead_damage_multiplier", 1.0F, 0.0001, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> MAGIC_DAMAGE_REDUCTION = ATTRIBUTES.register("magic_damage_reduction",
+            () -> (new RangedAttribute("attribute.scgextra.magic_damage_reduction", 1.0F, 0.0001, 100.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
@@ -37,5 +39,6 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, BULLET_ADDITIONAL_CRIT_CHANCE.get());
         event.add(EntityType.PLAYER, BULLET_GRAVITY_MULT.get());
         event.add(EntityType.PLAYER, UNDEAD_DAMAGE_MULT.get());
+        event.add(EntityType.PLAYER, MAGIC_DAMAGE_REDUCTION.get());
     }
 }

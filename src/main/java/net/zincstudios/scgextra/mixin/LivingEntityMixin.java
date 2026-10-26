@@ -5,9 +5,11 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -23,6 +25,12 @@ public class LivingEntityMixin {
     @SuppressWarnings("ConstantValue")
     @WrapMethod(method = "getDamageAfterMagicAbsorb")
     private float atGetDamageAfterMagicAbsorb(DamageSource damageSource, float damageAmount, Operation<Float> original) {
+        if(damageSource.is(DamageTypes.MAGIC) && (Object)this instanceof LivingEntity le){
+            AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
+            if(ai!=null){
+                damageAmount = damageAmount*(float)ai.getValue();   
+            }
+        }
         if (damageSource.is(ModDamageTypes.BULLET)
                 && !damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)
                 && (Object)this instanceof Player player) {

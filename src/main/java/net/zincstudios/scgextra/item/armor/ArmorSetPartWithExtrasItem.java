@@ -47,6 +47,7 @@ public class ArmorSetPartWithExtrasItem extends GeoArmorSetPartItem{
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
         if(!(entity instanceof LivingEntity owner))return;
         if(level.isClientSide())return;
         for (Map.Entry<UUID, Attribute> entry : ALL_MODIFIER_ATTRIBUTES.entrySet()) {
@@ -67,6 +68,5 @@ public class ArmorSetPartWithExtrasItem extends GeoArmorSetPartItem{
                 }
             }
         }
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
     }
 }
