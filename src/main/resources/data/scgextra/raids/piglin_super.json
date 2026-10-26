@@ -47,7 +47,8 @@
       "entity_id": "scgextra:piglin_nob"
     },
     {
-      "entity_id": "scguns:mother_ghast"
+      "entity_id": "scguns:mother_ghast",
+      "max_count": 1
     },
     {
       "entity_id": "scgextra:piglin_blaze_kopter"
