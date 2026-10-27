@@ -379,13 +379,33 @@ public class ModItems {
                     )),
 
             RITUAL_HELMET = ITEMS.register("ritual_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL,
+                        Map.of(
+                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_helmet_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_helmet_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             RITUAL_CHESTPLATE = ITEMS.register("ritual_chestplate", () ->
-                    new RitualChestplateItem(ModArmorMaterials.RITUAL, ArmorItem.Type.CHESTPLATE, ArmorSets.RITUAL)),
+                    new RitualChestplateItem(ModArmorMaterials.RITUAL, ArmorItem.Type.CHESTPLATE, ArmorSets.RITUAL,
+                        Map.of(
+                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_chestplate_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_chestplate_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             RITUAL_LEGGINGS = ITEMS.register("ritual_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.RITUAL, ArmorItem.Type.LEGGINGS, ArmorSets.RITUAL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.LEGGINGS, ArmorSets.RITUAL,
+                        Map.of(
+                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_leggings_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_leggings_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             RITUAL_BOOTS = ITEMS.register("ritual_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.RITUAL, ArmorItem.Type.BOOTS, ArmorSets.RITUAL)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.BOOTS, ArmorSets.RITUAL,
+                        Map.of(
+                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_boots_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_boots_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
 
             PIONEER_HELMET = ITEMS.register("pioneer_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.PIONEER, ArmorItem.Type.HELMET, ArmorSets.PIONEER)),

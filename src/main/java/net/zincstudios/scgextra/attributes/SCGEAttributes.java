@@ -33,6 +33,8 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.debuff_zone", 0F, 0, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> DAMPENING = ATTRIBUTES.register("dampening",
             () -> (new RangedAttribute("attribute.scgextra.dampening", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> CAN_REGEN = ATTRIBUTES.register("can_regen",
+            () -> (new RangedAttribute("attribute.scgextra.can_regen", 0F, 0, 100.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
@@ -49,5 +51,6 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, BUFF_ZONE.get());
         event.add(EntityType.PLAYER, DEBUFF_ZONE.get());
         event.add(EntityType.PLAYER, DAMPENING.get());
+        event.add(EntityType.PLAYER, CAN_REGEN.get());
     }
 }
