@@ -113,10 +113,10 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             65,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
                     map -> {
-                        map.put(ArmorItem.Type.HELMET, 5);
-                        map.put(ArmorItem.Type.CHESTPLATE, 9);
+                        map.put(ArmorItem.Type.HELMET, 6);
+                        map.put(ArmorItem.Type.CHESTPLATE, 11);
                         map.put(ArmorItem.Type.LEGGINGS, 6);
-                        map.put(ArmorItem.Type.BOOTS, 4);
+                        map.put(ArmorItem.Type.BOOTS, 5);
                     }),
             16,
             SoundEvents.ARMOR_EQUIP_NETHERITE,

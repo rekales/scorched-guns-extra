@@ -350,13 +350,33 @@ public class ModItems {
                     )),
 
             JUGGERNAUT_HELMET = ITEMS.register("juggernaut_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.HELMET, ArmorSets.JUGGERNAUT)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.HELMET, ArmorSets.JUGGERNAUT,
+                        Map.of(
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_helmet_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_helmet_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                        )
+                    )),
             JUGGERNAUT_CHESTPLATE = ITEMS.register("juggernaut_chestplate", () ->
-                    new JuggernautChestplateItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.CHESTPLATE, ArmorSets.JUGGERNAUT)),
+                    new JuggernautChestplateItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.CHESTPLATE, ArmorSets.JUGGERNAUT,
+                        Map.of(
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_chestplate_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_chestplate_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                        )
+                    )),
             JUGGERNAUT_LEGGINGS = ITEMS.register("juggernaut_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.LEGGINGS, ArmorSets.JUGGERNAUT)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.LEGGINGS, ArmorSets.JUGGERNAUT,
+                        Map.of(
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_leggings_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_leggings_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                        )
+                    )),
             JUGGERNAUT_BOOTS = ITEMS.register("juggernaut_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.BOOTS, ArmorSets.JUGGERNAUT)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.BOOTS, ArmorSets.JUGGERNAUT,
+                        Map.of(
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_boots_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_boots_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                        )
+                    )),
 
             RITUAL_HELMET = ITEMS.register("ritual_helmet", () ->
                     new GeoArmorSetPartItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL)),
