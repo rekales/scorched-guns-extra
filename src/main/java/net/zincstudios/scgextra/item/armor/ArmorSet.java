@@ -95,6 +95,10 @@ public class ArmorSet {
         if (event.player.level().isClientSide()) return;
         Player player = event.player;
 
+        if(player.hasEffect(MobEffects.LEVITATION) && player.getAttribute(SCGEAttributes.PIONEER_FLY.get())!=null && player.getAttribute(SCGEAttributes.PIONEER_FLY.get()).getValue()>=1.0){
+            player.removeEffect(MobEffects.LEVITATION);
+        }
+
         if (event.player.tickCount % TICK_INTERVAL != 0) return;
 
         if(player.getAttribute(SCGEAttributes.BUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue()!=0.0){

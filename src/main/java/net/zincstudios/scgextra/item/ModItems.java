@@ -408,13 +408,35 @@ public class ModItems {
                     )),
 
             PIONEER_HELMET = ITEMS.register("pioneer_helmet", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.PIONEER, ArmorItem.Type.HELMET, ArmorSets.PIONEER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.HELMET, ArmorSets.PIONEER,
+                        Map.of(
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_helmet_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_helmet_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             PIONEER_CHESTPLATE = ITEMS.register("pioneer_chestplate", () ->
-                    new PioneerChestplateItem(ModArmorMaterials.PIONEER, ArmorItem.Type.CHESTPLATE, ArmorSets.PIONEER)),
+                    new PioneerChestplateItem(ModArmorMaterials.PIONEER, ArmorItem.Type.CHESTPLATE, ArmorSets.PIONEER,
+                        Map.of(
+                            SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_chestplate_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_chestplate_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             PIONEER_LEGGINGS = ITEMS.register("pioneer_leggings", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.PIONEER, ArmorItem.Type.LEGGINGS, ArmorSets.PIONEER)),
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.LEGGINGS, ArmorSets.PIONEER,
+                        Map.of(
+                            SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_leggings_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION), 
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_leggings_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                        )
+                    )),
             PIONEER_BOOTS = ITEMS.register("pioneer_boots", () ->
-                    new GeoArmorSetPartItem(ModArmorMaterials.PIONEER, ArmorItem.Type.BOOTS, ArmorSets.PIONEER));
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.BOOTS, ArmorSets.PIONEER,
+                        Map.of(
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_boots_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_boots_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                        )
+                    ));
 
     public static final RegistryObject<SpawnEggItem>
             // Whaler

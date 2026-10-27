@@ -37,9 +37,7 @@ public final class ArmorSets {
 
     public static final ArmorSet RITUAL = new RitualArmorSet(SCGExtra.asResource("ritual"), new ArmorSet.Traits());
 
-    public static final ArmorSet PIONEER = new ArmorSet(SCGExtra.asResource("pioneer"), new ArmorSet.Traits()
-            .resistance(MobEffects.LEVITATION)
-    );
+    public static final ArmorSet PIONEER = new ArmorSet(SCGExtra.asResource("pioneer"), new ArmorSet.Traits());
 
     public static void onEntityHurt(LivingHurtEvent event) {
         LivingEntity entity = event.getEntity();

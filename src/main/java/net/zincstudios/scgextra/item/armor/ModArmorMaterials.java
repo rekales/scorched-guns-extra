@@ -140,18 +140,18 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             () -> Ingredient.of(ModItems.DIAMOND_STEEL_INGOT.get())
     ),
     PIONEER("pioneer",
-            50,
+            60,
             Util.make(new EnumMap<>(ArmorItem.Type.class),
                     map -> {
                         map.put(ArmorItem.Type.HELMET, 5);
-                        map.put(ArmorItem.Type.CHESTPLATE, 8);
-                        map.put(ArmorItem.Type.LEGGINGS, 7);
-                        map.put(ArmorItem.Type.BOOTS, 4);
+                        map.put(ArmorItem.Type.CHESTPLATE, 10);
+                        map.put(ArmorItem.Type.LEGGINGS, 8);
+                        map.put(ArmorItem.Type.BOOTS, 5);
                     }),
             12,
             SoundEvents.ARMOR_EQUIP_LEATHER,
-            1F,
-            0.2F,
+            3F,
+            0.05F,
             () -> Ingredient.of(Items.SHULKER_SHELL, ModItems.DIAMOND_STEEL_INGOT.get())
     );
 
