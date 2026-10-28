@@ -51,11 +51,6 @@ public final class ArmorSets {
         if (ArmorSet.getArmorSet(hurter) == WRECKER) {
             entity.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
         }
-        
-        //note: pretty sure something's wrong here, I forgot what I added this for
-        if (ArmorSet.getArmorSet(hurter) == OPPRESSOR) {
-            entity.hurt(event.getSource(), (float)(event.getAmount()*0.1));
-        }
 
         if (ArmorSet.getArmorSet(entity) == WRECKER) {
             hurter.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));

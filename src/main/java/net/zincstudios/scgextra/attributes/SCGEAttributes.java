@@ -18,11 +18,11 @@ public final class SCGEAttributes {
     public static final RegistryObject<Attribute> RECOIL_MULT = ATTRIBUTES.register("recoil_multiplier",
             () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> BULLET_DAMAGE_TAKEN_MULT = ATTRIBUTES.register("bullet_damage_taken_multiplier",
-            () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
+            () -> (new RangedAttribute("attribute.scgextra.bullet_damage_taken_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> BULLET_ADDITIONAL_CRIT_CHANCE = ATTRIBUTES.register("bullet_additional_crit_chance",
-            () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 0.0F, -100, 100.0F)).setSyncable(true));
+            () -> (new RangedAttribute("attribute.scgextra.bullet_additional_crit_chance", 0.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> BULLET_GRAVITY_MULT = ATTRIBUTES.register("bullet_gravity_multiplier",
-            () -> (new RangedAttribute("attribute.scgextra.recoil_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
+            () -> (new RangedAttribute("attribute.scgextra.bullet_gravity_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> UNDEAD_DAMAGE_MULT = ATTRIBUTES.register("undead_damage_multiplier",
             () -> (new RangedAttribute("attribute.scgextra.undead_damage_multiplier", 1.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> MAGIC_DAMAGE_REDUCTION = ATTRIBUTES.register("magic_damage_reduction",

@@ -574,5 +574,17 @@
   "scgextra.subtitle.piglin.piglin_warboss.scream": "Piglin Warboss Screams",
   "scgextra.subtitle.piglin.piglin_warboss.stun": "Piglin Warboss Stunned",
 
-  "biome.scgextra.warzone_biome": "Warzone"
+  "biome.scgextra.warzone_biome": "Warzone",
+
+  "attribute.scgextra.recoil_multiplier": "Recoil",
+  "attribute.scgextra.bullet_damage_taken_multiplier": "Recoil",
+  "attribute.scgextra.bullet_additional_crit_chance": "Additional Crit Chance",
+  "attribute.scgextra.bullet_gravity_multiplier": "Bullet Gravity",
+  "attribute.scgextra.undead_damage_multiplier": "Undead Damage",
+  "attribute.scgextra.magic_damage_reduction": "Reduce Magic Damage",
+  "attribute.scgextra.buff_zone": "Buff Zone",
+  "attribute.scgextra.debuff_zone": "Debuff Zone",
+  "attribute.scgextra.dampening": "Dampen",
+  "attribute.scgextra.can_regen": "Regeneration",
+  "attribute.scgextra.pioneer_fly": "Pioneer"
 }
