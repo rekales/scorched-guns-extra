@@ -18,6 +18,8 @@ import net.zincstudios.scgextra.attributes.SCGEAttributes;
 import net.zincstudios.scgextra.item.armor.ArmorSet;
 import net.zincstudios.scgextra.item.armor.RitualArmorSet;
 import org.spongepowered.asm.mixin.Mixin;
+
+import top.ribs.scguns.entity.projectile.ProjectileEntity;
 import top.ribs.scguns.init.ModDamageTypes;
 
 @Mixin(value = LivingEntity.class)
@@ -27,13 +29,33 @@ public class LivingEntityMixin {
     @WrapMethod(method = "getDamageAfterMagicAbsorb")
     private float atGetDamageAfterMagicAbsorb(DamageSource damageSource, float damageAmount, Operation<Float> original) {
         //Undead Damage Multiplier Attribute
-        if((Object)this instanceof LivingEntity living && living.getMobType() == MobType.UNDEAD && damageSource.getDirectEntity()!=null && damageSource.getDirectEntity() instanceof LivingEntity le && le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())!=null){
-            AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
-            if(ai!=null){
-                damageAmount *= (float)ai.getValue();   
+        if(
+            (Object)this instanceof LivingEntity living && 
+            living.getMobType() == MobType.UNDEAD && 
+            damageSource.getDirectEntity()!=null
+        ){
+            if(
+                damageSource.getDirectEntity() instanceof LivingEntity le && 
+                le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())!=null
+            ){
+                AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
+                if(ai!=null){
+                    damageAmount *= (float)ai.getValue();   
+                }
+            }
+            if(
+                damageSource.getDirectEntity() instanceof ProjectileEntity pe && 
+                pe.getOwner()!=null && 
+                pe.getOwner() instanceof LivingEntity le &&
+                le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())!=null
+            ){
+                AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
+                if(ai!=null){
+                    damageAmount *= (float)ai.getValue();   
+                }
             }
         }
-        
+
         if(damageSource.is(DamageTypes.MAGIC) && (Object)this instanceof LivingEntity le){
             AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
             if(ai!=null){
