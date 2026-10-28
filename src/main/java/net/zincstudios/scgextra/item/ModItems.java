@@ -177,7 +177,7 @@ public class ModItems {
             OPPRESSOR_HELMET = ITEMS.register("oppressor_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_helmet_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )
@@ -185,21 +185,21 @@ public class ModItems {
             OPPRESSOR_CHESTPLATE = ITEMS.register("oppressor_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_chestplate_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_LEGGINGS = ITEMS.register("oppressor_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_leggings_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_BOOTS = ITEMS.register("oppressor_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_boots_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),

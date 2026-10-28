@@ -9,6 +9,7 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -25,10 +26,18 @@ public class LivingEntityMixin {
     @SuppressWarnings("ConstantValue")
     @WrapMethod(method = "getDamageAfterMagicAbsorb")
     private float atGetDamageAfterMagicAbsorb(DamageSource damageSource, float damageAmount, Operation<Float> original) {
+        //Undead Damage Multiplier Attribute
+        if((Object)this instanceof LivingEntity living && living.getMobType() == MobType.UNDEAD && damageSource.getDirectEntity()!=null && damageSource.getDirectEntity() instanceof LivingEntity le && le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())!=null){
+            AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
+            if(ai!=null){
+                damageAmount *= (float)ai.getValue();   
+            }
+        }
+        
         if(damageSource.is(DamageTypes.MAGIC) && (Object)this instanceof LivingEntity le){
             AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
             if(ai!=null){
-                damageAmount = damageAmount*(float)ai.getValue();   
+                damageAmount = damageAmount-damageAmount*(float)ai.getValue();   
             }
         }
         if (damageSource.is(ModDamageTypes.BULLET)
