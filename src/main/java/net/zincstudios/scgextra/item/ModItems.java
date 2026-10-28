@@ -352,28 +352,32 @@ public class ModItems {
             JUGGERNAUT_HELMET = ITEMS.register("juggernaut_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.HELMET, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_helmet_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_helmet_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_helmet_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_helmet_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
                         )
                     )),
             JUGGERNAUT_CHESTPLATE = ITEMS.register("juggernaut_chestplate", () ->
                     new JuggernautChestplateItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.CHESTPLATE, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_chestplate_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_chestplate_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_chestplate_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_chestplate_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
                         )
                     )),
             JUGGERNAUT_LEGGINGS = ITEMS.register("juggernaut_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.LEGGINGS, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_leggings_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_leggings_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_leggings_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_leggings_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
                         )
                     )),
             JUGGERNAUT_BOOTS = ITEMS.register("juggernaut_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.BOOTS, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_boots_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_boots_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_boots_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_boots_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
                         )
                     )),
@@ -382,35 +386,35 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_helmet_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_helmet_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_helmet_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_CHESTPLATE = ITEMS.register("ritual_chestplate", () ->
                     new RitualChestplateItem(ModArmorMaterials.RITUAL, ArmorItem.Type.CHESTPLATE, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_chestplate_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_chestplate_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_chestplate_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_LEGGINGS = ITEMS.register("ritual_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.LEGGINGS, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_leggings_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_leggings_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_leggings_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_BOOTS = ITEMS.register("ritual_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.BOOTS, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_boots_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_boots_add_bullet_damage", 0.25, AttributeModifier.Operation.ADDITION)
+                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_boots_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
             PIONEER_HELMET = ITEMS.register("pioneer_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.HELMET, ArmorSets.PIONEER,
                         Map.of(
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_helmet_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_helmet_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_helmet_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -418,7 +422,7 @@ public class ModItems {
                     new PioneerChestplateItem(ModArmorMaterials.PIONEER, ArmorItem.Type.CHESTPLATE, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_chestplate_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_chestplate_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -426,14 +430,14 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.LEGGINGS, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_leggings_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION), 
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_leggings_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             PIONEER_BOOTS = ITEMS.register("pioneer_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.BOOTS, ArmorSets.PIONEER,
                         Map.of(
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("pioneer_boots_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_boots_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_boots_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     ));

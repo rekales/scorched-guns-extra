@@ -21,6 +21,8 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.bullet_damage_taken_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> BULLET_ADDITIONAL_CRIT_CHANCE = ATTRIBUTES.register("bullet_additional_crit_chance",
             () -> (new RangedAttribute("attribute.scgextra.bullet_additional_crit_chance", 0.0F, -100, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> BULLET_ADDITIONAL_CRIT_DAMAGE_MULT = ATTRIBUTES.register("bullet_additional_crit_damage_multiplier",
+            () -> (new RangedAttribute("attribute.scgextra.bullet_additional_crit_damage_multiplier", 1.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> BULLET_GRAVITY_MULT = ATTRIBUTES.register("bullet_gravity_multiplier",
             () -> (new RangedAttribute("attribute.scgextra.bullet_gravity_multiplier", 1.0F, 0.01, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> UNDEAD_DAMAGE_MULT = ATTRIBUTES.register("undead_damage_multiplier",
@@ -37,6 +39,8 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.can_regen", 0F, 0, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> PIONEER_FLY = ATTRIBUTES.register("pioneer_fly",
             () -> (new RangedAttribute("attribute.scgextra.pioneer_fly", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> REDUCE_LACERATION = ATTRIBUTES.register("reduce_laceration",
+            () -> (new RangedAttribute("attribute.scgextra.reduce_laceration", 0F, 0, 100.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
@@ -47,6 +51,7 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, RECOIL_MULT.get());
         event.add(EntityType.PLAYER, BULLET_DAMAGE_TAKEN_MULT.get());
         event.add(EntityType.PLAYER, BULLET_ADDITIONAL_CRIT_CHANCE.get());
+        event.add(EntityType.PLAYER, BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get());
         event.add(EntityType.PLAYER, BULLET_GRAVITY_MULT.get());
         event.add(EntityType.PLAYER, UNDEAD_DAMAGE_MULT.get());
         event.add(EntityType.PLAYER, MAGIC_DAMAGE_REDUCTION.get());
@@ -55,5 +60,6 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, DAMPENING.get());
         event.add(EntityType.PLAYER, CAN_REGEN.get());
         event.add(EntityType.PLAYER, PIONEER_FLY.get());
+        event.add(EntityType.PLAYER, REDUCE_LACERATION.get());
     }
 }

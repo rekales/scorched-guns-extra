@@ -15,6 +15,7 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
+import top.ribs.scguns.init.ModEffects;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -97,6 +98,10 @@ public class ArmorSet {
 
         if(player.hasEffect(MobEffects.LEVITATION) && player.getAttribute(SCGEAttributes.PIONEER_FLY.get())!=null && player.getAttribute(SCGEAttributes.PIONEER_FLY.get()).getValue()>=1.0){
             player.removeEffect(MobEffects.LEVITATION);
+        }
+
+        if(player.hasEffect(ModEffects.LACERATED.get()) && player.getAttribute(SCGEAttributes.REDUCE_LACERATION.get())!=null && player.getAttribute(SCGEAttributes.REDUCE_LACERATION.get()).getValue()>=1.0){
+            player.removeEffect(ModEffects.LACERATED.get());
         }
 
         if (event.player.tickCount % TICK_INTERVAL != 0) return;

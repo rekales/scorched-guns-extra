@@ -576,15 +576,16 @@
 
   "biome.scgextra.warzone_biome": "Warzone",
 
-  "attribute.scgextra.recoil_multiplier": "Recoil",
-  "attribute.scgextra.bullet_damage_taken_multiplier": "Bullet Damage Taken",
+  "attribute.scgextra.recoil_multiplier": "Recoil Multiplier",
+  "attribute.scgextra.bullet_damage_taken_multiplier": "Bullet Damage Taken Multiplier",
   "attribute.scgextra.bullet_additional_crit_chance": "Additional Crit Chance",
-  "attribute.scgextra.bullet_gravity_multiplier": "Bullet Gravity",
-  "attribute.scgextra.undead_damage_multiplier": "Undead Damage",
+  "attribute.scgextra.bullet_gravity_multiplier": "Bullet Gravity Multiplier",
+  "attribute.scgextra.undead_damage_multiplier": "Undead Damage Multiplier",
   "attribute.scgextra.magic_damage_reduction": "Magic Damage Taken",
   "attribute.scgextra.buff_zone": "Buff Zone",
   "attribute.scgextra.debuff_zone": "Debuff Zone",
   "attribute.scgextra.dampening": "Dampen",
   "attribute.scgextra.can_regen": "Regeneration",
-  "attribute.scgextra.pioneer_fly": "Pioneer"
+  "attribute.scgextra.pioneer_fly": "Pioneer",
+  "attribute.scgextra.bullet_additional_crit_damage_multiplier": "Additional Crit Damage Multiplier"
 }

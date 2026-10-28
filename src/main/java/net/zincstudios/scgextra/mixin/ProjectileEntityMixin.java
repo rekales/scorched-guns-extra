@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
+
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -27,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import top.ribs.scguns.Config;
+import top.ribs.scguns.common.Gun;
 import top.ribs.scguns.entity.projectile.ProjectileEntity;
 import top.ribs.scguns.init.ModDamageTypes;
 import top.ribs.scguns.util.math.ExtendedEntityRayTraceResult;
@@ -67,6 +69,20 @@ public class ProjectileEntityMixin {
              return Mth.clamp(chance, 0, 1);
         }
         return chance;
+    }
+    @WrapOperation(
+        method = "getCriticalDamage",
+        at = @At(
+            value = "INVOKE",
+            target = "Ltop/ribs/scguns/common/Gun$Projectile;getCritDamageMultiplier()F"
+        ))
+    private float atGetCritDamageMultiplier(Gun.Projectile instance, Operation<Float> original) {
+        ProjectileEntity self = (ProjectileEntity) (Object) this;
+        float damage = original.call(instance);
+        if (self.getShooter() instanceof Player player) {
+            damage *= (float) player.getAttributeValue(SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get());
+        }
+        return damage;
     }
 
     @WrapOperation(
