@@ -577,11 +577,11 @@
   "biome.scgextra.warzone_biome": "Warzone",
 
   "attribute.scgextra.recoil_multiplier": "Recoil",
-  "attribute.scgextra.bullet_damage_taken_multiplier": "Recoil",
+  "attribute.scgextra.bullet_damage_taken_multiplier": "Bullet Damage Taken",
   "attribute.scgextra.bullet_additional_crit_chance": "Additional Crit Chance",
   "attribute.scgextra.bullet_gravity_multiplier": "Bullet Gravity",
   "attribute.scgextra.undead_damage_multiplier": "Undead Damage",
-  "attribute.scgextra.magic_damage_reduction": "Magic Damage",
+  "attribute.scgextra.magic_damage_reduction": "Magic Damage Taken",
   "attribute.scgextra.buff_zone": "Buff Zone",
   "attribute.scgextra.debuff_zone": "Debuff Zone",
   "attribute.scgextra.dampening": "Dampen",
