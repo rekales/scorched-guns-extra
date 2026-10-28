@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -47,11 +48,14 @@ public class LeviathanArmorSetPartItem extends ArmorSetPartWithExtrasItem{
         super.inventoryTick(stack, level, entity, slotId, isSelected);
         if(!(entity instanceof LivingEntity owner))return;
         if(level.isClientSide())return;
-        if(entity.tickCount%200!=0)return;
-        for(ArmorItem.Type type : SLOT_MAP.keySet()){
-            for (MobEffect entry : MOB_EFFECTS) {
-                if(this.getType() == type && slotId == SLOT_MAP.get(type) && owner.hasEffect(entry)){
-                    owner.removeEffect(entry);
+        CompoundTag tag = entity.getPersistentData();
+        if(level.getGameTime()>tag.getLong("leviathanClenseCooldownEnd")){
+            for(ArmorItem.Type type : SLOT_MAP.keySet()){
+                for (MobEffect entry : MOB_EFFECTS) {
+                    if(this.getType() == type && slotId == SLOT_MAP.get(type) && owner.hasEffect(entry)){
+                        owner.removeEffect(entry);
+                        tag.putLong("leviathanClenseCooldownEnd", entity.level().getGameTime() + 200);
+                    }
                 }
             }
         }

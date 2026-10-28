@@ -56,12 +56,13 @@ public class LivingEntityMixin {
             }
         }
 
-        if(damageSource.is(DamageTypes.MAGIC) && (Object)this instanceof LivingEntity le){
+        if((damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) && (Object)this instanceof LivingEntity le){
             AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
-            if(ai!=null){
-                damageAmount = damageAmount-damageAmount*(float)ai.getValue();   
+            if(ai!=null && ai.getValue()!=1.0){
+                damageAmount -= damageAmount*(float)ai.getValue();   
             }
         }
+
         if (damageSource.is(ModDamageTypes.BULLET)
                 && !damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)
                 && (Object)this instanceof Player player) {
