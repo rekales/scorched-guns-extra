@@ -77,18 +77,6 @@
       "weight": 2
     },
     {
-      "structure": "scgextra:blackstone_fortress",
-      "weight": 2
-    },
-    {
-      "structure": "scgextra:piglin_ghast_station",
-      "weight": 2
-    },
-    {
-      "structure": "scgextra:piglin_mega_portal_nether",
-      "weight": 2
-    },
-    {
       "structure": "scgextra:piglin_mega_portal_overworld",
       "weight": 2
     }

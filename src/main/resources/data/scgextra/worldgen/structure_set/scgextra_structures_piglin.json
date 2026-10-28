@@ -1,0 +1,29 @@
+{
+  "structures": [
+    {
+      "structure": "scgextra:blackstone_fortress",
+      "weight": 1
+    },
+    {
+      "structure": "scgextra:piglin_ghast_station",
+      "weight": 1
+    },
+    {
+      "structure": "scgextra:piglin_mega_portal_nether",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 32,
+    "separation": 16,
+    "spread_type": "linear",
+    "salt": 9572640,
+    "frequency_reduction_method": "default",
+    "frequency": 1,
+    "exclusion_zone": {
+      "other_set": "minecraft:nether_complexes",
+      "chunk_count": 10
+    }
+  }
+}
