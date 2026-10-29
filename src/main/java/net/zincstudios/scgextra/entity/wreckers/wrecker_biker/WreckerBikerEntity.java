@@ -157,20 +157,27 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
         if (soundevent != null) {
             this.playSound(soundevent, this.isCircling() ? this.getSoundVolume() * 1.5f : this.getSoundVolume(), this.getVoicePitch());
         }
+        this.playSound(WreckersSounds.WRECKER_BIKER_RIDER_IDLE.get(), this.isCircling() ? this.getSoundVolume() * 1.5f : this.getSoundVolume(), this.getVoicePitch());
+    }
+    @Override
+    protected void playHurtSound(DamageSource source) {
+        this.ambientSoundTime = -this.getAmbientSoundInterval();
+        this.playSound(WreckersSounds.WRECKER_BIKER_RIDER_HURT.get(), this.getSoundVolume(), this.getVoicePitch());
+        super.playHurtSound(source);
     }
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isCircling() ? WreckersSounds.WRECKER_BIKER_IDLE_WHILE_CIRCLING.get() : WreckersSounds.WRECKER_BIKER_IDLE.get();
+        return this.isCircling() ? WreckersSounds.WRECKER_BIKER_BIKE_IDLE_WHILE_CIRCLING.get() : WreckersSounds.WRECKER_BIKER_BIKE_IDLE.get();
     }
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
-        return WreckersSounds.WRECKER_BIKER_HURT.get();
+        return WreckersSounds.WRECKER_BIKER_BIKE_HURT.get();
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return WreckersSounds.WRECKER_BIKER_DEATH.get();
+        return WreckersSounds.WRECKER_BIKER_BIKE_DEATH.get();
     }
 
     @Override
@@ -193,5 +200,17 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
             SpawnGroupData spawnData, CompoundTag dataTag) {
         this.clockwise = this.random.nextBoolean() ? 1.0F : -1.0F;
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+    }
+
+    @Override
+    public void handleEntityEvent(byte id) {
+        switch (id) {
+            case 3:
+                this.playSound(WreckersSounds.WRECKER_BIKER_RIDER_DEATH.get(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
+                break;
+            default:
+                break;
+        }
+        super.handleEntityEvent(id);
     }
 }

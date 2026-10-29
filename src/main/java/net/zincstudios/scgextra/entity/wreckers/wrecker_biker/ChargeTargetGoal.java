@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.wreckers.wrecker_biker;
 
 import java.util.EnumSet;
 
+import net.zincstudios.scgextra.sounds.WreckersSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -55,6 +56,7 @@ public class ChargeTargetGoal extends Goal{
         }else{
             chargeTarget();
         }
+        if(this.endTime==this.biker.level().getGameTime())this.biker.playSound(WreckersSounds.WRECKER_BIKER_RIDER_CHARGE.get(), 1.5f, this.biker.getVoicePitch());
     }
     @Override
     public void stop() {
@@ -125,6 +127,8 @@ public class ChargeTargetGoal extends Goal{
             );
             this.biker.level().addFreshEntity(cocktail);
             this.biker.doHurtTarget(target);
+            this.biker.playSound(WreckersSounds.WRECKER_BIKER_BIKE_HIT.get(), 1f, this.biker.getVoicePitch());
+            this.biker.playSound(WreckersSounds.WRECKER_BIKER_RIDER_LAUGH.get(), 1.5f, this.biker.getVoicePitch());
             //move away to not get hit
             AABB box = this.biker.getBoundingBox().inflate(20);
             this.biker.getNavigation().moveTo(

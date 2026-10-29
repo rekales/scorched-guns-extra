@@ -1147,42 +1147,106 @@
       "scgextra:wreckers/wrecker_dozer/wrecker_dozerwrecker_dozer_stun_death"
     ]
   },
-  "scgextra.wreckers.wrecker_biker.idle": {
+  "scgextra.wreckers.wrecker_biker.bike.idle": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.wrecker_biker.idle",
+    "subtitle": "scgextra.subtitle.wrecker_biker.bike.idle",
     "sounds": [
       "scgextra:wreckers/wrecker_biker/wrecker_biker_idle"
     ]
   },
-  "scgextra.wreckers.wrecker_biker.idle_while_circling": {
+  "scgextra.wreckers.wrecker_biker.bike.idle_while_circling": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.wrecker_biker.wrecker_biker_idle_while_circling",
+    "subtitle": "scgextra.subtitle.wrecker_biker.bike.wrecker_biker_idle_while_circling",
     "sounds": [
       "scgextra:wreckers/wrecker_biker/wrecker_biker_idle_while_circling"
     ]
   },
-  "scgextra.wreckers.wrecker_biker.hurt": {
+  "scgextra.wreckers.wrecker_biker.bike.hurt": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.wrecker_biker.hurt",
+    "subtitle": "scgextra.subtitle.wrecker_biker.bike.hurt",
     "sounds": [
       "scgextra:wreckers/wrecker_biker/wrecker_biker_hurt1",
       "scgextra:wreckers/wrecker_biker/wrecker_biker_hurt2"
     ]
   },
-  "scgextra.wreckers.wrecker_biker.hit": {
+  "scgextra.wreckers.wrecker_biker.bike.hit": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.wrecker_biker.hit",
+    "subtitle": "scgextra.subtitle.wrecker_biker.bike.hit",
     "sounds": [
       "scgextra:wreckers/wrecker_biker/wrecker_biker_hit1",
       "scgextra:wreckers/wrecker_biker/wrecker_biker_hit2"
     ]
   },
-  "scgextra.wreckers.wrecker_biker.death": {
+  "scgextra.wreckers.wrecker_biker.bike.death": {
     "category": "hostile",
-    "subtitle": "scgextra.subtitle.wrecker_biker.death",
+    "subtitle": "scgextra.subtitle.wrecker_biker.bike.death",
     "sounds": [
       "scgextra:wreckers/wrecker_biker/wrecker_biker_death1",
       "scgextra:wreckers/wrecker_biker/wrecker_biker_death2"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.rider.idle": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.rider.idle",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/idle_01",
+      "scgextra:wreckers/wrecker_biker/idle_02",
+      "scgextra:wreckers/wrecker_biker/idle_03",
+      "scgextra:wreckers/wrecker_biker/idle_04",
+      "scgextra:wreckers/wrecker_biker/idle_05"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.rider.hurt": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.rider.hurt",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/hurt_01",
+      "scgextra:wreckers/wrecker_biker/hurt_02",
+      "scgextra:wreckers/wrecker_biker/hurt_03",
+      "scgextra:wreckers/wrecker_biker/hurt_04",
+      "scgextra:wreckers/wrecker_biker/hurt_05",
+      "scgextra:wreckers/wrecker_biker/hurt_06",
+      "scgextra:wreckers/wrecker_biker/hurt_07",
+      "scgextra:wreckers/wrecker_biker/hurt_08",
+      "scgextra:wreckers/wrecker_biker/hurt_09",
+      "scgextra:wreckers/wrecker_biker/hurt_10",
+      "scgextra:wreckers/wrecker_biker/hurt_11",
+      "scgextra:wreckers/wrecker_biker/hurt_12"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.rider.charge": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.rider.charge",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/charge_01",
+      "scgextra:wreckers/wrecker_biker/charge_02",
+      "scgextra:wreckers/wrecker_biker/charge_03",
+      "scgextra:wreckers/wrecker_biker/charge_04"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.rider.death": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.rider.death",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/death_01",
+      "scgextra:wreckers/wrecker_biker/death_02",
+      "scgextra:wreckers/wrecker_biker/death_03",
+      "scgextra:wreckers/wrecker_biker/death_04",
+      "scgextra:wreckers/wrecker_biker/death_05",
+      "scgextra:wreckers/wrecker_biker/death_06"
+    ]
+  },
+  "scgextra.wreckers.wrecker_biker.rider.laugh": {
+    "category": "hostile",
+    "subtitle": "scgextra.subtitle.wrecker_biker.rider.laugh",
+    "sounds": [
+      "scgextra:wreckers/wrecker_biker/laugh_01",
+      "scgextra:wreckers/wrecker_biker/laugh_02",
+      "scgextra:wreckers/wrecker_biker/laugh_03",
+      "scgextra:wreckers/wrecker_biker/laugh_04",
+      "scgextra:wreckers/wrecker_biker/laugh_05",
+      "scgextra:wreckers/wrecker_biker/laugh_06",
+      "scgextra:wreckers/wrecker_biker/laugh_07"
     ]
   },
   "asghar_surgeon.attack": {

@@ -47,11 +47,16 @@ public class WreckersSounds {
     public static final RegistryObject<SoundEvent> DOZER_STUN_DEATH = register("wrecker_dozer.stun_death");
 
     // BIKER
-    public static final RegistryObject<SoundEvent> WRECKER_BIKER_IDLE = register("scgextra.wreckers.wrecker_biker.idle");
-    public static final RegistryObject<SoundEvent> WRECKER_BIKER_IDLE_WHILE_CIRCLING = register("scgextra.wreckers.wrecker_biker.idle_while_circling");
-    public static final RegistryObject<SoundEvent> WRECKER_BIKER_HURT = register("scgextra.wreckers.wrecker_biker.hurt");
-    public static final RegistryObject<SoundEvent> WRECKER_BIKER_HIT = register("scgextra.wreckers.wrecker_biker.hit");
-    public static final RegistryObject<SoundEvent> WRECKER_BIKER_DEATH = register("scgextra.wreckers.wrecker_biker.death");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_BIKE_IDLE = register("scgextra.wreckers.wrecker_biker.bike.idle");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_BIKE_IDLE_WHILE_CIRCLING = register("scgextra.wreckers.wrecker_biker.bike.idle_while_circling");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_BIKE_HURT = register("scgextra.wreckers.wrecker_biker.bike.hurt");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_BIKE_HIT = register("scgextra.wreckers.wrecker_biker.bike.hit");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_BIKE_DEATH = register("scgextra.wreckers.wrecker_biker.bike.death");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_RIDER_IDLE = register("scgextra.wreckers.wrecker_biker.rider.idle");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_RIDER_HURT = register("scgextra.wreckers.wrecker_biker.rider.hurt");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_RIDER_CHARGE = register("scgextra.wreckers.wrecker_biker.rider.charge");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_RIDER_LAUGH = register("scgextra.wreckers.wrecker_biker.rider.laugh");
+    public static final RegistryObject<SoundEvent> WRECKER_BIKER_RIDER_DEATH = register("scgextra.wreckers.wrecker_biker.rider.death");
 
     public static List<SoundEvent> gangVoiceLines() {
         return List.of(GANG_IDLE.get(),
