@@ -203,4 +203,8 @@ public class PiglinStriderRiderEntity extends EquippedEntity implements GeoEntit
         this.stopTriggeredAnimation("attack", null);
         super.die(damageSource);
     }
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
+    }
 }

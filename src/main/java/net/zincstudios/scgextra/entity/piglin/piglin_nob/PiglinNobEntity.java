@@ -194,4 +194,8 @@ public class PiglinNobEntity extends EquippedEntity implements GeoEntity, Gunner
         this.stopTriggeredAnimation("attack", null);
         super.die(damageSource);
     }
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
+    }
 }

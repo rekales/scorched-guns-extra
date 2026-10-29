@@ -264,4 +264,8 @@ public class PiglinBlazeKopterEntity extends Monster implements GeoEntity, Gunne
     protected void tickDeath() {
         MobUtil.tickDeath(this, 15);
     }
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
+    }
 }

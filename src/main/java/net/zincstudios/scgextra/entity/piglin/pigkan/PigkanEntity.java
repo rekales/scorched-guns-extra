@@ -252,4 +252,8 @@ public class PigkanEntity extends Monster implements GeoEntity{
         this.stopTriggeredAnimation("attack", null);
         super.die(damageSource);
     }
+    @Override
+    public boolean removeWhenFarAway(double distance) {
+        return false;
+    }
 }
