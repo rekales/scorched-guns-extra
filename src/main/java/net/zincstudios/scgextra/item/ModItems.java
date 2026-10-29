@@ -178,7 +178,7 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR, 
                         Map.of(
                             SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_helmet_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.OPPRESSOR.get(), new AttributeModifier("oppressor_helmet_add_oppressor", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )
                 ),
@@ -186,21 +186,21 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR, 
                         Map.of(
                             SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_chestplate_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.OPPRESSOR.get(), new AttributeModifier("oppressor_chestplate_add_oppressor", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_LEGGINGS = ITEMS.register("oppressor_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR, 
                         Map.of(
                             SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_leggings_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.OPPRESSOR.get(), new AttributeModifier("oppressor_leggings_add_oppressor", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_BOOTS = ITEMS.register("oppressor_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR, 
                         Map.of(
                             SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_boots_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.OPPRESSOR.get(), new AttributeModifier("oppressor_boot_add_oppressor", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
@@ -208,28 +208,28 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.HELMET, ArmorSets.COMMISSAR,
                         Map.of(
                             SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_helmet_add_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_helmet_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.COMMISSAR.get(), new AttributeModifier("commissar_helmet_add_commissar", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             COMMISSAR_CHESTPLATE = ITEMS.register("commissar_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.CHESTPLATE, ArmorSets.COMMISSAR,
                         Map.of(
                             SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_chestplate_add_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_chestplate_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.COMMISSAR.get(), new AttributeModifier("commissar_chestplate_add_commissar", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             COMMISSAR_LEGGINGS = ITEMS.register("commissar_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.LEGGINGS, ArmorSets.COMMISSAR,
                         Map.of(
                             SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_leggings_add_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_leggings_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.COMMISSAR.get(), new AttributeModifier("commissar_leggings_add_commissar", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             COMMISSAR_BOOTS = ITEMS.register("commissar_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.COMMISSAR, ArmorItem.Type.BOOTS, ArmorSets.COMMISSAR,
                         Map.of(
                             SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_boots_add_reload_speed", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("commissar_boots_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.COMMISSAR.get(), new AttributeModifier("commissar_boots_add_commissar", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
@@ -265,57 +265,57 @@ public class ModItems {
             LEVIATHAN_HELMET = ITEMS.register("leviathan_helmet", () ->
                     new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN,
                         Map.of(
-                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_helmet_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_helmet_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_helmet_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_CHESTPLATE = ITEMS.register("leviathan_chestplate", () ->
                     new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.CHESTPLATE, ArmorSets.LEVIATHAN,
                         Map.of(
-                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_chestplate_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_chestplate_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_chestplate_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_LEGGINGS = ITEMS.register("leviathan_leggings", () ->
                     new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.LEGGINGS, ArmorSets.LEVIATHAN,
                         Map.of(
-                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_leggings_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_leggings_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_leggings_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_BOOTS = ITEMS.register("leviathan_boots", () ->
                     new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.BOOTS, ArmorSets.LEVIATHAN,
                         Map.of(
-                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_boots_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_boots_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_boots_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
             GOLDEN_IDOL_HELMET = ITEMS.register("golden_idol_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.HELMET, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GOLDEN_IDOL.get(), new AttributeModifier("golden_idol_helmet_add_golden_idol", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_helmet_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_CHESTPLATE = ITEMS.register("golden_idol_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.CHESTPLATE, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GOLDEN_IDOL.get(), new AttributeModifier("golden_idol_chestplate_add_golden_idol", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_chestplate_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_LEGGINGS = ITEMS.register("golden_idol_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.LEGGINGS, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GOLDEN_IDOL.get(), new AttributeModifier("golden_idol_leggings_add_golden_idol", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_leggings_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_BOOTS = ITEMS.register("golden_idol_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.BOOTS, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GOLDEN_IDOL.get(), new AttributeModifier("golden_idol_boots_add_golden_idol", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_boots_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -323,28 +323,28 @@ public class ModItems {
             ENLIGHTENED_HELMET = ITEMS.register("enlightened_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.ENLIGHTENED, ArmorItem.Type.HELMET, ArmorSets.ENLIGHTENED,
                         Map.of(
-                            SCGEAttributes.DAMPENING.get(), new AttributeModifier("enlightened_helmet_add_dampening", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.ENLIGHTENED.get(), new AttributeModifier("enlightened_helmet_add_enlightened", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MAX_HEALTH, new AttributeModifier("enlightened_helmet_add_health", 2, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             ENLIGHTENED_CHESTPLATE = ITEMS.register("enlightened_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.ENLIGHTENED, ArmorItem.Type.CHESTPLATE, ArmorSets.ENLIGHTENED,
                         Map.of(
-                            SCGEAttributes.DAMPENING.get(), new AttributeModifier("enlightened_chestplate_add_dampening", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.ENLIGHTENED.get(), new AttributeModifier("enlightened_chestplate_add_enlightened", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MAX_HEALTH, new AttributeModifier("enlightened_chestplate_add_health", 2, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             ENLIGHTENED_LEGGINGS = ITEMS.register("enlightened_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.ENLIGHTENED, ArmorItem.Type.LEGGINGS, ArmorSets.ENLIGHTENED,
                         Map.of(
-                            SCGEAttributes.DAMPENING.get(), new AttributeModifier("enlightened_leggings_add_dampening", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.ENLIGHTENED.get(), new AttributeModifier("enlightened_leggings_add_enlightened", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MAX_HEALTH, new AttributeModifier("enlightened_leggings_add_health", 2, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             ENLIGHTENED_BOOTS = ITEMS.register("enlightened_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.ENLIGHTENED, ArmorItem.Type.BOOTS, ArmorSets.ENLIGHTENED,
                         Map.of(
-                            SCGEAttributes.DAMPENING.get(), new AttributeModifier("enlightened_boots_add_dampening", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.ENLIGHTENED.get(), new AttributeModifier("enlightened_boots_add_enlightened", 0.5, AttributeModifier.Operation.ADDITION),
                             Attributes.MAX_HEALTH, new AttributeModifier("enlightened_boots_add_health", 2, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -352,61 +352,61 @@ public class ModItems {
             JUGGERNAUT_HELMET = ITEMS.register("juggernaut_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.HELMET, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_helmet_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_helmet_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
-                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_helmet_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_helmet_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_helmet_lower_speed", -0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+                            SCGEAttributes.JUGGERNAUT.get(), new AttributeModifier("juggernaut_helmet_add_juggernaut", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             JUGGERNAUT_CHESTPLATE = ITEMS.register("juggernaut_chestplate", () ->
                     new JuggernautChestplateItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.CHESTPLATE, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_chestplate_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_chestplate_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
-                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_chestplate_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_chestplate_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_chestplate_lower_speed", -0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+                            SCGEAttributes.JUGGERNAUT.get(), new AttributeModifier("juggernaut_chestplate_add_juggernaut", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             JUGGERNAUT_LEGGINGS = ITEMS.register("juggernaut_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.LEGGINGS, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_leggings_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_leggings_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
-                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_leggings_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_leggings_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_leggings_lower_speed", -0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+                            SCGEAttributes.JUGGERNAUT.get(), new AttributeModifier("juggernaut_leggings_add_juggernaut", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             JUGGERNAUT_BOOTS = ITEMS.register("juggernaut_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.JUGGERNAUT, ArmorItem.Type.BOOTS, ArmorSets.JUGGERNAUT,
                         Map.of(
-                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_boots_lower_recoil", -0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.REDUCE_LACERATION.get(), new AttributeModifier("juggernaut_boots_reduce_laceration", 0.5, AttributeModifier.Operation.ADDITION),
-                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_boots_lower_speed", -0.025, AttributeModifier.Operation.MULTIPLY_BASE)
+                            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_boots_lower_recoil", -0.05, AttributeModifier.Operation.ADDITION),
+                            Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_boots_lower_speed", -0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+                            SCGEAttributes.JUGGERNAUT.get(), new AttributeModifier("juggernaut_boots_add_juggernaut", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
             RITUAL_HELMET = ITEMS.register("ritual_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL,
                         Map.of(
-                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_helmet_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_helmet_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
                             SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_helmet_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_CHESTPLATE = ITEMS.register("ritual_chestplate", () ->
                     new RitualChestplateItem(ModArmorMaterials.RITUAL, ArmorItem.Type.CHESTPLATE, ArmorSets.RITUAL,
                         Map.of(
-                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_chestplate_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_chestplate_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
                             SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_chestplate_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_LEGGINGS = ITEMS.register("ritual_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.LEGGINGS, ArmorSets.RITUAL,
                         Map.of(
-                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_leggings_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_leggings_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
                             SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_leggings_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_BOOTS = ITEMS.register("ritual_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.BOOTS, ArmorSets.RITUAL,
                         Map.of(
-                            SCGEAttributes.CAN_REGEN.get(), new AttributeModifier("ritual_boots_add_regen", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_boots_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
                             SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_boots_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -415,30 +415,28 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.HELMET, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_helmet_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_helmet_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_helmet_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             PIONEER_CHESTPLATE = ITEMS.register("pioneer_chestplate", () ->
                     new PioneerChestplateItem(ModArmorMaterials.PIONEER, ArmorItem.Type.CHESTPLATE, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_chestplate_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             PIONEER_LEGGINGS = ITEMS.register("pioneer_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.LEGGINGS, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_leggings_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION), 
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             PIONEER_BOOTS = ITEMS.register("pioneer_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.BOOTS, ArmorSets.PIONEER,
                         Map.of(
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_boots_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_boots_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_boots_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     ));
 
@@ -539,6 +537,7 @@ public class ModItems {
         MinecraftForge.EVENT_BUS.addListener(MedalItem::onPlayerTick);
         MinecraftForge.EVENT_BUS.addListener(MedalItem::onMobEffectApplicable);
         MinecraftForge.EVENT_BUS.addListener(ArmorSet::onPlayerTick);
+        MinecraftForge.EVENT_BUS.addListener(ArmorExtraModiferHandler::onPlayerTick);
         MinecraftForge.EVENT_BUS.addListener(ArmorSet::onMobEffectApplicable);
         MinecraftForge.EVENT_BUS.addListener(ArmorSets::onEntityHurt);
         MinecraftForge.EVENT_BUS.addListener(CavalrySaberItem::onPlayerTick);

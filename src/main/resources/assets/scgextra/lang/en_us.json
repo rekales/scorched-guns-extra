@@ -595,9 +595,10 @@
   "attribute.scgextra.magic_damage_reduction": "Magic Damage Taken",
   "attribute.scgextra.buff_zone": "Buff Zone",
   "attribute.scgextra.debuff_zone": "Debuff Zone",
-  "attribute.scgextra.dampening": "Dampen",
-  "attribute.scgextra.can_regen": "Regeneration",
+  "attribute.scgextra.leviathan": "Leviathan",
+  "attribute.scgextra.enlightened": "Enlightened",
   "attribute.scgextra.pioneer": "Pioneer",
   "attribute.scgextra.wrecker": "Wrecker",
+  "attribute.scgextra.golden_idol": "Golden Idol",
   "attribute.scgextra.bullet_additional_crit_damage_multiplier": "Additional Crit Damage Multiplier"
 }

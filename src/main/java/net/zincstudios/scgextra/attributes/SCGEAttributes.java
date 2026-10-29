@@ -29,20 +29,27 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.undead_damage_multiplier", 1.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> MAGIC_DAMAGE_REDUCTION = ATTRIBUTES.register("magic_damage_reduction",
             () -> (new RangedAttribute("attribute.scgextra.magic_damage_reduction", 1.0F, -100, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> BUFF_ZONE = ATTRIBUTES.register("buff_zone",
-            () -> (new RangedAttribute("attribute.scgextra.buff_zone", 0F, 0, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> DEBUFF_ZONE = ATTRIBUTES.register("debuff_zone",
             () -> (new RangedAttribute("attribute.scgextra.debuff_zone", 0F, 0, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> DAMPENING = ATTRIBUTES.register("dampening",
-            () -> (new RangedAttribute("attribute.scgextra.dampening", 0F, 0, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> CAN_REGEN = ATTRIBUTES.register("can_regen",
-            () -> (new RangedAttribute("attribute.scgextra.can_regen", 0F, 0, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> PIONEER = ATTRIBUTES.register("pioneer",
-            () -> (new RangedAttribute("attribute.scgextra.pioneer", 0F, 0, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> REDUCE_LACERATION = ATTRIBUTES.register("reduce_laceration",
-            () -> (new RangedAttribute("attribute.scgextra.reduce_laceration", 0F, 0, 100.0F)).setSyncable(true));
+    //probably not the best way of doing it
+    public static final RegistryObject<Attribute> OPPRESSOR = ATTRIBUTES.register("oppressor",
+        () -> (new RangedAttribute("attribute.scgextra.oppressor", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> COMMISSAR = ATTRIBUTES.register("commissar",
+        () -> (new RangedAttribute("attribute.scgextra.commissar", 0F, 0, 2.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> WRECEKR = ATTRIBUTES.register("wrecker",
-            () -> (new RangedAttribute("attribute.scgextra.wrecker", 0F, 0, 100.0F)).setSyncable(true));
+        () -> (new RangedAttribute("attribute.scgextra.wrecker", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> LEVIATHAN = ATTRIBUTES.register("leviathan",
+        () -> (new RangedAttribute("attribute.scgextra.leviathan", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> GOLDEN_IDOL = ATTRIBUTES.register("golden_idol",
+        () -> (new RangedAttribute("attribute.scgextra.golden_idol", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> ENLIGHTENED = ATTRIBUTES.register("enlightened",
+        () -> (new RangedAttribute("attribute.scgextra.enlightened", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> JUGGERNAUT = ATTRIBUTES.register("juggernaut",
+        () -> (new RangedAttribute("attribute.scgextra.juggernaut", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> RITUAL = ATTRIBUTES.register("ritual",
+        () -> (new RangedAttribute("attribute.scgextra.ritual", 0F, 0, 2.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> PIONEER = ATTRIBUTES.register("pioneer",
+        () -> (new RangedAttribute("attribute.scgextra.pioneer", 0F, 0, 2.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
@@ -57,12 +64,16 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, BULLET_GRAVITY_MULT.get());
         event.add(EntityType.PLAYER, UNDEAD_DAMAGE_MULT.get());
         event.add(EntityType.PLAYER, MAGIC_DAMAGE_REDUCTION.get());
-        event.add(EntityType.PLAYER, BUFF_ZONE.get());
         event.add(EntityType.PLAYER, DEBUFF_ZONE.get());
-        event.add(EntityType.PLAYER, DAMPENING.get());
-        event.add(EntityType.PLAYER, CAN_REGEN.get());
-        event.add(EntityType.PLAYER, PIONEER.get());
-        event.add(EntityType.PLAYER, REDUCE_LACERATION.get());
+
+        event.add(EntityType.PLAYER, OPPRESSOR.get());
+        event.add(EntityType.PLAYER, COMMISSAR.get());
         event.add(EntityType.PLAYER, WRECEKR.get());
+        event.add(EntityType.PLAYER, LEVIATHAN.get());
+        event.add(EntityType.PLAYER, GOLDEN_IDOL.get());
+        event.add(EntityType.PLAYER, ENLIGHTENED.get());
+        event.add(EntityType.PLAYER, JUGGERNAUT.get());
+        event.add(EntityType.PLAYER, RITUAL.get());
+        event.add(EntityType.PLAYER, PIONEER.get());
     }
 }

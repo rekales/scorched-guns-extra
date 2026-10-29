@@ -40,7 +40,7 @@ public class LivingEntityMixin {
             ){
                 AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
                 if(ai!=null){
-                    damageAmount *= (float)ai.getValue();   
+                    damageAmount *= (float)ai.getValue();
                 }
             }
             if(
@@ -51,7 +51,7 @@ public class LivingEntityMixin {
             ){
                 AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
                 if(ai!=null){
-                    damageAmount *= (float)ai.getValue();   
+                    damageAmount *= (float)ai.getValue();
                 }
             }
         }

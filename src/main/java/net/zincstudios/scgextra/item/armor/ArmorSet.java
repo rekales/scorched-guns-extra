@@ -100,13 +100,13 @@ public class ArmorSet {
             player.removeEffect(MobEffects.LEVITATION);
         }
 
-        if(player.hasEffect(ModEffects.LACERATED.get()) && player.getAttribute(SCGEAttributes.REDUCE_LACERATION.get())!=null && player.getAttribute(SCGEAttributes.REDUCE_LACERATION.get()).getValue()>=1.0){
+        if(player.hasEffect(ModEffects.LACERATED.get()) && player.getAttribute(SCGEAttributes.WRECEKR.get())!=null && player.getAttribute(SCGEAttributes.WRECEKR.get()).getValue()>=1.0){
             player.removeEffect(ModEffects.LACERATED.get());
         }
 
         if (event.player.tickCount % TICK_INTERVAL != 0) return;
 
-        if(player.getAttribute(SCGEAttributes.BUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue()>=1.0){
+        if(player.getAttribute(SCGEAttributes.GOLDEN_IDOL.get())!=null && player.getAttribute(SCGEAttributes.GOLDEN_IDOL.get()).getValue()>=1.0){
             List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(5),  e->!(e instanceof Enemy));
             for(LivingEntity le : list){
                 le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));

@@ -14,7 +14,7 @@ public class EntityMixin {
     @WrapMethod(method = "dampensVibrations")
     private boolean atDampensVibrations(Operation<Boolean> original) {
         if ((Object)this instanceof LivingEntity entity) {
-            AttributeInstance ai = entity.getAttribute(SCGEAttributes.DAMPENING.get());
+            AttributeInstance ai = entity.getAttribute(SCGEAttributes.ENLIGHTENED.get());
             if(ai!=null && ai.getValue()>=1.0){
                 return true;
             }
