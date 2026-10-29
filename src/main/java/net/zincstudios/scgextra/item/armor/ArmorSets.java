@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.init.ModEffects;
+import top.ribs.scguns.init.ModTags;
 
 // Maybe use registries?
 public final class ArmorSets {
@@ -51,10 +52,10 @@ public final class ArmorSets {
         if (!(event.getSource().getDirectEntity() instanceof LivingEntity hurter)) return;
 
         if(hurter.getAttribute(SCGEAttributes.WRECEKR.get())!=null && hurter.getAttributeValue(SCGEAttributes.WRECEKR.get())>=1.0){
-            entity.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
+            if(!entity.getType().is(ModTags.Entities.CANNOT_BE_LACERATED))entity.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
         }
         if(entity.getAttribute(SCGEAttributes.WRECEKR.get())!=null && entity.getAttributeValue(SCGEAttributes.WRECEKR.get())>=1.0){
-            hurter.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
+            if(!hurter.getType().is(ModTags.Entities.CANNOT_BE_LACERATED))hurter.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
         }
     }
 }

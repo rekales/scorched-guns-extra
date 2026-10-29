@@ -119,6 +119,7 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
                 .add(FACEntities.FAC_TANK.get())
                 .add(FACEntities.FAC_WALKER.get())
                 .add(NeutralEntities.HEAD_HUNTER.get())
+                .add(NeutralEntities.ANOMALY.get())
                 .add(WreckersEntities.WRECKER_HELICUBE.get())
                 .add(WreckersEntities.WRECKER_TURRET_GUNNER.get())
                 .add(WreckersEntities.WRECKER_DOZER.get())
@@ -235,5 +236,8 @@ public class ModEntityTagProvider extends EntityTypeTagsProvider {
 
         tag(ModTags.Entities.WITHER)
                 .add(NeutralEntities.HEAD_HUNTER.get());
+
+        tag(ModTags.Entities.BLUE_BLOOD)
+                .add(NeutralEntities.ANOMALY.get());
         }
 }
