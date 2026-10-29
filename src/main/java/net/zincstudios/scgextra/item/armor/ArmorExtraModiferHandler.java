@@ -5,6 +5,8 @@ import net.zincstudios.scgextra.attributes.SCGEAttributes;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,6 +42,15 @@ public class ArmorExtraModiferHandler {
         SCGEAttributes.OPPRESSOR.get(), Map.of(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_half_armor_add_knockback_resistance", 1, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.COMMISSAR.get(), Map.of(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("comissar_half_armor_reduce_bullet_damage", 0.1, AttributeModifier.Operation.ADDITION))
     );
+    public static final List<MobEffect> MOB_EFFECTS = List.of(
+        MobEffects.POISON,
+        MobEffects.WITHER,
+        MobEffects.BLINDNESS,
+        MobEffects.CONFUSION,
+        MobEffects.MOVEMENT_SLOWDOWN,
+        ModEffects.LACERATED.get(),
+        ModEffects.SULFUR_POISONING.get()
+    );
 
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
@@ -57,12 +68,13 @@ public class ArmorExtraModiferHandler {
         if(player.isOnFire() && player.getAttribute(SCGEAttributes.GOLDEN_IDOL.get())!=null && player.getAttribute(SCGEAttributes.GOLDEN_IDOL.get()).getValue()>=1.0){
             player.setRemainingFireTicks(0);
         }
+        
+        if(player.getAttributeValue(SCGEAttributes.ENLIGHTENED.get())>=1.0){
+            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0));
+        }
 
         if (event.player.tickCount % 10 != 0) return;
 
-        if(player.getAttributeValue(SCGEAttributes.ENLIGHTENED.get())>=1.0){
-            player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 0, 40));
-        }
 
         for(Attribute main : FULL_SET_BONUSES.keySet()){
             if(player.getAttributeValue(main)>=2){
@@ -90,6 +102,18 @@ public class ArmorExtraModiferHandler {
                 for(Attribute key : HALF_SET_BONUSES.get(main).keySet()){
                     if(player.getAttribute(key).hasModifier(HALF_SET_BONUSES.get(main).get(key))){
                         player.getAttribute(key).removeModifier(HALF_SET_BONUSES.get(main).get(key));
+                    }
+                }
+            }
+        }
+
+        if(player.getAttribute(SCGEAttributes.LEVIATHAN.get())!=null && player.getAttributeValue(SCGEAttributes.LEVIATHAN.get())>=1.0){
+            CompoundTag tag = player.getPersistentData();
+            if(player.level().getGameTime()>tag.getLong("leviathanClenseCooldownEnd")){
+                for (MobEffect entry : MOB_EFFECTS) {
+                    if(player.hasEffect(entry)){
+                        player.removeEffect(entry);
+                        tag.putLong("leviathanClenseCooldownEnd", player.level().getGameTime() + 200);
                     }
                 }
             }

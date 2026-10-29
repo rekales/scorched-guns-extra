@@ -263,28 +263,28 @@ public class ModItems {
                     )),
 
             LEVIATHAN_HELMET = ITEMS.register("leviathan_helmet", () ->
-                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN,
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.HELMET, ArmorSets.LEVIATHAN,
                         Map.of(
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_helmet_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_helmet_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_CHESTPLATE = ITEMS.register("leviathan_chestplate", () ->
-                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.CHESTPLATE, ArmorSets.LEVIATHAN,
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.CHESTPLATE, ArmorSets.LEVIATHAN,
                         Map.of(
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_chestplate_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_chestplate_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_LEGGINGS = ITEMS.register("leviathan_leggings", () ->
-                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.LEGGINGS, ArmorSets.LEVIATHAN,
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.LEGGINGS, ArmorSets.LEVIATHAN,
                         Map.of(
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_leggings_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_leggings_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             LEVIATHAN_BOOTS = ITEMS.register("leviathan_boots", () ->
-                    new LeviathanArmorSetPartItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.BOOTS, ArmorSets.LEVIATHAN,
+                    new ArmorSetPartWithExtrasItem(ModArmorMaterials.LEVIATHAN, ArmorItem.Type.BOOTS, ArmorSets.LEVIATHAN,
                         Map.of(
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("leviathan_boots_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.LEVIATHAN.get(), new AttributeModifier("leviathan_boots_add_leviathan", 0.5, AttributeModifier.Operation.ADDITION)

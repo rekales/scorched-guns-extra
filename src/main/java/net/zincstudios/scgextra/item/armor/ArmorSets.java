@@ -38,17 +38,12 @@ public final class ArmorSets {
 
     public static void onEntityHurt(LivingHurtEvent event) {
         LivingEntity entity = event.getEntity();
-        if(entity.getAttribute(SCGEAttributes.LEVIATHAN.get())!=null && entity.getAttribute(SCGEAttributes.LEVIATHAN.get()).getValue()>=1.0 && entity.level().getGameTime()>entity.getPersistentData().getLong("RegenCooldownEnd")){
-            entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60));
-            CompoundTag tag = entity.getPersistentData();
-            tag.putLong("RegenCooldownEnd", entity.level().getGameTime() + 80);
-        }
-        if(entity.getAttribute(SCGEAttributes.RITUAL.get())!=null && entity.getAttribute(SCGEAttributes.LEVIATHAN.get()).getValue()>=1.0 && entity.level().getGameTime()>entity.getPersistentData().getLong("RegenCooldownEnd")){
+        if(entity.getAttribute(SCGEAttributes.RITUAL.get())!=null && entity.getAttribute(SCGEAttributes.RITUAL.get()).getValue()>=1.0 && entity.level().getGameTime()>entity.getPersistentData().getLong("RitualRegenCooldownEnd")){
             entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 60));
             CompoundTag tag = entity.getPersistentData();
             tag.putLong("RitualRegenCooldownEnd", entity.level().getGameTime() + 80);
         }
-        if(entity.getAttribute(SCGEAttributes.ENLIGHTENED.get())!=null && entity.getAttribute(SCGEAttributes.LEVIATHAN.get()).getValue()>=2.0 && entity.level().getGameTime()>entity.getPersistentData().getLong("RegenCooldownEnd")){
+        if(entity.getAttribute(SCGEAttributes.ENLIGHTENED.get())!=null && entity.getAttribute(SCGEAttributes.ENLIGHTENED.get()).getValue()>=2.0 && entity.level().getGameTime()>entity.getPersistentData().getLong("EnlightenedRegenCooldownEnd")){
             entity.addEffect(new MobEffectInstance(MobEffects.HEAL, 10));
             CompoundTag tag = entity.getPersistentData();
             tag.putLong("EnlightenedRegenCooldownEnd", entity.level().getGameTime() + 60);
