@@ -8,6 +8,9 @@
     "C": {
       "tag": "forge:chests"
     },
+    "H": {
+      "item": "minecraft:shears"
+    },
     "L": {
       "item": "minecraft:leather"
     },
@@ -21,7 +24,7 @@
   "pattern": [
     "PSB",
     "PSB",
-    "LCL"
+    "HCL"
   ],
   "result": {
     "item": "scgextra:medkit"

@@ -41,19 +41,21 @@ public class ModRecipeProvider extends RecipeProvider {
         // superFlare(writer, ModItems.SCULK_SUPER_FLARE.get(), top.ribs.scguns.init.ModItems.SCULK_FLARE.get());
         superFlare(writer, ModItems.OCEAN_SUPER_FLARE.get(), top.ribs.scguns.init.ModItems.OCEAN_FLARE.get());
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.BANDAGE.get())
-                .pattern("BP")
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.BANDAGE.get(), 3)
+                .pattern("BW")
                 .pattern("PP")
                 .define('P', Items.PAPER)
-                .define('B', top.ribs.scguns.init.ModItems.BASIC_POULTICE.get())
-                .unlockedBy("has_ingredient", has(top.ribs.scguns.init.ModItems.BASIC_POULTICE.get()))
+                .define('W', Items.WHITE_WOOL)
+                .define('B', top.ribs.scguns.init.ModItems.HONEY_SULFUR_POULTICE.get())
+                .unlockedBy("has_ingredient", has(top.ribs.scguns.init.ModItems.HONEY_SULFUR_POULTICE.get()))
                 .showNotification(false)
                 .save(writer);
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.MEDKIT.get())
                 .pattern("PSB")
                 .pattern("PSB")
-                .pattern("LCL")
+                .pattern("HCL")
                 .define('L', Items.LEATHER)
+                .define('H', Items.SHEARS)
                 .define('C', Tags.Items.CHESTS)
                 .define('P', top.ribs.scguns.init.ModItems.BASIC_POULTICE.get())
                 .define('S', top.ribs.scguns.init.ModItems.HONEY_SULFUR_POULTICE.get())

@@ -3,18 +3,22 @@
   "category": "equipment",
   "key": {
     "B": {
-      "item": "scguns:basic_poultice"
+      "item": "scguns:honey_sulfur_poultice"
     },
     "P": {
       "item": "minecraft:paper"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
     }
   },
   "pattern": [
-    "BP",
+    "BW",
     "PP"
   ],
   "result": {
-    "item": "scgextra:bandage"
+    "item": "scgextra:bandage",
+    "count": 3
   },
   "show_notification": false
 }
