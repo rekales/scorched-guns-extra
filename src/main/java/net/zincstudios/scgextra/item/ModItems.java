@@ -236,28 +236,28 @@ public class ModItems {
             WRECKER_HELMET = ITEMS.register("wrecker_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.HELMET, ArmorSets.WRECKER,
                         Map.of(
-                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_helmet_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_helmet_add_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_helmet_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_CHESTPLATE = ITEMS.register("wrecker_chestplate", () ->
                     new WreckerChestplateItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER,
                         Map.of(
-                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_chestplate_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_chestplate_add_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_chestplate_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_LEGGINGS = ITEMS.register("wrecker_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.LEGGINGS, ArmorSets.WRECKER,
                         Map.of(
-                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_leggings_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_leggings_add_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_leggings_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_BOOTS = ITEMS.register("wrecker_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.BOOTS, ArmorSets.WRECKER,
                         Map.of(
-                            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_boots_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_boots_add_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_boots_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),

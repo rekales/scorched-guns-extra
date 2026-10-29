@@ -1,9 +1,14 @@
 package net.zincstudios.scgextra.item.armor;
 
+import net.zincstudios.scgextra.attributes.SCGEAttributes;
+
+import java.util.UUID;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.zincstudios.scgextra.SCGExtra;
 import net.zincstudios.scgextra.effects.ModEffects;
 
@@ -24,7 +29,7 @@ public class RitualArmorSet extends ArmorSet {
         if (cooldownTicks > 0) {
             if (effectInstance == null ||  effectInstance.getDuration() != cooldownTicks) {
                 SCGExtra.LOGGER.debug("refreshed");
-                entity.addEffect(new MobEffectInstance(ModEffects.MORTAL.get(), cooldownTicks, 0, true, true));
+                entity.addEffect(new MobEffectInstance(ModEffects.MORTAL.get().addAttributeModifier(SCGEAttributes.GENERAL_DAMAGE_MULT.get(), UUID.randomUUID().toString(), 0.1, AttributeModifier.Operation.ADDITION), cooldownTicks, 0, true, true));
             }
         } else if (effectInstance != null) {
             entity.removeEffect(ModEffects.MORTAL.get());

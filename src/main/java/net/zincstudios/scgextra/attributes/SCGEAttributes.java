@@ -31,6 +31,8 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.magic_damage_reduction", 1.0F, -100, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> DEBUFF_ZONE = ATTRIBUTES.register("debuff_zone",
             () -> (new RangedAttribute("attribute.scgextra.debuff_zone", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> GENERAL_DAMAGE_MULT = ATTRIBUTES.register("general_damage_mult",
+            () -> (new RangedAttribute("attribute.scgextra.general_damage_mult", 1F, -100F, 100.0F)).setSyncable(true));
     //probably not the best way of doing it
     public static final RegistryObject<Attribute> OPPRESSOR = ATTRIBUTES.register("oppressor",
         () -> (new RangedAttribute("attribute.scgextra.oppressor", 0F, 0, 2.0F)).setSyncable(true));
@@ -65,6 +67,7 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, UNDEAD_DAMAGE_MULT.get());
         event.add(EntityType.PLAYER, MAGIC_DAMAGE_REDUCTION.get());
         event.add(EntityType.PLAYER, DEBUFF_ZONE.get());
+        event.add(EntityType.PLAYER, GENERAL_DAMAGE_MULT.get());
 
         event.add(EntityType.PLAYER, OPPRESSOR.get());
         event.add(EntityType.PLAYER, COMMISSAR.get());

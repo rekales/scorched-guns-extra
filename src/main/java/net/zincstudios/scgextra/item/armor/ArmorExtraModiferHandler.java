@@ -24,7 +24,7 @@ public class ArmorExtraModiferHandler {
         SCGEAttributes.OPPRESSOR.get(), Map.of(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_full_armor_add_undead_damage_mult", 0.1, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.COMMISSAR.get(), Map.of(SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_full_armor_reload_speed", 0.2, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.WRECEKR.get(), Map.of(
-            SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage", 0.2, AttributeModifier.Operation.ADDITION),
+            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_full_armor_damage_mult", 0.2, AttributeModifier.Operation.ADDITION),
             SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", 0.2, AttributeModifier.Operation.ADDITION)
         ),
         SCGEAttributes.GOLDEN_IDOL.get(), Map.of(SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_full_armor_add_debuff_zone", 1.0, AttributeModifier.Operation.ADDITION)),
@@ -40,7 +40,7 @@ public class ArmorExtraModiferHandler {
     );
     private static final Map<Attribute, Map<Attribute, AttributeModifier>> HALF_SET_BONUSES = Map.of(
         SCGEAttributes.OPPRESSOR.get(), Map.of(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_half_armor_add_knockback_resistance", 1, AttributeModifier.Operation.ADDITION)),
-        SCGEAttributes.COMMISSAR.get(), Map.of(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("comissar_half_armor_reduce_bullet_damage", 0.1, AttributeModifier.Operation.ADDITION))
+        SCGEAttributes.COMMISSAR.get(), Map.of(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("comissar_half_armor_reduce_bullet_damage", -0.1, AttributeModifier.Operation.ADDITION))
     );
     public static final List<MobEffect> MOB_EFFECTS = List.of(
         MobEffects.POISON,

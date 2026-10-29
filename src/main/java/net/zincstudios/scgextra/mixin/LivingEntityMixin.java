@@ -56,6 +56,15 @@ public class LivingEntityMixin {
             }
         }
 
+        if(damageSource.getDirectEntity() instanceof LivingEntity le && le.getAttribute(SCGEAttributes.GENERAL_DAMAGE_MULT.get())!=null){
+            damageAmount*=le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+        }
+
+        if (damageSource.is(ModDamageTypes.BULLET) && damageSource.getDirectEntity() instanceof ProjectileEntity pe &&  pe.getShooter()!=null) {
+            float damageMult = (float) pe.getShooter().getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+            return original.call(damageSource, damageAmount * damageMult);
+        }
+
         if((damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) && (Object)this instanceof LivingEntity le){
             AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
             if(ai!=null && ai.getValue()!=1.0){

@@ -593,6 +593,7 @@
   "attribute.scgextra.bullet_gravity_multiplier": "Bullet Gravity Multiplier",
   "attribute.scgextra.undead_damage_multiplier": "Undead Damage Multiplier",
   "attribute.scgextra.magic_damage_reduction": "Magic Damage Taken",
+  "attribute.scgextra.general_damage_mult": "General Damage Multiplier",
   "attribute.scgextra.buff_zone": "Buff Zone",
   "attribute.scgextra.debuff_zone": "Debuff Zone",
   "attribute.scgextra.leviathan": "Leviathan",
