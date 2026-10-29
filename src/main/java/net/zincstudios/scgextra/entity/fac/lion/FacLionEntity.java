@@ -232,3 +232,4 @@ public class FacLionEntity extends EquippedEntity implements GeoEntity, Gunner {
         return FACSounds.FAC_LION_DEATH.get();
     }
 }
+//LootTable:"scgextra:chests/trenches"
