@@ -597,6 +597,7 @@
   "attribute.scgextra.debuff_zone": "Debuff Zone",
   "attribute.scgextra.dampening": "Dampen",
   "attribute.scgextra.can_regen": "Regeneration",
-  "attribute.scgextra.pioneer_fly": "Pioneer",
+  "attribute.scgextra.pioneer": "Pioneer",
+  "attribute.scgextra.wrecker": "Wrecker",
   "attribute.scgextra.bullet_additional_crit_damage_multiplier": "Additional Crit Damage Multiplier"
 }

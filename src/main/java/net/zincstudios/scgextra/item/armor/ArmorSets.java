@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.zincstudios.scgextra.SCGExtra;
+import top.ribs.scguns.attributes.SCAttributes;
 import top.ribs.scguns.init.ModEffects;
 
 // Maybe use registries?
@@ -17,9 +18,14 @@ public final class ArmorSets {
         .modifier(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_full_armor_undead_damage_mult", 0.1, AttributeModifier.Operation.ADDITION))
     );
 
-    public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits());
+    public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits()
+        .modifier(SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_full_armor_reload_speed", 0.2, AttributeModifier.Operation.ADDITION))
+    );
 
-    public static final ArmorSet WRECKER = new ArmorSet(SCGExtra.asResource("wrecker"), new ArmorSet.Traits());
+    public static final ArmorSet WRECKER = new ArmorSet(SCGExtra.asResource("wrecker"), new ArmorSet.Traits()
+        .modifier(SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage", 0.2, AttributeModifier.Operation.ADDITION))
+        .modifier(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", 0.2, AttributeModifier.Operation.ADDITION))
+    );
 
     public static final ArmorSet LEVIATHAN = new ArmorSet(SCGExtra.asResource("leviathan"), new ArmorSet.Traits()
             .effect(MobEffects.WATER_BREATHING, 0)
@@ -51,11 +57,10 @@ public final class ArmorSets {
         }
         if (!(event.getSource().getDirectEntity() instanceof LivingEntity hurter)) return;
 
-        if (ArmorSet.getArmorSet(hurter) == WRECKER) {
+        if(hurter.getAttribute(SCGEAttributes.WRECEKR.get())!=null && hurter.getAttributeValue(SCGEAttributes.WRECEKR.get())>=1.0){
             entity.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
         }
-
-        if (ArmorSet.getArmorSet(entity) == WRECKER) {
+        if(entity.getAttribute(SCGEAttributes.WRECEKR.get())!=null && entity.getAttributeValue(SCGEAttributes.WRECEKR.get())>=1.0){
             hurter.addEffect(new MobEffectInstance(ModEffects.LACERATED.get(), 120));
         }
     }

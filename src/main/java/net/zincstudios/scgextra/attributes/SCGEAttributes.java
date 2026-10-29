@@ -37,10 +37,12 @@ public final class SCGEAttributes {
             () -> (new RangedAttribute("attribute.scgextra.dampening", 0F, 0, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> CAN_REGEN = ATTRIBUTES.register("can_regen",
             () -> (new RangedAttribute("attribute.scgextra.can_regen", 0F, 0, 100.0F)).setSyncable(true));
-    public static final RegistryObject<Attribute> PIONEER_FLY = ATTRIBUTES.register("pioneer_fly",
-            () -> (new RangedAttribute("attribute.scgextra.pioneer_fly", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> PIONEER = ATTRIBUTES.register("pioneer",
+            () -> (new RangedAttribute("attribute.scgextra.pioneer", 0F, 0, 100.0F)).setSyncable(true));
     public static final RegistryObject<Attribute> REDUCE_LACERATION = ATTRIBUTES.register("reduce_laceration",
             () -> (new RangedAttribute("attribute.scgextra.reduce_laceration", 0F, 0, 100.0F)).setSyncable(true));
+    public static final RegistryObject<Attribute> WRECEKR = ATTRIBUTES.register("wrecker",
+            () -> (new RangedAttribute("attribute.scgextra.wrecker", 0F, 0, 100.0F)).setSyncable(true));
 
     public static void register(IEventBus modEventBus) {
         ATTRIBUTES.register(modEventBus);
@@ -59,7 +61,8 @@ public final class SCGEAttributes {
         event.add(EntityType.PLAYER, DEBUFF_ZONE.get());
         event.add(EntityType.PLAYER, DAMPENING.get());
         event.add(EntityType.PLAYER, CAN_REGEN.get());
-        event.add(EntityType.PLAYER, PIONEER_FLY.get());
+        event.add(EntityType.PLAYER, PIONEER.get());
         event.add(EntityType.PLAYER, REDUCE_LACERATION.get());
+        event.add(EntityType.PLAYER, WRECEKR.get());
     }
 }

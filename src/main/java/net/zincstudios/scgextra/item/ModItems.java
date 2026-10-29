@@ -237,28 +237,28 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.HELMET, ArmorSets.WRECKER,
                         Map.of(
                             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_helmet_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_helmet_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_helmet_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_CHESTPLATE = ITEMS.register("wrecker_chestplate", () ->
                     new WreckerChestplateItem(ModArmorMaterials.WRECKER, ArmorItem.Type.CHESTPLATE, ArmorSets.WRECKER,
                         Map.of(
                             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_chestplate_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_chestplate_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_chestplate_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_LEGGINGS = ITEMS.register("wrecker_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.LEGGINGS, ArmorSets.WRECKER,
                         Map.of(
                             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_leggings_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_leggings_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_leggings_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             WRECKER_BOOTS = ITEMS.register("wrecker_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.WRECKER, ArmorItem.Type.BOOTS, ArmorSets.WRECKER,
                         Map.of(
                             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_boots_add_bullet_damage", 0.05, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_boots_add_bullet_damage_taken", -0.05, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.WRECEKR.get(), new AttributeModifier("wrecker_boots_add_wrecker", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
@@ -421,7 +421,7 @@ public class ModItems {
             PIONEER_CHESTPLATE = ITEMS.register("pioneer_chestplate", () ->
                     new PioneerChestplateItem(ModArmorMaterials.PIONEER, ArmorItem.Type.CHESTPLATE, ArmorSets.PIONEER,
                         Map.of(
-                            SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_chestplate_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_chestplate_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_chestplate_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )
@@ -429,7 +429,7 @@ public class ModItems {
             PIONEER_LEGGINGS = ITEMS.register("pioneer_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.PIONEER, ArmorItem.Type.LEGGINGS, ArmorSets.PIONEER,
                         Map.of(
-                            SCGEAttributes.PIONEER_FLY.get(), new AttributeModifier("pioneer_leggings_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION), 
+                            SCGEAttributes.PIONEER.get(), new AttributeModifier("pioneer_leggings_add_pioneer", 0.5, AttributeModifier.Operation.ADDITION), 
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_damage", 0.025, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_leggings_add_bullet_crit_chance", 0.025, AttributeModifier.Operation.ADDITION)
                         )

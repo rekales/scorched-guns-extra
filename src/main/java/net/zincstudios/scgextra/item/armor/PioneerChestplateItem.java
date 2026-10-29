@@ -21,7 +21,7 @@ public class PioneerChestplateItem extends ArmorSetPartWithExtrasItem {
 
     @Override
     public boolean canElytraFly(ItemStack stack, LivingEntity entity) {
-        return (entity.getAttribute(SCGEAttributes.PIONEER_FLY.get())!=null) ? (entity.getAttribute(SCGEAttributes.PIONEER_FLY.get()).getValue() >= 1.0) : false;
+        return (entity.getAttribute(SCGEAttributes.PIONEER.get())!=null) ? (entity.getAttribute(SCGEAttributes.PIONEER.get()).getValue() >= 1.0) : false;
     }
 
     @Override
