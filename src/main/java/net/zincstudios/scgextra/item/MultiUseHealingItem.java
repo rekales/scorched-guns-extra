@@ -51,6 +51,7 @@ public class MultiUseHealingItem extends Item {
                 }
 
                 if (!player.getAbilities().instabuild) {
+                    player.getCooldowns().addCooldown(stack.getItem(), 100);
                     stack.hurtAndBreak(1, player, entity ->
                             entity.broadcastBreakEvent(player.getUsedItemHand()));
                 }

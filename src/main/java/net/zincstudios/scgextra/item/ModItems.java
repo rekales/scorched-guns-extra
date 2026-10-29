@@ -89,19 +89,19 @@ public class ModItems {
     );
 
     public static final RegistryObject<BandageItem> BANDAGE = ITEMS.register("bandage", () -> new BandageItem(
-            (new Item.Properties()).stacksTo(16), 4, 8,
+            (new Item.Properties()).stacksTo(16), 3, 8,
             List.of(
                 new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
                 new MobEffectInstance(MobEffects.ABSORPTION, 400, 0),
                 new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 2)
             ),
-            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0)
+            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1)
     ));
 
     public static final RegistryObject<MultiUseHealingItem> MEDKIT = ITEMS.register("medkit", () -> new MultiUseHealingItem(
-            (new Item.Properties()).stacksTo(1).durability(12), 4,
-            new MobEffectInstance(MobEffects.REGENERATION, 100, 0),
-            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 0)
+            (new Item.Properties()).stacksTo(1).durability(32), 6,
+            new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
+            new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1)
     ));
 
     public static final RegistryObject<Item> MEDIPACK = ITEMS.register("medipack", () -> new Item((new Item.Properties()).stacksTo(1).durability(64)){
