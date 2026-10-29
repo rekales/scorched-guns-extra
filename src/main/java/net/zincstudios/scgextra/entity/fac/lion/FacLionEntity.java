@@ -74,7 +74,7 @@ public class FacLionEntity extends EquippedEntity implements GeoEntity, Gunner {
                 .add(Attributes.ATTACK_DAMAGE, 15.0D)
                 .add(Attributes.ARMOR, 12.0D)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D)
-                .add(Attributes.MAX_HEALTH, 300.0D);
+                .add(Attributes.MAX_HEALTH, 200.0D);
     }
 
     protected Brain<?> makeBrain(Dynamic<?> dynamic) {
