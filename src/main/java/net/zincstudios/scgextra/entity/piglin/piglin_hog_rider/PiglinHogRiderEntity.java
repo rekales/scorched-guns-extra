@@ -79,6 +79,7 @@ public class PiglinHogRiderEntity extends EquippedEntity implements GeoEntity, V
 
     private static final EntityDataAccessor<Long> CHARGE_TICKS = SynchedEntityData.defineId(PiglinHogRiderEntity.class, EntityDataSerializers.LONG);
 
+    private String lastHitByEntityUUID = "";
 
     private boolean aggroed = false;
     public int aggroTicks = 0;
@@ -299,6 +300,12 @@ public class PiglinHogRiderEntity extends EquippedEntity implements GeoEntity, V
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
         if(this.getBrain().hasMemoryValue(ModBrainMemories.STUNNED.get()))amount*=2;
         return super.hurt(source, amount);
     }
