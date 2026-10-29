@@ -276,7 +276,7 @@
   "armorset.full_set_bonus.description" : "Full Set Bonus:",
   "armorset.scgextra.oppressor.description" : "Provides 10% damage against undead",
   "armorset.scgextra.commissar.description" : "Provides 20% reload speed",
-  "armorset.scgextra.wrecker.description" : "Provides 20% bullet damage and 20% bullet damage resistance",
+  "armorset.scgextra.wrecker.description" : "Provides 20% bullet damage and 20% bullet damage taken",
   "armorset.scgextra.leviathan.description" : "Gives Water Breathing and Dolphins Grace",
   "armorset.scgextra.golden_idol.description" : "Debuffs hostile mobs in 10 block radius",
   "armorset.scgextra.enlightened.description" : "Gives Healing 1 every time wearer gets hit with 3 seconds cooldown",

@@ -23,7 +23,7 @@ public class ArmorExtraModiferHandler {
         SCGEAttributes.COMMISSAR.get(), Map.of(SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_full_armor_reload_speed", 0.2, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.WRECEKR.get(), Map.of(
             SCAttributes.ADDITIONAL_BULLET_DAMAGE.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage", 0.2, AttributeModifier.Operation.ADDITION),
-            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", -0.2, AttributeModifier.Operation.ADDITION)
+            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", 0.2, AttributeModifier.Operation.ADDITION)
         ),
         SCGEAttributes.GOLDEN_IDOL.get(), Map.of(SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_full_armor_add_debuff_zone", 1.0, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.JUGGERNAUT.get(), Map.of(
