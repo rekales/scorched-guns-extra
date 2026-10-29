@@ -33,6 +33,10 @@ public class ArmorSetPartWithExtrasItem extends GeoArmorSetPartItem{
 
     @Override
     public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot equipmentSlot) {
-        return equipmentSlot == this.type.getSlot() ? this.multimap : super.getDefaultAttributeModifiers(equipmentSlot);
+        Multimap<Attribute, AttributeModifier> map = super.getDefaultAttributeModifiers(equipmentSlot);
+        ListMultimap<Attribute, AttributeModifier> lmap = ArrayListMultimap.create();
+        lmap.putAll(map);
+        if(equipmentSlot == this.type.getSlot())lmap.putAll(this.multimap);
+        return lmap;
     }
 }

@@ -106,17 +106,15 @@ public class ArmorSet {
 
         if (event.player.tickCount % TICK_INTERVAL != 0) return;
 
-        if(player.getAttribute(SCGEAttributes.BUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue()!=0.0){
-            double area = player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue();
-            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(area),  e->!(e instanceof Enemy));
+        if(player.getAttribute(SCGEAttributes.BUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.BUFF_ZONE.get()).getValue()>=1.0){
+            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(5),  e->!(e instanceof Enemy));
             for(LivingEntity le : list){
                 le.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100));
                 le.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 100));
             }
         }
-        if(player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get()).getValue()!=0.0){
-            double area = player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get()).getValue();
-            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(area), e->e instanceof Enemy);
+        if(player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get())!=null && player.getAttribute(SCGEAttributes.DEBUFF_ZONE.get()).getValue()>=1.0){
+            List<LivingEntity> list = player.level().getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(10), e->e instanceof Enemy);
             for(LivingEntity le : list){
                 le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
                 le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));

@@ -177,7 +177,7 @@ public class ModItems {
             OPPRESSOR_HELMET = ITEMS.register("oppressor_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.HELMET, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_helmet_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_helmet_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )
@@ -185,21 +185,21 @@ public class ModItems {
             OPPRESSOR_CHESTPLATE = ITEMS.register("oppressor_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.CHESTPLATE, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_chestplate_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_chestplate_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_LEGGINGS = ITEMS.register("oppressor_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.LEGGINGS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_leggings_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_leggings_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             OPPRESSOR_BOOTS = ITEMS.register("oppressor_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.OPPRESSOR, ArmorItem.Type.BOOTS, ArmorSets.OPPRESSOR, 
                         Map.of(
-                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_add_undead_damage", 0.025, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_boots_add_undead_damage", 0.05, AttributeModifier.Operation.ADDITION),
                             Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_boots_add_knockback_res", 0.5, AttributeModifier.Operation.ADDITION)
                         )
                     )),
@@ -290,32 +290,32 @@ public class ModItems {
             GOLDEN_IDOL_HELMET = ITEMS.register("golden_idol_helmet", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.HELMET, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_helmet_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_helmet_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_CHESTPLATE = ITEMS.register("golden_idol_chestplate", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.CHESTPLATE, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_chestplate_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_chestplate_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_LEGGINGS = ITEMS.register("golden_idol_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.LEGGINGS, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_leggings_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_leggings_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             GOLDEN_IDOL_BOOTS = ITEMS.register("golden_idol_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.GOLDEN_IDOL, ArmorItem.Type.BOOTS, ArmorSets.GOLDEN_IDOL,
                         Map.of(
-                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_buff_zone", 2.5, AttributeModifier.Operation.ADDITION),
-                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_debuff_zone", 2.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.BUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_buff_zone", 0.5, AttributeModifier.Operation.ADDITION),
+                            SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_boots_add_debuff_zone", 0.5, AttributeModifier.Operation.ADDITION),
                             SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get(), new AttributeModifier("golden_idol_boots_add_magic_damage_reduction", -0.1, AttributeModifier.Operation.ADDITION)
                         )
                     )),

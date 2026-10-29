@@ -33,6 +33,8 @@ public class ArmorSetPartItem extends ArmorItem implements ArmorSetPart {
         if (Screen.hasShiftDown()) {
             tooltipComponents.add(Component.translatable("armorset.full_set_bonus.description").withStyle(ChatFormatting.GRAY));
             tooltipComponents.add(Component.translatable("armorset." + loc.getNamespace() + "." + loc.getPath() +".description").withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.translatable("armorset.half_set_bonus.description").withStyle(ChatFormatting.GRAY));
+            tooltipComponents.add(Component.translatable("armorset." + loc.getNamespace() + "." + loc.getPath() +".half_set.description").withStyle(ChatFormatting.GRAY));
         } else {
             tooltipComponents.add(Component.translatable("tooltip.scguns.hold_shift").withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }

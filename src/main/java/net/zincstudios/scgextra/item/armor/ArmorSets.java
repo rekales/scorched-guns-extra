@@ -5,6 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.zincstudios.scgextra.SCGExtra;
 import top.ribs.scguns.init.ModEffects;
@@ -12,7 +13,9 @@ import top.ribs.scguns.init.ModEffects;
 // Maybe use registries?
 public final class ArmorSets {
 
-    public static final ArmorSet OPPRESSOR = new ArmorSet(SCGExtra.asResource("oppressor"), new ArmorSet.Traits());
+    public static final ArmorSet OPPRESSOR = new ArmorSet(SCGExtra.asResource("oppressor"), new ArmorSet.Traits()
+        .modifier(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_full_armor_undead_damage_mult", 0.1, AttributeModifier.Operation.ADDITION))
+    );
 
     public static final ArmorSet COMMISSAR = new ArmorSet(SCGExtra.asResource("commissar"), new ArmorSet.Traits());
 

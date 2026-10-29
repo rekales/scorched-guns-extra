@@ -31,7 +31,7 @@ public enum ModArmorMaterials implements StringRepresentable, ArmorMaterial {
             12,
             SoundEvents.ARMOR_EQUIP_IRON,
             1.0F,
-            0.1F,
+            0F,
             () -> Ingredient.of(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.OXIDIZED_COPPER)
     ),
     COMMISSAR("commissar",

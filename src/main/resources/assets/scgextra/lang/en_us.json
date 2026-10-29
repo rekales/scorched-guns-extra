@@ -274,15 +274,26 @@
 
 
   "armorset.full_set_bonus.description" : "Full Set Bonus:",
-  "armorset.scgextra.oppressor.description" : "Provides 100% knockback resistance",
-  "armorset.scgextra.commissar.description" : "Provides 10% bullet damage resistance",
-  "armorset.scgextra.wrecker.description" : "Inflicts Laceration on enemies when attacking or getting hit",
+  "armorset.scgextra.oppressor.description" : "Provides 10% damage against undead",
+  "armorset.scgextra.commissar.description" : "Provides 20% reload speed",
+  "armorset.scgextra.wrecker.description" : "Provides 20% bullet damage and 20% bullet damage resistance",
   "armorset.scgextra.leviathan.description" : "Gives Water Breathing and Dolphins Grace",
-  "armorset.scgextra.golden_idol.description" : "Gives Fire Resistance and Regenerates allies and neutral mobs in 5 block radius",
-  "armorset.scgextra.enlightened.description" : "Gives Regeneration and makes wearer undetectable by skulk sensors",
-  "armorset.scgextra.juggernaut.description" : "Provides immunity to Laceration",
+  "armorset.scgextra.golden_idol.description" : "Debuffs hostile mobs in 10 block radius",
+  "armorset.scgextra.enlightened.description" : "Gives Healing 1 every time wearer gets hit with 3 seconds cooldown",
+  "armorset.scgextra.juggernaut.description" : "Reduces 10% recoil, Reduces 10% speed",
   "armorset.scgextra.ritual.description" : "Revives the player on death (20 minute cooldown)",
-  "armorset.scgextra.pioneer.description" : "Provides immunity to Levitation and gives players elytra flight",
+  "armorset.scgextra.pioneer.description" : "Provides 10% critical chance and raises bullet critical damage by 10%",
+  
+  "armorset.half_set_bonus.description" : "Half Set Bonus:",
+  "armorset.scgextra.oppressor.half_set.description" : "Provides 100% knockback resistance",
+  "armorset.scgextra.commissar.half_set.description" : "Provides 10% bullet damage resistance",
+  "armorset.scgextra.wrecker.half_set.description" : "Inflicts Laceration on enemies when attacking or getting hit",
+  "armorset.scgextra.leviathan.half_set.description" : "1 debuff cleanse every 10 sec",
+  "armorset.scgextra.golden_idol.half_set.description" : "Regenerates allies and neutral mobs in 5 block radius",
+  "armorset.scgextra.enlightened.half_set.description" : "Gives Regeneration and makes wearer undetectable by skulk sensors",
+  "armorset.scgextra.juggernaut.half_set.description" : "Provides immunity to Laceration",
+  "armorset.scgextra.ritual.half_set.description" : "Gives Regeneration 1 for 3 seconds every time wearer gets hit with 4 seconds cooldown",
+  "armorset.scgextra.pioneer.half_set.description" : "Provides immunity to Levitation and gives players elytra flight",
 
 
   "scgextra.raid.label.wave_1":  "Wave 1",
