@@ -68,6 +68,7 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     @Nonnull
     private Direction prefferedDirection = Direction.NORTH;
@@ -400,5 +401,16 @@ public class GuardianStatueEntity extends Monster implements GeoEntity {
     @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(WhalerSounds.GUARDIAN_STATUE_WALK.get(), this.getSoundVolume() * 0.15F, this.getVoicePitch());
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

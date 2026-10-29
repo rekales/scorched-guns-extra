@@ -50,6 +50,7 @@ public class EndStoneCrabEntity extends Monster implements GeoEntity{
     private final PartEntity<?>[] subEntities;
     private static final int MELEE_DAMAGE_DELAY = 7;
     private int hurtDelay = -1;
+    private String lastHitByEntityUUID = "";
 
     public EndStoneCrabEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -217,5 +218,15 @@ public class EndStoneCrabEntity extends Monster implements GeoEntity{
             return false;
         }
         return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(level, pos, random) && checkMobSpawnRules(type, level, spawnType, pos, random);
+    }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

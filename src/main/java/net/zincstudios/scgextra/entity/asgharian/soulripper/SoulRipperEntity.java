@@ -77,6 +77,7 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
 
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     // Serverside only
     private BehaviourState behaviourState = BehaviourState.NONE;
@@ -447,6 +448,17 @@ public class SoulRipperEntity extends Monster implements GeoEntity, GoalStateHan
     public void setCustomName(Component name) {
         super.setCustomName(name);
         this.bossEvent.setName(this.getDisplayName());
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 
 }

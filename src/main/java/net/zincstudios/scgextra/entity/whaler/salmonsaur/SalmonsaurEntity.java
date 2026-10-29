@@ -15,6 +15,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,6 +49,7 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     public SalmonsaurEntity(EntityType<? extends SalmonsaurEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -182,5 +184,16 @@ public class SalmonsaurEntity extends EquippedEntity implements GeoEntity {
     public boolean doHurtTarget(Entity entity) {
         this.playSound(WhalerSounds.SALMONSAUR_ATTACK.get());
         return super.doHurtTarget(entity);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

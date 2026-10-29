@@ -54,6 +54,7 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
     private static final EntityDataAccessor<Float> INACCURACY = SynchedEntityData.defineId(DroneEntity.class, EntityDataSerializers.FLOAT);
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     // Server-side only for stunnable handling
     private int headshotCounter = 0;
@@ -206,6 +207,12 @@ public class DroneEntity extends Monster implements GeoEntity, Stunnable, HeadSh
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
+        if(pSource.getDirectEntity()!=null && !(pSource.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == pSource.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = pSource.getDirectEntity().getStringUUID();
+            }
+        }
         if(this.isStunned()){
             return super.hurt(pSource, pAmount*2);
         }

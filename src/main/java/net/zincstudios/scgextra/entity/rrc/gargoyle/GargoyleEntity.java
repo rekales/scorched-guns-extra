@@ -66,6 +66,7 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
     private static final EntityDataAccessor<Boolean> IS_ATTACKING = SynchedEntityData.defineId(GargoyleEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     public GargoyleEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -252,6 +253,17 @@ public class GargoyleEntity extends GunnerEntity implements GeoEntity, FlyingAni
         super.setId(id);
         for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
             this.subEntities[i].setId(id + i + 1);
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
     
 }

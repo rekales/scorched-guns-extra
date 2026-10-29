@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -51,6 +52,7 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
     public static final EntityDataAccessor<Boolean> IS_POISON = SynchedEntityData.defineId(LionFishEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     public LionFishEntity(EntityType<? extends Monster> entity, Level level) {
         super(entity, level);
@@ -201,5 +203,16 @@ public class LionFishEntity extends EquippedEntity implements GeoEntity{
         for(PartEntity<?> partEntity : this.getParts()) {
             partEntity.tick();
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

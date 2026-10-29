@@ -52,6 +52,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
 
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     // Server-side only for stunnable handling
     private int headshotCounter = 0;
@@ -241,5 +242,15 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
     @Override
     protected void playStepSound(BlockPos pos, BlockState block) {
         this.playSound(this.getStepSound(), 0.15F, 1.0F);
+    }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

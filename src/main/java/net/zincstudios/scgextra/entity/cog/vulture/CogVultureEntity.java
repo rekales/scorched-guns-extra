@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -52,6 +53,7 @@ public class CogVultureEntity extends Monster implements GeoEntity, Gunner, Bull
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final SimulatedGun customGun;
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     private boolean bulletSpawnLeft = false;
 
@@ -136,6 +138,12 @@ public class CogVultureEntity extends Monster implements GeoEntity, Gunner, Bull
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (source.getEntity() == this) return false;
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
         return super.hurt(source, amount);
     }
 

@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -39,6 +40,7 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     private DamageSource deathDamage = null;
 
@@ -170,5 +172,15 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
 
     protected SoundEvent getDeathSound() {
         return FACSounds.FAC_TANK_BUSTER_DEATH.get();
+    }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

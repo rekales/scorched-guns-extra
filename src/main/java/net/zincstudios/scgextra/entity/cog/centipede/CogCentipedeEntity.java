@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -47,6 +48,7 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final SimulatedGun customGun;
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     public CogCentipedeEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -194,5 +196,15 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
     @Override
     protected SoundEvent getHurtSound(DamageSource damageSource) {
         return COGSounds.GENERAL_HEAVY_HURT.get();
+    }
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
+        }
+        return super.hurt(source, amount);
     }
 }

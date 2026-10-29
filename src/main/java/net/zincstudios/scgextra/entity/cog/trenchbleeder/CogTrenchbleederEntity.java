@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -42,6 +43,7 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     static final int MELEE_DAMAGE_DELAY = 10;
     static final int MELEE_DURATION = 15;
     private final PartEntity<?>[] subEntities;
+    private String lastHitByEntityUUID = "";
 
     private final AnimatableInstanceCache geocache = GeckoLibUtil.createInstanceCache(this);
     private final SimulatedGun customGun;
@@ -214,6 +216,12 @@ public class CogTrenchbleederEntity extends Monster implements GeoEntity, Custom
     public boolean hurt(DamageSource source, float amount) {
         if(source.getEntity()!=null && source.getEntity().is(this)){
             return false;
+        }
+        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
+            if(!this.level().isClientSide()){
+                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
+                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
+            }
         }
         return super.hurt(source, amount);
     }
