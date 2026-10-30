@@ -11,12 +11,12 @@ import net.zincstudios.scgextra.attributes.SCGEAttributes;
 
 public class PioneerChestplateItem extends ArmorSetPartWithExtrasItem {
 
-    public PioneerChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, modifiers);
+    public PioneerChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, modifiers, armorTypeName);
     }
 
-    public PioneerChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, properties, modifiers);
+    public PioneerChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, properties, modifiers, armorTypeName);
     }
 
     @Override

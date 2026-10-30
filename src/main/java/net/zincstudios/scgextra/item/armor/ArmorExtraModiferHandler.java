@@ -16,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import top.ribs.scguns.attributes.SCAttributes;
 import top.ribs.scguns.init.ModEffects;
 
@@ -132,6 +133,14 @@ public class ArmorExtraModiferHandler {
                 le.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
                 le.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
             }
+        }
+    }
+    public static void onTooltip(ItemTooltipEvent event) {
+        if(event.getItemStack().getItem() instanceof ArmorSetPartWithExtrasItem ai){
+            event.getToolTip().removeIf(e->{
+                if(e.getString().contains(ai.armorTypeName))return true;
+                return false;
+            });
         }
     }
 }

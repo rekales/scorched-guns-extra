@@ -21,8 +21,8 @@ import software.bernie.geckolib.core.object.PlayState;
 public class WreckerChestplateItem extends ArmorSetPartWithExtrasItem{
 
     public WreckerChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet,
-            Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, modifiers);
+            Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, modifiers, armorTypeName);
     }
     @Override
     public void onInventoryTick(ItemStack stack, Level level, Player player, int slotIndex, int selectedIndex) {

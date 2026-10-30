@@ -15,20 +15,24 @@ import net.minecraft.world.item.ArmorMaterial;
 public class ArmorSetPartWithExtrasItem extends GeoArmorSetPartItem{
     ListMultimap<Attribute, AttributeModifier> multimap;
 
-    public ArmorSetPartWithExtrasItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers) {
+    public final String armorTypeName;
+
+    public ArmorSetPartWithExtrasItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
         super(material, type, armorSet);
         multimap = ArrayListMultimap.create();
         for (Map.Entry<Attribute, AttributeModifier> e : modifiers.entrySet()) {
             multimap.put(e.getKey(), e.getValue());
         }
+        this.armorTypeName = armorTypeName;
     }
 
-    public ArmorSetPartWithExtrasItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers) {
+    public ArmorSetPartWithExtrasItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
         super(material, type, armorSet, properties);
         multimap = ArrayListMultimap.create();
         for (Map.Entry<Attribute, AttributeModifier> e : modifiers.entrySet()) {
             multimap.put(e.getKey(), e.getValue());
         }
+        this.armorTypeName = armorTypeName;
     }
 
     @Override

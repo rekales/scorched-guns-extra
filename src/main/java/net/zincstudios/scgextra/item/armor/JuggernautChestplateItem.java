@@ -18,12 +18,12 @@ import java.util.function.Consumer;
 
 public class JuggernautChestplateItem extends ArmorSetPartWithExtrasItem {
 
-    public JuggernautChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, modifiers);
+    public JuggernautChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, modifiers, armorTypeName);
     }
 
-    public JuggernautChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, properties, modifiers);
+    public JuggernautChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, properties, modifiers, armorTypeName);
     }
 
     @OnlyIn(value = Dist.CLIENT)

@@ -16,12 +16,12 @@ import net.minecraft.world.phys.Vec3;
 
 public class RitualChestplateItem extends ArmorSetPartWithExtrasItem {
 
-    public RitualChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, modifiers);
+    public RitualChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, modifiers, armorTypeName);
     }
 
-    public RitualChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers) {
-        super(material, type, armorSet, properties, modifiers);
+    public RitualChestplateItem(ArmorMaterial material, Type type, ArmorSet armorSet, Properties properties, Map<Attribute, AttributeModifier> modifiers, String armorTypeName) {
+        super(material, type, armorSet, properties, modifiers, armorTypeName);
     }
 
     @Override
