@@ -81,6 +81,7 @@ public class ProjectileEntityMixin {
         float damage = original.call(instance);
         if (self.getShooter() instanceof Player player) {
             damage *= (float) player.getAttributeValue(SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get());
+            return damage;
         }
         return damage;
     }
