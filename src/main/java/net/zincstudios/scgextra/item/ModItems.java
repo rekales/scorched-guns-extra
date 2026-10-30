@@ -386,28 +386,28 @@ public class ModItems {
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.HELMET, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_helmet_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_helmet_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("ritual_helmet_add_general_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_CHESTPLATE = ITEMS.register("ritual_chestplate", () ->
                     new RitualChestplateItem(ModArmorMaterials.RITUAL, ArmorItem.Type.CHESTPLATE, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_chestplate_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_chestplate_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("ritual_chestplate_add_general_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_LEGGINGS = ITEMS.register("ritual_leggings", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.LEGGINGS, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_leggings_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_leggings_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("ritual_leggings_add_general_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
             RITUAL_BOOTS = ITEMS.register("ritual_boots", () ->
                     new ArmorSetPartWithExtrasItem(ModArmorMaterials.RITUAL, ArmorItem.Type.BOOTS, ArmorSets.RITUAL,
                         Map.of(
                             SCGEAttributes.RITUAL.get(), new AttributeModifier("ritual_boots_add_ritual", 0.5, AttributeModifier.Operation.ADDITION),
-                            SCAttributes.BULLET_DAMAGE_MULTIPLIER.get(), new AttributeModifier("ritual_boots_add_bullet_damage", 0.025, AttributeModifier.Operation.ADDITION)
+                            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("ritual_boots_add_general_damage", 0.025, AttributeModifier.Operation.ADDITION)
                         )
                     )),
 
