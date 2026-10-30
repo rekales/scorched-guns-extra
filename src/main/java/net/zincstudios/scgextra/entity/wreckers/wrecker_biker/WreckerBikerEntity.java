@@ -132,6 +132,7 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
     @Override
     public void die(DamageSource damageSource) {
         if(!this.level().isClientSide()){
+            this.playSound(WreckersSounds.WRECKER_BIKER_RIDER_DEATH.get(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
             this.level().explode(this, this.damageSources().explosion(this, this), null, new Vec3(this.getX(), this.getY(), this.getZ()), 3, false, ExplosionInteraction.NONE);
         }
         super.die(damageSource);
@@ -200,17 +201,5 @@ public class WreckerBikerEntity extends Monster implements GeoEntity{
             SpawnGroupData spawnData, CompoundTag dataTag) {
         this.clockwise = this.random.nextBoolean() ? 1.0F : -1.0F;
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
-    }
-
-    @Override
-    public void handleEntityEvent(byte id) {
-        switch (id) {
-            case 3:
-                this.playSound(WreckersSounds.WRECKER_BIKER_RIDER_DEATH.get(), this.getSoundVolume(), (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                break;
-            default:
-                break;
-        }
-        super.handleEntityEvent(id);
     }
 }

@@ -29,6 +29,7 @@ public class LivingEntityMixin {
     @WrapMethod(method = "getDamageAfterMagicAbsorb")
     private float atGetDamageAfterMagicAbsorb(DamageSource damageSource, float damageAmount, Operation<Float> original) {
         //Undead Damage Multiplier Attribute
+        //all this will not stack.... probably
         if(
             (Object)this instanceof LivingEntity living && 
             living.getMobType() == MobType.UNDEAD && 
@@ -56,13 +57,20 @@ public class LivingEntityMixin {
             }
         }
 
+        //melee
         if(damageSource.getDirectEntity() instanceof LivingEntity le && le.getAttribute(SCGEAttributes.GENERAL_DAMAGE_MULT.get())!=null){
             damageAmount*=le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
         }
-
-        if (damageSource.is(ModDamageTypes.BULLET) && damageSource.getDirectEntity() instanceof ProjectileEntity pe &&  pe.getShooter()!=null) {
-            float damageMult = (float) pe.getShooter().getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
-            return original.call(damageSource, damageAmount * damageMult);
+        //laser
+        if(damageSource.getDirectEntity()==null && damageSource.getEntity()!=null){
+            if(damageSource.getEntity() instanceof LivingEntity le){
+                damageAmount*=le.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
+                damageAmount*=le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+            }
+        }
+        //projectile
+        if(damageSource.getDirectEntity() instanceof ProjectileEntity pe && pe.getShooter()!=null && pe.getShooter().getAttribute(SCGEAttributes.GENERAL_DAMAGE_MULT.get())!=null){
+            damageAmount*=pe.getShooter().getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
         }
 
         if((damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) && (Object)this instanceof LivingEntity le){
