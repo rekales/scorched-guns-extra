@@ -1,9 +1,12 @@
 package net.zincstudios.scgextra.entity.cog.gigantes;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.behavior.BlockPosTracker;
 import net.minecraft.world.entity.ai.behavior.OneShot;
 import net.minecraft.world.entity.ai.behavior.declarative.BehaviorBuilder;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -16,10 +19,11 @@ import java.util.Optional;
 public class FlightDirectStroll {
 
     public static OneShot<Mob> create(float range, float speedModifier) {
-        return BehaviorBuilder.create(instance -> instance.group(instance.absent(ModBrainMemories.FLY_DIRECT_TARGET.get()))
-                    .apply(instance, walkAcc -> (level, mob, gameTime) -> {
+        return BehaviorBuilder.create(instance -> instance.group(instance.absent(ModBrainMemories.FLY_DIRECT_TARGET.get()), instance.registered(MemoryModuleType.LOOK_TARGET))
+                    .apply(instance, (walkAcc, lookAcc) -> (level, mob, gameTime) -> {
                         Optional<Vec3> optional = Optional.ofNullable(getStrollPos(mob, range));
-                        walkAcc.setOrErase(optional.map((p_258622_) -> new FlyDirectTarget(p_258622_, speedModifier, 0, 1)));
+                        walkAcc.setOrErase(optional.map((pos) -> new FlyDirectTarget(pos, speedModifier, 0, 1)));
+                        lookAcc.setOrErase(optional.map((pos) -> new BlockPosTracker(BlockPos.containing(pos))));
                         return true;
             }));
     }
