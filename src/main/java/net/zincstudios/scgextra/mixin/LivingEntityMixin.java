@@ -41,7 +41,7 @@ public class LivingEntityMixin {
             ){
                 AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
                 if(ai!=null){
-                    damageAmount *= (float)ai.getValue();
+                    damageAmount *= (float)(1+(ai.getValue()/100));
                 }
             }
             if(
@@ -52,43 +52,43 @@ public class LivingEntityMixin {
             ){
                 AttributeInstance ai = le.getAttribute(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
                 if(ai!=null){
-                    damageAmount *= (float)ai.getValue();
+                    damageAmount *= (float)(1+(ai.getValue()/100));
                 }
             }
         }
-
+        
         //melee
         if(damageSource.getDirectEntity() instanceof LivingEntity le && le.getAttribute(SCGEAttributes.GENERAL_DAMAGE_MULT.get())!=null){
-            damageAmount*=le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+            damageAmount*=(1+(le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get())/100));
         }
         //laser
         if(damageSource.getDirectEntity()==null && damageSource.getEntity()!=null){
             if(damageSource.getEntity() instanceof LivingEntity le){
-                damageAmount*=le.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
-                damageAmount*=le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+                damageAmount*=(1+(le.getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get())/100));
+                damageAmount*=(1+(le.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())/100));
             }
         }
         //projectile
         if(damageSource.getDirectEntity() instanceof ProjectileEntity pe && pe.getShooter()!=null && pe.getShooter().getAttribute(SCGEAttributes.GENERAL_DAMAGE_MULT.get())!=null){
-            damageAmount*=pe.getShooter().getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get());
+            damageAmount*=(1+(pe.getShooter().getAttributeValue(SCGEAttributes.GENERAL_DAMAGE_MULT.get())/100));
         }
 
         if((damageSource.is(DamageTypes.MAGIC) || damageSource.is(DamageTypes.INDIRECT_MAGIC)) && (Object)this instanceof LivingEntity le){
             AttributeInstance ai = le.getAttribute(SCGEAttributes.MAGIC_DAMAGE_REDUCTION.get());
-            if(ai!=null && ai.getValue()!=1.0){
-                damageAmount -= damageAmount*(float)ai.getValue();   
+            if(ai!=null && ai.getValue()!=0.0){
+                damageAmount -= damageAmount*(float)(1+(ai.getValue()/100));   
             }
         }
 
         if (damageSource.is(ModDamageTypes.BULLET)
                 && !damageSource.is(DamageTypeTags.BYPASSES_EFFECTS)
                 && (Object)this instanceof Player player) {
-            float damageMult = (float) player.getAttributeValue(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get());
+            float damageMult = (float) (1+(player.getAttributeValue(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get())/100));
             return original.call(damageSource, damageAmount * damageMult);
         }
 
         if(damageSource.getDirectEntity() instanceof Player p && (Object)this instanceof Monster){
-            float damageMult = (float) p.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get());
+            float damageMult = (float)(1+(p.getAttributeValue(SCGEAttributes.UNDEAD_DAMAGE_MULT.get())/100));
             return original.call(damageSource, damageAmount * damageMult);
         }
 

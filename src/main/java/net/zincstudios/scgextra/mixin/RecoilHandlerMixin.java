@@ -34,7 +34,7 @@ public class RecoilHandlerMixin {
             )
     )
     private float onGetEnchantmentModifier(Player player, ItemStack weapon, Operation<Float> original) {
-        return (float)player.getAttributeValue(SCGEAttributes.RECOIL_MULT.get()) * original.call(player, weapon);
+        return (float)(1+(player.getAttributeValue(SCGEAttributes.RECOIL_MULT.get())/100)) * original.call(player, weapon);
     }
 
 }

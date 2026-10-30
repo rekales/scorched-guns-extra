@@ -22,26 +22,26 @@ import top.ribs.scguns.init.ModEffects;
 
 public class ArmorExtraModiferHandler {
     private static final Map<Attribute, Map<Attribute, AttributeModifier>> FULL_SET_BONUSES = Map.of(
-        SCGEAttributes.OPPRESSOR.get(), Map.of(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_full_armor_add_undead_damage_mult", 0.1, AttributeModifier.Operation.ADDITION)),
+        SCGEAttributes.OPPRESSOR.get(), Map.of(SCGEAttributes.UNDEAD_DAMAGE_MULT.get(), new AttributeModifier("oppressor_full_armor_add_undead_damage_mult", 10, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.COMMISSAR.get(), Map.of(SCAttributes.RELOAD_SPEED.get(), new AttributeModifier("commissar_full_armor_reload_speed", 0.2, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.WRECEKR.get(), Map.of(
-            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_full_armor_damage_mult", 0.2, AttributeModifier.Operation.ADDITION),
-            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", 0.2, AttributeModifier.Operation.ADDITION)
+            SCGEAttributes.GENERAL_DAMAGE_MULT.get(), new AttributeModifier("wrecker_full_armor_damage_mult", 20, AttributeModifier.Operation.ADDITION),
+            SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("wrecker_full_armor_additional_bullet_damage_taken", 20, AttributeModifier.Operation.ADDITION)
         ),
         SCGEAttributes.GOLDEN_IDOL.get(), Map.of(SCGEAttributes.DEBUFF_ZONE.get(), new AttributeModifier("golden_idol_full_armor_add_debuff_zone", 1.0, AttributeModifier.Operation.ADDITION)),
         SCGEAttributes.JUGGERNAUT.get(), Map.of(
-            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_full_armor_reduce_recoil", -0.1, AttributeModifier.Operation.ADDITION),
+            SCGEAttributes.RECOIL_MULT.get(), new AttributeModifier("juggernaut_full_armor_reduce_recoil", -10, AttributeModifier.Operation.ADDITION),
             Attributes.MOVEMENT_SPEED, new AttributeModifier("juggernaut_full_armor_reduce_speed", -0.1, AttributeModifier.Operation.MULTIPLY_BASE)
         ),
         SCGEAttributes.PIONEER.get(), 
         Map.of(
-            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_full_armor_additional_crit_chance_mult", 0.1, AttributeModifier.Operation.ADDITION),
-            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_full_armor_additional_crit_damage_mult", 0.1, AttributeModifier.Operation.ADDITION)
+            SCGEAttributes.BULLET_ADDITIONAL_CRIT_CHANCE.get(), new AttributeModifier("pioneer_full_armor_additional_crit_chance_mult", 10, AttributeModifier.Operation.ADDITION),
+            SCGEAttributes.BULLET_ADDITIONAL_CRIT_DAMAGE_MULT.get(), new AttributeModifier("pioneer_full_armor_additional_crit_damage_mult", 10, AttributeModifier.Operation.ADDITION)
         )
     );
     private static final Map<Attribute, Map<Attribute, AttributeModifier>> HALF_SET_BONUSES = Map.of(
         SCGEAttributes.OPPRESSOR.get(), Map.of(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier("oppressor_half_armor_add_knockback_resistance", 1, AttributeModifier.Operation.ADDITION)),
-        SCGEAttributes.COMMISSAR.get(), Map.of(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("comissar_half_armor_reduce_bullet_damage", -0.1, AttributeModifier.Operation.ADDITION))
+        SCGEAttributes.COMMISSAR.get(), Map.of(SCGEAttributes.BULLET_DAMAGE_TAKEN_MULT.get(), new AttributeModifier("comissar_half_armor_reduce_bullet_damage", -10, AttributeModifier.Operation.ADDITION))
     );
     public static final List<MobEffect> MOB_EFFECTS = List.of(
         MobEffects.POISON,
@@ -137,8 +137,9 @@ public class ArmorExtraModiferHandler {
     }
     public static void onTooltip(ItemTooltipEvent event) {
         if(event.getItemStack().getItem() instanceof ArmorSetPartWithExtrasItem ai){
+            String name = "+0.5 "+ai.armorTypeName;
             event.getToolTip().removeIf(e->{
-                if(e.getString().contains(ai.armorTypeName))return true;
+                if(e.getString().toLowerCase().contains(name.toLowerCase()))return true;
                 return false;
             });
         }
