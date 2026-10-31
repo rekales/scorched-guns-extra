@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:netherite_axe"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "I": {
+      "item": "scguns:anthralite_ingot"
+    }
+  },
+  "pattern": [
+    "IG ",
+    "CA ",
+    "I  "
+  ],
+  "result": {
+    "item": "scgextra:netherite_chain_axe"
+  },
+  "show_notification": false
+}

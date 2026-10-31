@@ -474,6 +474,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_armor_ingredient", has(top.ribs.scguns.init.ModItems.SHULKER_CORE.get()))
                 .showNotification(false)
                 .save(writer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.NETHERITE_CHAIN_AXE.get())
+                .pattern("IG ")
+                .pattern("CA ")
+                .pattern("I  ")
+                .define('A', Items.NETHERITE_AXE)
+                .define('C', Items.CHAIN)
+                .define('G', Items.GOLD_INGOT)
+                .define('I', top.ribs.scguns.init.ModItems.ANTHRALITE_INGOT.get())
+                .unlockedBy("has_ingredient", has(top.ribs.scguns.init.ModItems.ANTHRALITE_INGOT.get()))
+                .showNotification(false)
+                .save(writer);
     }
 
     private void superFlare(Consumer<FinishedRecipe> writer, Item superFlare , Item flare) {
