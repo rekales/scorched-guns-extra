@@ -9,9 +9,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.item.ItemStack;
@@ -194,17 +196,21 @@ public record WaveRaidData(
         if (mob instanceof DissidentEntity) {
             return false;
         }
-
-        //add RESPIRATOR to piglin infantry
-        if (mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute) {
-            mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
-        }
+        
+        WaveRaidData.forceRespirator(mob);
 
         if (mob instanceof MotherGhastEntity) {
             mob.setPos(mob.position().add(0, 20, 0));
         }
 
         return true;
+    }
+    
+    public static void forceRespirator(LivingEntity mob){
+        //add RESPIRATOR to piglin infantry
+        if (mob instanceof HornlinEntity || mob instanceof Piglin || mob instanceof PiglinBrute) {
+            mob.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ModItems.ANTHRALITE_RESPIRATOR.get()));
+        }
     }
 
     public List<ItemStack> rollLoot(ServerLevel level) {

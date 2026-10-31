@@ -86,6 +86,8 @@ public class WaveRaidManager extends SavedData {
     private void tickRaid(ServerLevel level) {
         if (this.raidState == null) return;
 
+        this.raidState.tickHelm();
+
         if (level.getGameTime() > this.raidState.getStartTime() + RAID_TIMEOUT_TICKS) {
             this.endRaid(level, false);
         }

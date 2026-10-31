@@ -20,9 +20,7 @@
     "RaidSaveDataAccessor",
     "RecoilHandlerMixin",
     "SignalBeaconEntityMixin",
-    "ResourceOrTagKeyArgumentMixin",
-    "EntityEquipmentConfigMixin",
-    "PiglinMixin"
+    "ResourceOrTagKeyArgumentMixin"
   ],
   "minVersion": "0.8.5"
 }

@@ -5,9 +5,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -92,6 +94,17 @@ public class WaveRaidState {
             this.currentWave++;
             this.totalWaveSpawned = 0;
         }
+    }
+
+    public void tickHelm(){
+        this.raiders.entrySet().forEach(entry -> {
+            Entity entity = this.level.getEntity(entry.getKey());
+            if(entity!=null){
+                if(entity instanceof LivingEntity le){
+                    WaveRaidData.forceRespirator(le);
+                }
+            }
+        });
     }
 
     public void updateRaiders() {
