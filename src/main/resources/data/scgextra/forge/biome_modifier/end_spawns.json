@@ -10,19 +10,19 @@
     },
     {
       "type": "scgextra:end_dweller",
-      "weight": 30,
+      "weight": 35,
       "minCount": 1,
       "maxCount": 1
     },
     {
       "type": "scgextra:end_stone_crab",
-      "weight": 1,
+      "weight": 2,
       "minCount": 1,
       "maxCount": 1
     },
     {
       "type": "scgextra:end_scorpion",
-      "weight": 1,
+      "weight": 2,
       "minCount": 1,
       "maxCount": 1
     }

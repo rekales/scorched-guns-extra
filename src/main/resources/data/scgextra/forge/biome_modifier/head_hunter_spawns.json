@@ -4,7 +4,7 @@
   "spawners": [
     {
       "type": "scgextra:head_hunter",
-      "weight": 5,
+      "weight": 7,
       "minCount": 1,
       "maxCount": 1
     }

@@ -4,13 +4,13 @@
   "spawners": [
     {
       "type": "scgextra:inflicted_boar",
-      "weight": 8,
+      "weight": 16,
       "minCount": 1,
       "maxCount": 1
     },
     {
       "type": "scgextra:inflicted_wolf",
-      "weight": 8,
+      "weight": 16,
       "minCount": 3,
       "maxCount": 5
     }
