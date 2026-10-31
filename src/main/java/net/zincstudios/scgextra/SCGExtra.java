@@ -2,14 +2,12 @@ package net.zincstudios.scgextra;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.zincstudios.scgextra.block.ModBlockEntities;
 import net.zincstudios.scgextra.block.ModBlocks;
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
 import net.zincstudios.scgextra.data.RaidDataLoader;
 import net.zincstudios.scgextra.datagen.DataGenerators;
 import net.zincstudios.scgextra.debug.DevTestCommands;
-import net.zincstudios.scgextra.debug.EntityHeadBoxDebug;
 import net.zincstudios.scgextra.effects.ModEffects;
 import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModEntities;
@@ -20,11 +18,6 @@ import net.zincstudios.scgextra.entity.cog.venator.CogVenatorEntity;
 import net.zincstudios.scgextra.entity.common.client.GunFlashHandler;
 import net.zincstudios.scgextra.entity.fac.bluecoat.FacBluecoatEntity;
 import net.zincstudios.scgextra.entity.fac.commissar.FacCommissarEntity;
-import net.zincstudios.scgextra.entity.fac.trench_goblin.FacTrenchGoblinEntity;
-import net.zincstudios.scgextra.entity.fac.trench_sniper.FacTrenchSniperEntity;
-import net.zincstudios.scgextra.entity.rrc.oppressor.OppressorEntity;
-import net.zincstudios.scgextra.entity.rrc.tallman.TallmanEntity;
-import net.zincstudios.scgextra.entity.wreckers.wrecker_biker.WreckerBikerEntity;
 import net.zincstudios.scgextra.entity.fac.shovel_knight.FacShovelKnightEntity;
 import net.zincstudios.scgextra.entity.fac.trench_goblin.FacTrenchGoblinEntity;
 import net.zincstudios.scgextra.entity.fac.trench_sniper.FacTrenchSniperEntity;
@@ -43,7 +36,6 @@ import net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner.WreckerTur
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -99,8 +91,7 @@ public class SCGExtra
         context.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
         modEventBus.addListener(CommonConfig::onLoad);
         modEventBus.addListener(CommonConfig::onReload);
-        modEventBus.addListener(SCGExtra::onCommonSetup);
-        modEventBus.addListener(SCGExtra::onClientSetup);
+        modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.addListener(GunFlashHandler::onTick);
         MinecraftForge.EVENT_BUS.addListener(WaveRaidManager::onLevelTick);
@@ -112,16 +103,12 @@ public class SCGExtra
         modEventBus.addListener(DataGenerators::gatherData);
     }
 
-    private static void onCommonSetup(final FMLCommonSetupEvent event) {
+    private void commonSetup(final FMLCommonSetupEvent event) {
         SCGEPacketHandler.init();
         event.enqueueWork(()->{
             ModTerrablender.registerBiomes();
             SurfaceRuleManager.addSurfaceRules(SurfaceRuleManager.RuleCategory.OVERWORLD, MOD_ID, ModSurfaceRules.makeRules());
         });
-    }
-
-    private static void onClientSetup(final FMLClientSetupEvent event) {
-        EntityHeadBoxDebug.register();
     }
 
     public static ResourceLocation asResource(String path) {
@@ -147,40 +134,6 @@ public class SCGExtra
             }
             if(event.getExplosion().getDirectSourceEntity() instanceof WreckerGreenEntity){
                 event.getAffectedEntities().removeIf(entity -> entity instanceof ItemEntity);
-            }
-            //only do 10 damage
-            if(event.getExplosion().getDirectSourceEntity() instanceof WreckerBikerEntity){
-                event.getAffectedEntities().forEach(entity -> {
-                    if(entity instanceof LivingEntity le){
-                        le.hurt(event.getExplosion().getDamageSource(), 10);
-                    }
-                });
-                event.getAffectedEntities().removeIf(entity -> entity instanceof LivingEntity);
-            }
-        }
-        @SubscribeEvent
-        public static void onEntitySpawn(MobSpawnEvent.FinalizeSpawn event) {
-            Mob mob = event.getEntity();
-            if(mob.getSpawnType() != MobSpawnType.STRUCTURE)return;
-            if(
-                mob instanceof FacTrenchSniperEntity ||
-                mob instanceof FacTrenchGoblinEntity ||
-                mob instanceof FacBluecoatEntity ||
-                mob instanceof FacCommissarEntity ||
-
-                mob instanceof TallmanEntity ||
-                mob instanceof OppressorEntity ||
-
-                mob instanceof CogVenatorEntity ||
-                mob instanceof CogBombardierEntity ||
-
-                mob instanceof WreckerTurretGunnerEntity ||
-                mob instanceof WreckerJumboEntity ||
-
-                mob instanceof AsgharFlamerEntity ||
-                mob instanceof AsgharSurgeonEntity
-            ){
-                mob.setPersistenceRequired();
             }
         }
         @SubscribeEvent
