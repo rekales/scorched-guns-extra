@@ -2,10 +2,13 @@ package net.zincstudios.scgextra.item.armor;
 
 import net.zincstudios.scgextra.attributes.SCGEAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -138,6 +141,21 @@ public class ArmorExtraModiferHandler {
     public static void onTooltip(ItemTooltipEvent event) {
         if(event.getItemStack().getItem() instanceof ArmorSetPartWithExtrasItem ai){
             String name = "+0.5 "+ai.armorTypeName;
+            //WHY IS THIS SO HARD!?
+            Pattern pattern = Pattern.compile("([-+](?:[0-9]+\\.[0-9]+|[0-9]+)) (Bullet Damage Taken Multiplier|Additional Crit Chance|Bullet Gravity Multiplier|Undead Damage Multiplier|Magic Damage Taken|General Damage Multiplier|Additional Crit Damage Multiplier|Recoil Multiplier)", Pattern.CASE_INSENSITIVE);
+            List<Component> list = new ArrayList<>();
+
+            for (Component c : event.getToolTip()) {                
+                if (pattern.matcher(c.getString()).find()) {
+                    list.add(Component.literal(pattern.matcher(c.getString()).replaceAll("$1% $2")).withStyle(c.getStyle()));
+                } else {
+                    list.add(c);
+                }
+            }
+
+            event.getToolTip().clear();
+            event.getToolTip().addAll(list);
+
             event.getToolTip().removeIf(e->{
                 if(e.getString().toLowerCase().contains(name.toLowerCase()))return true;
                 return false;
