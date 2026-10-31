@@ -49,8 +49,13 @@ public class WreckerTurretBlockRenderer<T extends WreckerTurretBlockEntity> exte
                 rand.nextFloat();  // because it's the same value on first get
 
                 poseStack.pushPose();
-                poseStack.mulPose(Axis.XP.rotation(animatable.clientTurretAim()[1]));
-                poseStack.mulPose(Axis.YP.rotation(animatable.clientTurretAim()[0]));
+                if(animatable.clientTurretAim()!=null){
+                    poseStack.mulPose(Axis.XP.rotation(animatable.clientTurretAim()[1]));
+                    poseStack.mulPose(Axis.YP.rotation(animatable.clientTurretAim()[0]));
+                }else{
+                    poseStack.mulPose(Axis.XP.rotation(0));
+                    poseStack.mulPose(Axis.YP.rotation(0));
+                }
 
                 Optional<GeoBone> bone = bakedModel.getBone(boneName);
                 if (bone.isEmpty()) return;

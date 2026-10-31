@@ -92,7 +92,7 @@ public class ModItems {
             (new Item.Properties()).stacksTo(16), 3, 8,
             List.of(
                 new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
-                new MobEffectInstance(MobEffects.ABSORPTION, 400, 0),
+                new MobEffectInstance(MobEffects.ABSORPTION, 300, 1),
                 new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 400, 2)
             ),
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1)
@@ -100,7 +100,7 @@ public class ModItems {
 
     public static final RegistryObject<MultiUseHealingItem> MEDKIT = ITEMS.register("medkit", () -> new MultiUseHealingItem(
             (new Item.Properties()).stacksTo(1).durability(32), 6,
-            new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
+            100, new MobEffectInstance(MobEffects.REGENERATION, 200, 0),
             new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 1)
     ));
 

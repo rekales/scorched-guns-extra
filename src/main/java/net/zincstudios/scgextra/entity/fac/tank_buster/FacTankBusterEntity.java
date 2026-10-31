@@ -6,19 +6,16 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.common.EquippedEntity;
 import net.zincstudios.scgextra.entity.common.Gunner;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.zincstudios.scgextra.entity.common.part.RotatedDamageMultPartEntity;
+import net.zincstudios.scgextra.entity.common.gun.GunDamageMult;
 import net.zincstudios.scgextra.sounds.FACSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -31,7 +28,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gunner {
+public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gunner, GunDamageMult {
 
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("walk");
@@ -39,16 +36,11 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
     private static final RawAnimation WALK_AIM = RawAnimation.begin().thenLoop("walk_aim");
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
-    private final PartEntity<?>[] subEntities;
-    private String lastHitByEntityUUID = "";
 
     private DamageSource deathDamage = null;
 
     public FacTankBusterEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.subEntities = new PartEntity[] {
-                new RotatedDamageMultPartEntity<>(this, 0.5F, new Vec3(0,1.35,0), 1.05F, 0.85f, false),
-        };
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -87,32 +79,8 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
     }
 
     @Override
-    public PartEntity<?>[] getParts() {
-        return this.subEntities;
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
-    }
-
-    @Override
-    public void setId(int id) {
-        super.setId(id);
-        for (int i = 0; i < this.subEntities.length; i++) // Fix MC-158205: See EnderDragon class
-            this.subEntities[i].setId(id + i + 1);
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        this.tickSubEntities();
-    }
-
-    protected void tickSubEntities() {
-        for(PartEntity<?> partEntity : this.getParts()) {
-            partEntity.tick();
-        }
+    public float getGunDamageMult() {
+        return 0.8f;
     }
 
     @Override
@@ -172,15 +140,5 @@ public class FacTankBusterEntity extends EquippedEntity implements GeoEntity, Gu
 
     protected SoundEvent getDeathSound() {
         return FACSounds.FAC_TANK_BUSTER_DEATH.get();
-    }
-    @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if(source.getDirectEntity()!=null && !(source.getDirectEntity() instanceof LivingEntity)){
-            if(!this.level().isClientSide()){
-                if(this.lastHitByEntityUUID == source.getDirectEntity().getStringUUID())return false;
-                this.lastHitByEntityUUID = source.getDirectEntity().getStringUUID();
-            }
-        }
-        return super.hurt(source, amount);
     }
 }

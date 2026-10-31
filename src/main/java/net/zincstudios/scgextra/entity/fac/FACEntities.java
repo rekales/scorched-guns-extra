@@ -136,7 +136,7 @@ public class FACEntities {
         BoundingBoxManager.registerHeadshotBox(FACEntities.TRENCH_SNIPER.get(), new RotatedHeadshotBox<>(9.0, 11.0, 30.0, 2.0, false, true));
         BoundingBoxManager.registerHeadshotBox(FACEntities.SHOVEL_KNIGHT.get(), new BasicHeadshotBox<>(9.0, 24.0));
         BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_COMMISSAR.get(), new BasicHeadshotBox<>(10.0, 17.0, 30.0));
-        BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_TANK_BUSTER.get(), new BasicHeadshotBox<>(0.0, 0.0));
+        BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_TANK_BUSTER.get(), new RotatedHeadshotBox<>(10.0, 1.0, 26.5, 6.0, false, true));
         BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_LION.get(), new RotatedHeadshotBox<>(12, 35.0, 9.0, false, true));
         BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_WALKER.get(), new RotatedHeadshotBox<>(11, 7, 48, 8, false, true));
         BoundingBoxManager.registerHeadshotBox(FACEntities.FAC_TANK.get(), new RotatedHeadshotBox<>(14.0, 12.0, 13.0, 20.0, false, true));

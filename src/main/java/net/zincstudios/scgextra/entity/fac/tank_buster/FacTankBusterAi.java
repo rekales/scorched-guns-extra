@@ -59,7 +59,7 @@ public final class FacTankBusterAi {
                 GetCloseToTarget.create(6F, 1.0F),
                 new AimWhenTargetVisible(),
                 new ShootTarget(20, (simGun, entity) -> 1.6F, entity -> true,
-                        new IntervalTriggerSampler(30, 50, 5, 30))
+                        new IntervalTriggerSampler(45, 70, 5, 30))
         ), MemoryModuleType.ATTACK_TARGET);
     }
 }

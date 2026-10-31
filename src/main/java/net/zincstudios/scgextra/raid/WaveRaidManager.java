@@ -14,6 +14,7 @@ import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
+import net.zincstudios.scgextra.SCGExtra;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -31,7 +32,7 @@ public class WaveRaidManager extends SavedData {
     public static final String SAVED_DATA_NAME = "SCGEWaveRaidData";
     public static final int RAID_TIMEOUT_TICKS = 12000;  // 10 minutes, TODO: config
     public static final float WAVE_SPAWN_RADIUS = 15;  // NOTE: turned constant from data, make dynamic if needed
-    public static final float RAID_RADIUS = 128;  // NOTE: turned constant from data, make dynamic if needed
+    public static final float RAID_RADIUS = 512;  // NOTE: turned constant from data, make dynamic if needed
     private static final int NEXT_WAVE_DELAY = 30;
 
     private static final Map<ResourceLocation, WaveRaidManager> INSTANCES = new HashMap<>();
@@ -101,11 +102,18 @@ public class WaveRaidManager extends SavedData {
             if (this.nextWaveDelay-- < 0) {
                 this.nextWaveDelay = NEXT_WAVE_DELAY;
                 this.raidState.advanceWave();
-
+                
                 ServerPlayer player = WaveRaidUtil.findNearestPlayer(level, this.raidState.getCenter(), RAID_RADIUS);
-                Vec3 waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, raidState.getCenter(),
-                        player == null ? null : player.position());
-                if (waveCenter == null) return;  // TODO: crash or something
+                Vec3 waveCenter;
+                if (player != null) {
+                    waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, player.position(), player.position());
+                } else {
+                    waveCenter = WaveRaidUtil.findWaveSpawnLocation(level, this.raidState.getCenter(), null);
+                }
+                if (waveCenter == null) {
+                    SCGExtra.LOGGER.warn("Can't find wave spawn location");
+                    return;
+                }
                 this.raidState.spawnCurrentWaveMobs(waveCenter, WAVE_SPAWN_RADIUS, player);
             }
         }

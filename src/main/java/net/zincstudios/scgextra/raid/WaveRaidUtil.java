@@ -145,7 +145,7 @@ public final class WaveRaidUtil {
             double x = center.x + Math.cos(angle) * distance;
             double z = center.z + Math.sin(angle) * distance;
             BlockPos pos = new BlockPos((int)x, (int)center.y, (int)z);
-            BlockPos groundPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos);
+            BlockPos groundPos = level.getHeightmapPos(Heightmap.Types.MOTION_BLOCKING, pos);//changed to MOTION_BLOCKING from MOTION_BLOCKING_NO_LEAVES
             if (level.getBlockState(groundPos.below()).isSolid()
                     && level.getBlockState(groundPos).isAir()
                     && level.getBlockState(groundPos.above()).isAir()) {

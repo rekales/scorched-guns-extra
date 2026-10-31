@@ -161,6 +161,10 @@ public abstract class ScorchedSimGun implements SimulatedGun {
         Gun gun = this.gunBase;
         Vec3 aimDir = SimulatedGun.getDirectionVector(startPos, targetPos);
         aimDir = addAimError(shooter, aimDir, accuracyModifier);
+        float damageMult = getMobDamageMultiplier(level);
+        if (shooter instanceof GunDamageMult gdm) {
+            damageMult *= gdm.getGunDamageMult();
+        }
 
         int count = gun.getProjectile().getProjectileAmount();
         ProjectileEntity[] projectiles = new ProjectileEntity[count];
@@ -168,7 +172,8 @@ public abstract class ScorchedSimGun implements SimulatedGun {
         for (int i = 0; i < count; ++i) {
             ProjectileEntity projectileEntity = this.projectileFactory.create(level, shooter, gun);
             projectileEntity.setAdditionalDamage(this.projectileDamage - gun.getProjectile().getDamage());
-            projectileEntity.getPersistentData().putFloat("AIDamageScale", getMobDamageMultiplier(level));
+
+            projectileEntity.getPersistentData().putFloat("AIDamageScale", damageMult);
 
             Vec3 vec = addWeaponSpread(shooter, aimDir, gun.getProjectile().getSpread());
             vec = vec.scale(this.projectileSpeed);
