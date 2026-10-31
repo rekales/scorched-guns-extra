@@ -217,7 +217,7 @@ public class EndStoneCrabEntity extends Monster implements GeoEntity{
         if(list.size()>2){
             return false;
         }
-        return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(level, pos, random) && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(level, pos, random) && checkMobSpawnRules(type, level, spawnType, pos, random) && random.nextFloat()>0.6;
     }
     @Override
     public boolean hurt(DamageSource source, float amount) {

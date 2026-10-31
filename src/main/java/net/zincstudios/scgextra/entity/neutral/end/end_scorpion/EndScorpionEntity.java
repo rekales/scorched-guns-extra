@@ -226,6 +226,6 @@ public class EndScorpionEntity extends Monster implements GeoEntity, FlyingAnima
         if(list.size()>1){
             return false;
         }
-        return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(level, pos, random) && checkMobSpawnRules(type, level, spawnType, pos, random);
+        return level.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(level, pos, random) && checkMobSpawnRules(type, level, spawnType, pos, random) && random.nextFloat()>0.6;
     }
 }
