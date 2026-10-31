@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.rrc;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -34,6 +35,8 @@ import top.ribs.scguns.common.BoundingBoxManager;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
+
+import net.zincstudios.scgextra.entity.common.client.TransformableGunHoldingMobRenderer;
 
 public class RRCEntities {
 
@@ -148,11 +151,16 @@ public class RRCEntities {
                         .hasGlowLayer()
                         .noDeathTilt()
         );
-        EntityRenderers.register(RRCEntities.OPPRESSOR.get(), (ctx) ->
-                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/oppressor")))
+        // EntityRenderers.register(RRCEntities.OPPRESSOR.get(), (ctx) -> 
+        //         new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/oppressor")))
+        //                 .hasGlowLayer()
+        //                 .noDeathTilt()
+        //         );
+        EntityRenderers.register(RRCEntities.OPPRESSOR.get(), (ctx) -> 
+                new TransformableGunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/oppressor")), 0, new Vec3(0,0,-0.1), new Vec3(2,2,2))
                         .hasGlowLayer()
                         .noDeathTilt()
-        );
+                );
         EntityRenderers.register(RRCEntities.SPRING_JUNKIE.get(), (ctx) ->
                 new BaseEntityRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("rrc/spring_junkie")))
                         .hasGlowLayer()

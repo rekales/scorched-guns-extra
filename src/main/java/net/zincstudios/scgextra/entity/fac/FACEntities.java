@@ -5,6 +5,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -40,6 +41,8 @@ import top.ribs.scguns.common.headshot.BasicHeadshotBox;
 import top.ribs.scguns.common.headshot.RotatedHeadshotBox;
 
 import static net.zincstudios.scgextra.entity.ModEntities.ENTITY_TYPES;
+
+import net.zincstudios.scgextra.entity.common.client.TransformableGunHoldingMobRenderer;
 
 public class FACEntities {
 
@@ -169,7 +172,7 @@ public class FACEntities {
                         .hasGlowLayer()
         );
         EntityRenderers.register(FACEntities.FAC_LION.get(), (ctx) ->
-                new GunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_lion")))
+                new TransformableGunHoldingMobRenderer<>(ctx, new DefaultedEntityGeoModel<>(SCGExtra.asResource("fac/fac_lion")), 0, new Vec3(0,0,-0.1), new Vec3(2,2,2))
                         .hasGlowLayer()
         );
         EntityRenderers.register(FACEntities.FAC_COMMISSAR.get(), (ctx) ->
