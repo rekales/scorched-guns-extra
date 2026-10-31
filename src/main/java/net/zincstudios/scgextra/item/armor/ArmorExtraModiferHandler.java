@@ -149,7 +149,15 @@ public class ArmorExtraModiferHandler {
                 if (pattern.matcher(c.getString()).find()) {
                     list.add(Component.literal(pattern.matcher(c.getString()).replaceAll("$1% $2")).withStyle(c.getStyle()));
                 } else {
-                    list.add(c);
+                    //can't bother with regex anymore
+                    if(c.getString().toLowerCase().contains("firearm reload speed")){
+                        String[] arr = c.getString().split(" ");
+                        String sign = arr[0].substring(0, 1);
+                        float num = Float.valueOf(arr[0].substring(1));
+                        list.add(Component.literal(sign+""+(num*100)+"% "+arr[1]+" "+arr[2]+" "+arr[3]).withStyle(c.getStyle()));
+                    }else{
+                        list.add(c);
+                    }
                 }
             }
 
