@@ -245,18 +245,21 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                 .range(ModItems.COMPACT_ADVANCED_ROUND.get(), 1, 3);
         basicLoot(COGEntities.DEVASTATOR.get())
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3)
-                .range(Items.GUNPOWDER, 3, 5);
+                .range(Items.GUNPOWDER, 3, 5)
+                .chance(ModItems.TREATED_BRASS_FLARE.get(), 0.3f);
         basicLoot(COGEntities.BOMBARDIER.get())
                 .range(ModItems.ANCIENT_BRASS.get(), 1, 2)
                 .range(ModItems.ROCKET.get(), 1, 3);
         basicLoot(COGEntities.GIGANTES.get())
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3)
-                .range(Items.GUNPOWDER, 3, 5);
+                .range(Items.GUNPOWDER, 3, 5)
+                .chance(ModItems.TREATED_BRASS_FLARE.get(), 0.3f);
         basicLoot(COGEntities.VENATOR.get())
                 .range(ModItems.GIBBS_ROUND.get(), 1, 3);
         basicLoot(COGEntities.CENTIPEDE.get())
                 .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3)
-                .range(ModItems.ENERGY_CELL.get(), 1, 3);
+                .range(ModItems.ENERGY_CELL.get(), 1, 3)
+                .chance(ModItems.TREATED_BRASS_FLARE.get(), 0.3f);
         basicLoot(COGEntities.JUGGERNAUT.get())
                 .altsChance(List.of(
                         net.zincstudios.scgextra.item.ModItems.JUGGERNAUT_HELMET.get(),
@@ -265,7 +268,8 @@ public class ModEntityLootTableProvider extends EntityLootSubProvider {
                         net.zincstudios.scgextra.item.ModItems.JUGGERNAUT_BOOTS.get()
                 ), 0.3F)
                 .constant(ModItems.COG_HEART.get(), 1)
-                .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3);
+                .range(ModItems.TREATED_BRASS_INGOT.get(), 1, 3)
+                .chance(ModItems.TREATED_BRASS_FLARE.get(), 0.3f);
         basicLoot(COGEntities.TRENCHBLEEDER.get())
                 .range(ModItems.ANCIENT_BRASS.get(), 1, 3)
                 .range(ModItems.SHOTGUN_SHELL.get(), 3, 6);

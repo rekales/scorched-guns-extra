@@ -22,7 +22,7 @@ public class CogDevastatorAi {
 
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super CogDevastatorEntity>>> SENSOR_TYPES = ImmutableList.of(
             SensorType.NEAREST_LIVING_ENTITIES,
-            ModBrainSensors.MEDIUM_RANGE_PLAYER.get(),
+            ModBrainSensors.LONG_RANGE_PLAYER.get(),
             SensorType.HURT_BY
     );
 

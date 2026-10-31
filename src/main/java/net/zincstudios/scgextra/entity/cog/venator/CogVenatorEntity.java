@@ -54,8 +54,8 @@ public class CogVenatorEntity extends Monster implements GeoEntity, CustomGunHol
         this.customGun = new CustomScorchedSimGun.Builder(ModItems.HOWLER.get().getGun())
                 .projectileDamage(15)
                 .fireRate(80)
-                .maxRange(25)
-                .idealRange(20)
+                .maxRange(50)
+                .idealRange(48)
                 .build();
         this.subEntities = new PartEntity[] {
                 new RotatedSegmentPartEntity<>(this, new Vec3(0, 0.92, 0.7), 0.4f, 0.4f, false),

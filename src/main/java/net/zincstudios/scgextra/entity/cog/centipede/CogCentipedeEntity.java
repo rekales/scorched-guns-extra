@@ -61,8 +61,8 @@ public class CogCentipedeEntity extends Monster implements GeoEntity, CustomGunH
         this.customGun = new CustomScorchedSimGun.Builder(ModItems.LIBERTAS.get().getGun())
                 .projectileDamage(15)
                 .fireRate(80)
-                .maxRange(10)
-                .idealRange(8)
+                .maxRange(34)
+                .idealRange(32)
                 .velocityModifier(vec -> vec.scale(1/3f))
                 .projectileFactory(PlasmaCannonProjectileEntity::new)
                 .build();

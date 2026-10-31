@@ -77,7 +77,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Stunnable
         this.goalSelector.addGoal(3, new CogGigantesMountedGunGoal(this, ModItems.PRUSH_GUN.get())
                 .burstAmount(16)
                 .burstIntervalTicks(2)
-                .maxRange(15)
+                .maxRange(32)
                 .attackInterval(60)
                 .accuracyModifier(1.5F)
                 .spawnOffset(new Vec3(0, 0.3, 0))

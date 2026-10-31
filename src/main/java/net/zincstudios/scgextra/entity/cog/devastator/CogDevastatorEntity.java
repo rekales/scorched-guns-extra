@@ -64,8 +64,8 @@ public class CogDevastatorEntity extends Monster implements GeoEntity, Gunner, B
                         .burstAmount(16)
                         .burstInterval(2)
                         .fireRate(70)
-                        .maxRange(15)
-                        .idealRange(10)
+                        .maxRange(34)
+                        .idealRange(32)
                         .gunIndex(0)
                         .build(),
                 MACHINE_GUN_OFFSET,
