@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.cog.gigantes;
+package net.zincstudios.scgextra.entity.common.brain;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -12,7 +12,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
-import net.zincstudios.scgextra.entity.common.brain.FlyDirectTarget;
 
 import java.util.Optional;
 
@@ -21,7 +20,7 @@ public class FlightDirectStroll {
     public static OneShot<Mob> create(float range, float speedModifier) {
         return BehaviorBuilder.create(instance -> instance.group(instance.absent(ModBrainMemories.FLY_DIRECT_TARGET.get()), instance.registered(MemoryModuleType.LOOK_TARGET))
                     .apply(instance, (walkAcc, lookAcc) -> (level, mob, gameTime) -> {
-                        Optional<Vec3> optional = Optional.ofNullable(getStrollPos(mob, range));
+                        Optional<Vec3> optional = Optional.of(getStrollPos(mob, range));
                         walkAcc.setOrErase(optional.map((pos) -> new FlyDirectTarget(pos, speedModifier, 0, 1)));
                         lookAcc.setOrErase(optional.map((pos) -> new BlockPosTracker(BlockPos.containing(pos))));
                         return true;

@@ -10,9 +10,11 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
+import net.zincstudios.scgextra.entity.Faction;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
 import net.zincstudios.scgextra.entity.common.brain.*;
+import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 
 public class CogGigantesAi {
 
@@ -29,6 +31,7 @@ public class CogGigantesAi {
             MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
             MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER,
             MemoryModuleType.LOOK_TARGET,
+            MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
             ModBrainMemories.FLY_DIRECT_TARGET.get(),
             ModBrainMemories.AIM_TICKS.get(),
             ModBrainMemories.SIMULATED_GUN.get(),
@@ -42,7 +45,7 @@ public class CogGigantesAi {
     public static <T extends Mob> Brain<?> makeBrain(T mob, Brain<T> brain) {
         initCoreActivity(brain, CogGigantesEntity.STUN_DURATION);
         initIdleActivity(brain);
-//        initFightActivity(mob, brain);
+        initFightActivity(mob, brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -73,15 +76,15 @@ public class CogGigantesAi {
         ));
     }
 
-//    public static <T extends Mob> void initFightActivity(T mob, Brain<T> brain) {
-//        brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
-//                StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
-//                AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
-//                GetCloseToTarget.create(5.0F, 1),
-//                new AimWhenTargetVisible(),
-//                new ShootTarget(20, (simGun, entity) -> 1.1F, entity -> true,
-//                        new IntervalTriggerSampler(30, 50, 5, 30))
-//        ), MemoryModuleType.ATTACK_TARGET);
-//    }
+    public static <T extends Mob> void initFightActivity(T mob, Brain<T> brain) {
+        brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
+                StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
+                AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                FlyCloseToTarget.create(6.0F, 10.0F, 1),
+                new AimWhenTargetVisible(),
+                new ShootTarget(20, (simGun, entity) -> 1.1F, entity -> true,
+                        new IntervalTriggerSampler(30, 50, 5, 30))
+        ), MemoryModuleType.ATTACK_TARGET);
+    }
 
 }

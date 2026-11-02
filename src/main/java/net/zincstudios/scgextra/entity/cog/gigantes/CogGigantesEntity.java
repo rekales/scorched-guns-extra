@@ -23,7 +23,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
-import net.zincstudios.scgextra.entity.common.brain.FlyDirectMoveControl;
+import net.zincstudios.scgextra.entity.common.FlyDirectMoveControl;
 import net.zincstudios.scgextra.entity.common.gun.*;
 import net.zincstudios.scgextra.entity.common.part.RotatedSegmentPartEntity;
 import net.zincstudios.scgextra.sounds.COGSounds;
@@ -74,7 +74,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes()
-                .add(Attributes.FOLLOW_RANGE, 48.0D)
+                .add(Attributes.FOLLOW_RANGE, 64.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.25F)
                 .add(Attributes.FLYING_SPEED, 2F)
                 .add(Attributes.ARMOR, 4.0D)

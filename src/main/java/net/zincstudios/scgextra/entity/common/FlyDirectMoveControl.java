@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.common.brain;
+package net.zincstudios.scgextra.entity.common;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
