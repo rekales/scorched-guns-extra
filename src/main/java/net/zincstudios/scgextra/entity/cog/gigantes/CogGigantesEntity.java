@@ -129,6 +129,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
         this.tickSubEntities();
 
         this.setYBodyRot(this.getYHeadRot());
+        this.setYRot(this.getYHeadRot());
     }
 
     protected void tickSubEntities() {
