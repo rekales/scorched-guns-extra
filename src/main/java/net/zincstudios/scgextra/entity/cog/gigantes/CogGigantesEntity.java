@@ -57,8 +57,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
     public CogGigantesEntity(EntityType<? extends FlyingMob> entityType, Level level) {
         super(entityType, level);
         this.setNoGravity(true);
-//        this.moveControl = new CogGigantesMoveControl(this, 5.0F, 8.0F, 2.0F, 0.3, 0.08);
-        this.moveControl = new FlyDirectMoveControl(this, 0.1);
+        this.moveControl = new FlyDirectMoveControl(this, 0.1, 0.75);
         this.subEntities = new PartEntity[] {
                 new RotatedSegmentPartEntity<>(this, new Vec3(1.5, 1.4, -0.5), 20/16f, 0.5f),
                 new RotatedSegmentPartEntity<>(this, new Vec3(-1.5, 1.4, -0.5), 20/16f, 0.5f)

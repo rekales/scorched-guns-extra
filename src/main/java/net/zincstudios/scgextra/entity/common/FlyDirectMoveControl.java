@@ -2,6 +2,7 @@ package net.zincstudios.scgextra.entity.common;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -9,14 +10,22 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.zincstudios.scgextra.SCGExtra;
 
 public class FlyDirectMoveControl extends MoveControl {
 
     private final double lerp;
+    private final double backwardMult;
 
+    @SuppressWarnings("unused")
     public FlyDirectMoveControl(Mob mob, double lerp) {
+        this(mob, lerp, 1);
+    }
+
+    public FlyDirectMoveControl(Mob mob, double lerp, double backwardMult) {
         super(mob);
         this.lerp = lerp;
+        this.backwardMult = backwardMult;
     }
 
     @Override
@@ -29,10 +38,15 @@ public class FlyDirectMoveControl extends MoveControl {
             Vec3 dir = wanted.subtract(current);
             double speed = this.speedModifier * this.mob.getAttributeValue(Attributes.MOVEMENT_SPEED);
 
-            desiredVelocity = dir.normalize().scale(speed);
-            // TODO: reduced speed when moving backward
+            // Reduced speed when moving backward
+            float targetYaw = (float) Math.toDegrees(Math.atan2(-dir.x, dir.z));
+            float diff = Mth.wrapDegrees(mob.getYRot() - targetYaw);
+            speed *= Mth.map(Math.abs(diff), 0f, 180f, 1f, this.backwardMult);
+            SCGExtra.LOGGER.debug(speed + "");
 
-            // avoid ground
+            desiredVelocity = dir.normalize().scale(speed);
+
+            // Repel from ground
             BlockHitResult hitResult = this.mob.level().clip(new ClipContext(
                     this.mob.position(),
                     this.mob.position().add(0, -16, 0),
