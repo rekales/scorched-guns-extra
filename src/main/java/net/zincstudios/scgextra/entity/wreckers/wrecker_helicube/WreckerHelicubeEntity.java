@@ -29,7 +29,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.util.RandomSource;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.cog.gigantes.FlyCloseToTargetGoal;
 import net.zincstudios.scgextra.entity.common.goal.MobHurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
 import software.bernie.geckolib.animatable.GeoEntity;

@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.cog.gigantes;
+package net.zincstudios.scgextra.entity.wreckers.wrecker_helicube;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
