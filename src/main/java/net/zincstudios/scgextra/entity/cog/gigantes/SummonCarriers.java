@@ -75,7 +75,7 @@ public class SummonCarriers extends Behavior<Mob> {
                         skyCarrier.setInitialTarget(beaconPosition);
                         skyCarrier.getMoveControl().setWantedPosition(parent.getX(), parent.getY(), parent.getZ(), 1.0F);
                         serverLevel.addFreshEntity(skyCarrier);
-                        serverLevel.sendParticles(ParticleTypes.CLOUD, skyCarrier.getX(), skyCarrier.getY(), skyCarrier.getZ(), 10, (double)0.5F, 0.2, 0.2, 0.1);
+                        serverLevel.sendParticles(ParticleTypes.CLOUD, skyCarrier.getX(), skyCarrier.getY(), skyCarrier.getZ(), 10, 0.5F, 0.2, 0.2, 0.1);
                         serverLevel.playSound(null, skyCarrier.getX(), skyCarrier.getY(), skyCarrier.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.0F, 1.0F);
                         ++successfulSpawns;
                     }
@@ -112,6 +112,7 @@ public class SummonCarriers extends Behavior<Mob> {
     }
 
     // Copied from SignalBeaconEntity
+    @SuppressWarnings("deprecation")
     private static boolean isValidSpawnPosition(ServerLevel serverLevel, BlockPos blockPos, double exactX, double exactY, double exactZ) {
         AABB boundingBox = new AABB(exactX - (double)1.5F, exactY - (double)1.0F, exactZ - (double)1.5F, exactX + (double)1.5F, exactY + (double)2.0F, exactZ + (double)1.5F);
 

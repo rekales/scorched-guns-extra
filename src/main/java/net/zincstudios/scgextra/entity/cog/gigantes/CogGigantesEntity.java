@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.entity.PartEntity;
+import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.asgharian.BulletSpawnOffset;
 import net.zincstudios.scgextra.entity.common.brain.BrainCommons;
 import net.zincstudios.scgextra.entity.common.FlyDirectMoveControl;
@@ -45,7 +46,8 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
 
     public static final Vec3 MACHINE_GUN_OFFSET = new Vec3(0, 0.3, 0);
 
-    static final int STUN_DURATION = 60;
+    static final int STUN_RECOVERY_TICKS = 16;
+    static final int STUN_DURATION = 80;
 
     private static final EntityDataAccessor<Boolean> FIRING =
             SynchedEntityData.defineId(CogGigantesEntity.class, EntityDataSerializers.BOOLEAN);
@@ -115,7 +117,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
     protected void customServerAiStep() {
         this.level().getProfiler().push("cogGigantesBrain");
         this.getBrain().tick((ServerLevel)this.level(), this);
-        BrainCommons.updateActivity(this);
+        CogGigantesAi.updateActivity(this);
         BrainCommons.updateHasTargetAggressive(this);
         this.setSprinting(this.isAggressive());
         this.level().getProfiler().pop();
@@ -126,6 +128,13 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
     public void tick() {
         super.tick();
         this.tickSubEntities();
+
+        if (brain.getTimeUntilExpiry(ModBrainMemories.STUNNED.get()) == STUN_DURATION) {
+            this.triggerAnim("behavior", "stun");
+        }
+        if (brain.getTimeUntilExpiry(ModBrainMemories.STUNNED.get()) == STUN_RECOVERY_TICKS) {
+            this.triggerAnim("behavior", "end_stun");
+        }
 
         this.setYBodyRot(this.getYHeadRot());
         this.setYRot(this.getYHeadRot());
@@ -150,7 +159,7 @@ public class CogGigantesEntity extends FlyingMob implements GeoEntity, Enemy, Bu
             return PlayState.CONTINUE;
         }));
 
-        controllers.add(new AnimationController<>(this, "behaviour", 0, state -> PlayState.STOP)
+        controllers.add(new AnimationController<>(this, "behavior", 0, state -> PlayState.STOP)
                 .triggerableAnim("stun", RawAnimation.begin().thenPlayAndHold("stun_start"))
                 .triggerableAnim("end_stun", RawAnimation.begin().thenPlay("stun_end"))
         );

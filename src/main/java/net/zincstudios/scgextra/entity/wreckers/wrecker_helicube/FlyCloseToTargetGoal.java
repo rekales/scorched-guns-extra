@@ -7,6 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
+@SuppressWarnings("unused")
 public class FlyCloseToTargetGoal extends Goal {
 
     protected final Mob mob;

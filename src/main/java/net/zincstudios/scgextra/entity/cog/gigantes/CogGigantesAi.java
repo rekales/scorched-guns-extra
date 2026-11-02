@@ -3,6 +3,7 @@ package net.zincstudios.scgextra.entity.cog.gigantes;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.Brain;
 import net.minecraft.world.entity.ai.behavior.*;
@@ -11,8 +12,10 @@ import net.minecraft.world.entity.ai.sensing.Sensor;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.schedule.Activity;
 import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.ModBrainActivities;
 import net.zincstudios.scgextra.entity.ModBrainMemories;
 import net.zincstudios.scgextra.entity.ModBrainSensors;
+import net.zincstudios.scgextra.entity.cog.centipede.CogCentipedeEntity;
 import net.zincstudios.scgextra.entity.common.brain.*;
 import net.zincstudios.scgextra.entity.common.gun.IntervalTriggerSampler;
 
@@ -46,6 +49,7 @@ public class CogGigantesAi {
         initCoreActivity(brain, CogGigantesEntity.STUN_DURATION);
         initIdleActivity(brain);
         initFightActivity(mob, brain);
+        BrainCommons.initStunnedActivity(brain);
         brain.setCoreActivities(ImmutableSet.of(Activity.CORE));
         brain.setDefaultActivity(Activity.IDLE);
         brain.useDefaultActivity();
@@ -86,6 +90,22 @@ public class CogGigantesAi {
                 new ShootTarget(20, (simGun, entity) -> 1.1F, entity -> true,
                         new IntervalTriggerSampler(30, 50, 5, 30))
         ), MemoryModuleType.ATTACK_TARGET);
+    }
+
+    public static void updateActivity(CogGigantesEntity mob) {
+        Brain<CogGigantesEntity> brain = mob.getBrain();
+        Activity oldActivity = brain.getActiveNonCoreActivity().orElse(null);
+        brain.setActiveActivityToFirstValid(ImmutableList.of(
+                ModBrainActivities.STUNNED.get(),
+                Activity.FIGHT,
+                Activity.IDLE
+        ));
+
+        Activity newActivity = brain.getActiveNonCoreActivity().orElse(null);
+        if (oldActivity != newActivity && newActivity == ModBrainActivities.STUNNED.get()) {
+            brain.stopAll((ServerLevel) mob.level(), mob);
+            mob.getBrain().eraseMemory(ModBrainMemories.FLY_DIRECT_TARGET.get());
+        }
     }
 
 }
