@@ -80,6 +80,7 @@ public class CogGigantesAi {
         brain.addActivityAndRemoveMemoryWhenStopped(Activity.FIGHT, 10, ImmutableList.of(
                 StopAttackingIfTargetInvalid.create(target -> !BrainUtils.isTargetStillValidNonFriendlies(mob, target, false)),
                 AttackLastHurtIfNear.create((self, target) -> !Faction.isFriendlies(self, target), false),
+                new SummonCarriers(),
                 FlyCloseToTarget.create(6.0F, 10.0F, 1),
                 new AimWhenTargetVisible(),
                 new ShootTarget(20, (simGun, entity) -> 1.1F, entity -> true,
