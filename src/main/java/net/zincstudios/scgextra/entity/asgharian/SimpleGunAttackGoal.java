@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -28,7 +29,7 @@ import java.util.EnumSet;
  *
  * @see net.zincstudios.scgextra.mixin.GunnerMobSpawnerMixin for mixin that disables dynamic addition of GunAttackGoal.
  */
-public class SimpleGunAttackGoal<T extends PathfinderMob> extends Goal {
+public class SimpleGunAttackGoal<T extends Mob> extends Goal {
 
     public static final GoalState FIRING_STATE = new GoalState("simple_gun_firing_state");
     public static final GoalState AIMING_STATE = new GoalState("simple_gun_aiming_state");

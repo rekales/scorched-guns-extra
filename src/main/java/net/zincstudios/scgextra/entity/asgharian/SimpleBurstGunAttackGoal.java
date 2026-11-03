@@ -2,12 +2,13 @@ package net.zincstudios.scgextra.entity.asgharian;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 
 /**
  * @see SimpleGunAttackGoal for docs.
  */
-public class SimpleBurstGunAttackGoal<T extends PathfinderMob> extends SimpleGunAttackGoal<T> {
+public class SimpleBurstGunAttackGoal<T extends Mob> extends SimpleGunAttackGoal<T> {
 
     protected int burstAmount = 3;
     protected int burstInterval = 4;
