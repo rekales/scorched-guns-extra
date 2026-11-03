@@ -3,7 +3,6 @@ package net.zincstudios.scgextra.entity.asgharian;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
 
 /**
  * @see SimpleGunAttackGoal for docs.

@@ -6,7 +6,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.item.ItemStack;
@@ -43,6 +42,7 @@ public class SimpleGunAttackGoal<T extends Mob> extends Goal {
     protected double approachDist = 6;
     protected double maxRange = 12;
     protected boolean runAndGun = false;
+    protected float accuracyOverride = -1;
 
     protected int attackCooldown = 0;
     protected int seeTime = 0;
@@ -163,6 +163,9 @@ public class SimpleGunAttackGoal<T extends Mob> extends Goal {
     }
 
     protected float getAccuracyModifier() {
+        if (this.accuracyOverride > 0) {
+            return this.accuracyOverride;
+        }
         return runAndGun ? 2f : 3.2f;
     }
 
@@ -218,6 +221,11 @@ public class SimpleGunAttackGoal<T extends Mob> extends Goal {
 
     public SimpleGunAttackGoal<T> runAndGun() {
         this.runAndGun = true;
+        return this;
+    }
+
+    public SimpleGunAttackGoal<T> accuracy(float accuracy) {
+        this.accuracyOverride = accuracy;
         return this;
     }
 }
