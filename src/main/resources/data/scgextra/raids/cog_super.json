@@ -1,7 +1,7 @@
 {
   "raid_id" : "cog_super",
   "flare_raid_id": "treated_brass_super",
-  "finish_loot" : "scgextra:raid/treated_brass_super",
+  "finish_loot" : "scgextra:raid/cog_super",
 
   "waves" : [
     {

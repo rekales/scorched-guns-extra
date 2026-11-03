@@ -20,7 +20,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.piglin.PiglinEntities;
 import top.ribs.scguns.entity.monster.DissidentEntity;
 import top.ribs.scguns.entity.monster.HornlinEntity;
 import top.ribs.scguns.entity.monster.MotherGhastEntity;
@@ -35,7 +37,7 @@ import java.util.*;
  * <br/>
  * Deprecated fields are not intended to be accessed directly outside the class unless actually needed.
  */
- @SuppressWarnings({"unused", "deprecation"})
+ @SuppressWarnings({"unused", "deprecation", "unchecked"})
 @ParametersAreNonnullByDefault
 @FieldsAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -162,7 +164,13 @@ public record WaveRaidData(
         }
 
         public @Nullable Mob createEntity(ServerLevel level) {
-            Mob entity = entityType.create(level);
+            EntityType<? extends Mob> type;
+            if(entityType == (PiglinEntities.PIGLIN_WARBOSS.get()) || entityType == (PiglinEntities.PIGDREAD.get())){
+                type = getPiglinBoss(entityType, level);
+            }else{
+                type = entityType;
+            }
+            Mob entity = type.create(level);
             if (entity == null) return null;
 
             if (this.maxHealth > 0) {
@@ -175,6 +183,15 @@ public record WaveRaidData(
             }
 
             return entity;
+        }
+        //to make it switch to junker if exists
+        public EntityType<? extends Mob> getPiglinBoss(EntityType<? extends Mob> type, ServerLevel level){
+            if(ForgeRegistries.ENTITY_TYPES.containsKey(ResourceLocation.fromNamespaceAndPath("scguns_sg", "piglin_junker"))){
+                if(level.getRandom().nextFloat()<=0.15f){
+                    return (EntityType<? extends Mob>)ForgeRegistries.ENTITY_TYPES.getValue(ResourceLocation.fromNamespaceAndPath("scguns_sg", "piglin_junker"));
+                }
+            }
+            return type;
         }
     }
 
