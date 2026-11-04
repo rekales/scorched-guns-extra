@@ -187,7 +187,7 @@ public record WaveRaidData(
         //to make it switch to junker if exists
         public EntityType<? extends Mob> getPiglinBoss(EntityType<? extends Mob> type, ServerLevel level){
             if(ForgeRegistries.ENTITY_TYPES.containsKey(ResourceLocation.fromNamespaceAndPath("scguns_sg", "piglin_junker"))){
-                if(level.getRandom().nextFloat()<=0.15f){
+                if(level.getRandom().nextFloat()<=0.4f){
                     return (EntityType<? extends Mob>)ForgeRegistries.ENTITY_TYPES.getValue(ResourceLocation.fromNamespaceAndPath("scguns_sg", "piglin_junker"));
                 }
             }
