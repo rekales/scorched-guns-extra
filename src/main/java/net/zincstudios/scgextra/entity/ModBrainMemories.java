@@ -8,6 +8,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.zincstudios.scgextra.SCGExtra;
+import net.zincstudios.scgextra.entity.common.brain.FlyDirectTarget;
 import net.zincstudios.scgextra.entity.common.gun.SimulatedGun;
 
 import java.util.List;
@@ -49,6 +50,8 @@ public class ModBrainMemories {
             .register("relocate_target", () -> new MemoryModuleType<>(Optional.empty()));
     public static final Supplier<MemoryModuleType<Long>> DELAYED_MELEE = MEMORY_MODULE_TYPES
             .register("delayed_melee", () -> new MemoryModuleType<>(Optional.of(Codec.LONG)));
+    public static final Supplier<MemoryModuleType<FlyDirectTarget>> FLY_DIRECT_TARGET = MEMORY_MODULE_TYPES
+            .register("fly_direct_target", () -> new MemoryModuleType<>(Optional.empty()));
 
     // Mob Specific Memories
     public static final Supplier<MemoryModuleType<Boolean>> JET_BOOTS_COOLING_DOWN = MEMORY_MODULE_TYPES

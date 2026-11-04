@@ -29,8 +29,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.server.level.ServerBossEvent;
 import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.common.gun.CustomScorchedSimGun;
+import net.zincstudios.scgextra.entity.common.gun.MountedGun;
 import net.zincstudios.scgextra.entity.wreckers.ApproachTargetGoal;
-import net.zincstudios.scgextra.entity.cog.MountedGunGoal;
 import net.zincstudios.scgextra.entity.common.HeadShotHandler;
 import net.zincstudios.scgextra.entity.common.Stunnable;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
@@ -44,7 +45,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-import top.ribs.scguns.item.GunItem;
+import top.ribs.scguns.init.ModItems;
 
 public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable, HeadShotHandler {
 
@@ -61,6 +62,7 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
             SynchedEntityData.defineId(WreckerDozerEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
+    private final MountedGun mountedMachineGun;
     private final ServerBossEvent bossEvent =
             new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
 
@@ -71,6 +73,16 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
 
     public WreckerDozerEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
+        this.mountedMachineGun = new MountedGun(this,
+                new CustomScorchedSimGun.Builder(ModItems.GREASER_SMG.get().getGun())
+                        .burstAmount(10)
+                        .burstInterval(1)
+                        .fireRate(30)
+                        .maxRange(12)
+                        .build(),
+                new Vec3(0, 3.5, 0),
+                entity -> entity instanceof WreckerDozerEntity wreckerDozer && !wreckerDozer.isStunned()
+        );
         this.xpReward = 50;
         this.setMaxUpStep(1.0F);
     }
@@ -102,13 +114,6 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
                 return !WreckerDozerEntity.this.isStunned() && super.canUse();
             }
         });
-        this.goalSelector.addGoal(4, new MountedGunGoal<>(this, (GunItem) top.ribs.scguns.init.ModItems.GREASER_SMG.get())
-                .maxRange(8)
-                .burstAmount(10)
-                .burstIntervalTicks(1)
-                .attackInterval(30)
-                .spawnOffset(new Vec3(0.0D, 3.2D, 1.0D))
-                .spread(10.0F));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 0.5D));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -133,6 +138,10 @@ public class WreckerDozerEntity extends Monster implements GeoEntity, Stunnable,
         super.tick();
         if (!this.level().isClientSide()) {
             this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+            LivingEntity target = this.getTarget();
+            if (target != null) {
+                this.mountedMachineGun.tick(target, 1.2f);
+            }
         }
         if(this.isChargeWarning()){
             if(this.level().isClientSide()){

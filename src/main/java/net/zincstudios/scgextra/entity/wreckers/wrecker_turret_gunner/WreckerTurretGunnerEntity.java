@@ -1,13 +1,18 @@
 package net.zincstudios.scgextra.entity.wreckers.wrecker_turret_gunner;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
@@ -17,14 +22,16 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.zincstudios.scgextra.CommonConfig;
 import net.zincstudios.scgextra.entity.Faction;
+import net.zincstudios.scgextra.entity.asgharian.SimpleBurstGunAttackGoal;
 import net.zincstudios.scgextra.entity.common.GunnerEntity;
 import net.zincstudios.scgextra.entity.common.goal.AlertFactionGoal;
 import net.zincstudios.scgextra.entity.common.goal.HurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.InterruptibleVoice;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 
 import java.util.List;
@@ -34,6 +41,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.init.ModItems;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -72,17 +80,26 @@ public class WreckerTurretGunnerEntity extends GunnerEntity implements GeoEntity
     }
 
     @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
+        this.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.GREASER_SMG.get()));
+        return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
+    }
+
+    @Override
     protected void registerGoals() {
         if (CommonConfig.enableAbilityAlert) {
             this.goalSelector.addGoal(2, new AlertFactionGoal(this, CommonConfig.abilityAlertCooldown * 20));
         }
-        this.goalSelector.addGoal(3, new WreckerTurretGunnerGunGoal(this, top.ribs.scguns.init.ModItems.GREASER_SMG.get())
-                .maxRange(16)
-                .burstAmount(12)
+        this.goalSelector.addGoal(3, new SimpleBurstGunAttackGoal<>(this) {
+                    @Override
+                    protected void tickMovement(LivingEntity target, double dist) {}
+                }
+                .burstAmount(16)
                 .burstIntervalTicks(1)
+                .maxRange(16)
                 .attackInterval(40)
-                .spawnOffset(new Vec3(0.0D, 1.1D, 0.5D))
-                .spread(8.0F));
+                .accuracy(1.0f)
+        );
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 12.0F));
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
 

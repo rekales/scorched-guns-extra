@@ -1,4 +1,4 @@
-package net.zincstudios.scgextra.entity.cog.gigantes;
+package net.zincstudios.scgextra.entity.wreckers.wrecker_helicube;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -7,6 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
+@SuppressWarnings("unused")
 public class FlyCloseToTargetGoal extends Goal {
 
     protected final Mob mob;

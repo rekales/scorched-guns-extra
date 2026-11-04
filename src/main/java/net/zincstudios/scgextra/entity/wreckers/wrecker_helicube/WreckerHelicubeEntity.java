@@ -1,11 +1,14 @@
 package net.zincstudios.scgextra.entity.wreckers.wrecker_helicube;
 
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -29,7 +32,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.util.RandomSource;
 import net.zincstudios.scgextra.entity.Faction;
-import net.zincstudios.scgextra.entity.cog.gigantes.FlyCloseToTargetGoal;
+import net.zincstudios.scgextra.entity.asgharian.SimpleBurstGunAttackGoal;
 import net.zincstudios.scgextra.entity.common.goal.MobHurtByNonFactionGoal;
 import net.zincstudios.scgextra.sounds.WreckersSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -39,6 +42,7 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+import top.ribs.scguns.init.ModItems;
 import top.ribs.scguns.item.GunItem;
 
 import javax.annotation.Nullable;
@@ -46,6 +50,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 @SuppressWarnings("deprecation")
 public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy {
 
@@ -98,12 +103,14 @@ public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new WreckerHelicubeAttackGoal(this, (GunItem) top.ribs.scguns.init.ModItems.GREASER_SMG.get())
+        this.goalSelector.addGoal(2, new WreckerHelicubeAttackGoal(this)
                 .burstAmount(10)
                 .burstIntervalTicks(2)
                 .maxRange(16)
                 .attackInterval(200)
-                .spread(12.0F));
+                .accuracy(1f)
+        );
+
         this.goalSelector.addGoal(4, new FlyCloseToTargetGoal(this, 1.4F, 16.0F, 6.0F) {
             @Override
             public boolean canUse() {
@@ -149,6 +156,7 @@ public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason,
                                                   @Nullable SpawnGroupData spawnData, @Nullable CompoundTag dataTag) {
         this.setArmVariant(level.getRandom().nextBoolean());
+        this.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.GREASER_SMG.get()));
         return super.finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
@@ -332,6 +340,7 @@ public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy
             this.helicube = helicube;
         }
 
+        @SuppressWarnings("SuspiciousNameCombination")
         @Override
         public void tick() {
             if (this.operation != Operation.MOVE_TO) {
@@ -357,6 +366,21 @@ public class WreckerHelicubeEntity extends FlyingMob implements GeoEntity, Enemy
                 }
                 this.helicube.yBodyRot = this.helicube.getYRot();
             }
+        }
+    }
+
+    private static class WreckerHelicubeAttackGoal extends SimpleBurstGunAttackGoal<WreckerHelicubeEntity> {
+        public WreckerHelicubeAttackGoal(WreckerHelicubeEntity mob) {
+            super(mob);
+            this.setFlags(EnumSet.noneOf(Goal.Flag.class));
+        }
+
+        @Override
+        protected void tickMovement(LivingEntity target, double dist) {}
+
+        @Override
+        public boolean canUse() {
+            return !this.mob.isArmVariant() && super.canUse();
         }
     }
 }
