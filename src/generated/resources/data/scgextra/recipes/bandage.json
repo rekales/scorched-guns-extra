@@ -17,8 +17,8 @@
     "PP"
   ],
   "result": {
-    "item": "scgextra:bandage",
-    "count": 3
+    "count": 3,
+    "item": "scgextra:bandage"
   },
   "show_notification": false
 }
