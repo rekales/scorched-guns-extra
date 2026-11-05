@@ -300,4 +300,8 @@ public class ArmoredWhaleEntity extends Monster implements GeoEntity, CustomGunH
     public boolean removeWhenFarAway(double distance) {
         return false;
     }
+    @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
 }
